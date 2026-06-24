@@ -5,11 +5,11 @@
   var links = [
     ["home", "Inicio", "home"],
     ["bestiario.html", "Bestiario", "bestiary"],
-    ["mundos.html", "Siete mundos", "worlds"],
-    ["recta-provincia.html", "Recta Provincia", "recta"],
+    ["mundos.html", "Mundos", "worlds"],
+    ["recta-provincia.html", "Recta", "recta"],
     ["cosmologia.html", "Cosmología", "cosmology"],
-    ["metodologia.html", "Fuentes y metodología", "methodology"],
-    ["recorrido.html", "Recorrido · Próximamente", "journey"]
+    ["metodologia.html", "Método", "methodology"],
+    ["recorrido.html", "Recorrido", "journey"]
   ];
 
   G.renderHeader = function () {
@@ -20,9 +20,9 @@
     var page = document.body.getAttribute("data-page") || "";
     mount.innerHTML = [
       '<a class="skip-link" href="#contenido">Saltar al contenido</a>',
-      '<header class="site-header"><div class="site-header__inner">',
+      '<header class="site-header" data-header><div class="site-header__inner">',
       '<a class="brand" href="', G.homeUrl(), '" aria-label="El Grimorio del Archipiélago, inicio">',
-      '<span class="brand__mark" aria-hidden="true">G</span><span>El Grimorio<small>del Archipiélago</small></span></a>',
+      '<span class="brand__mark" aria-hidden="true"><span>G</span></span><span>El Grimorio<small>del Archipiélago</small></span></a>',
       '<button class="menu-toggle" type="button" aria-expanded="false" aria-controls="main-nav"><span aria-hidden="true">☰</span> Menú</button>',
       '<nav id="main-nav" class="main-nav" aria-label="Navegación principal"><ul>',
       links.map(function (link) {
@@ -33,8 +33,8 @@
       '</ul></nav>',
       '<form class="header-search" action="', G.pageUrl("bestiario.html"), '" method="get" role="search">',
       '<label class="sr-only" for="global-search">Buscar en el Bestiario</label>',
-      '<input id="global-search" name="q" type="search" placeholder="Buscar figura o señal">',
-      '<button type="submit" aria-label="Buscar">Buscar</button></form>',
+      '<input id="global-search" name="q" type="search" placeholder="Buscar en el archivo">',
+      '<button type="submit" aria-label="Buscar">Ir</button></form>',
       '</div></header>'
     ].join("");
   };

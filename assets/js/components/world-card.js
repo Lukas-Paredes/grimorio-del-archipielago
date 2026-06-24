@@ -10,7 +10,7 @@
       return figure ? figure.name : "";
     }).filter(Boolean);
     return [
-      '<article class="world-card">',
+      '<article class="world-card world-card--', G.escape(world.id), '">',
       '<div class="world-card__number" aria-hidden="true">', G.escape(world.number), '</div>',
       '<div class="world-card__content">',
       '<span class="eyebrow">Mundo ', G.escape(world.number), '</span>',

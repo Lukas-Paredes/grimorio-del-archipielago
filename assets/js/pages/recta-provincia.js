@@ -7,7 +7,7 @@
     var root = document.querySelector("#page-root");
     var figureIds = ["brujo", "voladora", "invunche", "chonchon", "basilisco"];
     root.innerHTML = [
-      '<section class="recta-hero"><div><span class="eyebrow">Exposición especial · Vinculada al Mundo VI</span><h1>Recta Provincia</h1>',
+      '<section class="recta-hero"><div><span class="chapter-index">Expediente VI</span><span class="eyebrow">Exposición especial · Vinculada al Mundo VI</span><h1>Recta Provincia</h1>',
       '<p class="lead">Un expediente de consulta que mantiene separados el plano histórico documentado, la organización legendaria, las figuras asociadas y las recreaciones posteriores.</p>',
       '<div class="record-legend"><span>', G.seal("history"), '</span><span>', G.seal("tradition"), '</span><span>', G.seal("art"), '</span></div>',
       '<div class="actions"><a class="button" href="#fuentes">Consultar fuentes y pendientes</a><a class="button button--quiet" href="', G.pageUrl("mundo.html", "?id=recta"), '">Abrir Mundo VI</a></div></div>',

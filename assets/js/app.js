@@ -61,16 +61,24 @@
 
   G.illustrationPlaceholder = function (id, ratio, context) {
     var item = G.getIllustration(id);
+    var visualClass = id === "sea-court" || id === "waters" || id === "caleuche" ? "sea" :
+      (id === "trauco" || id === "fiura" ? "forest" : id);
     if (!item) {
-      return '<figure class="art-placeholder art-placeholder--' + G.escape(ratio || "panoramic") + '"><div class="art-placeholder__field" role="img" aria-label="Espacio editorial para ilustración"><span aria-hidden="true">✦</span></div><figcaption>Espacio de ilustración con crédito y licencia por incorporar.</figcaption></figure>';
+      return '<figure class="art-placeholder art-placeholder--' + G.escape(ratio || "panoramic") + '"><div class="art-placeholder__field" role="img" aria-label="Espacio editorial para ilustración"><span class="art-placeholder__copy"><span class="art-placeholder__status">Ilustración en desarrollo</span><span class="art-placeholder__title">Archivo visual pendiente</span></span></div><figcaption>Crédito y licencia por incorporar.</figcaption></figure>';
     }
     var label = item.alt || ("Espacio editorial para " + (context || item.title));
+    var available = item.status !== "pending" && item.src;
     return [
-      '<figure class="art-placeholder art-placeholder--', G.escape(ratio || item.ratio || "panoramic"), '" data-illustration="', G.escape(item.id), '">',
-      '<div class="art-placeholder__field" role="img" aria-label="', G.escape(label), '">',
+      '<figure class="art-placeholder art-placeholder--', G.escape(ratio || item.ratio || "panoramic"),
+      ' art-placeholder--', G.escape(visualClass), available ? " art-placeholder--available" : "", '" data-illustration="', G.escape(item.id), '">',
+      '<div class="art-placeholder__field"', available ? "" : ' role="img" aria-label="' + G.escape(label) + '"', '>',
+      available ? '<img class="art-placeholder__image" data-art-image src="' + G.escape(item.src) + '" alt="' + G.escape(label) + '" loading="lazy" decoding="async">' : "",
+      '<span class="art-placeholder__fallback" role="img" aria-label="', G.escape(label), '"', available ? " hidden" : " aria-hidden=\"true\"", '>',
       '<span class="art-placeholder__sigil" aria-hidden="true">', G.escape((item.title || "G").charAt(0)), '</span>',
-      '<span class="art-placeholder__title">', G.escape(item.title), '</span>',
-      '</div><figcaption><strong>Recreación artística encargada</strong><span>Crédito y licencia por incorporar · formatos panorámico, vertical y cuadrado previstos.</span></figcaption>',
+      '<span class="art-placeholder__copy"><span class="art-placeholder__status">', available ? "Recreación artística" : "Ilustración en desarrollo", '</span>',
+      '<span class="art-placeholder__title">', G.escape(item.title), '</span></span></span>',
+      '</div><figcaption><strong>', available ? G.escape(item.credit || "Recreación artística encargada") : "Recreación artística encargada", '</strong><span>',
+      available ? G.escape(item.license || "Licencia por incorporar.") : "Crédito y licencia por incorporar · el marco no fija una iconografía documental.", '</span></figcaption>',
       '</figure>'
     ].join("");
   };
@@ -89,6 +97,14 @@
   };
 
   G.init = function () {
+    document.addEventListener("error", function (event) {
+      if (!event.target.matches || !event.target.matches("[data-art-image]")) {
+        return;
+      }
+      event.target.hidden = true;
+      var fallback = event.target.parentElement.querySelector(".art-placeholder__fallback");
+      if (fallback) { fallback.hidden = false; }
+    }, true);
     if (G.renderHeader) { G.renderHeader(); }
     if (G.renderFooter) { G.renderFooter(); }
     if (G.initNavigation) { G.initNavigation(); }

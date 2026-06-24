@@ -6,7 +6,7 @@
   G.renderCurrentPage = function () {
     var root = document.querySelector("#page-root");
     root.innerHTML = [
-      '<section class="page-hero"><span class="eyebrow">Siete puertas abiertas</span><h1>Los siete mundos</h1>',
+      '<section class="page-hero"><span class="chapter-index">Atlas curatorial</span><span class="eyebrow">Siete puertas abiertas</span><h1>Los siete mundos</h1>',
       '<p class="lead">Un orden editorial sugerido para recorrer contextos, ambientes y relaciones. Puedes abrirlos en cualquier orden.</p>',
       '<div class="curatorial-notice"><strong>Aclaración curatorial</strong><p>Los siete mundos son una organización curatorial de este proyecto para facilitar la consulta; no constituyen una clasificación tradicional oficial.</p></div></section>',
       '<section class="world-index" aria-label="Índice de los siete mundos">', G.worlds.map(function (world) { return G.worldCard(world); }).join(""), '</section>',

@@ -6,9 +6,11 @@
   G.renderCurrentPage = function () {
     var root = document.querySelector("#page-root");
     root.innerHTML = [
-      '<section class="page-hero"><span class="eyebrow">Fuentes, estados y criterios</span><h1>Fuentes y metodología</h1>',
+      '<section class="page-hero"><span class="chapter-index">Cuaderno de trabajo</span><span class="eyebrow">Fuentes, estados y criterios</span><h1>Fuentes y metodología</h1>',
       '<p class="lead">Cómo se organiza el contenido, qué límites tienen las fuentes disponibles y qué investigación falta antes de presentar afirmaciones más precisas.</p></section>',
+      '<div class="method-layout">',
       '<nav class="local-nav" aria-label="Índice de metodología"><a href="#proposito">Propósito</a><a href="#sellos">Sellos</a><a href="#fuentes">Fuentes</a><a href="#estados">Estados curatoriales</a><a href="#agenda">Agenda</a><a href="#creditos">Créditos y licencias</a><a href="#correcciones">Correcciones</a></nav>',
+      '<div>',
       '<section id="proposito" class="method-section"><span class="eyebrow">Propósito y alcance</span><h2>Una plataforma educativa en desarrollo</h2>',
       '<p>El proyecto organiza 24 fichas existentes para facilitar consulta, comparación y trazabilidad. Su alcance se concentra en el Archipiélago de Chiloé, pero algunas entradas poseen circulación regional aún no delimitada.</p>',
       '<p>Los siete mundos son una organización curatorial del proyecto. No representan una clasificación tradicional oficial ni una validación comunitaria, institucional o académica.</p></section>',
@@ -39,7 +41,8 @@
       '<p>Las diez piezas visuales permanecen como encargos definidos. Sus placeholders indican recreación artística y no fijan apariencias patrimoniales.</p></section>',
       '<section id="correcciones" class="method-section"><span class="eyebrow">Correcciones futuras</span><h2>Canal y protocolo pendientes</h2>',
       '<p>Aún no existe un canal público confirmado para reportar errores. Antes de habilitarlo deben definirse responsables, trazabilidad, tiempos de respuesta y procedimientos de retiro o corrección.</p>',
-      '<p>Esta versión no incorpora testimonios territoriales sin autorización.</p></section>'
+      '<p>Esta versión no incorpora testimonios territoriales sin autorización.</p></section>',
+      '</div></div>'
     ].join("");
   };
 }());

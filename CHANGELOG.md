@@ -16,6 +16,12 @@
 - Las páginas secundarias se organizaron dentro de `pages/`.
 - La documentación histórica de V7 se trasladó a `legacy/v7/docs/`.
 - Se actualizaron las rutas relativas sin modificar el contenido ni el diseño.
+- Se incorporó una dirección visual de editorial marítima, gótico insular y museo nocturno.
+- La portada se reorganizó como un relato en cinco capítulos, con acceso directo al archivo.
+- Bestiario, fichas, mundos, Recta Provincia, Cosmología y Metodología recibieron jerarquías y composiciones diferenciadas.
+- El recorrido sugerido enlaza contenido abierto y separa con claridad la mediación narrativa futura.
+- Los espacios de ilustración admiten carga diferida, texto alternativo y fallback editorial sin fijar iconografías.
+- El encabezado, pie, navegación contextual y comportamiento responsive se unificaron.
 
 ### Pendiente
 - Revisión patrimonial especializada.

@@ -35,6 +35,9 @@
       return;
     }
     var world = G.getWorld(figure.worldId);
+    var figureIndex = G.figures.indexOf(figure);
+    var previous = G.figures[(figureIndex - 1 + G.figures.length) % G.figures.length];
+    var next = G.figures[(figureIndex + 1) % G.figures.length];
     var returnUrl = params.get("return") || G.pageUrl("bestiario.html");
     var isRootReturn = /^\.\.\/index\.html(?:[?#].*)?$/.test(returnUrl);
     if (/^(?:[a-z]+:)?\/\//i.test(returnUrl) || (returnUrl.indexOf("..") !== -1 && !isRootReturn)) {
@@ -71,6 +74,8 @@
       section("Interpretación del proyecto", G.renderList(figure.interpretations)),
       section("Cultura posterior", G.renderList(figure.culturalPresence, "Pendiente de investigación.")),
       '<footer class="dossier-footer"><a class="button" href="', G.pageUrl("mundo.html", "?id=" + encodeURIComponent(figure.worldId)), '">Abrir Mundo ', G.escape(world ? world.number : ""), '</a><a class="text-link" href="', G.pageUrl("metodologia.html"), '">Consultar metodología y estados</a></footer>',
+      '<nav class="dossier-siblings" aria-label="Fichas anterior y siguiente"><a href="', G.pageUrl("figura.html", "?id=" + encodeURIComponent(previous.id)), '"><small>← Ficha anterior</small><strong>', G.escape(previous.name), '</strong></a>',
+      '<a href="', G.pageUrl("figura.html", "?id=" + encodeURIComponent(next.id)), '"><small>Ficha siguiente →</small><strong>', G.escape(next.name), '</strong></a></nav>',
       '</article>'
     ].join("");
   };

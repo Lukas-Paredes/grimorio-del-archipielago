@@ -22,6 +22,9 @@
       return;
     }
     document.title = "Mundo " + world.number + " · " + world.title;
+    var worldIndex = G.worlds.indexOf(world);
+    var previousWorld = G.worlds[(worldIndex - 1 + G.worlds.length) % G.worlds.length];
+    var nextWorld = G.worlds[(worldIndex + 1) % G.worlds.length];
     var principal = world.principalIds.map(G.getFigure).filter(Boolean);
     var secondary = world.secondaryIds.map(G.getFigure).filter(Boolean);
     var variants = G.variants.filter(function (item) { return item.worldId === world.id; });
@@ -39,6 +42,8 @@
       variants.map(function (item) { return '<article class="note-card">' + G.seal(item.status, true) + '<h3>' + G.escape(item.title) + '</h3><p>' + G.escape(item.text) + "</p></article>"; }).join(""),
       '<article class="note-card note-card--pending"><h3>Pendiente del mundo</h3><p>', G.escape(world.pending), '</p></article></div></section>',
       '<section class="section section--sources"><div class="section-heading"><h2>Fuentes y estado</h2></div>', G.sourceList(world.sourceIds), '</section>',
+      '<nav class="dossier-siblings" aria-label="Mundos anterior y siguiente"><a href="', G.pageUrl("mundo.html", "?id=" + encodeURIComponent(previousWorld.id)), '"><small>← Mundo ', G.escape(previousWorld.number), '</small><strong>', G.escape(previousWorld.shortTitle), '</strong></a>',
+      '<a href="', G.pageUrl("mundo.html", "?id=" + encodeURIComponent(nextWorld.id)), '"><small>Mundo ', G.escape(nextWorld.number), ' →</small><strong>', G.escape(nextWorld.shortTitle), '</strong></a></nav>',
       '<nav class="context-nav" aria-label="Navegación de mundos"><a href="', G.pageUrl("mundos.html"), '">← Índice de mundos</a><a href="', G.pageUrl("bestiario.html", "?world=" + encodeURIComponent(world.id)), '">Bestiario filtrado →</a></nav>'
     ].join("");
   };

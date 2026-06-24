@@ -6,13 +6,19 @@ Los siete mundos son una organización editorial del proyecto. No constituyen un
 
 ## Cómo abrir el proyecto
 
-No requiere instalación, servidor, npm ni compilación.
+No requiere instalación, npm ni compilación.
 
 1. Descarga o clona el repositorio.
-2. Abre `index.html` con doble clic.
-3. Navega mediante los enlaces relativos.
+2. Desde la carpeta raíz, inicia un servidor local:
 
-El proyecto está diseñado para funcionar con el protocolo `file://`.
+```bash
+python -m http.server 8000
+```
+
+3. Abre `http://localhost:8000/`.
+4. Navega mediante los enlaces relativos.
+
+El proyecto mantiene compatibilidad con `file://`, pero el servidor local ofrece una prueba más fiel del comportamiento del navegador.
 
 ## Páginas principales
 
@@ -24,7 +30,7 @@ El proyecto está diseñado para funcionar con el protocolo `file://`.
 - `pages/recta-provincia.html`: exposición especial.
 - `pages/cosmologia.html`: relaciones en vista textual accesible.
 - `pages/metodologia.html`: fuentes, estados y agenda de investigación.
-- `pages/recorrido.html`: concepto del futuro recorrido narrativo opcional.
+- `pages/recorrido.html`: recorrido sugerido por contenido abierto y delimitación de su fase narrativa futura.
 
 ## Estructura
 
@@ -101,7 +107,7 @@ La guía vigente está en `docs/pruebas/PRUEBAS_ARQUITECTURA_ACTUAL.md`.
 
 Como mínimo:
 
-1. abre `index.html` mediante `file://`;
+1. inicia `python -m http.server 8000` y abre `http://localhost:8000/`;
 2. navega a todas las páginas;
 3. prueba búsqueda, filtros y vista rápida;
 4. abre `pages/figura.html?id=caleuche` y una página `pages/mundo.html?id=...`;
