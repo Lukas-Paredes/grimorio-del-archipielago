@@ -1,0 +1,241 @@
+@media (max-width: 1100px) {
+  .site-header__inner {
+    grid-template-columns: auto auto 1fr;
+  }
+
+  .menu-toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.55rem 0.7rem;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-sm);
+    background: transparent;
+  }
+
+  .main-nav {
+    position: absolute;
+    top: calc(100% + 1px);
+    left: 1rem;
+    right: 1rem;
+    display: none;
+    padding: 0.8rem;
+    border: 1px solid var(--line);
+    border-radius: 0 0 var(--radius) var(--radius);
+    background: var(--surface);
+    box-shadow: var(--shadow);
+  }
+
+  .main-nav.is-open {
+    display: block;
+  }
+
+  .main-nav ul {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .header-search {
+    width: 100%;
+  }
+
+  .figure-grid,
+  .bestiary-group--secondary .figure-grid,
+  .bestiary-group--comparison .figure-grid,
+  .bestiary-group--archive .figure-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .cosmos-ring {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 800px) {
+  html {
+    scroll-padding-top: 5.5rem;
+  }
+
+  .site-header__inner {
+    grid-template-columns: 1fr auto;
+    min-height: 4.6rem;
+  }
+
+  .header-search {
+    grid-column: 1 / -1;
+    padding-bottom: 0.7rem;
+  }
+
+  .local-nav {
+    top: 7.7rem;
+  }
+
+  .hero,
+  .world-hero,
+  .recta-hero,
+  .dossier-hero,
+  .quick-view__layout,
+  .dossier-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .hero__art {
+    max-width: 470px;
+  }
+
+  .door-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .door-card {
+    min-height: 240px;
+  }
+
+  .door-card--primary {
+    order: -1;
+  }
+
+  .split-panel,
+  .world-context-grid,
+  .site-footer__grid,
+  .note-grid,
+  .seal-guide,
+  .relation-list {
+    grid-template-columns: 1fr;
+  }
+
+  .filter-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .filter--wide {
+    grid-column: 1 / -1;
+  }
+
+  .dossier-facts {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .dossier-facts > div:nth-child(2) {
+    border-right: 0;
+  }
+
+  .dossier-facts > div:nth-child(-n + 2) {
+    border-bottom: 1px solid var(--line);
+  }
+
+  .record-section {
+    grid-template-columns: 1fr;
+  }
+
+  .record-section__label {
+    padding: 0 0 1rem;
+    border-right: 0;
+    border-bottom: 1px solid var(--line);
+  }
+}
+
+@media (max-width: 560px) {
+  #page-root,
+  .site-header__inner {
+    width: min(100% - 1rem, var(--content));
+  }
+
+  #page-root {
+    padding-top: 2.2rem;
+  }
+
+  h1 {
+    font-size: clamp(2.25rem, 12vw, 3.6rem);
+  }
+
+  .brand__mark {
+    display: none;
+  }
+
+  .brand {
+    font-size: 1rem;
+  }
+
+  .main-nav {
+    left: 0.5rem;
+    right: 0.5rem;
+  }
+
+  .main-nav ul {
+    grid-template-columns: 1fr;
+  }
+
+  .figure-grid,
+  .bestiary-group--secondary .figure-grid,
+  .bestiary-group--comparison .figure-grid,
+  .bestiary-group--archive .figure-grid,
+  .filter-grid,
+  .dossier-facts,
+  .cosmos-ring {
+    grid-template-columns: 1fr;
+  }
+
+  .filter--wide {
+    grid-column: auto;
+  }
+
+  .search-panel__top,
+  .relation-toolbar,
+  .future-banner,
+  .context-nav {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .actions > .button,
+  .hero__actions > .button {
+    width: 100%;
+  }
+
+  .dossier-facts > div {
+    border-right: 0;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .dossier-facts > div:last-child {
+    border-bottom: 0;
+  }
+
+  .world-card {
+    grid-template-columns: 1fr;
+  }
+
+  .world-card__number {
+    min-height: 86px;
+  }
+
+  .claim-list li,
+  .relationship-list li {
+    flex-direction: column;
+  }
+
+  .mini-facts div {
+    grid-template-columns: 1fr;
+    gap: 0.2rem;
+  }
+
+  .art-placeholder--vertical .art-placeholder__field {
+    min-height: 340px;
+  }
+
+  .site-footer {
+    padding-inline: 1rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

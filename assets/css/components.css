@@ -1,0 +1,333 @@
+.seal {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2rem;
+  padding: 0.28rem 0.7rem;
+  border: 1px solid currentColor;
+  border-radius: 100vmax;
+  color: var(--provisional);
+  background: rgba(255, 255, 255, 0.58);
+  font-size: 0.74rem;
+  font-weight: 850;
+  line-height: 1.2;
+}
+
+.seal--compact {
+  min-height: 1.6rem;
+  padding: 0.18rem 0.52rem;
+  font-size: 0.67rem;
+}
+
+.seal--pending {
+  color: var(--pending);
+  border-style: dashed;
+}
+
+.seal--interpretation,
+.seal--documented,
+.seal--project {
+  color: #6b587f;
+}
+
+.seal--history {
+  color: #365e7c;
+}
+
+.seal--tradition {
+  color: var(--moss-dark);
+}
+
+.seal--variant {
+  color: #7e5c26;
+}
+
+.seal--art {
+  color: var(--rust);
+}
+
+.art-placeholder {
+  margin: 0;
+}
+
+.art-placeholder__field {
+  position: relative;
+  min-height: 260px;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  border: 1px solid var(--line-dark);
+  border-radius: var(--radius);
+  color: #e8dfcf;
+  background:
+    linear-gradient(135deg, transparent 0 48%, rgba(255, 255, 255, 0.08) 49% 51%, transparent 52%),
+    radial-gradient(circle at 30% 25%, rgba(184, 134, 59, 0.22), transparent 28%),
+    radial-gradient(circle at 70% 75%, rgba(57, 124, 131, 0.34), transparent 35%),
+    #183433;
+}
+
+.art-placeholder__field::before,
+.art-placeholder__field::after {
+  content: "";
+  position: absolute;
+  border: 1px solid rgba(232, 223, 207, 0.24);
+  border-radius: 50%;
+}
+
+.art-placeholder__field::before {
+  width: 70%;
+  aspect-ratio: 1;
+}
+
+.art-placeholder__field::after {
+  width: 42%;
+  aspect-ratio: 1;
+}
+
+.art-placeholder__sigil {
+  position: relative;
+  z-index: 1;
+  font-family: var(--font-display);
+  font-size: clamp(4rem, 12vw, 8rem);
+  opacity: 0.75;
+}
+
+.art-placeholder__title {
+  position: absolute;
+  z-index: 1;
+  bottom: 1.2rem;
+  left: 1.2rem;
+  right: 1.2rem;
+  font-family: var(--font-display);
+  font-size: 1rem;
+  text-align: center;
+}
+
+.art-placeholder figcaption {
+  display: grid;
+  gap: 0.15rem;
+  margin-top: 0.65rem;
+  color: var(--ink-soft);
+  font-size: 0.72rem;
+  line-height: 1.4;
+}
+
+.art-placeholder--vertical .art-placeholder__field {
+  min-height: 430px;
+}
+
+.art-placeholder--square .art-placeholder__field {
+  min-height: 0;
+  aspect-ratio: 1;
+  border-radius: var(--radius) var(--radius) 0 0;
+}
+
+.figure-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1.1rem;
+}
+
+.figure-card {
+  min-width: 0;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface);
+  box-shadow: var(--shadow-soft);
+  transition: transform var(--transition), box-shadow var(--transition);
+}
+
+.figure-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow);
+}
+
+.figure-card__body {
+  padding: 1.2rem;
+}
+
+.figure-card__meta {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 0.5rem;
+  align-items: center;
+  margin-bottom: 0.8rem;
+  color: var(--ink-soft);
+  font-size: 0.72rem;
+  font-weight: 800;
+}
+
+.figure-card h3 a {
+  color: var(--ink);
+  text-decoration: none;
+}
+
+.figure-card__nature {
+  color: var(--moss);
+  font-size: 0.82rem;
+  font-weight: 800;
+}
+
+.figure-card--secondary,
+.figure-card--comparison,
+.figure-card--archive {
+  box-shadow: none;
+}
+
+.figure-card--archive {
+  border-style: dashed;
+}
+
+.figure-card--featured {
+  width: min(330px, 82vw);
+  flex: 0 0 auto;
+}
+
+.world-index {
+  display: grid;
+  gap: 1.25rem;
+}
+
+.world-card {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(80px, 0.18fr) 1fr;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  background: var(--surface);
+  box-shadow: var(--shadow-soft);
+}
+
+.world-card__number {
+  display: grid;
+  place-items: center;
+  color: rgba(255, 255, 255, 0.9);
+  background: var(--surface-dark);
+  font-family: var(--font-display);
+  font-size: clamp(3rem, 7vw, 6rem);
+}
+
+.world-card__content {
+  padding: clamp(1.5rem, 4vw, 3rem);
+}
+
+.world-card__content h3 a {
+  color: var(--ink);
+  text-decoration: none;
+}
+
+.world-card__figures {
+  color: var(--ink-soft);
+  font-size: 0.9rem;
+}
+
+.source-list,
+.claim-list,
+.relationship-list,
+.figure-row {
+  padding: 0;
+  list-style: none;
+}
+
+.source-list {
+  display: grid;
+  gap: 0.8rem;
+}
+
+.source-list li {
+  display: grid;
+  gap: 0.3rem;
+  padding: 1rem;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  background: rgba(255, 255, 255, 0.5);
+}
+
+.source-list p {
+  margin: 0;
+}
+
+.claim-list li,
+.relationship-list li {
+  display: flex;
+  gap: 1rem;
+  justify-content: space-between;
+  align-items: start;
+  padding: 1rem 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.claim-list p,
+.relationship-list p {
+  margin: 0.45rem 0 0;
+}
+
+.claim-status {
+  color: var(--ink-soft);
+  font-size: 0.75rem;
+}
+
+.quick-view {
+  width: min(920px, calc(100% - 2rem));
+  max-height: calc(100vh - 2rem);
+  padding: 0;
+  overflow: auto;
+  border: 0;
+  border-radius: var(--radius-lg);
+  color: var(--ink);
+  background: var(--surface);
+  box-shadow: 0 30px 90px rgba(0, 0, 0, 0.38);
+}
+
+.quick-view::backdrop {
+  background: rgba(6, 20, 19, 0.74);
+  backdrop-filter: blur(4px);
+}
+
+.quick-view__close {
+  position: sticky;
+  z-index: 2;
+  top: 0.75rem;
+  float: right;
+  margin: 0.75rem;
+  min-width: 2.8rem;
+  min-height: 2.8rem;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  background: var(--surface);
+  cursor: pointer;
+}
+
+.quick-view__content {
+  padding: clamp(1rem, 4vw, 3rem);
+}
+
+.quick-view__layout {
+  display: grid;
+  grid-template-columns: minmax(220px, 0.7fr) 1.3fr;
+  gap: 2rem;
+  align-items: start;
+}
+
+.mini-facts {
+  display: grid;
+  gap: 0.8rem;
+}
+
+.mini-facts div {
+  display: grid;
+  grid-template-columns: 8rem 1fr;
+  gap: 1rem;
+  padding-bottom: 0.8rem;
+  border-bottom: 1px solid var(--line);
+}
+
+.mini-facts dt {
+  font-weight: 850;
+}
+
+.mini-facts dd {
+  margin: 0;
+}

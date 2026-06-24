@@ -1,0 +1,28 @@
+:root {
+  --ink: #102523;
+  --ink-soft: #344b47;
+  --paper: #f4efe4;
+  --paper-deep: #e8dfcf;
+  --surface: #fffdf7;
+  --surface-dark: #112a29;
+  --line: #c8bdab;
+  --line-dark: #38514d;
+  --moss: #496f5d;
+  --moss-dark: #274c3f;
+  --sea: #397c83;
+  --gold: #b8863b;
+  --rust: #9f543b;
+  --fog: #dce4df;
+  --pending: #8e5a3c;
+  --provisional: #476d69;
+  --shadow: 0 18px 50px rgba(20, 33, 29, 0.12);
+  --shadow-soft: 0 8px 24px rgba(20, 33, 29, 0.09);
+  --radius-sm: 0.35rem;
+  --radius: 0.75rem;
+  --radius-lg: 1.25rem;
+  --content: 1180px;
+  --reading: 760px;
+  --font-display: Georgia, "Times New Roman", serif;
+  --font-body: Inter, Aptos, "Segoe UI", sans-serif;
+  --transition: 180ms ease;
+}

@@ -17,6 +17,30 @@ No constituye una recomendación visual definitiva.
 - Las fichas muestran estado, fuentes y contenidos pendientes.
 - La Recta Provincia distingue registros históricos, legendarios, interpretativos y artísticos.
 
+## Resoluciones aprobadas — 24 de junio de 2026
+
+Estas resoluciones conservan el razonamiento y los riesgos registrados más abajo. Se aplican a la arquitectura modular actual y pueden revisarse si una futura evaluación curatorial o de accesibilidad aporta nueva evidencia.
+
+| ID relacionado | Estado | Decisión aprobada | Fundamento e impacto |
+|---|---|---|---|
+| D-01 | Resuelta | El nombre oficial es **Bestiario del Archipiélago** y su subtítulo es **Seres, presencias y figuras de la tradición chilota**. | Mantiene “Bestiario” visible sin reducir todas las entradas a monstruos. |
+| D-02 | Resuelta para esta etapa | Las 24 fichas se jerarquizan como figuras principales, figuras secundarias, variantes o comparaciones y archivo pendiente. | Evita que entradas breves o sin fuentes parezcan tan consolidadas como Caleuche, Pincoya o Tentén. |
+| D-04 | Resuelta | Se usa una solución híbrida: vista rápida desde el Bestiario y página completa con URL directa `figura.html?id=`. | Conserva consulta ágil, accesibilidad, enlace compartible e historial del navegador. |
+| D-05 | Resuelta para la base funcional | La primera lectura es limpia y breve; fuentes, variantes y pendientes se mantienen en una segunda capa visible mediante secciones y detalles accesibles. | Reduce saturación sin ocultar trazabilidad. |
+| D-08 | Resuelta para el prototipo actual | Navegación, filtros, fichas y relaciones se adaptan desde 320 px; los filtros se apilan y las relaciones conservan vista textual. | Evita depender de desplazamiento horizontal o gestos no evidentes. |
+| D-10 | Resuelta | El recorrido narrativo será una ruta opcional dentro de la misma plataforma y nunca bloqueará Bestiario, fichas, mundos, fuentes, Recta Provincia ni Cosmología. | La consulta educativa sigue siendo el producto principal. |
+| D-12 | Resuelta para el sistema actual | Todo sello combina texto y estilo visual; los estados mínimos son tradición, variante, interpretación curatorial, historia documentada, recreación artística, provisional y pendiente. | Los estados no dependen únicamente del color. |
+| Portada | Resuelta | La portada posee tres puertas principales: Bestiario, siete mundos y Recta Provincia. El Bestiario tiene protagonismo visual ligeramente mayor. | Hace comprensible la oferta educativa desde el primer ingreso. |
+| Siete mundos | Resuelta | Los siete mundos están abiertos desde el primer ingreso. La numeración expresa un orden editorial sugerido, no progreso obligatorio. | Elimina bloqueos y evita simular una secuencia tradicional oficial. |
+| Recta Provincia | Resuelta | Funciona como exposición especial independiente y también se vincula al Mundo VI. | Permite distinguir su complejidad histórica y legendaria sin aislarla de la arquitectura general. |
+| Tecnología | Resuelta | Se utilizan múltiples páginas HTML, CSS, JavaScript clásico y datos compartidos bajo `window.Grimorio`. No se usan frameworks, módulos, `fetch`, npm ni servidor obligatorio. | Garantiza funcionamiento local mediante `file://`. |
+
+Responsable de implementación: equipo del proyecto, arquitectura y desarrollo.
+
+Fecha: 24 de junio de 2026.
+
+Pruebas previstas: navegación directa, teclado, retorno, filtros, parámetros de URL, `file://`, 390 px y consola.
+
 ## Registro de decisiones
 
 | ID | Decisión pendiente | Pregunta a resolver | Responsables sugeridos | Dependencias | Riesgo si no se resuelve | Momento |
