@@ -39,14 +39,14 @@ La interacción y el renderizado se validaron en un servidor local temporal. La 
 | 4 | Buscar Caleuche | Consulta `q=Caleuche`; un resultado: Caleuche | Aprobada |
 | 5 | Filtrar por mundo | Mundo V mostró Camahueto, Cuchivilu y Cuero del Agua | Aprobada |
 | 6 | Abrir vista rápida | Diálogo de Caleuche con definición, ambiente, señales, estado y enlaces | Aprobada |
-| 7 | Abrir ficha completa | `figura.html?id=caleuche`; doce bloques enciclopédicos visibles | Aprobada |
-| 8 | Volver al resultado anterior | Regreso a `bestiario.html?q=Caleuche`; consulta y resultado conservados | Aprobada |
+| 7 | Abrir ficha completa | `pages/figura.html?id=caleuche`; doce bloques enciclopédicos visibles | Aprobada |
+| 8 | Volver al resultado anterior | Regreso a `pages/bestiario.html?q=Caleuche`; consulta y resultado conservados | Aprobada |
 | 9 | Abrir los siete mundos | Siete tarjetas y siete enlaces directos | Aprobada |
 | 10 | Comprobar aclaración curatorial | Texto visible: los mundos no constituyen una clasificación tradicional oficial | Aprobada |
 | 11 | Abrir Recta Provincia | Siete secciones: historia, organización legendaria, figuras, lugares, cultura, fuentes y pendientes | Aprobada |
 | 12 | Abrir Cosmología | Siete mundos y 23 relaciones en vista textual | Aprobada |
 | 13 | Abrir fuentes | Metodología mostró tres fuentes/estados disponibles y agenda de investigación | Aprobada |
-| 14 | Comprobar URLs con parámetros | `figura.html?id=caleuche` y `mundo.html?id=waters` renderizaron contenido correcto | Aprobada |
+| 14 | Comprobar URLs con parámetros | `pages/figura.html?id=caleuche` y `pages/mundo.html?id=waters` renderizaron contenido correcto | Aprobada |
 | 15 | Probar teclado | Menú móvil accesible, `aria-expanded` actualizado y foco visible definido en CSS | Aprobada |
 | 16 | Cerrar vista rápida con Escape | Diálogo abierto y cerrado mediante Escape después de reforzar el manejo explícito | Aprobada |
 | 17 | Probar a 390 px | Nueve rutas revisadas a 390 × 844 px | Aprobada |

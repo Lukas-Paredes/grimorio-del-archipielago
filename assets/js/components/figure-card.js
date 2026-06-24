@@ -7,7 +7,7 @@
     options = options || {};
     var world = G.getWorld(figure.worldId);
     var mode = options.mode || figure.classification;
-    var href = "figura.html?id=" + encodeURIComponent(figure.id);
+    var href = G.pageUrl("figura.html", "?id=" + encodeURIComponent(figure.id));
     var returnUrl = options.returnUrl || "";
     if (returnUrl) {
       href += "&return=" + encodeURIComponent(returnUrl);
@@ -29,7 +29,7 @@
 
   G.figureRow = function (figure) {
     var world = G.getWorld(figure.worldId);
-    return '<li class="figure-row"><a href="figura.html?id=' + encodeURIComponent(figure.id) + '"><strong>' +
+    return '<li class="figure-row"><a href="' + G.pageUrl("figura.html", "?id=" + encodeURIComponent(figure.id)) + '"><strong>' +
       G.escape(figure.name) + '</strong><span>' + G.escape(figure.nature) + '</span><small>' +
       G.escape(world ? "Mundo " + world.number + " · " + world.shortTitle : "Archivo") + '</small></a>' +
       G.seal(figure.status, true) + "</li>";

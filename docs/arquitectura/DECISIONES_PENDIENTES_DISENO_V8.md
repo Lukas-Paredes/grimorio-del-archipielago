@@ -25,7 +25,7 @@ Estas resoluciones conservan el razonamiento y los riesgos registrados más abaj
 |---|---|---|---|
 | D-01 | Resuelta | El nombre oficial es **Bestiario del Archipiélago** y su subtítulo es **Seres, presencias y figuras de la tradición chilota**. | Mantiene “Bestiario” visible sin reducir todas las entradas a monstruos. |
 | D-02 | Resuelta para esta etapa | Las 24 fichas se jerarquizan como figuras principales, figuras secundarias, variantes o comparaciones y archivo pendiente. | Evita que entradas breves o sin fuentes parezcan tan consolidadas como Caleuche, Pincoya o Tentén. |
-| D-04 | Resuelta | Se usa una solución híbrida: vista rápida desde el Bestiario y página completa con URL directa `figura.html?id=`. | Conserva consulta ágil, accesibilidad, enlace compartible e historial del navegador. |
+| D-04 | Resuelta | Se usa una solución híbrida: vista rápida desde el Bestiario y página completa con URL directa `pages/figura.html?id=`. | Conserva consulta ágil, accesibilidad, enlace compartible e historial del navegador. |
 | D-05 | Resuelta para la base funcional | La primera lectura es limpia y breve; fuentes, variantes y pendientes se mantienen en una segunda capa visible mediante secciones y detalles accesibles. | Reduce saturación sin ocultar trazabilidad. |
 | D-08 | Resuelta para el prototipo actual | Navegación, filtros, fichas y relaciones se adaptan desde 320 px; los filtros se apilan y las relaciones conservan vista textual. | Evita depender de desplazamiento horizontal o gestos no evidentes. |
 | D-10 | Resuelta | El recorrido narrativo será una ruta opcional dentro de la misma plataforma y nunca bloqueará Bestiario, fichas, mundos, fuentes, Recta Provincia ni Cosmología. | La consulta educativa sigue siendo el producto principal. |

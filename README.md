@@ -16,19 +16,21 @@ El proyecto está diseñado para funcionar con el protocolo `file://`.
 
 ## Páginas principales
 
-- `index.html`: portada y tres puertas de entrada.
-- `bestiario.html`: búsqueda, índice, filtros y vista rápida de las 24 fichas.
-- `figura.html?id=caleuche`: plantilla de ficha con URL directa.
-- `mundos.html`: índice abierto de los siete mundos.
-- `mundo.html?id=origin`: plantilla de mundo.
-- `recta-provincia.html`: exposición especial.
-- `cosmologia.html`: relaciones en vista textual accesible.
-- `metodologia.html`: fuentes, estados y agenda de investigación.
-- `recorrido.html`: concepto del futuro recorrido narrativo opcional.
+- `index.html`: entrada principal, portada y tres puertas de consulta.
+- `pages/bestiario.html`: búsqueda, índice, filtros y vista rápida de las 24 fichas.
+- `pages/figura.html?id=caleuche`: plantilla de ficha con URL directa.
+- `pages/mundos.html`: índice abierto de los siete mundos.
+- `pages/mundo.html?id=origin`: plantilla de mundo.
+- `pages/recta-provincia.html`: exposición especial.
+- `pages/cosmologia.html`: relaciones en vista textual accesible.
+- `pages/metodologia.html`: fuentes, estados y agenda de investigación.
+- `pages/recorrido.html`: concepto del futuro recorrido narrativo opcional.
 
 ## Estructura
 
 ```text
+index.html                  Entrada principal
+pages/                      Ocho páginas secundarias
 assets/
 ├── css/                  Sistema visual dividido por responsabilidad
 └── js/
@@ -38,9 +40,11 @@ assets/
 docs/
 ├── arquitectura/         Definiciones y decisiones de arquitectura
 ├── curaduria/            Auditorías curatoriales internas
-├── diseno/               Documentación futura de diseño
+├── pedagogia/            Documentos pedagógicos actuales y futuros
 └── pruebas/              Registro acumulativo de pruebas actuales
-legacy/v7/                Respaldo histórico monolítico, no editable
+legacy/v7/
+├── el_grimorio_del_archipielago_v7.html
+└── docs/                  Guía de pruebas y matriz curatorial históricas de V7
 ```
 
 Los datos se cargan mediante scripts clásicos y un namespace global controlado:
@@ -60,7 +64,7 @@ No se utiliza `fetch()`, módulos ES, frameworks ni dependencias externas indisp
 5. Registra afirmaciones trazables en `assets/js/data/sources.js`.
 6. Añade relaciones existentes en `assets/js/data/relationships.js`.
 7. Incorpora el identificador en el mundo correspondiente de `assets/js/data/worlds.js`.
-8. Prueba `figura.html?id=identificador` y la vista rápida del Bestiario.
+8. Prueba `pages/figura.html?id=identificador` y la vista rápida del Bestiario.
 
 Los campos vacíos deben permanecer como no documentados, pendientes o no aplicables. No se completan por inferencia.
 
@@ -70,7 +74,7 @@ Los campos vacíos deben permanecer como no documentados, pendientes o no aplica
 2. Mantén el rótulo de organización curatorial.
 3. Incluye figuras, ambientes, señales, idea educativa, fuentes y pendientes.
 4. Registra relaciones curatoriales en `assets/js/data/relationships.js`.
-5. Prueba el índice, `mundo.html?id=identificador` y el filtro del Bestiario.
+5. Prueba el índice, `pages/mundo.html?id=identificador` y el filtro del Bestiario.
 
 Un mundo no debe presentarse como clasificación histórica, académica o tradicional oficial.
 
@@ -100,7 +104,7 @@ Como mínimo:
 1. abre `index.html` mediante `file://`;
 2. navega a todas las páginas;
 3. prueba búsqueda, filtros y vista rápida;
-4. abre fichas y mundos mediante parámetros;
+4. abre `pages/figura.html?id=caleuche` y una página `pages/mundo.html?id=...`;
 5. usa teclado y Escape;
 6. revisa a 390 px;
 7. comprueba enlaces relativos y consola.
@@ -116,3 +120,5 @@ Como mínimo:
 7. Solicita revisión antes de commit, push o merge.
 
 Git conserva el historial. No se crean copias con sufijos de versión.
+
+Las mejoras futuras deben modificar los archivos estables existentes. No se crean variantes como `index_v9.html`, `final.html`, `nuevo.html` ni respaldos duplicados fuera de `legacy/`.

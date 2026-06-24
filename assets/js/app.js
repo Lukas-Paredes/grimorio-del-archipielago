@@ -3,6 +3,25 @@
 
   var G = window.Grimorio = window.Grimorio || {};
 
+  G.inPages = /(?:^|\/)pages\/[^/]*$/.test(window.location.pathname.replace(/\\/g, "/"));
+
+  G.pageUrl = function (file, suffix) {
+    return (G.inPages ? "" : "pages/") + file + (suffix || "");
+  };
+
+  G.homeUrl = function () {
+    return G.inPages ? "../index.html" : "index.html";
+  };
+
+  G.assetUrl = function (path) {
+    return (G.inPages ? "../assets/" : "assets/") + path;
+  };
+
+  G.returnUrlForPage = function () {
+    var file = window.location.pathname.split("/").pop() || "index.html";
+    return (G.inPages ? file : "../" + file) + window.location.search;
+  };
+
   G.escape = function (value) {
     return String(value == null ? "" : value)
       .replace(/&/g, "&amp;")

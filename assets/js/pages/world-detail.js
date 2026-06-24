@@ -18,7 +18,7 @@
     var root = document.querySelector("#page-root");
     var world = G.getWorld(G.params().get("id"));
     if (!world) {
-      root.innerHTML = '<section class="not-found"><h1>Mundo no encontrado</h1><p>El identificador no corresponde a uno de los siete mundos.</p><a class="button" href="mundos.html">Volver al índice</a></section>';
+      root.innerHTML = '<section class="not-found"><h1>Mundo no encontrado</h1><p>El identificador no corresponde a uno de los siete mundos.</p><a class="button" href="' + G.pageUrl("mundos.html") + '">Volver al índice</a></section>';
       return;
     }
     document.title = "Mundo " + world.number + " · " + world.title;
@@ -26,10 +26,10 @@
     var secondary = world.secondaryIds.map(G.getFigure).filter(Boolean);
     var variants = G.variants.filter(function (item) { return item.worldId === world.id; });
     root.innerHTML = [
-      '<nav class="breadcrumbs" aria-label="Migas de pan"><a href="index.html">Inicio</a><span>/</span><a href="mundos.html">Siete mundos</a><span>/</span><span aria-current="page">Mundo ', G.escape(world.number), '</span></nav>',
+      '<nav class="breadcrumbs" aria-label="Migas de pan"><a href="', G.homeUrl(), '">Inicio</a><span>/</span><a href="', G.pageUrl("mundos.html"), '">Siete mundos</a><span>/</span><span aria-current="page">Mundo ', G.escape(world.number), '</span></nav>',
       '<header class="world-hero"><div><span class="eyebrow">Mundo ', G.escape(world.number), ' · Organización curatorial</span><h1>', G.escape(world.title), '</h1><p class="lead">', G.escape(world.introduction), '</p>',
-      G.seal(world.status), '<div class="actions"><a class="button" href="bestiario.html?world=', encodeURIComponent(world.id), '">Ver todas las fichas de este mundo</a>',
-      world.id === "recta" ? '<a class="button button--quiet" href="recta-provincia.html">Abrir exposición especial</a>' : "", '</div></div>',
+      G.seal(world.status), '<div class="actions"><a class="button" href="', G.pageUrl("bestiario.html", "?world=" + encodeURIComponent(world.id)), '">Ver todas las fichas de este mundo</a>',
+      world.id === "recta" ? '<a class="button button--quiet" href="' + G.pageUrl("recta-provincia.html") + '">Abrir exposición especial</a>' : "", '</div></div>',
       G.illustrationPlaceholder(world.illustrationId, "panoramic", world.title), '</header>',
       '<section class="section"><div class="section-heading"><span class="eyebrow">Jerarquía editorial</span><h2>Figuras principales</h2></div><div class="figure-grid">', principal.map(function (f) { return G.figureCard(f); }).join(""), '</div></section>',
       secondary.length ? '<section class="section"><div class="section-heading"><h2>Figuras secundarias, comparaciones o archivo</h2></div><div class="figure-grid">' + secondary.map(function (f) { return G.figureCard(f); }).join("") + "</div></section>" : "",
@@ -39,7 +39,7 @@
       variants.map(function (item) { return '<article class="note-card">' + G.seal(item.status, true) + '<h3>' + G.escape(item.title) + '</h3><p>' + G.escape(item.text) + "</p></article>"; }).join(""),
       '<article class="note-card note-card--pending"><h3>Pendiente del mundo</h3><p>', G.escape(world.pending), '</p></article></div></section>',
       '<section class="section section--sources"><div class="section-heading"><h2>Fuentes y estado</h2></div>', G.sourceList(world.sourceIds), '</section>',
-      '<nav class="context-nav" aria-label="Navegación de mundos"><a href="mundos.html">← Índice de mundos</a><a href="bestiario.html?world=', encodeURIComponent(world.id), '">Bestiario filtrado →</a></nav>'
+      '<nav class="context-nav" aria-label="Navegación de mundos"><a href="', G.pageUrl("mundos.html"), '">← Índice de mundos</a><a href="', G.pageUrl("bestiario.html", "?world=" + encodeURIComponent(world.id)), '">Bestiario filtrado →</a></nav>'
     ].join("");
   };
 }());

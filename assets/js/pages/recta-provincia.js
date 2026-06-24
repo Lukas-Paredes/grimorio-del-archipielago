@@ -10,7 +10,7 @@
       '<section class="recta-hero"><div><span class="eyebrow">Exposición especial · Vinculada al Mundo VI</span><h1>Recta Provincia</h1>',
       '<p class="lead">Un expediente de consulta que mantiene separados el plano histórico documentado, la organización legendaria, las figuras asociadas y las recreaciones posteriores.</p>',
       '<div class="record-legend"><span>', G.seal("history"), '</span><span>', G.seal("tradition"), '</span><span>', G.seal("art"), '</span></div>',
-      '<div class="actions"><a class="button" href="#fuentes">Consultar fuentes y pendientes</a><a class="button button--quiet" href="mundo.html?id=recta">Abrir Mundo VI</a></div></div>',
+      '<div class="actions"><a class="button" href="#fuentes">Consultar fuentes y pendientes</a><a class="button button--quiet" href="', G.pageUrl("mundo.html", "?id=recta"), '">Abrir Mundo VI</a></div></div>',
       G.illustrationPlaceholder("recta", "vertical", "Recta Provincia"), '</section>',
       '<nav class="local-nav" aria-label="Índice de la exposición"><a href="#historia">Historia documentada</a><a href="#organizacion">Organización legendaria</a><a href="#figuras">Figuras asociadas</a><a href="#lugares">Lugares y conceptos</a><a href="#cultura">Cultura posterior</a><a href="#fuentes">Fuentes</a><a href="#pendientes">Pendientes</a></nav>',
       '<section id="historia" class="record-section"><div class="record-section__label">', G.seal("history"), '</div><div><h2>1. Historia documentada</h2>',
