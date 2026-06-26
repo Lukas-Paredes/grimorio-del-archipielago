@@ -1,0 +1,343 @@
+/* journey.css
+   Estructura del PASILLO (galería nocturna) del Recorrido — específica de esta página.
+   La atmósfera reutilizable (niebla, luz, tinta, viñeta) vive en atmosphere.css;
+   aquí va el descenso, las salas por mundo, las hornacinas y el revelado.
+
+   Principios:
+   - Solo paleta del proyecto (tokens.css). Bordes sobre fondo oscuro con --line-dark.
+   - Sin imágenes. Grids intrínsecamente responsivos con minmax(min(100%, X), 1fr):
+     colapsan solos a una columna a 390px sin tocar responsive.css ni provocar
+     scroll horizontal.
+   - El revelado al hacer scroll usa transiciones CSS estándar (las neutraliza la
+     regla global de prefers-reduced-motion en responsive.css); se refuerza local.
+
+   CONTRATO DE MARCADO (lo emitirán journey.js y niche.js, archivos posteriores):
+     <div class="corridor">
+       <section class="corridor__umbral"> … reusa .curatorial-notice / .curatorial-line … </section>
+       <section class="corridor__sala atmosphere-host" data-world="{id}">
+         <div class="atmosphere atmosphere--{id}" aria-hidden="true">…</div>
+         <div class="sala__inner">
+           <header class="sala__intro">
+             <span class="chapter-index">Mundo {número} · {shortTitle}</span>
+             <h2 class="sala__title">{title}</h2>
+             <p class="lead sala__lead">{introduction}</p>
+             <p class="sala__idea">{idea}</p>
+             <ul class="sala__signals"> <li class="tag">{ambiente/señal}</li> … </ul>
+           </header>
+           <div class="sala__zone sala__zone--principal"> {niches principales} </div>
+           <div class="sala__zone sala__zone--submerged"> {niches secundarias/comparación/archivo} </div>
+         </div>
+       </section>
+       … (la sala "recta" añade después una <aside class="corridor__expediente">) …
+       <section class="corridor__salida"> … enlaces de wayfinding + nota de accesibilidad … </section>
+     </div>
+
+   Cada hornacina (niche.js):
+     <article class="niche niche--{classification}">
+       <div class="niche__art"> {G.illustrationPlaceholder(...)} </div>
+       <div class="niche__body">
+         <h3 class="niche__name">{name}</h3>
+         {G.seal(status)}  // clase .seal
+         <p class="niche__line">{definition|nature}</p>
+         <button class="button button--quiet niche__emerge" data-quick-view="{id}">Que emerja</button>
+       </div>
+     </article>
+*/
+
+/* ----------------------------------------------------------------------------
+   Pasillo: umbral de papel → descenso a la noche → umbral de salida.
+---------------------------------------------------------------------------- */
+.corridor {
+  --content-wide: 1680px;                                              /* medida ancha para la zona de hornacinas */
+  --gutter: max(1.25rem, calc((100% - var(--content)) / 2));           /* columna de lectura: texto, umbral, salida */
+  --gutter-wide: max(1.25rem, calc((100% - var(--content-wide)) / 2)); /* columna ancha: zona de hornacinas */
+  --emerge: 920ms cubic-bezier(0.2, 0.7, 0.2, 1);
+  display: block;
+}
+
+/* El pasillo ocupa todo el ancho de la página, igual que la portada
+   (layout.css: body[data-page="home"] #page-root { width: 100% }). Así las salas
+   oscuras llegan de borde a borde y el papel del body no asoma por los costados.
+   El contenido sigue centrado a var(--content) vía --gutter; umbral y salida
+   quedan en papel. Scopeado al recorrido: no afecta otras páginas ni la portada.
+   Especificidad 0,2,1: gana sobre las reglas #page-root de responsive.css. */
+body[data-page="journey"] #page-root {
+  width: 100%;
+  padding: 0;
+}
+
+/* Umbral de entrada y de salida: papel, como bordes del archivo antes/después de la noche. */
+.corridor__umbral,
+.corridor__salida {
+  padding: var(--chapter-space) var(--gutter);
+}
+
+.corridor__umbral > *,
+.corridor__salida > * {
+  max-width: var(--reading);
+}
+
+.corridor__salida {
+  border-top: 1px solid var(--line);
+  background: linear-gradient(180deg, transparent, rgba(13, 36, 32, 0.06));
+}
+
+.corridor__salida .actions {
+  margin-top: 1.6rem;
+}
+
+/* ----------------------------------------------------------------------------
+   Sala: un mundo. Banda oscura a todo el ancho, continua con la siguiente.
+---------------------------------------------------------------------------- */
+.corridor__sala {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;                 /* contiene la atmósfera: sin scroll horizontal */
+  padding: clamp(4rem, 9vw, 8rem) var(--gutter-wide);
+  color: var(--fog);
+  background: linear-gradient(180deg, #07140f, #0a1513 55%, #07120f);
+}
+
+/* Costura entre salas: que el descenso se lea continuo, no como tarjetas. */
+.corridor__sala + .corridor__sala {
+  margin-top: 0;
+}
+.corridor__sala::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto;
+  height: 9rem;
+  background: linear-gradient(180deg, rgba(4, 12, 11, 0.85), transparent);
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* La capa atmosférica queda detrás; el contenido se eleva por encima. */
+.corridor__sala > .atmosphere {
+  z-index: 0;
+}
+.sala__inner {
+  position: relative;
+  z-index: 2;
+}
+
+/* Encabezado de capítulo: solo datos del mundo (worlds.js), nada inventado. */
+.sala__intro {
+  max-width: var(--reading);
+  margin-bottom: clamp(2.2rem, 5vw, 3.6rem);
+}
+.sala__title {
+  color: var(--paper-light);
+}
+.sala__lead {
+  color: var(--fog);
+}
+.sala__idea {
+  margin: 0.4rem 0 1.2rem;
+  color: var(--sea-pale);
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: clamp(1.1rem, 1.8vw, 1.4rem);
+}
+.sala__signals {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem 0.55rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.sala__signals .tag {
+  color: var(--sea-pale);
+}
+
+/* ----------------------------------------------------------------------------
+   Zonas de hornacinas. Grids intrínsecamente responsivos (colapsan a 390px).
+---------------------------------------------------------------------------- */
+.sala__zone {
+  display: grid;
+  gap: clamp(1.2rem, 2.2vw, 2.2rem);
+  justify-content: center;          /* filas parciales centradas, sin estirar las vitrinas */
+}
+.sala__zone + .sala__zone {
+  margin-top: clamp(1.6rem, 3vw, 2.6rem);
+}
+
+/* Principales: nítidas y grandes. Tope de ancho por vitrina para que no se
+   desborden a tiles gigantes cuando un mundo tiene pocas figuras (p. ej. la Bruma). */
+.sala__zone--principal {
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 18rem), 25rem));
+}
+/* Secundarias / comparación / archivo: más, más chicas, más sumergidas. */
+.sala__zone--submerged {
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 12.5rem), 18rem));
+}
+
+/* ----------------------------------------------------------------------------
+   Hornacina / vitrina: la presencia emerge de la penumbra.
+---------------------------------------------------------------------------- */
+.niche {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border: 1px solid var(--line-dark);
+  border-radius: var(--radius);
+  background: linear-gradient(180deg, rgba(13, 36, 32, 0.55), rgba(7, 18, 15, 0.78));
+  box-shadow: inset 0 1px 0 rgba(222, 210, 185, 0.06), 0 18px 44px rgba(0, 0, 0, 0.34);
+  transition:
+    opacity var(--emerge),
+    transform var(--emerge),
+    filter var(--emerge),
+    border-color var(--transition),
+    box-shadow var(--transition);
+}
+
+.niche__art {
+  position: relative;
+}
+/* Velo de bruma sobre la obra, según profundidad (definido más abajo por variante). */
+.niche__art::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(120% 100% at 50% 18%, transparent 40%, rgba(7, 18, 15, 0.72) 100%);
+  opacity: var(--niche-veil, 0.35);
+  transition: opacity var(--transition);
+}
+.niche .art-placeholder {
+  margin: 0;
+}
+
+.niche__body {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 1rem 1.05rem 1.15rem;
+}
+.niche__name {
+  margin: 0;
+  color: var(--paper-light);
+  font-size: clamp(1.15rem, 1.6vw, 1.5rem);
+  line-height: 1.06;
+}
+.niche__line {
+  margin: 0;
+  color: var(--fog);
+  font-size: 0.92rem;
+  line-height: 1.5;
+}
+.niche__emerge {
+  align-self: flex-start;
+  margin-top: 0.25rem;
+  color: var(--paper-light);
+  border-color: var(--line-dark);
+  background: rgba(178, 122, 61, 0.10);
+}
+.niche__emerge:hover {
+  color: var(--night);
+  background: var(--gold);
+  border-color: var(--gold);
+}
+
+/* Profundidad por clasificación (figures.js: classification). */
+.niche--principal {
+  --niche-veil: 0.22;
+  border-top: 2px solid var(--copper);   /* acento de cobre, reservado a lo principal */
+}
+.niche--principal .niche__line {
+  font-size: 0.98rem;
+}
+.niche--secondary,
+.niche--comparison {
+  --niche-veil: 0.46;
+}
+.niche--secondary .niche__art,
+.niche--comparison .niche__art {
+  filter: saturate(0.88);
+}
+.niche--archive {
+  --niche-veil: 0.6;
+  border-style: dashed;                   /* mismo gesto que .figure-card--archive */
+}
+.niche--archive .niche__art {
+  filter: saturate(0.78) brightness(0.94);
+}
+.niche--archive .niche__name {
+  color: var(--fog);
+}
+
+.niche:hover {
+  border-color: rgba(193, 150, 85, 0.45);
+  box-shadow: inset 0 1px 0 rgba(222, 210, 185, 0.10), 0 22px 52px rgba(0, 0, 0, 0.42);
+}
+.niche:hover .niche__art::after {
+  opacity: calc(var(--niche-veil, 0.35) * 0.55);
+}
+
+/* ----------------------------------------------------------------------------
+   Revelado al hacer scroll. journey-reveal.js añade .is-armed al .corridor
+   (solo si hay IntersectionObserver y NO hay movimiento reducido) y .is-revealed
+   por elemento. Sin JS o con movimiento reducido: todo queda visible por defecto.
+---------------------------------------------------------------------------- */
+.corridor.is-armed .niche,
+.corridor.is-armed .sala__intro {
+  opacity: 0;
+  transform: translateY(2.2rem) scale(0.985);
+  filter: blur(7px);
+}
+.corridor.is-armed .sala__intro {
+  transform: translateY(1.4rem);
+  filter: blur(3px);
+  transition: opacity var(--emerge), transform var(--emerge), filter var(--emerge);
+}
+.corridor.is-armed .niche.is-revealed,
+.corridor.is-armed .sala__intro.is-revealed {
+  opacity: 1;
+  transform: none;
+  filter: blur(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .corridor.is-armed .niche,
+  .corridor.is-armed .sala__intro {
+    opacity: 1;
+    transform: none;
+    filter: none;
+  }
+}
+
+/* ----------------------------------------------------------------------------
+   Cámara sellada: puerta al expediente independiente de Recta Provincia.
+---------------------------------------------------------------------------- */
+.corridor__expediente {
+  position: relative;
+  z-index: 2;
+  max-width: var(--reading);
+  margin-top: clamp(2rem, 5vw, 3.4rem);
+  padding: clamp(1.6rem, 4vw, 2.6rem);
+  border: 1px solid rgba(178, 122, 61, 0.4);
+  border-left: 3px solid var(--rust);
+  border-radius: var(--radius);
+  background: linear-gradient(180deg, rgba(40, 18, 12, 0.55), rgba(7, 18, 15, 0.7));
+}
+.corridor__expediente h3 {
+  margin-top: 0;
+  color: var(--paper-light);
+}
+.corridor__expediente p {
+  color: var(--fog);
+}
+
+/* ----------------------------------------------------------------------------
+   Colapso fino. Los grids ya colapsan solos; aquí solo ajustes de respiro.
+---------------------------------------------------------------------------- */
+@media (max-width: 580px) {
+  .niche__body {
+    padding: 0.85rem 0.9rem 1rem;
+  }
+  .corridor__sala::before {
+    height: 6rem;
+  }
+}

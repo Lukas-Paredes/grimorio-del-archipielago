@@ -1,0 +1,184 @@
+/* atmosphere.css
+   Capa atmosférica nocturna REUTILIZABLE del Grimorio del Archipiélago.
+   Penumbra, neblina a la deriva, luz direccional y grano de tinta para
+   sugerir presencias entre la bruma (museo nocturno, dark fantasy ochentera).
+
+   Principios:
+   - Solo paleta del proyecto (tokens.css): noche, tinta, mar, bosque, neblina, cobre, óxido.
+     Los tintes se expresan como rgba() de esos colores, igual que las capas
+     atmosféricas existentes (p. ej. body::before en base.css).
+   - Sin imágenes externas, sin fetch, sin dependencias. El grano "pintado" es
+     un SVG feTurbulence embebido como data-URI dentro de esta hoja.
+   - Movimiento sutil con animación CSS estándar: la regla global de
+     prefers-reduced-motion (responsive.css) lo neutraliza; abajo se refuerza
+     localmente para que la hoja sea autosuficiente fuera de este proyecto.
+
+   CONTRATO DE MARCADO (lo emitirá assets/js/components/atmosphere.js, archivo posterior):
+     <div class="atmosphere atmosphere--{variante}" aria-hidden="true">
+       <span class="atmosphere__beam"></span>
+       <span class="atmosphere__fog"></span>
+       <span class="atmosphere__fog atmosphere__fog--far"></span>
+       <span class="atmosphere__ink"></span>
+       <span class="atmosphere__vignette"></span>
+     </div>
+
+   El contenedor anfitrión (sala u hornacina, definido en journey.css) debe ser
+   position: relative; overflow: hidden, y elevar su contenido a z-index: 1.
+
+   Variantes por mundo (assets/js/data/worlds.js):
+     --origin · --sea-court · --caleuche · --forest · --waters · --recta · --dead-roads
+   Sin variante = penumbra neutra.
+*/
+
+.atmosphere {
+  /* Variables locales de penumbra; cada variante las redefine.
+     Valores por defecto: noche con musgo y claro de neblina. */
+  --atm-depth: var(--night);                  /* fondo de profundidad (opaco) */
+  --atm-tint: rgba(40, 74, 59, 0.40);         /* --moss-dark, tinte de ambiente */
+  --atm-glow: rgba(216, 223, 216, 0.42);      /* --fog, claro lunar / haz */
+  --atm-fog: rgba(216, 223, 216, 0.10);       /* --fog, niebla a la deriva */
+  --atm-beam-x: 30%;                          /* origen horizontal del haz */
+  --atm-edge: 0.92;                           /* fuerza de la viñeta de penumbra */
+
+  position: absolute;
+  inset: 0;
+  z-index: 0;                 /* el contenido del anfitrión va a z-index: 1 */
+  overflow: hidden;           /* contiene la deriva de la niebla: sin scroll horizontal */
+  pointer-events: none;
+  isolation: isolate;         /* los mix-blend-mode se mezclan SOLO dentro de la capa */
+  border-radius: inherit;
+}
+
+/* Fondo de profundidad: degradado noche + halo de ambiente del mundo. */
+.atmosphere::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(125% 85% at var(--atm-beam-x) -12%, var(--atm-tint), transparent 62%),
+    linear-gradient(180deg, var(--atm-depth), #04100e 125%);
+}
+
+/* Haz de luz direccional, dramático (Dark Crystal). Mezcla en "screen". */
+.atmosphere__beam {
+  position: absolute;
+  inset: -12% -12% 0;
+  background:
+    radial-gradient(58% 78% at var(--atm-beam-x) 0%, var(--atm-glow), transparent 70%);
+  opacity: 0.85;
+  mix-blend-mode: screen;
+}
+
+/* Niebla a la deriva: capas suaves que respiran lateralmente. */
+.atmosphere__fog {
+  position: absolute;
+  inset: -16%;
+  background:
+    radial-gradient(42% 30% at 22% 42%, var(--atm-fog), transparent 70%),
+    radial-gradient(48% 34% at 76% 66%, var(--atm-fog), transparent 72%);
+  animation: atm-drift 46s ease-in-out infinite alternate;
+  will-change: transform;
+}
+
+.atmosphere__fog--far {
+  inset: -22%;
+  opacity: 0.6;
+  animation-duration: 73s;
+  animation-direction: alternate-reverse;
+}
+
+/* Grano de tinta / textura pintada-orgánica. SVG feTurbulence en data-URI. */
+.atmosphere__ink {
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='atmInkNoise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23atmInkNoise)'/%3E%3C/svg%3E");
+  background-size: 170px 170px;
+  opacity: 0.16;
+  mix-blend-mode: soft-light;
+}
+
+/* Viñeta de penumbra: empuja los bordes a la sombra (--night). */
+.atmosphere__vignette {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(118% 92% at 50% 34%, transparent 38%, rgba(7, 21, 19, var(--atm-edge)) 100%);
+  box-shadow: inset 0 0 7rem rgba(4, 12, 11, 0.55);
+}
+
+@keyframes atm-drift {
+  from { transform: translate3d(-2.5%, 0, 0); }
+  to   { transform: translate3d(2.5%, 0, 0); }
+}
+
+/* Permite detener la deriva por instancia (anfitrión "en calma"). */
+.atmosphere--still .atmosphere__fog {
+  animation: none;
+  transform: none;
+}
+
+/* Refuerzo local de movimiento reducido (además de la guarda global). */
+@media (prefers-reduced-motion: reduce) {
+  .atmosphere__fog {
+    animation: none;
+    transform: none;
+  }
+}
+
+/* ----------------------------------------------------------------------------
+   Variantes por mundo. Cada una solo redefine las variables de penumbra,
+   tomando el ánimo documentado del mundo (worlds.js) en la paleta del proyecto.
+---------------------------------------------------------------------------- */
+
+/* I · Origen y transformación: tierra y agua, halo de cobre. */
+.atmosphere--origin {
+  --atm-tint: rgba(40, 74, 59, 0.40);     /* --moss-dark */
+  --atm-glow: rgba(193, 150, 85, 0.28);   /* --gold */
+  --atm-beam-x: 30%;
+}
+
+/* II · Corte del mar: mar nocturno, claro de espuma. */
+.atmosphere--sea-court {
+  --atm-tint: rgba(45, 105, 113, 0.42);   /* --sea */
+  --atm-glow: rgba(145, 170, 165, 0.40);  /* --sea-pale */
+  --atm-beam-x: 26%;
+}
+
+/* III · Bruma y mar nocturno: la sala más neblinosa, faroles del Caleuche. */
+.atmosphere--caleuche {
+  --atm-depth: var(--night-soft);
+  --atm-tint: rgba(45, 105, 113, 0.30);   /* --sea, tenue */
+  --atm-glow: rgba(193, 150, 85, 0.46);   /* --gold, faroles */
+  --atm-fog: rgba(216, 223, 216, 0.17);   /* niebla más densa */
+  --atm-beam-x: 50%;                       /* faro central */
+}
+
+/* IV · Monte, senderos y presagios: penumbra de bosque húmedo. */
+.atmosphere--forest {
+  --atm-tint: rgba(40, 74, 59, 0.46);     /* --moss-dark */
+  --atm-glow: rgba(145, 170, 165, 0.30);  /* --sea-pale, frío vegetal */
+  --atm-beam-x: 34%;
+}
+
+/* V · Aguas interiores y barro: agua quieta, claro bajo. */
+.atmosphere--waters {
+  --atm-tint: rgba(45, 105, 113, 0.34);   /* --sea, embarrado */
+  --atm-glow: rgba(216, 223, 216, 0.22);  /* --fog, contenido */
+  --atm-beam-x: 24%;
+}
+
+/* VI · Recta Provincia: expediente y óxido, secreto. Penumbra más cerrada. */
+.atmosphere--recta {
+  --atm-depth: var(--surface-dark);
+  --atm-tint: rgba(152, 77, 56, 0.40);    /* --rust */
+  --atm-glow: rgba(178, 122, 61, 0.34);   /* --copper */
+  --atm-beam-x: 22%;
+  --atm-edge: 0.96;
+}
+
+/* VII · Muertos, costa y caminos: lo más frío y sobrio, viento de costa. */
+.atmosphere--dead-roads {
+  --atm-tint: rgba(63, 104, 98, 0.26);    /* --provisional, muy tenue */
+  --atm-glow: rgba(216, 223, 216, 0.30);  /* --fog frío */
+  --atm-beam-x: 50%;
+}
