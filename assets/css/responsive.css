@@ -94,8 +94,25 @@
   .recta-teaser,
   .voices-grid,
   .home-chapter__intro,
-  .method-layout {
+  .method-layout,
+  .trust-section {
     grid-template-columns: minmax(0, 1fr);
+  }
+
+  .trust-section__relations {
+    position: static;
+  }
+
+  .archive-door {
+    grid-template-columns: 4rem minmax(180px, 0.65fr) minmax(240px, 1fr);
+  }
+
+  .archive-door:nth-child(even) {
+    padding-left: 0;
+  }
+
+  .archive-door .text-link {
+    grid-column: 2 / -1;
   }
 
   .home-intro {
@@ -282,6 +299,34 @@
   .journey-stop {
     grid-template-columns: 1fr;
     flex-direction: column;
+  }
+
+  .archive-door,
+  .archive-door--3 {
+    grid-template-columns: 3.5rem 1fr;
+    min-height: 0;
+    margin: 0;
+    padding: 1.5rem 0;
+  }
+
+  .archive-door--3 {
+    margin-inline: -0.25rem;
+    padding-inline: 0.75rem;
+  }
+
+  .archive-door > p,
+  .archive-door .text-link {
+    grid-column: 2;
+  }
+
+  .archive-door__number {
+    grid-row: 1 / span 3;
+    align-self: start;
+  }
+
+  .trust-list li {
+    grid-template-columns: 1fr;
+    gap: 0.2rem;
   }
 
   .mini-facts div {

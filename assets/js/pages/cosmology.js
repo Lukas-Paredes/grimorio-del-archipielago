@@ -23,10 +23,10 @@
     root = document.querySelector("#page-root");
     var types = G.uniqueSorted(G.relationships.map(function (rel) { return rel.type; }));
     root.innerHTML = [
-      '<section class="page-hero"><span class="chapter-index">Mapa relacional</span><span class="eyebrow">Diagrama y vista textual accesible</span><h1>Cosmología y relaciones</h1>',
-      '<p class="lead">Esta vista muestra cómo se conectan figuras y mundos. La red es curatorial: no constituye una cosmología tradicional oficial.</p>',
-      '<div class="curatorial-notice"><strong>Cómo leerla</strong><p>Parentesco y asociación legendaria pueden estar pendientes; oposición y territorio describen relaciones existentes; comparación y continuidad narrativa pueden ser herramientas del proyecto.</p></div></section>',
-      '<section class="cosmos-worlds" aria-labelledby="worlds-title"><div class="section-heading"><h2 id="worlds-title">Siete mundos</h2><p>El diagrama es una orientación visual. La lista de relaciones que sigue conserva toda la información en texto y puede filtrarse por tipo de vínculo.</p></div><div class="cosmos-map" aria-label="Diagrama editorial de los siete mundos">',
+      '<section class="page-hero"><span class="chapter-index">Puerta IV · Mapa interpretativo</span><span class="eyebrow">Relaciones simbólicas y curatoriales</span><h1>Cosmología y relaciones</h1>',
+      '<p class="lead">La cosmología del Grimorio propone una lectura de relaciones entre mar, tierra, bosque, noche, comunidad, muerte y navegación. Es una herramienta de recorrido, no una doctrina cerrada.</p>',
+      '<div class="curatorial-notice"><strong>Cómo leer el mapa</strong><p>La red relaciona figuras y mundos sin presentarse como verdad única. Parentesco y asociación legendaria pueden estar pendientes; comparación y continuidad narrativa pueden ser herramientas curatoriales.</p></div></section>',
+      '<section class="cosmos-worlds" aria-labelledby="worlds-title"><div class="section-heading"><h2 id="worlds-title">Siete capas del recorrido</h2><p>El diagrama ofrece orientación visual. La lista que sigue conserva las relaciones en texto, muestra su estado y permite filtrarlas por tipo de vínculo.</p></div><div class="cosmos-map" aria-label="Diagrama editorial de los siete mundos">',
       G.worlds.map(function (world) { return '<a class="cosmos-node" href="' + G.pageUrl("mundo.html", "?id=" + encodeURIComponent(world.id)) + '"><span>Mundo ' + world.number + '</span><strong>' + G.escape(world.shortTitle) + "</strong></a>"; }).join(""),
       '</div></section>',
       '<section class="section" aria-labelledby="relations-title"><div class="relation-toolbar"><div><h2 id="relations-title">Relaciones entre figuras y mundos</h2><p data-relation-count aria-live="polite"></p></div>',

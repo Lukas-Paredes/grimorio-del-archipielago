@@ -6,10 +6,9 @@
     ["home", "Inicio", "home"],
     ["bestiario.html", "Bestiario", "bestiary"],
     ["mundos.html", "Mundos", "worlds"],
-    ["recta-provincia.html", "Recta", "recta"],
-    ["cosmologia.html", "Cosmología", "cosmology"],
-    ["metodologia.html", "Método", "methodology"],
-    ["recorrido.html", "Recorrido", "journey"]
+    ["recta-provincia.html", "Recta Provincia", "recta"],
+    ["cosmologia.html", "Relaciones", "cosmology"],
+    ["metodologia.html", "Fuentes", "methodology"]
   ];
 
   G.renderHeader = function () {

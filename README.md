@@ -1,6 +1,6 @@
 # El Grimorio del Archipiélago
 
-Plataforma educativa y visual para consultar el **Bestiario del Archipiélago**, siete mundos curatoriales, fichas enciclopédicas, una exposición especial sobre la Recta Provincia, relaciones y fuentes.
+Archivo digital para la difusión cultural y la puesta en valor del imaginario del archipiélago. Reúne el **Bestiario del Archipiélago**, siete mundos curatoriales, fichas consultables, un expediente especial sobre la Recta Provincia, relaciones, variantes y fuentes.
 
 Los siete mundos son una organización editorial del proyecto. No constituyen una clasificación tradicional oficial ni una validación territorial, académica o institucional.
 
@@ -22,7 +22,7 @@ El proyecto mantiene compatibilidad con `file://`, pero el servidor local ofrece
 
 ## Páginas principales
 
-- `index.html`: entrada principal, portada y tres puertas de consulta.
+- `index.html`: entrada principal y explicación de las cinco puertas de consulta.
 - `pages/bestiario.html`: búsqueda, índice, filtros y vista rápida de las 24 fichas.
 - `pages/figura.html?id=caleuche`: plantilla de ficha con URL directa.
 - `pages/mundos.html`: índice abierto de los siete mundos.
@@ -78,7 +78,7 @@ Los campos vacíos deben permanecer como no documentados, pendientes o no aplica
 
 1. Edita `assets/js/data/worlds.js`.
 2. Mantén el rótulo de organización curatorial.
-3. Incluye figuras, ambientes, señales, idea educativa, fuentes y pendientes.
+3. Incluye figuras, ambientes, señales, clave de lectura, fuentes y pendientes.
 4. Registra relaciones curatoriales en `assets/js/data/relationships.js`.
 5. Prueba el índice, `pages/mundo.html?id=identificador` y el filtro del Bestiario.
 
@@ -114,6 +114,14 @@ Como mínimo:
 5. usa teclado y Escape;
 6. revisa a 390 px;
 7. comprueba enlaces relativos y consola.
+
+## Continuar el desarrollo con Claude Code
+
+Claude Code trabaja sobre esta misma carpeta Git: no existe una migración de código ni una copia paralela del proyecto. Debe iniciarse desde la raíz del repositorio con `claude`.
+
+Las reglas principales están en [`CLAUDE.md`](CLAUDE.md). La guía completa de traspaso está en [`docs/handoff/CLAUDE_CODE_HANDOFF.md`](docs/handoff/CLAUDE_CODE_HANDOFF.md) y la guía para trabajar desde otro computador está en [`docs/handoff/WORKING_FROM_ANOTHER_PC.md`](docs/handoff/WORKING_FROM_ANOTHER_PC.md).
+
+GitHub Desktop sigue siendo la herramienta recomendada para revisar cambios, crear commits y hacer push después de la revisión manual del usuario.
 
 ## Flujo Git recomendado
 

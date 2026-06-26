@@ -21,8 +21,8 @@
       '<p class="figure-card__nature">', G.escape(figure.nature), '</p>',
       '<p class="figure-card__description">', G.escape(figure.definition), '</p>',
       '<div class="figure-card__actions">',
-      '<button class="button button--quiet" type="button" data-quick-view="', G.escape(figure.id), '">Vista rápida</button>',
-      '<a class="text-link" href="', href, '">Abrir ficha completa</a>',
+      '<button class="button button--quiet" type="button" data-quick-view="', G.escape(figure.id), '">Consulta breve</button>',
+      '<a class="text-link" href="', href, '">Abrir ficha</a>',
       '</div></div></article>'
     ].join("");
   };

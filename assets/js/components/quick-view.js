@@ -27,7 +27,7 @@
     dialog.querySelector("[data-quick-content]").innerHTML = [
       '<div class="quick-view__layout">',
       G.illustrationPlaceholder(figure.illustrationId, "vertical", figure.name),
-      '<div><div class="eyebrow">Vista rápida · ', G.escape(world ? "Mundo " + world.number : "Archivo"), '</div>',
+      '<div><div class="eyebrow">Consulta breve · ', G.escape(world ? "Mundo " + world.number : "Archivo"), '</div>',
       '<h2 id="quick-title">', G.escape(figure.name), '</h2>',
       G.seal(figure.status),
       '<p class="lead">', G.escape(figure.definition), '</p>',
@@ -35,8 +35,8 @@
       '<div><dt>Ambientes</dt><dd>', G.escape(G.listText(figure.environments)), '</dd></div>',
       '<div><dt>Señales</dt><dd>', G.escape(G.listText(figure.signals)), '</dd></div></dl>',
       '<p><strong>Estado y pendiente:</strong> ', G.escape(figure.pending), '</p>',
-      '<div class="actions"><a class="button" href="', G.pageUrl("figura.html", "?id=" + encodeURIComponent(figure.id) + "&return=" + encodeURIComponent(returnUrl)), '">Abrir ficha completa</a>',
-      '<a class="text-link" href="', G.pageUrl("mundo.html", "?id=" + encodeURIComponent(figure.worldId)), '">Explorar su mundo</a></div>',
+      '<div class="actions"><a class="button" href="', G.pageUrl("figura.html", "?id=" + encodeURIComponent(figure.id) + "&return=" + encodeURIComponent(returnUrl)), '">Abrir ficha</a>',
+      '<a class="text-link" href="', G.pageUrl("mundo.html", "?id=" + encodeURIComponent(figure.worldId)), '">Recorrer su mundo</a></div>',
       '</div></div>'
     ].join("");
     dialog.showModal();

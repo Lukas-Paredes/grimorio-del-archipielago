@@ -16,7 +16,7 @@
     ];
 
     root.innerHTML = [
-      '<section class="page-hero"><span class="chapter-index">Ruta opcional</span><span class="eyebrow">Siete paradas · sin desbloqueos</span><h1>Recorrido sugerido</h1>',
+      '<section class="page-hero"><span class="chapter-index">Ruta opcional</span><span class="eyebrow">Siete paradas · consulta siempre abierta</span><h1>Recorrido sugerido</h1>',
       '<p class="lead">Una secuencia breve para quien prefiera entrar al archivo con orientación. Cada parada enlaza contenido ya disponible; la mediación narrativa más compleja permanece como fase futura.</p>',
       '<div class="curatorial-notice"><strong>La consulta siempre permanece abierta</strong><p>Puedes abandonar la ruta, cambiar el orden o ir directamente a cualquier ficha, mundo, fuente o relación.</p></div></section>',
       '<section class="journey-route" aria-label="Paradas del recorrido sugerido">',

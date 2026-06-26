@@ -46,13 +46,13 @@
     document.title = figure.name + " · Bestiario del Archipiélago";
     root.innerHTML = [
       '<nav class="breadcrumbs" aria-label="Migas de pan"><a href="', G.homeUrl(), '">Inicio</a><span aria-hidden="true">/</span><a href="', G.pageUrl("bestiario.html"), '">Bestiario</a><span aria-hidden="true">/</span><span aria-current="page">', G.escape(figure.name), '</span></nav>',
-      '<article class="dossier"><header class="dossier-hero"><div class="dossier-hero__copy"><a class="back-link" href="', G.escape(returnUrl), '">← Volver al resultado anterior</a>',
+      '<article class="dossier"><header class="dossier-hero"><div class="dossier-hero__copy"><a class="back-link" href="', G.escape(returnUrl), '">← Volver al archivo</a>',
       '<span class="eyebrow">', G.escape(world ? "Mundo " + world.number + " · " + world.title : "Archivo"), '</span>',
       '<h1>', G.escape(figure.name), '</h1>',
       figure.alternativeNames.length ? '<p class="aliases">También: ' + G.escape(figure.alternativeNames.join(" · ")) + "</p>" : "",
       '<p class="lead">', G.escape(figure.definition), '</p>',
       '<div class="seal-row">', G.seal(figure.status), '<span class="tag">', G.escape(figure.nature), '</span></div>',
-      '<a class="button button--quiet" href="', G.pageUrl("mundo.html", "?id=" + encodeURIComponent(figure.worldId)), '">Explorar su mundo</a></div>',
+      '<a class="button button--quiet" href="', G.pageUrl("mundo.html", "?id=" + encodeURIComponent(figure.worldId)), '">Recorrer su mundo</a></div>',
       '<div class="dossier-hero__art">', G.illustrationPlaceholder(figure.illustrationId, "vertical", figure.name), '</div></header>',
       '<div class="dossier-facts"><div><span>Mundo</span><strong>', G.escape(world ? world.title : "No documentado"), '</strong></div>',
       '<div><span>Naturaleza</span><strong>', G.escape(figure.nature), '</strong></div>',
@@ -73,7 +73,7 @@
       section("Relaciones y figuras relacionadas", relationshipList(figure)),
       section("Interpretación del proyecto", G.renderList(figure.interpretations)),
       section("Cultura posterior", G.renderList(figure.culturalPresence, "Pendiente de investigación.")),
-      '<footer class="dossier-footer"><a class="button" href="', G.pageUrl("mundo.html", "?id=" + encodeURIComponent(figure.worldId)), '">Abrir Mundo ', G.escape(world ? world.number : ""), '</a><a class="text-link" href="', G.pageUrl("metodologia.html"), '">Consultar metodología y estados</a></footer>',
+      '<footer class="dossier-footer"><a class="button" href="', G.pageUrl("mundo.html", "?id=" + encodeURIComponent(figure.worldId)), '">Recorrer Mundo ', G.escape(world ? world.number : ""), '</a><a class="text-link" href="', G.pageUrl("metodologia.html"), '">Revisar fuentes y criterios</a></footer>',
       '<nav class="dossier-siblings" aria-label="Fichas anterior y siguiente"><a href="', G.pageUrl("figura.html", "?id=" + encodeURIComponent(previous.id)), '"><small>← Ficha anterior</small><strong>', G.escape(previous.name), '</strong></a>',
       '<a href="', G.pageUrl("figura.html", "?id=" + encodeURIComponent(next.id)), '"><small>Ficha siguiente →</small><strong>', G.escape(next.name), '</strong></a></nav>',
       '</article>'

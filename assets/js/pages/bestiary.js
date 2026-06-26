@@ -94,10 +94,11 @@
     var letters = G.uniqueSorted(G.figures.map(function (item) { return G.normalize(item.name).charAt(0).toUpperCase(); }));
 
     root.innerHTML = [
-      '<section class="page-hero page-hero--bestiary"><span class="chapter-index">Archivo I · Consulta abierta</span><span class="eyebrow">24 fichas · siete mundos curatoriales</span><h1>Bestiario del Archipiélago</h1>',
-      '<p class="subtitle">Seres, presencias y figuras de la tradición chilota</p>',
-      '<p class="lead">Busca por nombre o señal, explora por mundo y distingue figuras principales, entradas secundarias, comparaciones y archivo pendiente. Ningún filtro oculta de forma permanente el resto del archivo.</p></section>',
-      '<section class="search-panel" aria-labelledby="search-title"><div class="search-panel__top"><div><h2 id="search-title">Buscar y filtrar</h2><p data-result-count aria-live="polite"></p></div>',
+      '<section class="page-hero page-hero--bestiary"><span class="chapter-index">Puerta I · Archivo de figuras</span><span class="eyebrow">24 fichas · consulta pública</span><h1>Bestiario del Archipiélago</h1>',
+      '<p class="subtitle">Figuras del relato y la memoria cultural</p>',
+      '<p class="lead">El Bestiario reúne personajes, presencias y seres del imaginario chilote y archipelágico. No son criaturas coleccionables: cada ficha permite consultar descripción, variantes, relaciones, fuentes y estado de documentación.</p>',
+      '<div class="archive-definition"><strong>Cómo leer este archivo</strong><p>Las fichas distinguen relato, interpretación curatorial y fuente. Las categorías organizan la consulta sin fijar una versión única de cada figura.</p></div></section>',
+      '<section class="search-panel" aria-labelledby="search-title"><div class="search-panel__top"><div><span class="eyebrow">Herramientas de consulta</span><h2 id="search-title">Buscar dentro del Bestiario</h2><p data-result-count aria-live="polite"></p></div>',
       '<button class="button button--quiet" type="button" data-clear-filters>Limpiar filtros</button></div>',
       '<div class="filter-grid"><label class="filter filter--wide"><span>Buscar</span><input type="search" value="', G.escape(state.q), '" data-filter="q" placeholder="Ej.: Caleuche, niebla, sendero"></label>',
       '<label class="filter"><span>Mundo</span><select data-filter="world">', option("all", "Todos los mundos", state.world),

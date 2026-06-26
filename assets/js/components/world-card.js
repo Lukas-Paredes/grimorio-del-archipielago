@@ -18,8 +18,8 @@
       '<p>', G.escape(world.introduction), '</p>',
       '<p class="world-card__figures"><strong>Figuras:</strong> ', G.escape(names.join(" · ")), '</p>',
       options.compact ? "" : G.illustrationPlaceholder(world.illustrationId, "panoramic", world.title),
-      '<div class="world-card__actions"><a class="button button--quiet" href="', G.pageUrl("mundo.html", "?id=" + encodeURIComponent(world.id)), '">Abrir este mundo</a>',
-      '<a class="text-link" href="', G.pageUrl("bestiario.html", "?world=" + encodeURIComponent(world.id)), '">Ver sus fichas</a></div>',
+      '<div class="world-card__actions"><a class="button button--quiet" href="', G.pageUrl("mundo.html", "?id=" + encodeURIComponent(world.id)), '">Recorrer mundo</a>',
+      '<a class="text-link" href="', G.pageUrl("bestiario.html", "?world=" + encodeURIComponent(world.id)), '">Consultar sus figuras</a></div>',
       '</div></article>'
     ].join("");
   };

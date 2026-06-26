@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" role="img" aria-label="El Grimorio del Archipiélago">
+  <rect width="32" height="32" rx="3" fill="#071513"/>
+  <rect x="2.5" y="2.5" width="27" height="27" rx="2" fill="none" stroke="#b27a3d" stroke-width="1"/>
+  <text x="16" y="23" text-anchor="middle" font-family="'Iowan Old Style', Palatino, Georgia, serif" font-size="21" fill="#c19655">G</text>
+</svg>

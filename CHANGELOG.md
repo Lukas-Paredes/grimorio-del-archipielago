@@ -1,5 +1,15 @@
 # Changelog
 
+## 25 de junio de 2026
+
+### Modificado
+- La portada explica el Grimorio como archivo navegable del imaginario del archipiélago.
+- Las cinco puertas de entrada —Bestiario, Mundos, Recta Provincia, Relaciones y Fuentes— aparecen con función y jerarquía propias.
+- Se reforzó el lenguaje de difusión cultural, mediación, consulta pública y trazabilidad.
+- Bestiario, Mundos, Recta Provincia, Cosmología y Metodología aclaran su función desde el encabezado.
+- La microcopy acompaña acciones de consulta, recorrido, expediente y revisión de fuentes.
+- Se hizo visible el estado actual del archivo y lo que continúa pendiente de documentación o desarrollo.
+
 ## 24 de junio de 2026
 
 ### Agregado
