@@ -52,78 +52,147 @@
   margin: 0;
 }
 
+/* ----------------------------------------------------------------------------
+   MARCO DE ILUSTRACIÓN PENDIENTE — fragmento de pintura oscura al óleo.
+   Replica el lenguaje de atmosphere.css (museo nocturno, dark fantasy ochentera)
+   dentro de las tres únicas superficies disponibles:
+
+     1. background del campo  -> profundidad noche mate + halo de ambiente del mundo
+     2. ::before              -> grano de tinta pintado (feTurbulence, soft-light)
+     3. ::after               -> viñeta de penumbra (empuja los bordes a la sombra)
+     4. __copy / __sigil      -> contenido (z-index: 1), siempre legible
+
+   Mate, orgánico, sin brillos digitales, sin líneas inclinadas, sin halos 3D
+   desplazados, sin degradés vidriosos. Estático: no necesita animación.
+
+   Patrón DRY: el campo define variables locales (--ph-*) y cada variante por
+   mundo SOLO las redefine, calcando los ánimos y rgba de atmosphere.css.
+   Bajo la obra real (.art-placeholder__image, opaca) todo esto queda oculto;
+   ::before y ::after además se apagan con --available (contrato intacto).
+---------------------------------------------------------------------------- */
 .art-placeholder__field {
+  /* Neutro por defecto: noche profunda, sin tinte de mundo (lo más sobrio). */
+  --ph-depth: var(--night);                 /* fondo de profundidad (opaco) */
+  --ph-tint: rgba(40, 74, 59, 0.22);        /* --moss-dark, halo de ambiente muy tenue */
+  --ph-glow: rgba(216, 223, 216, 0.10);     /* --fog, claro pintado (Dark Crystal), mínimo */
+  --ph-beam-x: 32%;                         /* origen horizontal del halo y del claro */
+  --ph-edge: 0.92;                          /* fuerza de la viñeta de penumbra */
+  --ph-edge-stop: 38%;                      /* dónde empieza a cerrar la penumbra */
+
   position: relative;
   min-height: 280px;
   display: grid;
-  place-items: end start;
+  place-items: end start;          /* el copy va abajo-izquierda */
   overflow: hidden;
-  isolation: isolate;
+  isolation: isolate;              /* el soft-light del grano se mezcla solo dentro del campo */
   border: 1px solid var(--line-dark);
   color: #e8dfcf;
+
+  /* FONDO DE PROFUNDIDAD (mate, no saturado): un claro direccional muy tenue
+     (luz pintada al óleo, sin brillo digital) + el halo de ambiente del mundo,
+     ambos sobre el descenso a noche cerrada que cierra en #04100e.
+     El claro va "horneado" en este degradé en vez de un pseudo con screen, así
+     evitamos gastar un blend-mode y se lee como pasta de óleo, nunca como vidrio.
+     Calcado de .atmosphere::before + el ánimo de .atmosphere__beam. */
   background:
-    linear-gradient(180deg, transparent 15%, rgba(4, 16, 14, 0.86)),
-    linear-gradient(132deg, #1d4b49, #0b2220 54%, #081512);
+    radial-gradient(58% 78% at var(--ph-beam-x) 2%, var(--ph-glow), transparent 70%),
+    radial-gradient(125% 85% at var(--ph-beam-x) -12%, var(--ph-tint), transparent 62%),
+    linear-gradient(180deg, var(--ph-depth), #04100e 125%);
 }
 
+/* GRANO DE TINTA pintado: el MISMO SVG feTurbulence embebido que
+   .atmosphere__ink, en soft-light para que quede mate y orgánico. Opacidad algo
+   mayor (0.16 -> 0.18) y mosaico más fino (170 -> 138px) porque el marco es
+   pequeño: a ese tamaño el grano se lee como textura de óleo y no como bruma
+   uniforme. soft-light no aclara los medios tonos, así el copy sigue legible. */
 .art-placeholder__field::before {
   content: "";
   position: absolute;
   z-index: -1;
-  right: -8%;
-  bottom: -20%;
-  width: 75%;
-  height: 90%;
-  background:
-    linear-gradient(150deg, transparent 35%, rgba(7, 17, 15, 0.9) 36% 62%, transparent 63%),
-    linear-gradient(35deg, transparent 47%, rgba(8, 19, 16, 0.82) 48% 65%, transparent 66%);
-  filter: drop-shadow(-22px -12px 0 rgba(32, 75, 67, 0.6));
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='atmInkNoise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23atmInkNoise)'/%3E%3C/svg%3E");
+  background-size: 138px 138px;
+  opacity: 0.18;
+  mix-blend-mode: soft-light;
 }
 
+/* VIÑETA DE PENUMBRA: empuja los bordes a la sombra (profundidad de óleo) y deja
+   el centro respirando para que el copy abajo-izquierda y el sigilo no se laven.
+   Calcado de .atmosphere__vignette. */
 .art-placeholder__field::after {
   content: "";
   position: absolute;
   z-index: -1;
-  right: 8%;
-  bottom: 11%;
-  left: 7%;
-  height: 18%;
-  border-top: 1px solid rgba(218, 205, 177, 0.26);
-  border-bottom: 1px solid rgba(218, 205, 177, 0.12);
-  transform: skewY(-4deg);
-}
-
-.art-placeholder--cover .art-placeholder__field,
-.art-placeholder--cover .art-placeholder__field::before {
-  background-color: #071715;
-}
-
-.art-placeholder--recta .art-placeholder__field {
+  inset: 0;
   background:
-    linear-gradient(180deg, transparent, rgba(4, 12, 11, 0.94)),
-    linear-gradient(130deg, #493128, #151c19 58%, #080e0d);
+    radial-gradient(118% 92% at 50% 34%, transparent var(--ph-edge-stop), rgba(7, 21, 19, var(--ph-edge)) 100%);
+  box-shadow: inset 0 0 7rem rgba(4, 12, 11, 0.55);
 }
 
-.art-placeholder--sea .art-placeholder__field,
-.art-placeholder--caleuche .art-placeholder__field,
-.art-placeholder--pincoya .art-placeholder__field {
-  background:
-    linear-gradient(180deg, transparent 16%, rgba(4, 17, 18, 0.9)),
-    linear-gradient(132deg, #245d65, #102d31 55%, #071819);
-}
-
-.art-placeholder--forest .art-placeholder__field,
-.art-placeholder--trauco .art-placeholder__field {
-  background:
-    linear-gradient(180deg, transparent 16%, rgba(7, 17, 13, 0.9)),
-    linear-gradient(132deg, #466047, #1b3025 55%, #0a1711);
-}
-
+/* CONTRATO --available: al llegar la obra real, grano y viñeta se apagan para que
+   la pintura (.art-placeholder__image, inset:0, object-fit:cover) ocupe el marco
+   limpia. El fondo base del campo queda detrás de la imagen opaca (invisible). */
 .art-placeholder--available .art-placeholder__field::before,
 .art-placeholder--available .art-placeholder__field::after {
   display: none;
 }
 
+/* ----------------------------------------------------------------------------
+   Variantes por mundo: SOLO redefinen las variables locales, tomando el ánimo
+   documentado en la paleta del proyecto (mismos tintes que atmosphere.css).
+   Clases emitidas por app.js: --cover (ratio neutro), --sea (mar/Caleuche/aguas),
+   --forest (Trauco/Fiura), --recta, --origin, --dead-roads.
+---------------------------------------------------------------------------- */
+
+/* Portada / neutro: lo más profundo, sin tinte de mundo. */
+.art-placeholder--cover .art-placeholder__field {
+  --ph-tint: rgba(13, 36, 32, 0.45);        /* --night-soft, profundidad sin color de mundo */
+  --ph-glow: rgba(216, 223, 216, 0.07);     /* claro lunar mínimo */
+  --ph-beam-x: 50%;
+  --ph-edge: 0.94;
+}
+
+/* Mar: mar nocturno, claro de espuma frío. */
+.art-placeholder--sea .art-placeholder__field {
+  --ph-tint: rgba(45, 105, 113, 0.40);      /* --sea */
+  --ph-glow: rgba(145, 170, 165, 0.20);     /* --sea-pale */
+  --ph-beam-x: 26%;
+}
+
+/* Bosque / monte húmedo. */
+.art-placeholder--forest .art-placeholder__field {
+  --ph-tint: rgba(40, 74, 59, 0.46);        /* --moss-dark */
+  --ph-glow: rgba(145, 170, 165, 0.16);     /* --sea-pale, frío vegetal */
+  --ph-beam-x: 34%;
+}
+
+/* Recta Provincia: expediente y óxido, secreto. Penumbra más cerrada. */
+.art-placeholder--recta .art-placeholder__field {
+  --ph-depth: var(--surface-dark);          /* #0b201c */
+  --ph-tint: rgba(152, 77, 56, 0.38);       /* --rust */
+  --ph-glow: rgba(178, 122, 61, 0.16);      /* --copper */
+  --ph-beam-x: 22%;
+  --ph-edge: 0.96;
+  --ph-edge-stop: 34%;
+}
+
+/* Origen y transformación: tierra y agua, halo de oro contenido. */
+.art-placeholder--origin .art-placeholder__field {
+  --ph-tint: rgba(40, 74, 59, 0.40);        /* --moss-dark */
+  --ph-glow: rgba(193, 150, 85, 0.15);      /* --gold */
+  --ph-beam-x: 30%;
+}
+
+/* Muertos, costa y caminos: lo más frío y sobrio. */
+.art-placeholder--dead-roads .art-placeholder__field {
+  --ph-tint: rgba(63, 104, 98, 0.24);       /* --provisional, muy tenue */
+  --ph-glow: rgba(216, 223, 216, 0.14);     /* --fog frío */
+  --ph-beam-x: 50%;
+}
+
+/* ----------------------------------------------------------------------------
+   Estructura interna (sin cambios funcionales respecto al original).
+---------------------------------------------------------------------------- */
 .art-placeholder__image {
   position: absolute;
   z-index: -1;
