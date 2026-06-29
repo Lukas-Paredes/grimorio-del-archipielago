@@ -1,0 +1,848 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>El Caleuche · Grimorio del Archipiélago (demo)</title>
+<meta name="description" content="Ficha de demostración del bestiario — El Caleuche. Prototipo visual grimorio dark fantasy.">
+
+<!-- Tipografías de manuscrito (CDN). Si no hay internet, caen a serif del sistema.
+     Para el sitio real se reemplazarían por fuentes auto-hospedadas (sin CDN). -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Cinzel+Decorative:wght@700;900&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+
+<style>
+/* ════════════════════════════════════════════════════════════════════════
+   DEMO AISLADO · Ficha del Caleuche · "grimorio dark fantasy"
+   Todo el CSS/JS va embebido. No depende del sitio ni lo toca.
+   Paleta que ECO de los tokens del sitio (assets/css/tokens.css) para que
+   la dirección estética sea replicable a las 68 fichas.
+   ════════════════════════════════════════════════════════════════════════ */
+
+:root {
+  /* — Noche y mar (eco de tokens.css: --night, --surface-dark, --sea) — */
+  --c-abyss:       #03070c;   /* casi negro, borde del mundo */
+  --c-night:       #061019;   /* azul de noche profundo */
+  --c-deep:        #0a1a2b;   /* azul de mar profundo */
+  --c-sea:         #14313f;   /* mar iluminado por la luna */
+  --c-sea-pale:    #91aaa5;   /* espuma fría */
+
+  /* — Oro viejo y óxido (eco de --gold, --copper, --rust) — */
+  --c-gold:        #c19655;
+  --c-gold-bright: #e6c884;
+  --c-gold-dim:    rgba(193, 150, 85, 0.42);
+  --c-copper:      #b27a3d;
+  --c-rust:        #984d38;
+
+  /* — Tinta, niebla, pergamino — */
+  --c-fog:         #d8dfd8;
+  --c-ink:         #e9e2d2;   /* texto sobre noche */
+  --c-ink-soft:    #b9b3a4;
+  --c-parch-base:  #241c12;   /* pergamino oscuro (fallback) */
+  --c-parch-ink:   #ecdcb8;   /* texto cálido sobre pergamino */
+  --c-parch-soft:  #c4ad84;
+
+  --font-display: "Cinzel Decorative", "Cinzel", "Trajan Pro", Georgia, serif;
+  --font-head:    "Cinzel", "Trajan Pro", Georgia, serif;
+  --font-body:    "EB Garamond", "IM Fell English", Georgia, "Times New Roman", serif;
+
+  --reading: 64ch;
+  --radius: 2px;
+  --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+html, body {
+  margin: 0;
+  overflow-x: hidden;            /* guarda anti-scroll-horizontal a 390px */
+}
+
+body {
+  min-height: 100vh;
+  color: var(--c-ink);
+  font-family: var(--font-body);
+  font-size: clamp(1.02rem, 0.95rem + 0.4vw, 1.18rem);
+  line-height: 1.72;
+  background: var(--c-abyss);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+img { image-rendering: pixelated; }   /* conserva el filo del pixel art */
+
+/* ── FONDO DE PÁGINA: mar nocturno fijo + degradado de respaldo ──────────── */
+.sea-bg {
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  /* La imagen va primero; si falta (404), quedan los degradados de mar profundo. */
+  background:
+    url("assets/fondo-mar.png") center top / cover no-repeat,
+    radial-gradient(120% 80% at 50% 0%, var(--c-deep), transparent 60%),
+    linear-gradient(180deg, var(--c-night) 0%, var(--c-abyss) 70%);
+  background-color: var(--c-night);
+  image-rendering: pixelated;
+}
+/* Overlay translúcido: el texto SIEMPRE debe leerse sobre el mar. */
+.sea-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background:
+    radial-gradient(130% 90% at 50% 8%, transparent 30%, rgba(3, 7, 12, 0.72) 100%),
+    linear-gradient(180deg, rgba(4, 10, 18, 0.46) 0%, rgba(3, 6, 12, 0.78) 60%, rgba(2, 4, 8, 0.92) 100%);
+}
+
+/* ── COLUMNA ─────────────────────────────────────────────────────────────── */
+.page { position: relative; }
+
+.content {
+  width: min(100% - 2.4rem, 72ch);
+  margin: 0 auto;
+  padding: clamp(2rem, 6vw, 4rem) 0 5rem;
+}
+
+.block + .block { margin-top: clamp(2.6rem, 6vw, 4.2rem); }
+
+/* ════════ HERO ════════════════════════════════════════════════════════════ */
+.hero {
+  position: relative;
+  min-height: clamp(420px, 86svh, 760px);
+  display: grid;
+  align-items: end;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+/* Ilustración del Caleuche (object-fit: cover, sin deformar). */
+.hero__art {
+  position: absolute;
+  inset: -6% 0 0;            /* un poco más alta para el parallax */
+  z-index: -3;
+  will-change: transform;
+}
+.hero__art img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 42%;
+  display: block;
+}
+.hero__art img.is-missing { display: none; }   /* si no está caleuche.png */
+/* Fondo pintado de respaldo del hero (se ve si falta la ilustración). */
+.hero__art::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background:
+    radial-gradient(80% 60% at 50% 36%, rgba(193, 150, 85, 0.16), transparent 70%),
+    radial-gradient(120% 90% at 50% 30%, var(--c-sea), var(--c-night) 70%);
+}
+
+/* Degradados que funden la imagen con el fondo (bordes oscuros). */
+.hero__fade {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  pointer-events: none;
+  background:
+    linear-gradient(180deg, rgba(3, 7, 12, 0.78) 0%, transparent 26% 52%, rgba(3, 6, 12, 0.96) 100%),
+    linear-gradient(90deg, rgba(3, 7, 12, 0.8) 0%, transparent 18% 82%, rgba(3, 7, 12, 0.8) 100%);
+}
+
+/* ── NIEBLA: 2-3 capas. Cada .fog hace parallax (JS, translateY);
+      su .fog__band hace deriva lenta en loop (CSS, translateX). ──────────── */
+.fog {
+  position: absolute;
+  left: -20%;
+  right: -20%;
+  z-index: -1;
+  pointer-events: none;
+  will-change: transform;
+}
+.fog__band {
+  position: absolute;
+  inset: 0;
+  background-repeat: no-repeat;
+  will-change: transform;
+}
+.fog--1 { top: 38%; height: 46%; opacity: 0.5; }
+.fog--1 .fog__band {
+  background:
+    radial-gradient(38% 60% at 20% 50%, rgba(216, 223, 216, 0.22), transparent 70%),
+    radial-gradient(44% 70% at 62% 46%, rgba(200, 212, 220, 0.18), transparent 72%),
+    radial-gradient(34% 60% at 88% 56%, rgba(216, 223, 216, 0.14), transparent 70%);
+  animation: drift-a 64s ease-in-out infinite alternate;
+}
+.fog--2 { top: 54%; height: 50%; opacity: 0.62; }
+.fog--2 .fog__band {
+  background:
+    radial-gradient(42% 64% at 30% 60%, rgba(190, 205, 214, 0.26), transparent 72%),
+    radial-gradient(50% 72% at 74% 52%, rgba(216, 223, 216, 0.2), transparent 74%);
+  animation: drift-b 86s ease-in-out infinite alternate;
+}
+.fog--3 { top: 66%; height: 52%; opacity: 0.8; }
+.fog--3 .fog__band {
+  background:
+    radial-gradient(60% 80% at 50% 70%, rgba(176, 192, 203, 0.3), transparent 74%),
+    radial-gradient(40% 60% at 16% 64%, rgba(216, 223, 216, 0.2), transparent 72%);
+  animation: drift-a 102s ease-in-out infinite alternate-reverse;
+}
+@keyframes drift-a { from { transform: translate3d(-4%, 0, 0); } to { transform: translate3d(4%, 0, 0); } }
+@keyframes drift-b { from { transform: translate3d(5%, 1%, 0); } to { transform: translate3d(-5%, -1%, 0); } }
+
+/* Título del hero, sobre la niebla. */
+.hero__title {
+  position: relative;
+  z-index: 2;
+  width: min(100% - 2.4rem, 72ch);
+  margin: 0 auto;
+  padding: 0 0 clamp(2.4rem, 7vw, 5rem);
+  text-align: center;
+}
+.hero__kicker {
+  margin: 0 0 1.1rem;
+  color: var(--c-gold);
+  font-family: var(--font-head);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.42em;
+  text-transform: uppercase;
+  text-indent: 0.42em;
+}
+.hero__name {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: clamp(2.9rem, 9vw, 6.4rem);
+  line-height: 0.98;
+  color: #f3ead6;
+  letter-spacing: 0.01em;
+  text-shadow:
+    0 2px 1px rgba(0, 0, 0, 0.6),
+    0 0 26px rgba(193, 150, 85, 0.34),
+    0 0 64px rgba(193, 150, 85, 0.18);
+  animation: name-glow 7s ease-in-out infinite;
+}
+@keyframes name-glow {
+  0%, 100% { text-shadow: 0 2px 1px rgba(0,0,0,0.6), 0 0 22px rgba(193,150,85,0.26), 0 0 60px rgba(193,150,85,0.14); }
+  50%      { text-shadow: 0 2px 1px rgba(0,0,0,0.6), 0 0 30px rgba(193,150,85,0.42), 0 0 78px rgba(193,150,85,0.24); }
+}
+.hero__alias {
+  margin: 1rem auto 0;
+  max-width: 52ch;
+  color: var(--c-sea-pale);
+  font-family: var(--font-head);
+  font-size: clamp(0.8rem, 0.7rem + 0.4vw, 1rem);
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+.hero__hook {
+  margin: 1.6rem auto 0;
+  max-width: 48ch;
+  color: var(--c-ink);
+  font-family: var(--font-body);
+  font-style: italic;
+  font-size: clamp(1.05rem, 1rem + 0.6vw, 1.4rem);
+  line-height: 1.6;
+  text-shadow: 0 1px 10px rgba(0, 0, 0, 0.8);
+}
+.hero__hook::before, .hero__hook::after { content: "\201C"; }
+.hero__hook::after { content: "\201D"; }
+
+.scroll-cue {
+  position: relative;
+  z-index: 2;
+  margin: -1.4rem auto 0;
+  width: max-content;
+  color: var(--c-gold);
+  font-size: 1.3rem;
+  opacity: 0.7;
+  animation: bob 2.6s ease-in-out infinite;
+}
+@keyframes bob { 0%,100% { transform: translateY(0); } 50% { transform: translateY(7px); } }
+
+/* ════════ MARCO ORNAMENTADO (pura CSS, sin imágenes) ══════════════════════ */
+.frame {
+  position: relative;
+  padding: clamp(1.5rem, 4.5vw, 2.6rem);
+  /* Fondo pergamino oscuro; si falta pergamino.png, queda el degradado base. */
+  background:
+    url("assets/pergamino.png") center / cover,
+    radial-gradient(120% 100% at 30% 12%, #2f2417, var(--c-parch-base) 70%);
+  background-color: var(--c-parch-base);
+  background-blend-mode: multiply, normal;
+  image-rendering: pixelated;
+  color: var(--c-parch-ink);
+  border: 1px solid var(--c-gold-dim);
+  box-shadow:
+    inset 0 0 0 1px rgba(0, 0, 0, 0.5),
+    inset 0 0 44px rgba(0, 0, 0, 0.6),
+    0 22px 50px rgba(0, 0, 0, 0.5);
+}
+/* Segunda línea interior (doble filete de manuscrito). */
+.frame::before {
+  content: "";
+  position: absolute;
+  inset: 7px;
+  border: 1px solid rgba(193, 150, 85, 0.3);
+  pointer-events: none;
+}
+/* Esquinas ornamentadas: corchete + diamante (las inyecta el JS). */
+.frame-corner {
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  border: 1.5px solid var(--c-gold);
+  pointer-events: none;
+}
+.frame-corner::after {
+  content: "";
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  background: var(--c-gold);
+  transform: rotate(45deg);
+  box-shadow: 0 0 7px rgba(193, 150, 85, 0.6);
+}
+.frame-corner.tl { top: -1px; left: -1px; border-right: 0; border-bottom: 0; }
+.frame-corner.tr { top: -1px; right: -1px; border-left: 0; border-bottom: 0; }
+.frame-corner.bl { bottom: -1px; left: -1px; border-right: 0; border-top: 0; }
+.frame-corner.br { bottom: -1px; right: -1px; border-left: 0; border-top: 0; }
+.frame-corner.tl::after { top: -4px; left: -4px; }
+.frame-corner.tr::after { top: -4px; right: -4px; }
+.frame-corner.bl::after { bottom: -4px; left: -4px; }
+.frame-corner.br::after { bottom: -4px; right: -4px; }
+
+/* Encabezado de sección con filete y diamante central. */
+.rule {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin: 0 0 1.4rem;
+}
+.rule::before, .rule::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--c-gold-dim), transparent);
+}
+.rule h2 {
+  margin: 0;
+  font-family: var(--font-head);
+  font-weight: 600;
+  font-size: clamp(1.05rem, 1rem + 0.6vw, 1.5rem);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--c-gold-bright);
+  white-space: nowrap;
+}
+.rule--solo { margin-bottom: 1.8rem; }
+
+/* ════════ DATOS DE BESTIARIO ══════════════════════════════════════════════ */
+.data-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0;
+}
+.data-item {
+  padding: 0.95rem 0.4rem;
+  border-bottom: 1px solid rgba(193, 150, 85, 0.16);
+}
+.data-item:nth-child(odd)  { padding-right: 1.2rem; border-right: 1px solid rgba(193, 150, 85, 0.16); }
+.data-item:nth-child(even) { padding-left: 1.2rem; }
+.data-item--wide { grid-column: 1 / -1; border-right: 0; padding-right: 0.4rem; }
+.data-item dt {
+  margin: 0 0 0.3rem;
+  color: var(--c-copper);
+  font-family: var(--font-head);
+  font-size: 0.64rem;
+  font-weight: 600;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+}
+.data-item dd {
+  margin: 0;
+  font-size: 1.06rem;
+  color: var(--c-parch-ink);
+}
+.data-item--wide dd { font-style: italic; line-height: 1.55; }
+
+/* ════════ RESUMEN destacado ═══════════════════════════════════════════════ */
+.resumen {
+  margin: 0;
+  padding: 0 0 0 1.4rem;
+  border-left: 2px solid var(--c-gold);
+  color: var(--c-fog);
+  font-family: var(--font-body);
+  font-style: italic;
+  font-size: clamp(1.25rem, 1.1rem + 0.9vw, 1.7rem);
+  line-height: 1.5;
+  text-shadow: 0 1px 12px rgba(0, 0, 0, 0.7);
+}
+
+/* ════════ DESCRIPCIÓN ═════════════════════════════════════════════════════ */
+.desc p {
+  margin: 0;
+  color: var(--c-ink);
+  text-shadow: 0 1px 10px rgba(0, 0, 0, 0.6);
+}
+.desc p::first-letter {
+  float: left;
+  margin: 0.02em 0.12em 0 0;
+  color: var(--c-gold-bright);
+  font-family: var(--font-display);
+  font-size: 3.6em;
+  line-height: 0.72;
+  text-shadow: 0 0 18px rgba(193, 150, 85, 0.4);
+}
+
+/* ════════ VARIANTES (tarjetas) ════════════════════════════════════════════ */
+.variant-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(1rem, 2.5vw, 1.6rem);
+}
+.variant-card { display: flex; flex-direction: column; gap: 0.7rem; }
+.variant-card h3 {
+  margin: 0;
+  font-family: var(--font-head);
+  font-weight: 600;
+  font-size: 1.04rem;
+  letter-spacing: 0.04em;
+  color: var(--c-gold-bright);
+}
+.variant-card h3::before {
+  content: "❧";
+  margin-right: 0.5rem;
+  color: var(--c-copper);
+}
+.variant-card p { margin: 0; font-size: 0.98rem; color: var(--c-parch-ink); }
+
+/* ════════ NOTA DEL ARCHIVERO (interpretación) ═════════════════════════════ */
+.archivist {
+  position: relative;
+  padding: clamp(1.4rem, 4vw, 2.2rem) clamp(1.4rem, 4vw, 2.2rem) clamp(1.4rem, 4vw, 2.2rem);
+  border: 1px solid rgba(152, 77, 56, 0.5);
+  border-left: 3px solid var(--c-rust);
+  background: linear-gradient(180deg, rgba(40, 18, 12, 0.5), rgba(6, 16, 22, 0.4));
+  color: var(--c-ink);
+}
+.archivist__label {
+  display: block;
+  margin-bottom: 0.6rem;
+  color: var(--c-rust);
+  font-family: var(--font-head);
+  font-size: 0.66rem;
+  font-weight: 600;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+}
+.archivist p { margin: 0; font-style: italic; line-height: 1.66; }
+
+/* ════════ RELACIONES ══════════════════════════════════════════════════════ */
+.relation-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.7rem;
+}
+.relation-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.5rem 0.95rem;
+  border: 1px solid var(--c-gold-dim);
+  border-radius: 999px;
+  color: var(--c-fog);
+  font-family: var(--font-head);
+  font-size: 0.84rem;
+  letter-spacing: 0.04em;
+  text-decoration: none;
+  background: rgba(8, 18, 26, 0.5);
+  transition: color 0.3s var(--ease), border-color 0.3s var(--ease), background 0.3s var(--ease), transform 0.3s var(--ease);
+}
+.relation-link::before { content: "◈"; color: var(--c-copper); font-size: 0.7em; }
+.relation-link:hover {
+  color: var(--c-night);
+  background: var(--c-gold);
+  border-color: var(--c-gold-bright);
+  transform: translateY(-2px);
+}
+.relation-link:hover::before { color: var(--c-night); }
+
+/* ════════ FUENTES / ENLACES ═══════════════════════════════════════════════ */
+.sources {
+  padding-top: 1.6rem;
+  border-top: 1px solid var(--c-gold-dim);
+  color: var(--c-ink-soft);
+  font-size: 0.9rem;
+}
+.sources dt {
+  color: var(--c-copper);
+  font-family: var(--font-head);
+  font-size: 0.64rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  margin-bottom: 0.4rem;
+}
+.sources ul { margin: 0 0 1.2rem; padding-left: 1.1rem; }
+.sources li { margin: 0.15rem 0; }
+.sources a { color: var(--c-sea-pale); word-break: break-word; }
+
+.demo-tag {
+  margin: 3rem auto 0;
+  text-align: center;
+  color: rgba(185, 179, 164, 0.5);
+  font-family: var(--font-head);
+  font-size: 0.66rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+}
+
+/* ════════ REVELADO AL SCROLL ══════════════════════════════════════════════ */
+.reveal {
+  opacity: 0;
+  transform: translateY(26px);
+  transition: opacity 0.9s var(--ease), transform 0.9s var(--ease);
+}
+.reveal.is-visible { opacity: 1; transform: none; }
+
+/* ════════ 390px y angosto ═════════════════════════════════════════════════ */
+@media (max-width: 560px) {
+  .data-grid { grid-template-columns: 1fr; }
+  .data-item:nth-child(odd) { padding-right: 0.4rem; border-right: 0; }
+  .data-item:nth-child(even) { padding-left: 0.4rem; }
+  .variant-grid { grid-template-columns: 1fr; }
+  .hero__alias { letter-spacing: 0.1em; }
+}
+
+/* ════════ MOVIMIENTO REDUCIDO ═════════════════════════════════════════════ */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .fog__band, .hero__name, .scroll-cue { animation: none !important; }
+  .reveal { opacity: 1; transform: none; transition: none; }
+  * { transition-duration: 0.001ms !important; }
+}
+</style>
+</head>
+<body>
+
+<!-- Fondo de mar fijo + overlay legible -->
+<div class="sea-bg" aria-hidden="true"></div>
+<div class="sea-overlay" aria-hidden="true"></div>
+
+<main class="page">
+
+  <!-- ════════ HERO ════════ -->
+  <header class="hero">
+    <div class="hero__art" data-speed="0.12">
+      <img src="assets/caleuche.png" alt="Ilustración del Caleuche: buque fantasma iluminado entre la niebla de un canal nocturno." onerror="this.classList.add('is-missing')">
+    </div>
+    <div class="hero__fade" aria-hidden="true"></div>
+    <div class="fog fog--1" data-speed="-0.05" aria-hidden="true"><span class="fog__band"></span></div>
+    <div class="fog fog--2" data-speed="-0.10" aria-hidden="true"><span class="fog__band"></span></div>
+    <div class="fog fog--3" data-speed="-0.16" aria-hidden="true"><span class="fog__band"></span></div>
+
+    <div class="hero__title">
+      <p class="hero__kicker" id="kicker">Bestiario</p>
+      <h1 class="hero__name" id="name">·</h1>
+      <p class="hero__alias" id="alias"></p>
+      <p class="hero__hook" id="hook"></p>
+    </div>
+  </header>
+  <div class="scroll-cue" aria-hidden="true">❖</div>
+
+  <!-- ════════ CONTENIDO ════════ -->
+  <div class="content">
+
+    <!-- Datos de bestiario -->
+    <section class="block reveal" aria-labelledby="t-datos">
+      <div class="frame">
+        <div class="rule rule--solo"><h2 id="t-datos">Datos de bestiario</h2></div>
+        <dl class="data-grid" id="datos"></dl>
+      </div>
+    </section>
+
+    <!-- Resumen -->
+    <section class="block reveal">
+      <blockquote class="resumen" id="resumen"></blockquote>
+    </section>
+
+    <!-- Descripción -->
+    <section class="block desc reveal" aria-labelledby="t-desc">
+      <div class="rule"><h2 id="t-desc">Descripción</h2></div>
+      <p id="descripcion"></p>
+    </section>
+
+    <!-- Variantes -->
+    <section class="block reveal" aria-labelledby="t-var">
+      <div class="rule"><h2 id="t-var">Variantes del relato</h2></div>
+      <div class="variant-grid" id="variants"></div>
+    </section>
+
+    <!-- Interpretación: nota del archivero -->
+    <section class="block reveal">
+      <aside class="archivist">
+        <span class="archivist__label">Nota del archivero · interpretación</span>
+        <p id="interpretacion"></p>
+      </aside>
+    </section>
+
+    <!-- Relaciones -->
+    <section class="block reveal" aria-labelledby="t-rel">
+      <div class="rule"><h2 id="t-rel">Relaciones</h2></div>
+      <nav class="relation-row" id="relations" aria-label="Criaturas y expedientes vinculados"></nav>
+    </section>
+
+    <!-- Fuentes y enlaces -->
+    <footer class="block sources reveal" id="sources"></footer>
+
+    <p class="demo-tag">Prototipo visual · El Grimorio del Archipiélago</p>
+  </div>
+</main>
+
+<script>
+"use strict";
+
+/* ════════════════════════════════════════════════════════════════════════
+   DATOS: bloque @ENTIDAD…@FIN del Caleuche, VERBATIM de
+   contenido/El_Grimorio_Datos_Estructurados.txt (líneas 370–394).
+   Se embebe para que el demo sea standalone (sin fetch). El parser de abajo
+   respeta el esquema documentado en la cabecera del archivo, así que la
+   misma función sirve para las 68 fichas.
+   ════════════════════════════════════════════════════════════════════════ */
+var RAW = [
+"@ENTIDAD",
+"ID:: caleuche",
+"NOMBRE:: El Caleuche",
+"ALIAS:: El Marino; Buque de Arte; Barco de los Brujos; Barcoiche",
+"SECCION:: 03-barcos-y-almas",
+"CATEGORIA:: barco-fantasma",
+"REINO:: mar",
+"ORIGEN:: mestizo",
+"ALCANCE:: chilota",
+"CONDICION:: malefico",
+"JERARQUIA:: —",
+'ETIMOLOGIA:: mapudungun "kalewtun" (transformar) + "che" (gente) = "gente transformada"',
+"GANCHO:: Hay noches en que la niebla se cierra sobre el canal y ves luces donde no debería haberlas. Los que suben a su cubierta no vuelven a bajar.",
+"RESUMEN:: Buque fantasma que navega de noche entre la niebla, iluminado y con música, tripulado por brujos y las almas de los ahogados.",
+"DESCRIPCION:: Barco que navega los mares del sur envuelto en niebla, apareciendo y desapareciendo sin rastro. De noche se ilumina con luces intensas y resuena música y bailes. Lo tripulan brujos poderosos y las almas de los náufragos. Navega bajo el agua y jamás de día. Cuando lo persiguen, se transforma en roca, tronco o alga, y sus tripulantes en lobos marinos o aves.",
+"VARIANTE:: De los ahogados | Recoge a todos los que mueren en el agua, que le sirve de mansión eterna. La Pincoya, el Pincoy y la Sirena llevan los cuerpos; al pisar la cubierta, los muertos reviven como tripulantes.",
+"VARIANTE:: De los marineros | Tienen una sola pierna (la otra doblada sobre la espalda) y son desmemoriados, para no revelar el secreto del barco.",
+"VARIANTE:: Del contrabando | Los brujos del barco comercian; cuando un comerciante se enriquece de pronto, dicen que hizo pacto con el Caleuche.",
+"VARIANTE:: Del peligro de mirarlo | Quien lo mira puede quedar con la boca torcida o la cabeza vuelta hacia atrás por brujería; el barco siente el aliento de los hombres.",
+"INTERPRETACION:: Mito de tránsito, junto a Tempilcahue: habla del destino de las almas. Es el rostro del mar mismo, fuente de vida y de muerte para un pueblo que de él depende.",
+"RELACIONES:: pincoya; pincoy; sirena-chilota; tempilcahue; recta-provincia; caballo-marino",
+"FUENTE:: Cavada (1914)",
+"FUENTE:: Memoria Chilena",
+"ENLACE:: https://www.marcachile.cl/en/mitos-y-leyendas-chilenas/",
+"@FIN"
+].join("\n");
+
+/* ── PARSER fiel al esquema ───────────────────────────────────────────────
+   · Bloque entre @ENTIDAD y @FIN.
+   · Campo: "CLAVE:: valor" (separador exacto ":: ").
+   · Valor multilínea: sigue hasta la próxima línea "CLAVE:: " o @FIN.
+   · Repetibles: VARIANTE (Título | texto), FUENTE, ENLACE.
+   · Líneas que empiezan con "#" = comentarios (ignoradas).
+   ──────────────────────────────────────────────────────────────────────── */
+function parseEntidad(raw) {
+  var lines = raw.split(/\r?\n/);
+  var single = {};
+  var repeat = { VARIANTE: [], FUENTE: [], ENLACE: [] };
+  var key = null, buf = [];
+  var isField = function (l) { return /^[A-Z]+:: /.test(l); };
+  function flush() {
+    if (key === null) return;
+    var val = buf.join("\n").trim();
+    if (repeat[key]) repeat[key].push(val);
+    else single[key] = val;
+    key = null; buf = [];
+  }
+  for (var i = 0; i < lines.length; i++) {
+    var line = lines[i];
+    var t = line.trim();
+    if (t === "@ENTIDAD" || t === "@FIN") { flush(); continue; }
+    if (t.charAt(0) === "#") continue;
+    if (isField(line)) {
+      flush();
+      var p = line.indexOf(":: ");
+      key = line.slice(0, p);
+      buf = [line.slice(p + 3)];
+    } else if (key !== null) {
+      buf.push(line);
+    }
+  }
+  flush();
+
+  return {
+    id: single.ID || "",
+    nombre: single.NOMBRE || "",
+    alias: (single.ALIAS || "").split("; ").filter(Boolean),
+    seccion: single.SECCION || "",
+    categoria: single.CATEGORIA || "",
+    reino: single.REINO || "",
+    origen: single.ORIGEN || "",
+    alcance: single.ALCANCE || "",
+    condicion: single.CONDICION || "",
+    jerarquia: single.JERARQUIA || "",
+    etimologia: single.ETIMOLOGIA || "",
+    gancho: single.GANCHO || "",
+    resumen: single.RESUMEN || "",
+    descripcion: single.DESCRIPCION || "",
+    interpretacion: single.INTERPRETACION || "",
+    relaciones: (single.RELACIONES || "").split("; ").filter(Boolean),
+    variantes: repeat.VARIANTE.map(function (v) {
+      var idx = v.indexOf(" | ");
+      return idx === -1
+        ? { titulo: "", texto: v.trim() }
+        : { titulo: v.slice(0, idx).trim(), texto: v.slice(idx + 3).trim() };
+    }),
+    fuentes: repeat.FUENTE.slice(),
+    enlaces: repeat.ENLACE.slice()
+  };
+}
+
+/* ── Etiquetas legibles para vocabulario controlado (solo formato; no inventa) ── */
+var LABELS = {
+  malefico: "Maléfico", benefico: "Benéfico", ambiguo: "Ambiguo", primigenio: "Primigenio", doliente: "Doliente",
+  prehispanico: "Prehispánico", mestizo: "Mestizo", colonial: "Colonial",
+  mar: "Mar", bosque: "Bosque", "cerro-rio": "Cerro y río", casa: "Casa", aire: "Aire",
+  subsuelo: "Subsuelo", almas: "Almas", lugar: "Lugar",
+  chilota: "Chilota", "chilota-raiz-mapuche": "Chilota (raíz mapuche)"
+};
+function titleCase(s) {
+  return s.replace(/-/g, " ").replace(/\b\w/g, function (c) { return c.toUpperCase(); });
+}
+function label(v) { return v === "—" ? "—" : (LABELS[v] || titleCase(v)); }
+function prettySeccion(s) { return titleCase(s.replace(/^\d+-/, "")); }
+
+/* ── Helpers DOM ──────────────────────────────────────────────────────────── */
+function el(tag, cls, text) {
+  var n = document.createElement(tag);
+  if (cls) n.className = cls;
+  if (text != null) n.textContent = text;
+  return n;
+}
+function set(id, text) { var n = document.getElementById(id); if (n) n.textContent = text; }
+
+/* ── Render ───────────────────────────────────────────────────────────────── */
+var data = parseEntidad(RAW);
+
+set("kicker", "Bestiario · " + prettySeccion(data.seccion));
+set("name", data.nombre);
+set("alias", data.alias.join("  ·  "));
+set("hook", data.gancho);
+set("resumen", data.resumen);
+set("descripcion", data.descripcion);
+set("interpretacion", data.interpretacion);
+
+// Datos de bestiario (orden pedido: REINO, CONDICION, ORIGEN, ETIMOLOGIA, JERARQUIA)
+var datos = document.getElementById("datos");
+[
+  { k: "Reino", v: label(data.reino) },
+  { k: "Condición", v: label(data.condicion) },
+  { k: "Origen", v: label(data.origen) },
+  { k: "Jerarquía", v: data.jerarquia },
+  { k: "Etimología", v: data.etimologia, wide: true }
+].forEach(function (row) {
+  var wrap = el("div", "data-item" + (row.wide ? " data-item--wide" : ""));
+  wrap.appendChild(el("dt", null, row.k));
+  wrap.appendChild(el("dd", null, row.v));
+  datos.appendChild(wrap);
+});
+
+// Variantes
+var vbox = document.getElementById("variants");
+data.variantes.forEach(function (v) {
+  var card = el("article", "variant-card frame reveal");
+  card.appendChild(el("h3", null, v.titulo));
+  card.appendChild(el("p", null, v.texto));
+  vbox.appendChild(card);
+});
+
+// Relaciones (links muertos — solo el patrón)
+var rbox = document.getElementById("relations");
+data.relaciones.forEach(function (id) {
+  var a = el("a", "relation-link", titleCase(id));
+  a.href = "#";
+  a.setAttribute("data-id", id);
+  a.setAttribute("title", "Ficha pendiente: " + titleCase(id));
+  a.addEventListener("click", function (e) { e.preventDefault(); });
+  rbox.appendChild(a);
+});
+
+// Fuentes y enlaces
+var sbox = document.getElementById("sources");
+if (data.fuentes.length) {
+  sbox.appendChild(el("dt", null, "Fuentes"));
+  var ulF = el("ul");
+  data.fuentes.forEach(function (f) { ulF.appendChild(el("li", null, f)); });
+  sbox.appendChild(ulF);
+}
+if (data.enlaces.length) {
+  sbox.appendChild(el("dt", null, "Enlaces"));
+  var ulE = el("ul");
+  data.enlaces.forEach(function (url) {
+    var li = el("li");
+    var a = el("a", null, url);
+    a.href = url; a.target = "_blank"; a.rel = "noopener noreferrer";
+    li.appendChild(a);
+    ulE.appendChild(li);
+  });
+  sbox.appendChild(ulE);
+}
+
+/* ── Esquinas ornamentadas en cada .frame (CSS, sin imágenes) ─────────────── */
+document.querySelectorAll(".frame").forEach(function (f) {
+  ["tl", "tr", "bl", "br"].forEach(function (pos) {
+    f.appendChild(el("span", "frame-corner " + pos));
+  });
+});
+
+/* ── Interacción (respeta prefers-reduced-motion) ─────────────────────────── */
+var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+// Revelado al scroll
+(function () {
+  var items = document.querySelectorAll(".reveal");
+  if (reduce || !("IntersectionObserver" in window)) {
+    items.forEach(function (n) { n.classList.add("is-visible"); });
+    return;
+  }
+  var obs = new IntersectionObserver(function (entries) {
+    entries.forEach(function (en) {
+      if (en.isIntersecting) { en.target.classList.add("is-visible"); obs.unobserve(en.target); }
+    });
+  }, { threshold: 0.12, rootMargin: "0px 0px -8% 0px" });
+  items.forEach(function (n) { obs.observe(n); });
+}());
+
+// Parallax suave de niebla + ilustración (translateY por velocidad)
+(function () {
+  if (reduce) return;
+  var layers = Array.prototype.slice.call(document.querySelectorAll("[data-speed]"));
+  var ticking = false;
+  function update() {
+    var y = window.pageYOffset;
+    layers.forEach(function (l) {
+      var s = parseFloat(l.getAttribute("data-speed"));
+      l.style.transform = "translate3d(0," + (y * s).toFixed(1) + "px,0)";
+    });
+    ticking = false;
+  }
+  window.addEventListener("scroll", function () {
+    if (!ticking) { window.requestAnimationFrame(update); ticking = true; }
+  }, { passive: true });
+  update();
+}());
+</script>
+</body>
+</html>

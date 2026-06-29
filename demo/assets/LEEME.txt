@@ -1,0 +1,20 @@
+CARPETA DE ASSETS DEL DEMO — El Caleuche
+=========================================
+
+Coloca aquí las 3 imágenes que pegaste en el chat, con ESTOS NOMBRES EXACTOS:
+
+  caleuche.png    -> el barco fantasma en la niebla   (ilustración del hero)
+  fondo-mar.png   -> el mar nocturno con niebla        (fondo fijo de la página)
+  pergamino.png   -> la textura de pergamino oscuro    (fondo de los recuadros)
+
+Cómo:
+  - Arrástralas a esta carpeta (demo/assets/) y renómbralas como arriba, O
+  - dime en qué ruta de tu disco quedaron guardadas y yo las muevo/renombro.
+
+Nota: ficha-caleuche.html ya funciona SIN las imágenes (usa degradados de
+respaldo para mar, pergamino y la ilustración). Al dejar los 3 PNG aquí, la
+página los toma automáticamente — no hay que tocar el HTML.
+
+Por qué no las puso Claude: las imágenes pegadas en el chat llegan como
+adjuntos visuales, no como archivos en disco; la herramienta de escritura solo
+escribe texto y no puede reproducir los bytes de un PNG.
