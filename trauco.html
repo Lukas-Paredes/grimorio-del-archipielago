@@ -1,0 +1,204 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>El Trauco · El Grimorio del Archipiélago</title>
+<meta name="description" content="El Trauco — el señor de los bosques de la mitología de Chiloé. Ficha del bestiario de El Grimorio del Archipiélago.">
+
+<!-- Tipografías: Jacquard 24 (pixel gótica · nombre/títulos), Pixelify Sans
+     (pixel sans · etiquetas/UI), EB Garamond (serif · cuerpo). CDN; si no hay
+     red, caen a serif/monospace del sistema. -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Jacquard+24&family=Pixelify+Sans:wght@400;500;600;700&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="assets/css/ficha.css">
+
+<!-- Imágenes de ESTA criatura (bosque). IMPORTANTE: las url() de variables CSS
+     las resuelve el navegador relativo a ficha.css (assets/css/), por eso van
+     con "../img/..." (igual que los fallbacks de ficha.css), NO "assets/img/...".
+     El <img> del hero, en cambio, es relativo a la página: "assets/img/...". -->
+<style>
+  body {
+    --img-fondo: none;                                  /* sin imagen de mar; solo penumbra */
+    --img-descenso: image-set(url("../img/trauco-descenso.webp") type("image/webp"), url("../img/trauco-descenso.png") type("image/png"));
+    --img-cierre: image-set(url("../img/trauco-cierre.webp") type("image/webp"), url("../img/trauco-cierre.png") type("image/png"));
+  }
+</style>
+
+<!-- Config de la página: datos (bloque @ENTIDAD), prosa del grimorio y frase de
+     cierre. ficha.js la lee (window.FICHA); sin esto caería al Caleuche. -->
+<script>
+  window.FICHA = {
+    raw: `@ENTIDAD
+ID:: trauco
+NOMBRE:: El Trauco
+ALIAS:: Thrauco; Chauco; Trauko
+SECCION:: 04-bosque
+CATEGORIA:: antropomorfo-bosque
+REINO:: bosque
+ORIGEN:: prehispanico
+ALCANCE:: chilota
+CONDICION:: malefico
+JERARQUIA:: —
+ETIMOLOGIA:: del mapudungun "trawko"
+GANCHO:: No es alto ni hermoso, apenas te llega a la cintura, con un hacha de piedra. Pero ninguna mujer que cruza su mirada vuelve igual.
+RESUMEN:: Hombrecillo deforme del bosque que seduce a las mujeres en sueños (explicando embarazos) y tulle a los hombres con su aliento.
+DESCRIPCION:: Hombre pequeño y deforme, de 60 a 90 cm. Habita huecos de árboles y cavernas, come frutos del bosque y tiene fuerza descomunal. Carga un hacha de piedra con la que golpea los troncos. Seduce con la mirada a las mujeres jóvenes y las posee en sueños; ellas despiertan sin recordar y, nueve meses después, nace un hijo. A los hombres les causa torceduras y tullimiento con la mirada o el aliento. Viste traje de quilineja y sombrero cónico; sus pies no tienen talón ni dedos; usa un bastón retorcido llamado pahueldún.
+VARIANTE:: Aire de trauco | Existe una dolencia llamada "aire de trauco/trauca": el Trauco contamina los espacios sombríos del bosque.
+INTERPRETACION:: Explicación antigua para los embarazos fuera del matrimonio, protegiendo a las madres solteras del juicio social. Emparentado con el fauno y el sátiro.
+RELACIONES:: fiura; ruende; condena
+FUENTE:: Cavada (1914)
+FUENTE:: Núñez (2022), Servicio Nacional del Patrimonio Cultural
+ENLACE:: https://www.cdbp.gob.cl/noticias/chiloe-hogar-de-criaturas-mitologicas-fascinantes
+@FIN`,
+    // Prosa del grimorio literario (cap. "X · EL TRAUCO"). Limpia, sin cajas ni
+    // bullets ni enlaces. Este capítulo NO tiene "de dónde nació el mito".
+    prosa: {
+      // "LO QUE SE SABE CON CERTEZA" + "DE SU FIGURA Y SUS ROPAS" (juntas).
+      descripcion: [
+        "El Trauco es un hombre pequeño y deforme, de entre sesenta y noventa centímetros según quien lo cuente. Habita los huecos de los árboles y las cavernas del bosque, y se alimenta de sus frutos. Pese a su tamaño, posee una fuerza descomunal. Carga siempre un hacha de piedra, y con ella golpea los troncos para anunciar que ha llegado.",
+        "Su poder es doble. Sobre las mujeres jóvenes ejerce un hechizo: las seduce con la mirada y las posee en sueños; ellas despiertan confundidas, sin recordar con claridad lo ocurrido —hasta que, nueve meses después, nace un hijo. Sobre los hombres descarga su maleficio: con la mirada o con el poder nefasto de su aliento les causa torceduras de cuello, tullimiento y deformidades semejantes a las suyas.",
+        "Viste un traje tejido de quilineja y un sombrero cónico de fibras silvestres. Sus piernas terminan en un remedo de pie, sin talón y sin dedos, por lo que no camina bien; se ayuda de un bastón retorcido —tan retorcido como él— llamado pahueldún, con el cual se le reconoce."
+      ],
+      // "LO QUE DICEN LOS QUE ESTUDIAN" → enriquece la nota del archivero.
+      interpretacion: "Hay quienes ven en el Trauco una explicación antigua para los embarazos fuera del matrimonio, en tiempos en que quedar encinta sin esposo era deshonra: el hombrecillo del bosque cargaba la culpa, y la madre soltera quedaba a salvo del juicio del pueblo. Otros lo emparentan con el fauno de los romanos y el sátiro de los griegos —seres de instinto, habitantes de los bosques solitarios, dominados por la lujuria."
+    },
+    cierre: "Y en lo más hondo del bosque, donde el hacha golpea sin leñador, algo todavía espera."
+  };
+</script>
+</head>
+
+<body data-entity="trauco">
+
+<!-- Fondo de bosque en penumbra, fijo, con parallax + overlay (sin imagen de mar) -->
+<div class="abyss" aria-hidden="true">
+  <div class="abyss__sea" data-parallax="0.06"></div>
+  <div class="abyss__veil"></div>
+</div>
+
+<main id="ficha">
+
+  <!-- ════════ HERO · portal de entrada ════════ -->
+  <header class="hero" aria-labelledby="hero-name">
+    <div class="hero__art" data-parallax="0.12">
+      <picture>
+        <source srcset="assets/img/trauco.webp" type="image/webp">
+        <img src="assets/img/trauco.png" alt="El Trauco: hombrecillo deforme del bosque, entre los árboles, con su hacha de piedra." onerror="this.classList.add('is-missing')">
+      </picture>
+    </div>
+    <div class="hero__lantern" aria-hidden="true"></div>
+    <div class="hero__edges" aria-hidden="true"></div>
+
+    <div class="fog hero__fog" aria-hidden="true">
+      <span class="fog__layer fog__layer--1" data-parallax="-0.06"></span>
+      <span class="fog__layer fog__layer--2" data-parallax="-0.11"></span>
+      <span class="fog__layer fog__layer--3" data-parallax="-0.17"></span>
+    </div>
+
+    <div class="hero__portal" aria-hidden="true"><span></span></div>
+
+    <div class="hero__copy">
+      <p class="hero__eyebrow" id="hero-cat">Bestiario</p>
+      <h1 class="hero__name" id="hero-name">·</h1>
+      <p class="hero__alias" id="hero-alias"></p>
+    </div>
+
+    <a class="hero__cue" href="#descenso" aria-label="Descender a la ficha">
+      <span>desciende</span>
+      <span class="hero__chev" aria-hidden="true">▼</span>
+    </a>
+  </header>
+
+  <!-- ════════ DESCENSO · cuerpo de la ficha ════════ -->
+  <div class="scroll" id="descenso">
+
+    <!-- Fondo del descenso: internarse en el bosque una sola vez arriba, fundido al negro -->
+    <div class="descenso-bg" aria-hidden="true" data-parallax="0.16" data-rel="descenso"></div>
+
+    <!-- Gancho: epígrafe atmosférico -->
+    <section class="movement movement--gancho reveal" id="sec-gancho">
+      <p class="gancho" id="gancho"></p>
+    </section>
+
+    <!-- Placa de datos de bestiario -->
+    <section class="movement reveal" id="sec-datos" aria-labelledby="h-datos">
+      <div class="rule"><h2 id="h-datos">Datos de bestiario</h2></div>
+      <div class="frame frame--plaque">
+        <div class="frame__panel">
+          <dl class="datos" id="datos"></dl>
+        </div>
+      </div>
+    </section>
+
+    <!-- Resumen + descripción -->
+    <section class="movement reveal lectura" id="sec-relato" aria-labelledby="h-relato">
+      <div class="rule"><h2 id="h-relato">El relato</h2></div>
+      <blockquote class="resumen" id="resumen"></blockquote>
+      <div class="descripcion" id="descripcion"></div>
+    </section>
+
+    <!-- Variantes: cajones de archivo -->
+    <section class="movement reveal" id="sec-variantes" aria-labelledby="h-var">
+      <div class="rule"><h2 id="h-var">Variantes del relato</h2></div>
+      <div class="cajones" id="variantes"></div>
+    </section>
+
+    <!-- Defensa: cómo enfrentarlo (solo si la entidad lo trae) -->
+    <section class="movement reveal" id="sec-defensa" aria-labelledby="h-defensa" hidden>
+      <div class="rule"><h2 id="h-defensa">Defensa</h2></div>
+      <div class="frame frame--plaque">
+        <div class="frame__panel">
+          <p class="defensa" id="defensa"></p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Interpretación: nota del archivero -->
+    <section class="movement reveal" id="sec-interp">
+      <aside class="nota">
+        <span class="nota__pin" aria-hidden="true"></span>
+        <span class="nota__label">Nota del archivero</span>
+        <p class="nota__text" id="interpretacion"></p>
+      </aside>
+    </section>
+
+    <!-- De dónde nació el mito: prosa del grimorio (oculta si la criatura no la trae) -->
+    <section class="movement reveal lectura" id="sec-origen" aria-labelledby="h-origen" hidden>
+      <div class="rule"><h2 id="h-origen">De dónde nació el mito</h2></div>
+      <div class="prosa" id="origen-mito"></div>
+    </section>
+
+    <!-- Desarrollo documental (solo si la entidad lo trae) -->
+    <section class="movement reveal" id="sec-desarrollo" hidden>
+      <p class="desarrollo" id="desarrollo"></p>
+    </section>
+
+    <!-- Vitrina: otras piezas del archipiélago -->
+    <section class="movement reveal" id="sec-vitrina" aria-labelledby="h-vitrina">
+      <div class="rule"><h2 id="h-vitrina">Otras piezas del archipiélago</h2></div>
+      <div class="vitrina" id="vitrina"></div>
+    </section>
+
+    <!-- Fuentes y enlaces -->
+    <footer class="movement reveal pie" id="pie"></footer>
+  </div>
+
+  <!-- ════════ CIERRE · el corazón del bosque (fin del viaje) ════════ -->
+  <section class="cierre" id="cierre" aria-label="Cierre">
+    <div class="cierre__bg" aria-hidden="true"></div>
+    <div class="cierre__edges" aria-hidden="true"></div>
+    <div class="cierre__glow" aria-hidden="true"></div>
+    <div class="fog cierre__fog" aria-hidden="true">
+      <span class="fog__layer fog__layer--2"></span>
+      <span class="fog__layer fog__layer--3"></span>
+    </div>
+    <p class="cierre__phrase reveal"></p>
+    <p class="sello">El Grimorio del Archipiélago</p>
+  </section>
+</main>
+
+<script src="assets/js/ficha.js" defer></script>
+</body>
+</html>

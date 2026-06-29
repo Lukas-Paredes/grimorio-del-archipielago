@@ -1,0 +1,624 @@
+/* ════════════════════════════════════════════════════════════════════════
+   ficha.css — Plantilla de ficha de criatura del bestiario.
+   Dirección de arte: "vitrina dark fantasy pixel art" (scroll narrativo
+   vertical, marcos estilo UI de videojuego, mar abisal, luz ámbar fantasmal).
+   Archivo NUEVO; no pisa el CSS del sitio. Modelo para las 68 criaturas.
+   ════════════════════════════════════════════════════════════════════════ */
+
+:root {
+  /* — Mar abisal: del casi-negro al azul profundo — */
+  --abyss:       #02060c;
+  --abyss-2:     #050d18;
+  --deep:        #081726;
+  --sea:         #0e2433;
+  --sea-2:       #15384a;
+  --foam:        #9fb6bd;
+
+  /* — Luz ámbar fantasmal (la única luz cálida del Caleuche) — */
+  --amber:       #f2b65a;
+  --amber-soft:  #e0a24a;
+  --amber-deep:  #b9772b;
+  --amber-line:  rgba(242, 182, 90, 0.42);
+  --amber-glow:  rgba(242, 182, 90, 0.28);
+
+  /* — Óxido siniestro — */
+  --rust:        #a04a30;
+  --rust-deep:   #6e3120;
+
+  /* — Tinta sobre placa abisal — */
+  --bone:        #ece4d2;   /* texto principal */
+  --bone-soft:   #aab0ad;
+
+  --font-display: "Jacquard 24", "UnifrakturCook", Georgia, serif;
+  --font-pixel:   "Pixelify Sans", "Courier New", monospace;
+  --font-body:    "EB Garamond", Georgia, "Times New Roman", serif;
+
+  --col: min(100% - 2.2rem, 58rem);
+  --cut: 9px;                 /* esquina cortada de los marcos */
+  --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html, body { margin: 0; overflow-x: hidden; }
+html { scroll-behavior: smooth; }
+
+body {
+  min-height: 100vh;
+  color: var(--bone);
+  background: var(--abyss);
+  font-family: var(--font-body);
+  font-size: clamp(1.04rem, 0.98rem + 0.4vw, 1.2rem);
+  line-height: 1.74;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+img { image-rendering: pixelated; }
+.pixel { image-rendering: pixelated; }
+
+a { color: var(--amber-soft); }
+
+/* ── Fondo abisal fijo (parallax) + velo de legibilidad ──────────────────── */
+.abyss { position: fixed; inset: 0; z-index: -2; overflow: hidden; }
+.abyss__sea {
+  position: absolute;
+  inset: -16% 0;
+  background:
+    var(--img-fondo, image-set(url("../img/fondo-mar.webp") type("image/webp"), url("../img/fondo-mar.png") type("image/png"))) center top / cover no-repeat,
+    radial-gradient(120% 70% at 50% 0%, var(--deep), transparent 60%),
+    linear-gradient(180deg, var(--abyss-2), var(--abyss) 80%);
+  background-color: var(--abyss-2);
+  image-rendering: pixelated;
+  will-change: transform;
+}
+.abyss__veil {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(135% 90% at 50% 12%, transparent 34%, rgba(2, 5, 10, 0.74) 100%),
+    linear-gradient(180deg, rgba(3, 8, 15, 0.5), rgba(2, 5, 11, 0.84));
+}
+
+/* ════════════════════════════════════════════════════════════════════════
+   NIEBLA reutilizable. Cada capa deriva lento en loop (CSS); el wrapper puede
+   recibir parallax (JS). Translúcida, fría, pixelada por el blur suave.
+   ════════════════════════════════════════════════════════════════════════ */
+.fog { position: absolute; inset: 0; pointer-events: none; overflow: hidden; }
+.fog__layer {
+  position: absolute;
+  left: -25%; right: -25%;
+  height: 60%;
+  will-change: transform;
+  opacity: 0.7;
+}
+.fog__layer--1 {
+  top: 30%;
+  background:
+    radial-gradient(38% 58% at 22% 50%, rgba(207, 215, 221, 0.22), transparent 70%),
+    radial-gradient(46% 66% at 64% 44%, rgba(190, 205, 214, 0.18), transparent 72%),
+    radial-gradient(32% 56% at 88% 56%, rgba(207, 215, 221, 0.14), transparent 70%);
+  animation: fog-a 70s ease-in-out infinite alternate;
+}
+.fog__layer--2 {
+  top: 48%;
+  background:
+    radial-gradient(44% 64% at 30% 58%, rgba(176, 192, 203, 0.26), transparent 72%),
+    radial-gradient(52% 72% at 76% 50%, rgba(207, 215, 221, 0.2), transparent 74%);
+  animation: fog-b 92s ease-in-out infinite alternate;
+}
+.fog__layer--3 {
+  top: 62%;
+  height: 66%;
+  background:
+    radial-gradient(60% 78% at 50% 68%, rgba(160, 178, 190, 0.3), transparent 74%),
+    radial-gradient(38% 58% at 16% 62%, rgba(207, 215, 221, 0.2), transparent 72%);
+  animation: fog-a 116s ease-in-out infinite alternate-reverse;
+}
+@keyframes fog-a { from { transform: translate3d(-4%, 0, 0); } to { transform: translate3d(4%, 0, 0); } }
+@keyframes fog-b { from { transform: translate3d(5%, 1%, 0); } to { transform: translate3d(-5%, -1%, 0); } }
+
+/* ════════════════════════════════════════════════════════════════════════
+   HERO · portal de entrada a pantalla completa
+   ════════════════════════════════════════════════════════════════════════ */
+.hero {
+  position: relative;
+  min-height: 100vh;            /* respaldo si el navegador no soporta svh */
+  min-height: 100svh;
+  display: grid;
+  grid-template-rows: 1fr auto auto;
+  align-items: center;
+  overflow: hidden;
+  isolation: isolate;
+  text-align: center;
+}
+.hero__art { position: absolute; inset: -8% 0 0; z-index: -3; will-change: transform; }
+.hero__art picture { display: block; width: 100%; height: 100%; }
+.hero__art img { width: 100%; height: 100%; object-fit: cover; object-position: center 40%; display: block; }
+.hero__art img.is-missing { display: none; }
+.hero__art::after {            /* respaldo pintado si falta la ilustración */
+  content: ""; position: absolute; inset: 0; z-index: -1;
+  background:
+    radial-gradient(60% 44% at 50% 40%, rgba(242, 182, 90, 0.18), transparent 70%),
+    radial-gradient(120% 90% at 50% 30%, var(--sea-2), var(--abyss) 72%);
+}
+/* Halo cálido de las luces del barco, latiendo lento */
+.hero__lantern {
+  position: absolute; inset: 0; z-index: -2; pointer-events: none;
+  background: radial-gradient(34% 26% at 50% 44%, var(--amber-glow), transparent 70%);
+  mix-blend-mode: screen;
+  animation: lantern 6.5s ease-in-out infinite;
+}
+@keyframes lantern { 0%,100% { opacity: 0.6; } 50% { opacity: 1; } }
+/* Fundido a negro en los bordes para encuadrar la ilustración */
+.hero__edges {
+  position: absolute; inset: 0; z-index: -1; pointer-events: none;
+  background:
+    radial-gradient(120% 86% at 50% 42%, transparent 44%, rgba(2, 5, 10, 0.96) 100%),
+    linear-gradient(180deg, rgba(2, 5, 10, 0.7) 0%, transparent 24% 48%, var(--abyss) 100%);
+}
+.hero__fog { z-index: -1; }
+
+/* Marco-portal ornamentado de pantalla completa (UI de videojuego) */
+.hero__portal {
+  position: absolute; inset: clamp(10px, 2.4vw, 26px); z-index: 1; pointer-events: none;
+  border: 2px solid var(--amber-line);
+  box-shadow: 0 0 24px rgba(242, 182, 90, 0.16), inset 0 0 30px rgba(242, 182, 90, 0.07);
+  clip-path: polygon(
+    0 22px, 22px 22px, 22px 0, calc(100% - 22px) 0, calc(100% - 22px) 22px, 100% 22px,
+    100% calc(100% - 22px), calc(100% - 22px) calc(100% - 22px), calc(100% - 22px) 100%,
+    22px 100%, 22px calc(100% - 22px), 0 calc(100% - 22px));
+}
+.hero__portal::before, .hero__portal::after {
+  content: ""; position: absolute; width: 12px; height: 12px; background: var(--amber);
+  box-shadow: 0 0 8px var(--amber-glow);
+}
+.hero__portal::before { top: -6px; left: 50%; transform: translateX(-50%) rotate(45deg); }
+.hero__portal::after  { bottom: -6px; left: 50%; transform: translateX(-50%) rotate(45deg); }
+
+.hero__copy { grid-row: 2; position: relative; z-index: 2; padding: 0 1rem; }
+.hero__eyebrow {
+  margin: 0 0 1rem;
+  font-family: var(--font-pixel);
+  font-size: clamp(0.6rem, 0.55rem + 0.3vw, 0.8rem);
+  font-weight: 600;
+  letter-spacing: 0.4em;
+  text-transform: uppercase;
+  text-indent: 0.4em;
+  color: var(--amber);
+  text-shadow: 0 0 14px var(--amber-glow);
+}
+.hero__name {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(2.7rem, 11vw, 8.2rem);
+  line-height: 0.96;
+  color: #f6ecd6;
+  letter-spacing: 0.02em;
+  overflow-wrap: break-word;
+  text-shadow:
+    0 3px 0 rgba(0, 0, 0, 0.55),
+    0 0 30px rgba(255, 206, 77, 0.42),
+    0 0 74px rgba(255, 206, 77, 0.22);
+  animation: name-breathe 7s ease-in-out infinite;
+}
+@keyframes name-breathe {
+  0%,100% { text-shadow: 0 3px 0 rgba(0,0,0,0.55), 0 0 24px rgba(242,182,90,0.32), 0 0 64px rgba(242,182,90,0.18); }
+  50%     { text-shadow: 0 3px 0 rgba(0,0,0,0.55), 0 0 34px rgba(242,182,90,0.5), 0 0 88px rgba(242,182,90,0.3); }
+}
+.hero__alias {
+  margin: 1.1rem auto 0;
+  max-width: 40ch;
+  font-family: var(--font-pixel);
+  font-size: clamp(0.72rem, 0.66rem + 0.4vw, 0.98rem);
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--foam);
+  text-shadow: 0 1px 10px rgba(0, 0, 0, 0.8);
+}
+
+.hero__cue {
+  grid-row: 3;
+  position: relative; z-index: 2;
+  display: inline-grid; justify-items: center; gap: 0.4rem;
+  margin: 0 auto clamp(1.4rem, 4vh, 3rem);
+  padding: 0.4rem 0.6rem;
+  color: var(--amber);
+  font-family: var(--font-pixel);
+  font-size: 0.62rem;
+  letter-spacing: 0.34em;
+  text-transform: uppercase;
+  text-decoration: none;
+  opacity: 0.82;
+  transition: opacity 0.3s var(--ease);
+}
+.hero__cue:hover { opacity: 1; }
+.hero__chev { font-size: 0.8rem; animation: bob 2.4s ease-in-out infinite; }
+@keyframes bob { 0%,100% { transform: translateY(0); } 50% { transform: translateY(6px); } }
+
+/* ════════════════════════════════════════════════════════════════════════
+   DESCENSO · cuerpo
+   ════════════════════════════════════════════════════════════════════════ */
+.scroll {
+  position: relative;
+  z-index: 1;
+  overflow: hidden;                 /* contiene el parallax del fondo de abismo */
+  padding: clamp(3rem, 12vh, 9rem) 0 6rem;
+  /* Abismo: azul profundo arriba que cae a negro sólido (más hondo = más negro). */
+  background: linear-gradient(180deg, #06111d 0%, #04090f 26%, #02050a 58%, #010204 100%);
+}
+/* Rayos + naufragio UNA sola vez arriba del descenso, fundidos al negro.
+   Sin repeat (no mosaico). Parallax relativo (ficha.js): más lento que el contenido. */
+.descenso-bg {
+  position: absolute;
+  inset: 0;                          /* cubre TODO el alto del descenso, no solo arriba */
+  z-index: 0;
+  pointer-events: none;
+  /* Capa 1 (scroll): overlay que oscurece PROGRESIVAMENTE con la profundidad,
+     hasta el negro abisal recién al final (antes del cierre). Sin hueco negro.
+     Capa 2 (fixed): la imagen del mundo, fija en el viewport → te quedás "dentro"
+     del bosque/abismo mientras baja el contenido. En móvil cae a scroll y la
+     imagen cubre el descenso completo igual (sin corte). */
+  background:
+    linear-gradient(180deg,
+      rgba(3, 8, 12, 0.42) 0%,
+      rgba(2, 6, 10, 0.55) 30%,
+      rgba(1, 4, 7, 0.72) 60%,
+      rgba(1, 2, 4, 0.92) 88%,
+      #010204 100%),
+    var(--img-descenso, image-set(url("../img/fondo-abismo.webp") type("image/webp"), url("../img/fondo-abismo.png") type("image/png"))) center / cover fixed;
+  background-repeat: no-repeat;
+  image-rendering: pixelated;
+}
+.scroll > *:not(.descenso-bg) { position: relative; z-index: 1; }
+.movement {
+  width: var(--col);
+  margin: 0 auto;
+}
+.movement + .movement { margin-top: clamp(3.4rem, 9vh, 6.5rem); }
+
+/* Encabezado de sección: filete + diamante, en pixel font */
+.rule { display: flex; align-items: center; gap: 1rem; margin: 0 0 1.6rem; }
+.rule::before, .rule::after {
+  content: ""; flex: 1; height: 2px;
+  background: linear-gradient(90deg, transparent, var(--amber-line), transparent);
+  image-rendering: pixelated;
+}
+.rule h2 {
+  margin: 0; min-width: 0; white-space: normal; text-align: center;
+  font-family: var(--font-pixel);
+  font-weight: 600;
+  font-size: clamp(0.92rem, 0.85rem + 0.5vw, 1.3rem);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--amber);
+  text-shadow: 0 0 16px var(--amber-glow);
+}
+
+/* ── Gancho: epígrafe atmosférico ─────────────────────────────────────────── */
+.movement--gancho { width: min(100% - 2.2rem, 44rem); text-align: center; }
+.gancho {
+  margin: 0;
+  font-family: var(--font-body);
+  font-style: italic;
+  font-size: clamp(1.5rem, 1.2rem + 2.4vw, 3rem);
+  line-height: 1.34;
+  color: #f4ecda;
+  text-shadow: 0 2px 22px rgba(0, 0, 0, 0.9), 0 0 40px rgba(242, 182, 90, 0.12);
+}
+.gancho::first-letter { color: var(--amber); }
+
+/* ════════════════════════════════════════════════════════════════════════
+   MARCO ORNAMENTADO estilo UI de videojuego (CSS puro, esquinas cortadas
+   pixeladas, doble filo dorado, remaches en las esquinas).
+   ════════════════════════════════════════════════════════════════════════ */
+.frame {
+  position: relative;
+  padding: 3px;                                   /* grosor del filo dorado */
+  background: linear-gradient(160deg, var(--amber) 0%, var(--amber-deep) 60%, #7a4f1f 100%);
+  clip-path: polygon(
+    0 var(--cut), var(--cut) var(--cut), var(--cut) 0,
+    calc(100% - var(--cut)) 0, calc(100% - var(--cut)) var(--cut), 100% var(--cut),
+    100% calc(100% - var(--cut)), calc(100% - var(--cut)) calc(100% - var(--cut)), calc(100% - var(--cut)) 100%,
+    var(--cut) 100%, var(--cut) calc(100% - var(--cut)), 0 calc(100% - var(--cut)));
+  filter: drop-shadow(0 18px 30px rgba(0, 0, 0, 0.55));
+}
+.frame__panel {
+  position: relative;
+  padding: clamp(1.4rem, 4vw, 2.4rem);
+  color: var(--bone);
+  /* mismo recorte que .frame, explícito (no 'inherit': compatibilidad de navegador) */
+  clip-path: polygon(
+    0 var(--cut), var(--cut) var(--cut), var(--cut) 0,
+    calc(100% - var(--cut)) 0, calc(100% - var(--cut)) var(--cut), 100% var(--cut),
+    100% calc(100% - var(--cut)), calc(100% - var(--cut)) calc(100% - var(--cut)), calc(100% - var(--cut)) 100%,
+    var(--cut) 100%, var(--cut) calc(100% - var(--cut)), 0 calc(100% - var(--cut)));
+  /* Agua abisal semitransparente (placa de bronce / tablón hundido), sin papel. */
+  background: linear-gradient(158deg, rgba(22, 52, 70, 0.5) 0%, rgba(10, 28, 44, 0.58) 55%, rgba(4, 13, 24, 0.66) 100%);
+  background-color: rgba(6, 18, 30, 0.42);
+  box-shadow:
+    inset 0 1px 0 rgba(242, 182, 90, 0.16),
+    inset 0 0 0 1px rgba(242, 182, 90, 0.2),
+    inset 0 0 46px rgba(0, 0, 0, 0.6);
+}
+/* Remaches dorados en las cuatro esquinas (los inyecta el JS) */
+.rivet {
+  position: absolute; width: 8px; height: 8px; z-index: 3;
+  background: linear-gradient(135deg, #ffd470, var(--amber-deep));
+  box-shadow:
+    0 0 0 1.5px var(--abyss),
+    0 1px 3px rgba(0, 0, 0, 0.7),
+    inset 1px 1px 1px rgba(255, 220, 130, 0.6),
+    inset -1px -1px 1px rgba(0, 0, 0, 0.45),
+    0 0 10px var(--amber-glow);
+  image-rendering: pixelated;
+}
+.rivet.tl { top: 2px; left: 2px; }
+.rivet.tr { top: 2px; right: 2px; }
+.rivet.bl { bottom: 2px; left: 2px; }
+.rivet.br { bottom: 2px; right: 2px; }
+
+/* ── Placa de DATOS ───────────────────────────────────────────────────────── */
+.datos { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0; margin: 0; }
+.datos > div {
+  padding: 0.95rem 0.3rem;
+  border-bottom: 1px solid rgba(242, 182, 90, 0.16);
+}
+.datos > div:nth-child(odd)  { padding-right: 1.2rem; border-right: 1px solid rgba(242, 182, 90, 0.16); }
+.datos > div:nth-child(even) { padding-left: 1.2rem; }
+.datos > div.wide { grid-column: 1 / -1; border-right: 0; padding-right: 0.3rem; }
+.datos dt {
+  margin: 0 0 0.32rem;
+  font-family: var(--font-pixel);
+  font-size: 0.62rem; font-weight: 600;
+  letter-spacing: 0.22em; text-transform: uppercase;
+  color: var(--amber-deep);
+}
+.datos dd { margin: 0; font-size: 1.06rem; color: var(--bone); }
+.datos dd.etim { font-style: italic; line-height: 1.55; color: var(--foam); }
+
+/* ── Lectura: resumen + descripción ───────────────────────────────────────── */
+.lectura { width: min(100% - 2.2rem, 46rem); }
+.resumen {
+  margin: 0 0 2rem;
+  padding: 0.2rem 0 0.2rem 1.5rem;
+  border-left: 3px solid var(--amber);
+  font-family: var(--font-body);
+  font-style: italic;
+  font-size: clamp(1.25rem, 1.1rem + 1vw, 1.7rem);
+  line-height: 1.5;
+  color: #f1e9d6;
+  text-shadow: 0 1px 14px rgba(0, 0, 0, 0.8);
+}
+.descripcion p { margin: 0; color: var(--bone); text-shadow: 0 1px 12px rgba(0, 0, 0, 0.7); }
+.descripcion p + p { margin-top: 1.1rem; }
+.descripcion p:first-of-type::first-letter {
+  float: left; margin: 0.06em 0.14em 0 0;
+  font-family: var(--font-display); font-size: clamp(3em, 11vw, 4.2em); line-height: 0.7;
+  color: var(--amber);
+  text-shadow: 0 0 22px rgba(242, 182, 90, 0.45);
+}
+
+/* Prosa del grimorio: cuerpo en serif, párrafos normales (sin capitular). */
+.prosa p { margin: 0; color: var(--bone); text-shadow: 0 1px 12px rgba(0, 0, 0, 0.7); }
+.prosa p + p { margin-top: 1.1rem; }
+
+/* ── Variantes: cajones de archivo ────────────────────────────────────────── */
+.cajones { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(1rem, 2.4vw, 1.5rem); }
+.cajon { position: relative; }
+.cajon .frame__panel { padding-top: 1.7rem; }
+.cajon__tab {              /* tirador del cajón */
+  position: absolute; top: -2px; left: 50%; transform: translateX(-50%);
+  width: 38%; height: 7px; z-index: 3;
+  background: linear-gradient(180deg, var(--amber), var(--amber-deep));
+  clip-path: polygon(8% 0, 92% 0, 100% 100%, 0 100%);
+  box-shadow: 0 0 10px var(--amber-glow);
+}
+.cajon h3 {
+  margin: 0 0 0.55rem;
+  font-family: var(--font-pixel); font-weight: 600;
+  font-size: 0.96rem; letter-spacing: 0.04em;
+  color: var(--amber);
+  text-shadow: 0 0 12px var(--amber-glow);
+}
+.cajon h3 .num {
+  margin-right: 0.5rem; color: var(--amber-deep);
+  font-variant-numeric: tabular-nums;
+}
+.cajon p { margin: 0; font-size: 0.98rem; color: var(--bone); }
+.cajon { transition: transform 0.35s var(--ease), filter 0.35s var(--ease); }
+.cajon:hover { transform: translateY(-5px); filter: drop-shadow(0 12px 20px rgba(242, 182, 90, 0.22)) brightness(1.05); }
+.cajon:hover h3 { color: #ffd470; text-shadow: 0 0 18px var(--amber-glow); }
+
+/* ── Nota del archivero (interpretación) ──────────────────────────────────── */
+.nota {
+  position: relative;
+  max-width: 44rem; margin: 0 auto;
+  padding: clamp(1.6rem, 4vw, 2.4rem);
+  background:
+    repeating-linear-gradient(0deg, transparent 0 27px, rgba(110, 49, 32, 0.14) 27px 28px),
+    linear-gradient(180deg, rgba(46, 36, 21, 0.92), rgba(34, 26, 16, 0.92));
+  border: 1px solid rgba(160, 74, 48, 0.5);
+  border-left: 3px solid var(--rust);
+  box-shadow: 0 16px 34px rgba(0, 0, 0, 0.5);
+  transform: rotate(-0.6deg);
+}
+.nota__pin {
+  position: absolute; top: -9px; left: 50%; transform: translateX(-50%);
+  width: 16px; height: 16px; border-radius: 50%;
+  background: radial-gradient(circle at 38% 34%, #d2604a, var(--rust-deep));
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.6), inset 0 0 4px rgba(0,0,0,0.4);
+}
+.nota__label {
+  display: block; margin-bottom: 0.6rem;
+  font-family: var(--font-pixel); font-size: 0.64rem; font-weight: 600;
+  letter-spacing: 0.24em; text-transform: uppercase; color: var(--rust);
+}
+.nota__text { margin: 0; font-style: italic; line-height: 1.66; color: #e8ddc8; }
+
+/* Defensa: texto dentro de la placa abisal, con marca ámbar. */
+.defensa { margin: 0; color: var(--bone); }
+.defensa::before { content: "\2694  "; color: var(--amber); }
+
+/* Desarrollo documental: nota honesta sobre la escasez de fuentes (si aplica). */
+.desarrollo {
+  margin: 0;
+  padding: 0.85rem 1.2rem;
+  border: 1px dashed rgba(159, 182, 189, 0.4);
+  color: var(--bone-soft);
+  font-style: italic;
+  font-size: 0.94rem;
+}
+
+/* ── Vitrina: otras piezas (tiles pixel art enmarcados) ───────────────────── */
+.vitrina {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(8.5rem, 1fr));
+  gap: clamp(0.8rem, 2vw, 1.3rem);
+}
+.pieza { text-decoration: none; display: block; transition: transform 0.3s var(--ease), filter 0.3s var(--ease); }
+.pieza .frame { padding: 2px; }
+.pieza__art {
+  position: relative;
+  aspect-ratio: 1 / 1;
+  display: grid; place-items: center;
+  overflow: hidden;
+  background:
+    radial-gradient(80% 70% at 50% 30%, rgba(242, 182, 90, 0.12), transparent 70%),
+    linear-gradient(180deg, var(--sea-2), var(--abyss) 80%);
+}
+.pieza__sigil {
+  font-family: var(--font-display);
+  font-size: clamp(3rem, 8vw, 4.4rem);
+  color: rgba(242, 182, 90, 0.5);
+  text-shadow: 0 0 22px rgba(242, 182, 90, 0.3);
+  image-rendering: pixelated;
+  transition: color 0.28s var(--ease), text-shadow 0.28s var(--ease);
+}
+.pieza__name {
+  display: block; padding: 0.5rem 0.4rem 0.2rem;
+  font-family: var(--font-pixel); font-size: 0.74rem; font-weight: 500;
+  letter-spacing: 0.04em; text-align: center; color: var(--bone);
+}
+.pieza__tag {
+  display: block; padding: 0 0.4rem 0.5rem;
+  font-family: var(--font-pixel); font-size: 0.54rem;
+  letter-spacing: 0.16em; text-transform: uppercase; text-align: center;
+  color: var(--bone-soft);
+}
+.pieza:hover { transform: translateY(-4px); filter: drop-shadow(0 10px 16px rgba(242, 182, 90, 0.22)); }
+.pieza:hover .pieza__sigil { color: var(--amber); }
+
+/* ── Pie: fuentes y enlaces ───────────────────────────────────────────────── */
+.pie {
+  width: min(100% - 2.2rem, 46rem);
+  margin-top: clamp(3.4rem, 9vh, 6.5rem);
+  padding-top: 1.6rem;
+  border-top: 1px solid var(--amber-line);
+  color: var(--bone-soft);
+  font-size: 0.9rem;
+}
+.pie dt {
+  margin-bottom: 0.4rem;
+  font-family: var(--font-pixel); font-size: 0.6rem; font-weight: 600;
+  letter-spacing: 0.22em; text-transform: uppercase; color: var(--amber-deep);
+}
+.pie ul { margin: 0 0 1.2rem; padding-left: 1.1rem; }
+.pie li { margin: 0.15rem 0; }
+.pie a { word-break: break-word; }
+
+.sello {
+  width: var(--col); margin: clamp(3rem, 8vh, 5rem) auto 0;
+  text-align: center;
+  font-family: var(--font-pixel); font-size: 0.58rem;
+  letter-spacing: 0.3em; text-transform: uppercase;
+  color: rgba(170, 176, 173, 0.45);
+}
+
+/* ════════════════════════════════════════════════════════════════════════
+   CIERRE · el lecho abisal — fin del viaje, a pantalla completa.
+   ════════════════════════════════════════════════════════════════════════ */
+.cierre {
+  position: relative;
+  min-height: 100vh;
+  min-height: 100svh;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  isolation: isolate;
+  text-align: center;
+  padding: clamp(3rem, 10vh, 7rem) 1.2rem clamp(3.5rem, 9vh, 6rem);
+}
+/* Lecho marino abisal (estático): restos, tesoros, oro tenue en la oscuridad. */
+.cierre__bg {
+  position: absolute; inset: 0; z-index: -3;
+  background: var(--img-cierre, image-set(url("../img/fondo-lecho.webp") type("image/webp"), url("../img/fondo-lecho.png") type("image/png"))) center bottom / cover no-repeat;
+  background-color: var(--abyss);
+  image-rendering: pixelated;
+}
+/* Borde superior fundido en negro (conecta con el descenso) + viñeta. */
+.cierre__edges {
+  position: absolute; inset: 0; z-index: -2; pointer-events: none;
+  background:
+    radial-gradient(120% 82% at 50% 42%, transparent 48%, rgba(1, 3, 6, 0.72) 100%),
+    linear-gradient(180deg, #010204 0%, rgba(1, 2, 4, 0.55) 16%, transparent 42%, transparent 70%, rgba(1, 2, 4, 0.84) 100%);
+}
+/* Oro tenue del tesoro hundido, latiendo lento (reusa @keyframes lantern). */
+.cierre__glow {
+  position: absolute; inset: 0; z-index: -2; pointer-events: none;
+  background: radial-gradient(42% 30% at 50% 66%, rgba(242, 182, 90, 0.12), transparent 70%);
+  mix-blend-mode: screen;
+  animation: lantern 7.5s ease-in-out infinite;
+}
+.cierre__fog { z-index: -1; }
+.cierre__phrase {
+  position: relative; z-index: 1;
+  max-width: 20ch; margin: 0 auto;
+  font-family: var(--font-body);
+  font-style: italic;
+  font-size: clamp(1.55rem, 1.2rem + 2.6vw, 3.1rem);
+  line-height: 1.4;
+  color: #f4ecda;
+  text-shadow: 0 2px 22px rgba(0, 0, 0, 0.9), 0 0 34px rgba(242, 182, 90, 0.22);
+}
+.cierre__phrase::first-letter { color: var(--amber); }
+.cierre .sello {
+  position: absolute; left: 0; right: 0; bottom: clamp(1.2rem, 4vh, 2.4rem);
+  z-index: 1; width: auto; margin: 0;
+}
+
+/* ════════════════════════════════════════════════════════════════════════
+   REVELADO al scroll
+   ════════════════════════════════════════════════════════════════════════ */
+.reveal { opacity: 0; transform: translateY(34px); transition: opacity 0.9s var(--ease), transform 0.9s var(--ease); }
+.reveal.is-visible { opacity: 1; transform: none; }
+
+/* ════════════════════════════════════════════════════════════════════════
+   Responsive · 390px y angosto
+   ════════════════════════════════════════════════════════════════════════ */
+@media (max-width: 560px) {
+  .datos { grid-template-columns: 1fr; }
+  .datos > div:nth-child(odd) { padding-right: 0.3rem; border-right: 0; }
+  .datos > div:nth-child(even) { padding-left: 0.3rem; }
+  .cajones { grid-template-columns: 1fr; }
+  .vitrina { grid-template-columns: repeat(2, 1fr); }
+  .hero__alias { letter-spacing: 0.12em; }
+  .hero__portal { inset: 8px; }
+  .rule h2 { letter-spacing: 0.08em; }
+  .datos dt, .nota__label, .hero__eyebrow { letter-spacing: 0.14em; }
+  .rivet { width: 5px; height: 5px; }
+  .nota { transform: none; }            /* sin rotación a 390px: evita desborde */
+}
+
+/* ════════════════════════════════════════════════════════════════════════
+   Movimiento reducido
+   ════════════════════════════════════════════════════════════════════════ */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .fog__layer, .hero__name, .hero__lantern, .hero__chev, .cierre__glow { animation: none !important; }
+  .reveal { opacity: 1; transform: none; transition: none; }
+  .abyss__sea, .hero__art, [data-parallax] { transform: none !important; }
+  * { transition-duration: 0.001ms !important; }
+}
