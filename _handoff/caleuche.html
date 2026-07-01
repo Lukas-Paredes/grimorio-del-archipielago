@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>El Caleuche · El Grimorio del Archipiélago</title>
+<meta name="description" content="El Caleuche — buque fantasma de la mitología de Chiloé. Ficha del bestiario de El Grimorio del Archipiélago.">
+
+<!-- Tipografías: Jacquard 24 (pixel gótica · nombre/títulos), Pixelify Sans
+     (pixel sans · etiquetas/UI), EB Garamond (serif · cuerpo). CDN; si no hay
+     red, caen a serif/monospace del sistema. -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Jacquard+24&family=Pixelify+Sans:wght@400;500;600;700&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="assets/css/ficha.css">
+</head>
+
+<body data-entity="caleuche">
+
+<!-- Fondo de mar abisal, fijo, con parallax + overlay para legibilidad -->
+<div class="abyss" aria-hidden="true">
+  <div class="abyss__sea" data-parallax="0.06"></div>
+  <div class="abyss__veil"></div>
+</div>
+
+<main id="ficha">
+
+  <!-- ════════ HERO · portal de entrada ════════ -->
+  <header class="hero" aria-labelledby="hero-name">
+    <div class="hero__art" data-parallax="0.12">
+      <picture>
+        <source srcset="assets/img/caleuche.webp" type="image/webp">
+        <img src="assets/img/caleuche.png" alt="El Caleuche: buque fantasma iluminado por dentro, navegando entre la niebla de un canal nocturno." onerror="this.classList.add('is-missing')">
+      </picture>
+    </div>
+    <div class="hero__lantern" aria-hidden="true"></div>
+    <div class="hero__edges" aria-hidden="true"></div>
+
+    <div class="fog hero__fog" aria-hidden="true">
+      <span class="fog__layer fog__layer--1" data-parallax="-0.06"></span>
+      <span class="fog__layer fog__layer--2" data-parallax="-0.11"></span>
+      <span class="fog__layer fog__layer--3" data-parallax="-0.17"></span>
+    </div>
+
+    <div class="hero__portal" aria-hidden="true"><span></span></div>
+
+    <div class="hero__copy">
+      <p class="hero__eyebrow" id="hero-cat">Bestiario</p>
+      <h1 class="hero__name" id="hero-name">·</h1>
+      <p class="hero__alias" id="hero-alias"></p>
+    </div>
+
+    <a class="hero__cue" href="#descenso" aria-label="Descender a la ficha">
+      <span>desciende</span>
+      <span class="hero__chev" aria-hidden="true">▼</span>
+    </a>
+  </header>
+
+  <!-- ════════ DESCENSO · cuerpo de la ficha ════════ -->
+  <div class="scroll" id="descenso">
+
+    <!-- Fondo de abismo: rayos + naufragio una sola vez arriba, fundido al negro -->
+    <div class="descenso-bg" aria-hidden="true" data-parallax="0.16" data-rel="descenso"></div>
+
+    <!-- Gancho: epígrafe atmosférico -->
+    <section class="movement movement--gancho reveal" id="sec-gancho">
+      <p class="gancho" id="gancho"></p>
+    </section>
+
+    <!-- Placa de datos de bestiario -->
+    <section class="movement reveal" id="sec-datos" aria-labelledby="h-datos">
+      <div class="rule"><h2 id="h-datos">Datos de bestiario</h2></div>
+      <div class="frame frame--plaque">
+        <div class="frame__panel">
+          <dl class="datos" id="datos"></dl>
+        </div>
+      </div>
+    </section>
+
+    <!-- Resumen + descripción -->
+    <section class="movement reveal lectura" id="sec-relato" aria-labelledby="h-relato">
+      <div class="rule"><h2 id="h-relato">El relato</h2></div>
+      <blockquote class="resumen" id="resumen"></blockquote>
+      <div class="descripcion" id="descripcion"></div>
+    </section>
+
+    <!-- Variantes: cajones de archivo -->
+    <section class="movement reveal" id="sec-variantes" aria-labelledby="h-var">
+      <div class="rule"><h2 id="h-var">Variantes del relato</h2></div>
+      <div class="cajones" id="variantes"></div>
+    </section>
+
+    <!-- Defensa: cómo enfrentarlo (solo si la entidad lo trae) -->
+    <section class="movement reveal" id="sec-defensa" aria-labelledby="h-defensa" hidden>
+      <div class="rule"><h2 id="h-defensa">Defensa</h2></div>
+      <div class="frame frame--plaque">
+        <div class="frame__panel">
+          <p class="defensa" id="defensa"></p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Interpretación: nota del archivero -->
+    <section class="movement reveal" id="sec-interp">
+      <aside class="nota">
+        <span class="nota__pin" aria-hidden="true"></span>
+        <span class="nota__label">Nota del archivero</span>
+        <p class="nota__text" id="interpretacion"></p>
+      </aside>
+    </section>
+
+    <!-- De dónde nació el mito: prosa del grimorio literario -->
+    <section class="movement reveal lectura" id="sec-origen" aria-labelledby="h-origen" hidden>
+      <div class="rule"><h2 id="h-origen">De dónde nació el mito</h2></div>
+      <div class="prosa" id="origen-mito"></div>
+    </section>
+
+    <!-- Desarrollo documental (solo si la entidad lo trae) -->
+    <section class="movement reveal" id="sec-desarrollo" hidden>
+      <p class="desarrollo" id="desarrollo"></p>
+    </section>
+
+    <!-- Vitrina: otras piezas del archipiélago -->
+    <section class="movement reveal" id="sec-vitrina" aria-labelledby="h-vitrina">
+      <div class="rule"><h2 id="h-vitrina">Otras piezas del archipiélago</h2></div>
+      <div class="vitrina" id="vitrina"></div>
+    </section>
+
+    <!-- Fuentes y enlaces -->
+    <footer class="movement reveal pie" id="pie"></footer>
+  </div>
+
+  <!-- ════════ CIERRE · el lecho abisal (fin del viaje) ════════ -->
+  <section class="cierre" id="cierre" aria-label="Cierre">
+    <div class="cierre__bg" aria-hidden="true"></div>
+    <div class="cierre__edges" aria-hidden="true"></div>
+    <div class="cierre__glow" aria-hidden="true"></div>
+    <div class="fog cierre__fog" aria-hidden="true">
+      <span class="fog__layer fog__layer--2"></span>
+      <span class="fog__layer fog__layer--3"></span>
+    </div>
+    <p class="cierre__phrase reveal">Y al fondo del mar, descansa todo lo que el Caleuche se llevó.</p>
+    <p class="sello">El Grimorio del Archipiélago · ficha modelo</p>
+  </section>
+</main>
+
+<script src="assets/js/ficha.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>El Grimorio del Archipiélago</title>
+<meta name="description" content="Archivo del imaginario de Chiloé. Un descenso: de la superficie de las islas hasta lo que el mar guarda en el abismo.">
+
+<link rel="icon" type="image/svg+xml" href="assets/icons/favicon.svg">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Jacquard+24&family=Pixelify+Sans:wght@400;500;600;700&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="assets/css/portada.css">
+</head>
+
+<body>
+
+<!-- Toggle de bocina · PREVISTO para audio ambiente futuro (sin cablear) -->
+<button class="bocina" type="button" aria-pressed="false" aria-label="Audio ambiente (próximamente)" title="Audio ambiente · próximamente">🔇</button>
+
+<!-- Sonda de profundidad: navegación vertical fija que marca la profundidad -->
+<nav class="sonda" aria-label="Profundidad del descenso">
+  <span class="sonda__linea" aria-hidden="true"><span class="sonda__fill"></span></span>
+  <a class="sonda__nodo is-active" href="#superficie" data-target="superficie" aria-label="Superficie"><span class="sonda__label">Superficie</span></a>
+  <a class="sonda__nodo" href="#caleuche" data-target="caleuche" aria-label="Caleuche"><span class="sonda__label">Caleuche</span></a>
+  <a class="sonda__nodo" href="#descenso" data-target="descenso" aria-label="Descenso"><span class="sonda__label">Descenso</span></a>
+  <a class="sonda__nodo" href="#abismo" data-target="abismo" aria-label="Abismo"><span class="sonda__label">Abismo</span></a>
+</nav>
+
+<main>
+
+  <!-- ════════ 1 · SUPERFICIE ════════ -->
+  <section class="capa capa--superficie" id="superficie" aria-labelledby="marca">
+    <div class="capa__bg" data-parallax="0.14" aria-hidden="true"></div>
+    <div class="capa__veil" aria-hidden="true"></div>
+    <div class="fog" aria-hidden="true"><span></span><span></span></div>
+    <div class="capa__content reveal">
+      <h1 class="marca" id="marca">El Grimorio del Archipiélago</h1>
+      <p class="bajada">Un archivo del imaginario de Chiloé. Se entra descendiendo: de la superficie de las islas a lo que el mar guarda debajo.</p>
+      <a class="cue" href="#caleuche"><span>desciende</span><span aria-hidden="true">▼</span></a>
+    </div>
+  </section>
+
+  <!-- ════════ 2 · CALEUCHE (tráiler) ════════ -->
+  <section class="capa capa--caleuche" id="caleuche" aria-labelledby="cal-nombre">
+    <div class="capa__bg" data-parallax="0.14" aria-hidden="true"></div>
+    <div class="capa__veil" aria-hidden="true"></div>
+    <div class="fog" aria-hidden="true"><span></span><span></span></div>
+    <span class="mist mist--caleuche-columna" data-parallax="0.22" aria-hidden="true"></span>
+
+    <!-- El buque de la imagen es clickeable (mismo destino que "Abordar") -->
+    <a class="buque-link" href="caleuche.html" aria-label="Abordar el Caleuche"></a>
+
+    <div class="capa__content reveal">
+      <article class="trailer">
+        <span class="rivet tl" aria-hidden="true"></span><span class="rivet tr" aria-hidden="true"></span>
+        <span class="rivet bl" aria-hidden="true"></span><span class="rivet br" aria-hidden="true"></span>
+        <div class="trailer__panel">
+          <h2 id="cal-nombre">El Caleuche</h2>
+          <p class="alias">el buque de arte</p>
+          <blockquote class="gancho">Se oye música y risas sobre el agua, y luces donde no debería haberlas. Los que suben a su cubierta no vuelven a bajar.</blockquote>
+          <ul class="tags"><li>Mar</li><li>Barco fantasma</li><li>Chilota</li></ul>
+          <p class="teaser">Cuatro relatos lo explican. Ninguno del todo.</p>
+          <a class="cta" href="caleuche.html">Abordar <span aria-hidden="true">▼</span></a>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- ════════ 3 · DESCENSO (columna) ════════ -->
+  <section class="capa capa--columna" id="descenso">
+    <div class="capa__bg" data-parallax="0.14" aria-hidden="true"></div>
+    <div class="capa__veil" aria-hidden="true"></div>
+    <div class="capa__content reveal">
+      <p class="susurro">más piezas del archipiélago descienden aquí</p>
+    </div>
+  </section>
+
+  <!-- ════════ 4 · ABISMO (lecho, pie) ════════ -->
+  <section class="capa capa--lecho" id="abismo" aria-labelledby="ab-titulo">
+    <div class="capa__bg" data-parallax="0.14" aria-hidden="true"></div>
+    <div class="capa__veil" aria-hidden="true"></div>
+    <div class="fog" aria-hidden="true"><span></span><span></span></div>
+    <div class="capa__content reveal">
+      <h2 class="abismo-titulo" id="ab-titulo">El lecho</h2>
+      <p class="abismo-sub">Aquí abajo descansa el resto del archipiélago. Las puertas que ya existen:</p>
+      <nav class="puertas" aria-label="Secciones del archivo">
+        <a class="puertas__principal" href="index-legacy.html">Entrar al archivo</a>
+        <a href="pages/bestiario.html">Bestiario</a>
+        <a href="pages/mundos.html">Mundos</a>
+        <a href="pages/recta-provincia.html">Recta Provincia</a>
+        <a href="pages/cosmologia.html">Cosmología</a>
+      </nav>
+      <p class="metodo"><a href="pages/metodologia.html">Fuentes y método</a> — qué es tradición documentada, qué es interpretación, y de dónde sale cada cosa.</p>
+    </div>
+  </section>
+
+</main>
+
+<script src="assets/js/portada.js" defer></script>
+</body>
+</html>

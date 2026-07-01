@@ -1,0 +1,1828 @@
+################################################################################
+#                                                                              #
+#              EL GRIMORIO DEL ARCHIPIÉLAGO · BASE DE DATOS                     #
+#         Mitología de Chiloé — archivo estructurado para el sitio web         #
+#                                                                              #
+#   Este archivo NO es para leer como libro: es la CAPA DE DATOS de la que     #
+#   el HTML segmentado del sitio extrae la información. Cada entidad es un      #
+#   bloque regular y parseable. Para la versión literaria/atmosférica, ver     #
+#   "El_Grimorio_del_Archipielago_DEFINITIVO.txt".                             #
+#                                                                              #
+#   ALCANCE: exclusivamente mitología CHILOTA (de Chiloé). Se han excluido     #
+#   mitos pan-australes o de otras regiones que no son propios del             #
+#   archipiélago (ver sección EXCLUSIONES al final).                           #
+#                                                                              #
+################################################################################
+
+
+################################################################################
+#  ESQUEMA DE PARSEO  (cómo leer este archivo desde JS/HTML)                    #
+################################################################################
+#
+#  · Cada entidad va entre un marcador de apertura "@ENTIDAD" y uno de cierre
+#    "@FIN", cada uno en su propia línea.
+#
+#  · Dentro de un bloque, cada campo tiene la forma:   CLAVE:: valor
+#    El separador es exactamente dos dos-puntos seguidos de un espacio ":: ".
+#
+#  · Un valor puede ocupar VARIAS LÍNEAS: se extiende hasta la siguiente línea
+#    que empiece con "CLAVE:: " o hasta "@FIN". (Útil para DESCRIPCION larga.)
+#
+#  · Campos REPETIBLES (pueden aparecer varias veces en una entidad):
+#       VARIANTE::   formato ->  Título corto | texto de la variante
+#       FUENTE::     una fuente por línea
+#       ENLACE::     una URL por línea
+#
+#  · RELACIONES:: es una lista de IDs separados por "; " (para enlazar fichas).
+#
+#  · Las líneas que empiezan con "#" son comentarios: el parser las ignora.
+#
+#  · CAMPOS POR ENTIDAD (todos opcionales salvo ID, NOMBRE, SECCION):
+#       ID            identificador único, minúsculas-con-guiones (clave del HTML)
+#       NOMBRE        nombre para mostrar
+#       ALIAS         otros nombres, separados por "; "
+#       SECCION       a qué sección/libro del sitio pertenece (ver TAXONOMÍA)
+#       CATEGORIA     tipo de ser (ver TAXONOMÍA)
+#       REINO         mar | bosque | cerro-rio | casa | aire | subsuelo | almas | lugar
+#       ORIGEN        prehispanico | mestizo | colonial
+#       ALCANCE       chilota | chilota-raiz-mapuche
+#       CONDICION     benefico | malefico | ambiguo | primigenio | doliente
+#       JERARQUIA     posición en la corte del mar, si aplica (o "—")
+#       ETIMOLOGIA    origen del nombre
+#       GANCHO        frase atmosférica de entrada (1-2 líneas, para encabezar la ficha)
+#       RESUMEN       síntesis de 1-2 frases (para listados/tarjetas)
+#       DESCRIPCION   núcleo documentado (lo que casi todas las fuentes coinciden)
+#       VARIANTE      (repetible) versiones y detalles marcados
+#       INTERPRETACION lectura académica/simbólica
+#       DEFENSA       cómo enfrentarlo o protegerse, si aplica
+#       DESARROLLO    "escaso" si las fuentes dicen muy poco (honestidad)
+#       RELACIONES    IDs de entidades vinculadas
+#       FUENTE        (repetible) fuentes
+#       ENLACE        (repetible) URLs
+#
+################################################################################
+
+
+################################################################################
+#  TAXONOMÍA  (valores controlados, para filtros y navegación del sitio)        #
+################################################################################
+#
+#  SECCIONES (orden sugerido de navegación):
+#     01-origen ................ El mito de creación del archipiélago
+#     02-corte-del-mar ......... La familia que gobierna el océano
+#     03-barcos-y-almas ........ El paso de los muertos
+#     04-bosque ................ Los señores de la floresta
+#     05-bestias ............... Bestias del agua y la tierra
+#     06-menores ............... Criaturas menores y domésticas
+#     07-aves-brujas ........... Aves al servicio de los brujos
+#     08-penas ................. Las penas y los anuncios de muerte
+#     09-recta-provincia ....... LA BRUJERÍA (apartado especial y extenso)
+#     10-lugares ............... Sitios de poder y geografía mítica
+#     11-relatos ............... Relatos y tesoros
+#
+#  CATEGORÍAS (tipo de ser):
+#     serpiente-primigenia, divinidad-marina, espiritu-marino, barco-fantasma,
+#     psicopompo, alma-en-pena, antropomorfo-bosque, bestia-zoomorfa,
+#     ave-bruja, vampiro, guardian, brujo-humano, objeto-magico, lugar, relato
+#
+#  CONDICIÓN:   benefico (+) | malefico (−) | ambiguo (±) | primigenio (○) | doliente
+#  ORIGEN:      prehispanico | mestizo | colonial
+#
+################################################################################
+
+
+################################################################################
+#  ÍNDICE MAESTRO DE COBERTURA  (checklist — verifica que está TODO lo chilote) #
+################################################################################
+#
+#  [✓] = entidad con ficha completa en este archivo
+#
+#  01-ORIGEN
+#     [✓] tenten-caicai .......... Tenten Vilu y Caicai Vilu
+#
+#  02-CORTE DEL MAR
+#     [✓] millalobo .............. El Millalobo (rey)
+#     [✓] huenchula .............. La Huenchula (reina)
+#     [✓] huenchur ............... La Huenchur (hechicera, dueña de las mareas)
+#     [✓] pincoya ................ La Pincoya (princesa, dueña de mariscos)
+#     [✓] pincoy ................. El Pincoy (príncipe)
+#     [✓] sirena-chilota ......... La Sirena chilota (princesa, dueña de peces)
+#
+#  03-BARCOS Y ALMAS
+#     [✓] caleuche ............... El Caleuche (buque de muertos)
+#     [✓] tempilcahue ............ Tempilcahue (barquero de almas)
+#     [✓] animas-de-cucao ........ Las Ánimas de Cucao
+#
+#  04-BOSQUE
+#     [✓] trauco ................. El Trauco
+#     [✓] fiura .................. La Fiura
+#     [✓] ruende ................. El Ruende
+#     [✓] trehuaco ............... El Trehuaco
+#
+#  05-BESTIAS
+#     [✓] camahueto .............. El Camahueto
+#     [✓] cuchivilu .............. El Cuchivilu
+#     [✓] caballo-marino ......... El Caballo Marino chilote
+#     [✓] cuero .................. El Cuero / La Manta
+#     [✓] vaca-marina ............ La Vaca Marina chilota
+#     [✓] nirivilu ............... El Ñirivilu
+#     [✓] cochodoma .............. La Cochodoma
+#     [✓] sumpall ................ Los Sumpall
+#     [✓] lucerna ................ La Lucerna
+#     [✓] basilisco .............. El Basilisco chilote
+#     [✓] piuchen ................ El Piuchén
+#     [✓] cahuelche .............. El Cahuelche (delfín mensajero de la Huenchur)
+#
+#  06-MENORES Y DOMÉSTICAS
+#     [✓] coñipoñi ............... El Coñipoñi (cuida niños)
+#     [✓] coñieuma ............... La Coñieuma
+#     [✓] vilpoñi ................ El Vilpoñi
+#     [✓] piruquina .............. La Piruquina (culebra roja gigante)
+#     [✓] den .................... El Deñ
+#     [✓] lluhay ................. El Lluhay
+#     [✓] puyo ................... El Puyo
+#     [✓] carbunco ............... El Carbunco (guardián de tesoros, vers. chilota)
+#     [✓] curamilla .............. La Curamilla (piedra de oro)
+#
+#  07-AVES DE LOS BRUJOS
+#     [✓] coo .................... El Coo
+#     [✓] raiquen ................ El Raiquén
+#     [✓] mandao ................. El Mandao
+#     [✓] chonchon ............... El Chonchón (cabeza voladora / vuelo brujo)
+#
+#  08-PENAS Y MUERTE
+#     [✓] llorona-pucullen ....... La Llorona / La Pucullén
+#     [✓] viuda .................. La Viuda
+#     [✓] condena ................ La Condená
+#     [✓] caballero-de-lata ...... El Caballero de Lata
+#
+#  09-LA RECTA PROVINCIA  (apartado especial y extenso)
+#     [✓] brujo-chilote .......... El Brujo chilote
+#     [✓] machi .................. La Machi
+#     [✓] calcu .................. El Calcu
+#     [✓] recta-provincia ........ La Recta Provincia (la organización)
+#     [✓] la-mayoria ............. La Mayoría (el consejo)
+#     [✓] siete-republicas ....... Las siete repúblicas (distritos)
+#     [✓] iniciacion ............. La iniciación del brujo
+#     [✓] macun .................. El Macuñ (chaleco de piel)
+#     [✓] poderes-del-brujo ...... Los poderes
+#     [✓] challanco .............. El Challanco (objeto adivinatorio)
+#     [✓] invunche ............... El Invunche (guardián de la cueva)
+#     [✓] voladora ............... La Voladora (mensajera)
+#     [✓] juicio-1880 ............ El juicio de Ancud de 1880
+#     [✓] libro-de-moraleda ...... El Libro de Moraleda (origen legendario)
+#     [✓] cueva-quicavi .......... La Cueva de Quicaví (sede)
+#
+#  10-LUGARES
+#     [✓] muelle-de-las-almas .... El Muelle de las Almas (Punta Pirulil)
+#     [✓] cucao .................. Cucao
+#     [✓] tenaun ................. Tenaún
+#     [✓] achao .................. Achao
+#     [✓] quicavi ................ Quicaví (cuna de la brujería)
+#
+#  11-RELATOS Y TESOROS
+#     [✓] entierros .............. Los Entierros (oro enterrado)
+#     [✓] campana-sumergida ...... La Campana Sumergida
+#     [✓] islita-imelev .......... La islita Imelev
+#     [✓] origen-de-la-papa ...... Cómo nació la papa
+#     [✓] animitas ............... Las animitas
+#
+#  TOTAL: 68 entidades.  Cobertura de la mitología chilota documentada.
+#  (Criaturas con desarrollo escaso en las fuentes van marcadas DESARROLLO:: escaso)
+#
+################################################################################
+
+
+################################################################################
+#  SECCIÓN 01 — ORIGEN                                                          #
+################################################################################
+
+@ENTIDAD
+ID:: tenten-caicai
+NOMBRE:: Tenten Vilu y Caicai Vilu
+ALIAS:: Trentren Vilu; Treng-Treng; Tenten; Caicai; Kaikai Filu
+SECCION:: 01-origen
+CATEGORIA:: serpiente-primigenia
+REINO:: mar
+ORIGEN:: prehispanico
+ALCANCE:: chilota-raiz-mapuche
+CONDICION:: primigenio
+JERARQUIA:: Rango más alto del panteón
+ETIMOLOGIA:: "Vilu" = serpiente (mapudungun). Tenten/Trentren = serpiente de la tierra; Caicai = serpiente del mar
+GANCHO:: Antes de que existiera isla alguna, hubo una guerra entre el mar y la tierra. De su empate nació Chiloé.
+RESUMEN:: Las dos serpientes primordiales que crearon el archipiélago en una batalla titánica: Caicai alzó las aguas, Tenten levantó los cerros.
+DESCRIPCION:: En la antigüedad Chiloé era tierra plana unida al continente. Caicai Vilu, serpiente del mar, despertó e hizo subir las aguas para inundarlo todo. Tenten Vilu, serpiente de la tierra y amiga de los hombres, los subió a los cerros y ordenó a estos crecer; a los que el agua alcanzaba, los transformó en aves, peces, mamíferos marinos y sumpall, y a los petrificados de miedo, en piedra (mankial). Tras una batalla sin tregua venció Tenten, pero solo a medias: el agua no cubrió todo (hubo salvación) pero tampoco bajó del todo (la tierra quedó fragmentada en islas). Ese archipiélago roto es Chiloé.
+VARIANTE:: El origen del rencor | Una variante huilliche dice que la guerra empezó por despecho: una hija del Trauco rechazó al pillán Peripillán, y el hijo de este desató el diluvio por venganza.
+VARIANTE:: Los padres serpientes | Según la tradición mapuche, no nacieron serpientes: eran hijos de pillanes enemigos castigados a forma de culebra; heredaron la enemistad de sus padres.
+VARIANTE:: Su forma y voz | Caicai sería mitad culebra mitad pez; Tenten una serpiente gigante (algunos le dan cuatro patas). Caicai emite un relincho; Tenten canta como gallo.
+INTERPRETACION:: Es un relato sagrado, no un cuento: es la memoria de un pueblo que vive sobre la tierra más sísmica del mundo. Cuando Tenten se remueve, tiembla y erupcionan los volcanes; cuando Caicai mueve la cola, vienen maremotos. El mito enseña a subir al cerro cuando el mar se retira: lección de supervivencia. Nota: aunque la raíz es antiquísima, su lugar central en el relato chilote actual fue reintroducido en las últimas décadas del s.XX.
+RELACIONES:: millalobo; trauco; sumpall
+FUENTE:: Cavada (1914)
+FUENTE:: García Barría, Tesoro Mitológico
+FUENTE:: Estudios de geomitología, U. de Chile (2019-2020)
+ENLACE:: https://es.wikipedia.org/wiki/Trentren_Vilu_y_Caicai_Vilu
+ENLACE:: https://sochped.cl/noticias/150-trentren-y-caicai-cosmovision-de-un-pais-de-terremotos
+@FIN
+
+
+################################################################################
+#  SECCIÓN 02 — LA CORTE DEL MAR                                                #
+################################################################################
+
+@ENTIDAD
+ID:: millalobo
+NOMBRE:: El Millalobo
+ALIAS:: Rey de los Mares
+SECCION:: 02-corte-del-mar
+CATEGORIA:: divinidad-marina
+REINO:: mar
+ORIGEN:: prehispanico
+ALCANCE:: chilota
+CONDICION:: ambiguo
+JERARQUIA:: Rey de los mares (bajo las serpientes primigenias)
+ETIMOLOGIA:: "Milla" = oro (mapudungun), por su pelaje dorado
+GANCHO:: Mitad hombre, mitad lobo de mar, cubierto de un pelaje del color del oro. No hay en el océano poder más alto que el suyo.
+RESUMEN:: Soberano del mar, torso de hombre y mitad de lobo marino de pelaje dorado. Esposo de la Huenchula, padre de la Pincoya, el Pincoy y la Sirena.
+DESCRIPCION:: Tiene el torso de hombre y la mitad inferior de lobo marino, cubierto de pelaje amarillo como el oro. Es el Rey de los Mares; solo las serpientes primigenias tienen rango sobre él. Cuando Caicai se retiró a dormir tras la batalla del origen, le dejó el gobierno de las aguas. Fue concebido de la unión de una mujer hermosa y un lobo de mar durante esa batalla. Reparte rango y oficio a las demás criaturas marinas.
+VARIANTE:: Los raptos | Tiende a raptar mujeres desprevenidas en la orilla cuando sube la marea, llevándolas al fondo del mar.
+VARIANTE:: El reflejo en Cucao | Nadie se atreve a mirar su reflejo en el agua: lo que se ve es el Millalobo, que toma la fisonomía de la persona; si la codicia, la rapta.
+INTERPRETACION:: Entendido como tótem de origen: el padre genésico de las primeras tribus del archipiélago, donde se mezclaron la sangre humana y la del mar.
+RELACIONES:: huenchula; pincoya; pincoy; sirena-chilota; tenten-caicai
+FUENTE:: García Barría, Tesoro Mitológico
+FUENTE:: Negrón Vera, Mitos de Chanquín y Cucao
+ENLACE:: https://es.wikipedia.org/wiki/Mitolog%C3%ADa_chilota
+@FIN
+
+@ENTIDAD
+ID:: huenchula
+NOMBRE:: La Huenchula
+ALIAS:: Reina del mar
+SECCION:: 02-corte-del-mar
+CATEGORIA:: divinidad-marina
+REINO:: mar
+ORIGEN:: prehispanico
+ALCANCE:: chilota
+CONDICION:: benefico
+JERARQUIA:: Reina del mar (esposa del Millalobo)
+GANCHO:: Detrás del Rey del Mar hay una reina, y detrás de la reina, una hechicera.
+RESUMEN:: Esposa del Millalobo y madre de los tres príncipes del mar (Pincoya, Pincoy, Sirena). Hija de la hechicera Huenchur.
+DESCRIPCION:: Es la esposa del Millalobo y, con él, reina de los mares. Hija de la anciana hechicera Huenchur. De su unión con el Rey del Mar nacieron los tres seres que gobiernan las aguas: la Pincoya, el Pincoy y la Sirena. Reúne las características de un ser genésico, madre de la corte que ordena el océano.
+VARIANTE:: La hija deshecha en agua | Se cuenta que tuvo una hija con un mortal, y que al llevarla ante su madre Huenchur, la abuela —al destaparla— la deshizo en espuma y rocío del mar.
+DESARROLLO:: Las fuentes la desarrollan poco; suele confundirse con su madre, la Huenchur.
+RELACIONES:: millalobo; huenchur; pincoya; pincoy; sirena-chilota
+FUENTE:: García Barría, Tesoro Mitológico
+FUENTE:: Quintana (1972), Chiloé Mitológico
+ENLACE:: https://es.wikipedia.org/wiki/Mitolog%C3%ADa_chilota
+@FIN
+
+@ENTIDAD
+ID:: huenchur
+NOMBRE:: La Huenchur
+ALIAS:: La hechicera del mar; dueña de las mareas
+SECCION:: 02-corte-del-mar
+CATEGORIA:: divinidad-marina
+REINO:: mar
+ORIGEN:: prehispanico
+ALCANCE:: chilota
+CONDICION:: ambiguo
+JERARQUIA:: Madre de la Huenchula; gobierna mareas y tempestades
+GANCHO:: Una anciana de poder que manda sobre las criaturas, las calmas y los temporales. En Chiloé, hasta la realeza del mar tiene sangre de bruja.
+RESUMEN:: Anciana hechicera, madre de la Huenchula, dueña del Cahuelche y administradora de las mareas y tempestades. Su relato trágico explica el nombre del lago Cucao.
+DESCRIPCION:: Anciana de poder, administradora de criaturas del mar —entre ellas el Cahuelche, su delfín mensajero— vinculada al dominio de las tempestades y las mareas.
+VARIANTE:: El relato trágico (origen del nombre de Cucao) | La Huenchur vivía junto a un lago y tuvo que ver con un mortal que la amó; la unión entre mar y tierra estaba condenada y el esposo murió de angustia junto al lago, que desde entonces se llama Cucao. Su barca fue destrozada por un temporal y ella se ahogó; la Pincoya, al socorrer el naufragio, reconoció a su abuela y llevó su cuerpo ante el Millalobo, que le devolvió la vida y la barca para navegar eternamente —con la prohibición de pisar tierra, la autoridad sobre las mareas, y el don de comunicarse con los hombres por el viento y el Cahuelche.
+RELACIONES:: huenchula; pincoya; millalobo; cahuelche
+FUENTE:: García Barría, Tesoro Mitológico
+FUENTE:: Quintana (1972), Chiloé Mitológico
+ENLACE:: https://es.wikipedia.org/wiki/Mitolog%C3%ADa_chilota
+@FIN
+
+@ENTIDAD
+ID:: pincoya
+NOMBRE:: La Pincoya
+ALIAS:: Princesa de las mareas; dueña de los mariscos
+SECCION:: 02-corte-del-mar
+CATEGORIA:: espiritu-marino
+REINO:: mar
+ORIGEN:: prehispanico
+ALCANCE:: chilota
+CONDICION:: benefico
+JERARQUIA:: Princesa (hija del Millalobo y la Huenchula)
+GANCHO:: Sale del agua al amanecer, de cabellos dorados y vestida de algas, y baila en la arena. Es lo más cercano a la bondad que tiene el océano de Chiloé.
+RESUMEN:: Princesa del mar, dueña de los mariscos. Su danza en la playa presagia la abundancia o la escasez de la pesca.
+DESCRIPCION:: Mujer joven y hermosa, de tez clara y largos cabellos rubios, vestida de algas. Hija del Millalobo y la Huenchula. Protege el mar, lo siembra de vida y rescata náufragos. Es la dueña de los mariscos (su hermana la Sirena lo es de los peces). Su danza es su signo: si baila mirando al mar, habrá abundancia; si baila de espaldas al mar, vendrá la escasez.
+VARIANTE:: La laguna Huelde | Otra versión la hace nacer en la laguna Huelde, cerca de Cucao; con un silbido hacía emerger un tronco de oro para peinarse. Raptada para llevar prosperidad a playas lejanas, desde entonces las aguas de Chiloé se oscurecieron.
+VARIANTE:: Castigo a la codicia | Si se marisca o pesca de más en un lugar, la Pincoya se enoja, lo abandona y queda estéril.
+VARIANTE:: Cómo atraerla | Le gustan la alegría y la fiesta; los chilotes cantan, bailan y hacen curantos para que los favorezca.
+INTERPRETACION:: Imagen de la reciprocidad entre el hombre y el mar y de la pesca sostenible. Fusión de la diosa marina indígena con la bondad cristiana. Es la criatura más querida del archipiélago.
+RELACIONES:: millalobo; huenchula; pincoy; sirena-chilota; caleuche
+FUENTE:: Cavada (1914)
+FUENTE:: Núñez (2022), Servicio Nacional del Patrimonio Cultural
+ENLACE:: https://www.marcachile.cl/en/mitos-y-leyendas-chilenas/
+@FIN
+
+@ENTIDAD
+ID:: pincoy
+NOMBRE:: El Pincoy
+ALIAS:: Príncipe del mar
+SECCION:: 02-corte-del-mar
+CATEGORIA:: espiritu-marino
+REINO:: mar
+ORIGEN:: prehispanico
+ALCANCE:: chilota
+CONDICION:: benefico
+JERARQUIA:: Príncipe (hijo del Millalobo y la Huenchula)
+GANCHO:: El hermano de la Pincoya, príncipe de las aguas, señor de lo hondo.
+RESUMEN:: Contraparte masculina de la Pincoya. Junto a sus hermanas lleva al Caleuche los cuerpos de los ahogados.
+DESCRIPCION:: Hijo del Millalobo y la Huenchula, hermano de la Pincoya y la Sirena. A veces descrito como joven apuesto de cabellos de oro. Junto a la Pincoya atrae la abundancia de peces a quienes los honran y lleva al Caleuche los cuerpos de los que mueren en el mar.
+VARIANTE:: Marido o hermano | Las fuentes no concuerdan: la jerarquía del mar lo nombra hermano de la Pincoya, pero muchos relatos populares lo llaman su marido. Conviven dos tradiciones.
+RELACIONES:: pincoya; sirena-chilota; millalobo; caleuche
+FUENTE:: Quintana (1972), Chiloé Mitológico
+FUENTE:: García Barría, Tesoro Mitológico
+ENLACE:: https://es.wikipedia.org/wiki/Mitolog%C3%ADa_chilota
+@FIN
+
+@ENTIDAD
+ID:: sirena-chilota
+NOMBRE:: La Sirena Chilota
+ALIAS:: Princesa de los peces; dueña de los pescados
+SECCION:: 02-corte-del-mar
+CATEGORIA:: espiritu-marino
+REINO:: mar
+ORIGEN:: mestizo
+ALCANCE:: chilota
+CONDICION:: benefico
+JERARQUIA:: Princesa (hija del Millalobo y la Huenchula)
+GANCHO:: Hermosa de la cintura hacia arriba, y pez de la cintura hacia abajo. Guarda los peces del mar por mandato de su padre.
+RESUMEN:: Princesa del mar, dueña de los peces. Habita la isla Laitec, al sur de Quellón.
+DESCRIPCION:: Mujer de la cintura hacia arriba y pez de la cintura hacia abajo. Hija del Millalobo y la Huenchula. Su padre le encomendó cuidar a todos los peces (es dueña de los pescados; la Pincoya, de los mariscos). Junto a sus hermanos lleva al Caleuche los cuerpos de los ahogados.
+VARIANTE:: Su morada | Se dice que habita la isla Laitec, una de las más australes de Chiloé.
+VARIANTE:: El desencanto | Su forma de pez decepciona a los hombres que se acercan atraídos por su belleza.
+RELACIONES:: millalobo; huenchula; pincoya; pincoy; sumpall
+FUENTE:: Núñez (2022), Servicio Nacional del Patrimonio Cultural
+FUENTE:: Quintana (1972), Chiloé Mitológico
+ENLACE:: https://es.wikipedia.org/wiki/Mitolog%C3%ADa_chilota
+@FIN
+
+################################################################################
+#  SECCIÓN 03 — BARCOS Y ALMAS                                                  #
+################################################################################
+
+@ENTIDAD
+ID:: caleuche
+NOMBRE:: El Caleuche
+ALIAS:: El Marino; Buque de Arte; Barco de los Brujos; Barcoiche
+SECCION:: 03-barcos-y-almas
+CATEGORIA:: barco-fantasma
+REINO:: mar
+ORIGEN:: mestizo
+ALCANCE:: chilota
+CONDICION:: malefico
+JERARQUIA:: —
+ETIMOLOGIA:: mapudungun "kalewtun" (transformar) + "che" (gente) = "gente transformada"
+GANCHO:: Hay noches en que la niebla se cierra sobre el canal y ves luces donde no debería haberlas. Los que suben a su cubierta no vuelven a bajar.
+RESUMEN:: Buque fantasma que navega de noche entre la niebla, iluminado y con música, tripulado por brujos y las almas de los ahogados.
+DESCRIPCION:: Barco que navega los mares del sur envuelto en niebla, apareciendo y desapareciendo sin rastro. De noche se ilumina con luces intensas y resuena música y bailes. Lo tripulan brujos poderosos y las almas de los náufragos. Navega bajo el agua y jamás de día. Cuando lo persiguen, se transforma en roca, tronco o alga, y sus tripulantes en lobos marinos o aves.
+VARIANTE:: De los ahogados | Recoge a todos los que mueren en el agua, que le sirve de mansión eterna. La Pincoya, el Pincoy y la Sirena llevan los cuerpos; al pisar la cubierta, los muertos reviven como tripulantes.
+VARIANTE:: De los marineros | Tienen una sola pierna (la otra doblada sobre la espalda) y son desmemoriados, para no revelar el secreto del barco.
+VARIANTE:: Del contrabando | Los brujos del barco comercian; cuando un comerciante se enriquece de pronto, dicen que hizo pacto con el Caleuche.
+VARIANTE:: Del peligro de mirarlo | Quien lo mira puede quedar con la boca torcida o la cabeza vuelta hacia atrás por brujería; el barco siente el aliento de los hombres.
+INTERPRETACION:: Mito de tránsito, junto a Tempilcahue: habla del destino de las almas. Es el rostro del mar mismo, fuente de vida y de muerte para un pueblo que de él depende.
+RELACIONES:: pincoya; pincoy; sirena-chilota; tempilcahue; recta-provincia; caballo-marino
+FUENTE:: Cavada (1914)
+FUENTE:: Memoria Chilena
+ENLACE:: https://www.marcachile.cl/en/mitos-y-leyendas-chilenas/
+@FIN
+
+@ENTIDAD
+ID:: tempilcahue
+NOMBRE:: Tempilcahue
+ALIAS:: El barquero de las almas; el balsero; Trempulcahue
+SECCION:: 03-barcos-y-almas
+CATEGORIA:: psicopompo
+REINO:: almas
+ORIGEN:: prehispanico
+ALCANCE:: chilota
+CONDICION:: ambiguo
+JERARQUIA:: —
+GANCHO:: En un acantilado del oeste hay un muelle que no lleva a ningún barco. Allí esperan los muertos, con dos monedas, y gritan "¡balseo!".
+RESUMEN:: El barquero de mal genio que cruza a las almas al otro mundo desde Punta Pirulil, en Cucao. Pide dos monedas de pasaje.
+DESCRIPCION:: Encargado de cruzar a las almas al otro mundo. Cuando alguien muere, su alma viaja a la playa de Cucao, sube al acantilado de Punta Pirulil y grita "¡balseo!". Tempilcahue acude en su botecito blanco como la espuma, recibe el pago y la cruza. El alma debe llevar dos monedas: quien las olvida no puede cruzar (paralelo del Caronte griego). Es de mal genio, mezquino, castiga a las almas con golpes de remo y cobra extra por perros y caballos.
+VARIANTE:: El forastero que quiso engañarlo | Un incrédulo gritó "¡balseo!" estando vivo; Tempilcahue acudió, reconoció el engaño y no lo cruzó. Cuando el burlón murió de verdad y volvió a llamar, el barquero —que tiene buena memoria— no acudió, y su alma quedó penando en los acantilados.
+INTERPRETACION:: Figura del psicopompo (conductor de almas). El "Muelle de las Almas" físico que hoy se visita en Cucao fue construido en 2005 inspirado en este mito antiguo.
+RELACIONES:: animas-de-cucao; caleuche; muelle-de-las-almas; cucao
+FUENTE:: Quintana (1972), Chiloé Mitológico
+FUENTE:: tradición huilliche-chilota
+ENLACE:: https://chiloemitologico.cl/los-mitos-de-chiloe/mitos-acuaticos/las-animas-de-cucao/
+@FIN
+
+@ENTIDAD
+ID:: animas-de-cucao
+NOMBRE:: Las Ánimas de Cucao
+ALIAS:: Las almas en pena de Pirulil
+SECCION:: 03-barcos-y-almas
+CATEGORIA:: alma-en-pena
+REINO:: almas
+ORIGEN:: mestizo
+ALCANCE:: chilota
+CONDICION:: doliente
+JERARQUIA:: —
+GANCHO:: En los roqueríos de Pirulil, además del mar, se oyen lamentos. Son las almas que no pudieron cruzar. No las llames por su nombre.
+RESUMEN:: Almas en pena que penan en los acantilados de Cucao, llamando a un barquero que no las cruza. Nombrarlas trae la muerte en un año.
+DESCRIPCION:: Almas en pena que rondan los acantilados de la bahía de Cucao (sector Pirulil). Entre el oleaje se oyen sus lamentos: llaman al barquero Tempilcahue, que no llega a buscarlas. Quedan sufriendo sus amarguras y rencores, sin descansar, esperando un cruce que no llega.
+VARIANTE:: La prohibición | Oírlas se puede; pero nombrarlas o responderles, jamás. Quien grita "¡Ánimas de Cucao!" muere al año justo y pasa a integrar el coro suplicante.
+INTERPRETACION:: Quintana notó el paralelo con los egipcios del Nilo y el reino de Osiris: el cruce del agua hacia la dicha eterna es sueño de muchos pueblos marineros.
+RELACIONES:: tempilcahue; cucao; muelle-de-las-almas
+FUENTE:: Quintana (1972), Chiloé Mitológico
+ENLACE:: https://es.wikipedia.org/wiki/%C3%81nimas_de_Cucao
+@FIN
+
+
+################################################################################
+#  SECCIÓN 04 — LOS SEÑORES DEL BOSQUE                                          #
+################################################################################
+
+@ENTIDAD
+ID:: trauco
+NOMBRE:: El Trauco
+ALIAS:: Thrauco; Chauco; Trauko
+SECCION:: 04-bosque
+CATEGORIA:: antropomorfo-bosque
+REINO:: bosque
+ORIGEN:: prehispanico
+ALCANCE:: chilota
+CONDICION:: malefico
+JERARQUIA:: —
+ETIMOLOGIA:: del mapudungun "trawko"
+GANCHO:: No es alto ni hermoso, apenas te llega a la cintura, con un hacha de piedra. Pero ninguna mujer que cruza su mirada vuelve igual.
+RESUMEN:: Hombrecillo deforme del bosque que seduce a las mujeres en sueños (explicando embarazos) y tulle a los hombres con su aliento.
+DESCRIPCION:: Hombre pequeño y deforme, de 60 a 90 cm. Habita huecos de árboles y cavernas, come frutos del bosque y tiene fuerza descomunal. Carga un hacha de piedra con la que golpea los troncos. Seduce con la mirada a las mujeres jóvenes y las posee en sueños; ellas despiertan sin recordar y, nueve meses después, nace un hijo. A los hombres les causa torceduras y tullimiento con la mirada o el aliento. Viste traje de quilineja y sombrero cónico; sus pies no tienen talón ni dedos; usa un bastón retorcido llamado pahueldún.
+VARIANTE:: Aire de trauco | Existe una dolencia llamada "aire de trauco/trauca": el Trauco contamina los espacios sombríos del bosque.
+INTERPRETACION:: Explicación antigua para los embarazos fuera del matrimonio, protegiendo a las madres solteras del juicio social. Emparentado con el fauno y el sátiro.
+RELACIONES:: fiura; ruende; condena
+FUENTE:: Cavada (1914)
+FUENTE:: Núñez (2022), Servicio Nacional del Patrimonio Cultural
+ENLACE:: https://www.cdbp.gob.cl/noticias/chiloe-hogar-de-criaturas-mitologicas-fascinantes
+@FIN
+
+@ENTIDAD
+ID:: fiura
+NOMBRE:: La Fiura
+ALIAS:: La mujer del Trauco
+SECCION:: 04-bosque
+CATEGORIA:: antropomorfo-bosque
+REINO:: bosque
+ORIGEN:: prehispanico
+ALCANCE:: chilota
+CONDICION:: malefico
+JERARQUIA:: —
+ETIMOLOGIA:: su nombre se asocia a "fealdad"
+GANCHO:: Pequeña, fea, de pelo largo y negro y ropas rojas, anda por los matorrales haciendo muecas horribles. Su aliento tuerce los huesos.
+RESUMEN:: Mujer deforme del bosque, de aliento fétido que tulle a hombres y animales. Esposa del Trauco; según algunos, hija de la Condená.
+DESCRIPCION:: Mujer de muy baja estatura (40-50 cm) y aspecto repugnante, pelo largo y negro, ropajes rojos, muecas horribles, ojos chispeantes tras una descomunal nariz. Fuerza sobrehumana y aliento fétido con que tuerce y quiebra las extremidades de hombres y animales. Seduce a los hombres, que no pueden mirarla sin sufrir maleficios o morir. Encarnación del vicio y la perversidad.
+VARIANTE:: Su lazo con el Trauco | Casi todas las fuentes la nombran esposa del Trauco. Otra tradición la dice hija de la Condená (de ahí los dichos "lo tentó la condená", "catai fiura").
+INTERPRETACION:: Junto al Trauco, forma la pareja de seres que "explican" los males del cuerpo (parálisis, torceduras). Probablemente prehispánica.
+RELACIONES:: trauco; condena; ruende
+FUENTE:: Cavada (1914)
+FUENTE:: Memoria Chilena
+ENLACE:: https://www.guioteca.com/cultura-chilena/mitologia-de-chiloe-guia-para-conocer-y-entender-a-sus-extranas-y-temibles-criaturas/
+@FIN
+
+@ENTIDAD
+ID:: ruende
+NOMBRE:: El Ruende
+ALIAS:: —
+SECCION:: 04-bosque
+CATEGORIA:: antropomorfo-bosque
+REINO:: bosque
+ORIGEN:: mestizo
+ALCANCE:: chilota
+CONDICION:: malefico
+JERARQUIA:: —
+GANCHO:: Cuando un hombre desea a una mujer que no lo quiere, hay quien acude al Ruende.
+RESUMEN:: Ser del bosque que sirve a los hombres para hechizar y raptar a la mujer deseada con una poción de amor.
+DESCRIPCION:: Criatura del bosque que los hombres convocan mediante un rito. Al cuarto día aparece y el hombre le señala a la mujer que desea. El Ruende la busca de noche mientras duerme, la hipnotiza con la mirada y le hace besar su hocico impregnado de "Llapuy" (poción de amor de los brujos). Vencida, la mujer lo sigue hasta el árbol de tique, donde es entregada al hombre que espera. Las fuentes lo marcan como un ser "totalmente machista" que solo ayuda a hombres.
+RELACIONES:: trauco; fiura; poderes-del-brujo
+FUENTE:: Quintana (1972), Chiloé Mitológico
+ENLACE:: https://arescronida.wordpress.com/tag/carbunco/
+@FIN
+
+@ENTIDAD
+ID:: trehuaco
+NOMBRE:: El Trehuaco
+ALIAS:: —
+SECCION:: 04-bosque
+CATEGORIA:: bestia-zoomorfa
+REINO:: mar
+ORIGEN:: prehispanico
+ALCANCE:: chilota
+CONDICION:: ambiguo
+JERARQUIA:: —
+ETIMOLOGIA:: del mapudungun "trewa" (perro) + "ko" (agua)
+GANCHO:: En una laguna encantada cerca de Yaldad vive un perro que no es perro. Si una mujer recita los versos justos, la laguna se seca y él aparece.
+RESUMEN:: Animal fantástico con forma de gran perro negro, de una laguna encantada de Yaldad, ligado al deseo y a uniones zoofílicas.
+DESCRIPCION:: Bello animal de musculatura firme, fuerza extraordinaria y gran pelaje negro, semejante a un gran perro. Habita una laguna encantada cerca de Yaldad, al sur de Chiloé. Si una mujer se acerca y recita ciertos versos mágicos, las aguas se alejan hacia el mar hasta secar la laguna, y en el centro aparece el Trehuaco; si lo llama, se acerca y comienzan una relación zoofílica. Al alejarse, lanza aullidos que hacen volver las aguas, y desaparece.
+INTERPRETACION:: Pertenece a la familia oscura de seres ligados al deseo y al tabú (con el Trauco, la Fiura y el Ruende); modo cifrado en que la cultura chilota hablaba de la sexualidad prohibida.
+RELACIONES:: trauco; fiura; ruende
+FUENTE:: Quintana (1972), Chiloé Mitológico
+ENLACE:: https://www.purochile.ch/mitos-y-leyendas-de-chiloe/
+@FIN
+
+################################################################################
+#  SECCIÓN 05 — BESTIAS DEL AGUA Y LA TIERRA                                    #
+################################################################################
+
+@ENTIDAD
+ID:: camahueto
+NOMBRE:: El Camahueto
+ALIAS:: —
+SECCION:: 05-bestias
+CATEGORIA:: bestia-zoomorfa
+REINO:: cerro-rio
+ORIGEN:: prehispanico
+ALCANCE:: chilota
+CONDICION:: ambiguo
+JERARQUIA:: —
+GANCHO:: Nace en lo alto de los cerros y duerme décadas. Un día de tormenta despierta y baja al mar arrasando todo; los surcos de su cuerno se vuelven ríos.
+RESUMEN:: Bestia con forma de ternero y cuerno único dorado, de fuerza descomunal. Su cuerno tiene poderes curativos. Explica las riadas.
+DESCRIPCION:: Aspecto de ternero de un año, color verde o gris brillante, con un solo cuerno dorado en la frente (un unicornio del sur). Fuerza descomunal. Nace en los cerros vecinos al mar; tras crecer décadas bajo tierra, arranca al mar en día de tormenta arrasando árboles, rocas y barro. Los surcos que abre su cuerno dan origen a los riachuelos.
+VARIANTE:: El cuerno que sana | Su cacho concentra sus poderes; raspaduras del cuerno se usaban como remedio de fuerza y para devolver el vigor sexual. Los machis lo buscaban.
+VARIANTE:: Cómo matarlo | Se contrata a un brujo llamado el LACERO, que teje un lazo con algas (sargazo o luga) y le arranca el cuerno, donde reside su poder. Una machi puede hacerlo con cuerda de voqui.
+VARIANTE:: El encuentro | Baja al mar a juntarse y aparearse con la Vaca Marina chilota.
+INTERPRETACION:: Su cuerno de abundancia recuerda la cornucopia de Amaltea. Es el mito que explica las riadas que bajan de los cerros en años de tormentas. Probablemente prehispánico.
+RELACIONES:: vaca-marina; calcu
+FUENTE:: Núñez (2022), Servicio Nacional del Patrimonio Cultural
+FUENTE:: García Barría, Tesoro Mitológico
+ENLACE:: https://www.guioteca.com/cultura-chilena/mitologia-de-chiloe-guia-para-conocer-y-entender-a-sus-extranas-y-temibles-criaturas/
+@FIN
+
+@ENTIDAD
+ID:: cuchivilu
+NOMBRE:: El Cuchivilu
+ALIAS:: Cuchivilú
+SECCION:: 05-bestias
+CATEGORIA:: bestia-zoomorfa
+REINO:: mar
+ORIGEN:: colonial
+ALCANCE:: chilota
+CONDICION:: malefico
+JERARQUIA:: —
+ETIMOLOGIA:: "cuchi" (cerdo, quichua) + "vilu" (culebra, mapudungun)
+GANCHO:: Mitad chancho, mitad culebra, vive en cuevas y pantanos. Sale a romper los corrales de pesca, y por donde pasa deja la tierra maldita.
+RESUMEN:: Criatura mitad cerdo mitad serpiente que destruye los corrales de pesca y maldice las aguas. Deja "chincheños" (sarna) a quien se baña donde pasó.
+DESCRIPCION:: Animal mitad cerdo y mitad serpiente que vive oculto en cuevas y pantanos. Destruye los corrales de pesca artesanal (trampas de estacas del intermareal). Su presencia se registra de noche por las huellas de pezuña de cerdo. Los lugares por donde pasa quedan malditos; quien se baña en esas aguas puede cubrirse de "chincheños" (sarna).
+VARIANTE:: Romper el mal | La maldición se deshace con una ceremonia llamada CHEPUTO.
+INTERPRETACION:: Su nombre mezcla quichua (cerdo, traído por los españoles) y mapudungun; García Barría lo cuenta entre las criaturas probablemente poscoloniales, con reservas. Ejemplo del cruce indígena-español.
+RELACIONES:: —
+FUENTE:: García Barría, Tesoro Mitológico
+ENLACE:: https://es.wikipedia.org/wiki/Mitolog%C3%ADa_chilota
+@FIN
+
+@ENTIDAD
+ID:: caballo-marino
+NOMBRE:: El Caballo Marino chilote
+ALIAS:: Caballo de agua
+SECCION:: 05-bestias
+CATEGORIA:: bestia-zoomorfa
+REINO:: mar
+ORIGEN:: mestizo
+ALCANCE:: chilota
+CONDICION:: malefico
+JERARQUIA:: —
+GANCHO:: Cuando los brujos necesitan cruzar el mar, no usan barco: llaman al Caballo Marino y viajan sobre su lomo.
+RESUMEN:: Criatura marina que sirve de montura a los brujos para desplazarse por el mar, ligada al Caleuche.
+DESCRIPCION:: Criatura de las aguas que sirve de montura a los brujos, vinculada al transporte hacia el Caleuche. Poco descrito en su forma, mucho en su función: es el medio de transporte del mundo de la brujería sobre las aguas.
+VARIANTE:: La visión de Chana | Testimonio recogido: "de repente se puso el agua verde... se mostraron dos caballos, las cabezas no más, y se sacudieron la melena fuera del agua" (Blanca Cárdenas, Chana, en Núñez 2021).
+RELACIONES:: caleuche; recta-provincia; brujo-chilote
+FUENTE:: Núñez (2022), testimonios de Chana y Chaitén
+ENLACE:: https://es.wikipedia.org/wiki/Mitolog%C3%ADa_chilota
+@FIN
+
+@ENTIDAD
+ID:: cuero
+NOMBRE:: El Cuero
+ALIAS:: La Manta
+SECCION:: 05-bestias
+CATEGORIA:: bestia-zoomorfa
+REINO:: mar
+ORIGEN:: prehispanico
+ALCANCE:: chilota
+CONDICION:: malefico
+JERARQUIA:: —
+GANCHO:: Flota a ras del agua como un cuero de vaca olvidado. Pero está vivo, tiene ojos por todo el cuerpo, y si te bañas cerca se enrolla sobre ti.
+RESUMEN:: Piel viviente acuática, cubierta de ojos y ventosas, que atrapa y ahoga a los bañistas.
+DESCRIPCION:: Vive en ríos y lagunas. Tiene forma de cuero de vacuno extendido y plano; cuatro ojos en la cabeza chata y muchos ojos por todo el cuerpo; bordes rodeados de uñas y ventosas. Se tiende a flor de agua a esperar; cuando un bañista se acerca, se lanza, se enrolla sobre la víctima, la succiona y se cierra sobre ella como un saco.
+VARIANTE:: Cómo cazarlo | Se arroja al agua un tronco de quisco (cacto espinoso) del tamaño de un niño; el Cuero lo envuelve creyéndolo presa y las espinas lo atraviesan, impidiéndole extenderse.
+DESARROLLO:: No es exclusivo de Chiloé (se conoce en todo Chile), pero está plenamente integrado en la mitología chilota.
+RELACIONES:: —
+FUENTE:: García Barría, Tesoro Mitológico
+FUENTE:: tradición chilota
+ENLACE:: https://es.wikipedia.org/wiki/Mitolog%C3%ADa_chilota
+@FIN
+
+@ENTIDAD
+ID:: vaca-marina
+NOMBRE:: La Vaca Marina chilota
+ALIAS:: —
+SECCION:: 05-bestias
+CATEGORIA:: bestia-zoomorfa
+REINO:: mar
+ORIGEN:: mestizo
+ALCANCE:: chilota
+CONDICION:: ambiguo
+JERARQUIA:: —
+GANCHO:: Por los canales pasa una vaca: obesa, de cuernos retorcidos, ojos brillantes, nadando veloz con aletas de foca.
+RESUMEN:: Vaca acuática obesa de cuernos retorcidos y aletas, que recorre los canales. Ligada al Camahueto, que baja al mar a aparearse con ella.
+DESCRIPCION:: Recorre los canales chilotes con su figura de vaca obesa, cuernos retorcidos y ojos brillantes y luminosos, nadando veloz con patas en forma de grandes aletas como las de una foca. Es la criatura con la que se aparea el Camahueto; algunas versiones la hacen madre del Camahueto.
+VARIANTE:: El testimonio de Chaitén | "Vi que había una vaca que había salido en esa marea. Estaba enterita, pero vaca marina. Uno la nota al tiro por los cachos. La única diferencia es que, igual que las tortugas marinas, tiene ala en la espalda" (M. Camahueto, Chaitén, 2021, en Núñez 2022).
+RELACIONES:: camahueto
+FUENTE:: Núñez (2022), testimonio de Chaitén
+FUENTE:: García Barría, Tesoro Mitológico
+ENLACE:: http://mitologiachilota.blogspot.com/2016/04/la-vaca-marina.html
+@FIN
+
+@ENTIDAD
+ID:: nirivilu
+NOMBRE:: El Ñirivilu
+ALIAS:: Nirivilu; culebra-zorro
+SECCION:: 05-bestias
+CATEGORIA:: bestia-zoomorfa
+REINO:: mar
+ORIGEN:: prehispanico
+ALCANCE:: chilota-raiz-mapuche
+CONDICION:: ambiguo
+JERARQUIA:: —
+ETIMOLOGIA:: del mapudungun "ñiri/ngürü" (zorro) + "vilu" (culebra) = "zorro-culebra"
+GANCHO:: Una culebra con cabeza de zorro que habita los pozones y ríos de Chiloé.
+RESUMEN:: Criatura acuática mitad zorro mitad culebra, de los ríos y pozones, recogida en el bestiario chilote.
+DESCRIPCION:: Ser acuático con rasgos de zorro y de serpiente (culebra-zorro), que habita los cursos de agua. Figura en las recopilaciones chilotas (Quintana). Pariente del Guirivilo/Guruvilu mapuche, adaptado a la tradición de las aguas de Chiloé.
+DESARROLLO:: escaso
+RELACIONES:: cuero
+FUENTE:: Quintana (1972), Chiloé Mitológico
+ENLACE:: https://es.wikipedia.org/wiki/Mitolog%C3%ADa_chilota
+@FIN
+
+@ENTIDAD
+ID:: cochodoma
+NOMBRE:: La Cochodoma
+ALIAS:: —
+SECCION:: 05-bestias
+CATEGORIA:: bestia-zoomorfa
+REINO:: mar
+ORIGEN:: prehispanico
+ALCANCE:: chilota
+CONDICION:: ambiguo
+JERARQUIA:: —
+GANCHO:: Una de las criaturas de las aguas que recogió Quintana de la voz de los viejos.
+RESUMEN:: Criatura acuática del bestiario chilote recogida por Quintana, de escaso desarrollo en las fuentes.
+DESCRIPCION:: Ser de las aguas que figura entre los mitos acuáticos recopilados en "Chiloé Mitológico" de Bernardo Quintana.
+DESARROLLO:: escaso
+RELACIONES:: —
+FUENTE:: Quintana (1972), Chiloé Mitológico
+ENLACE:: https://es.wikipedia.org/wiki/Mitolog%C3%ADa_chilota
+@FIN
+
+@ENTIDAD
+ID:: sumpall
+NOMBRE:: Los Sumpall
+ALIAS:: Sumpall; Shumpall
+SECCION:: 05-bestias
+CATEGORIA:: espiritu-marino
+REINO:: mar
+ORIGEN:: prehispanico
+ALCANCE:: chilota-raiz-mapuche
+CONDICION:: ambiguo
+JERARQUIA:: —
+GANCHO:: Los hombres y mujeres del agua, nacidos del diluvio del origen.
+RESUMEN:: Tritones y sirenas de raíz mapuche, en quienes Tenten transformó a los ahogados del diluvio primordial. Antepasados de la corte marina.
+DESCRIPCION:: Seres del agua (tritones y sirenas) de la tradición mapuche-huilliche. En el mito de origen, Tenten Vilu transformó en sumpall a los que se ahogaban en el diluvio. Son parientes antiguos de la Sirena chilota y de la corte del mar; viven en lagos, ríos y el mar, y a veces se vinculan con humanos.
+RELACIONES:: tenten-caicai; sirena-chilota
+FUENTE:: tradición mapuche-huilliche
+FUENTE:: García Barría, Tesoro Mitológico
+ENLACE:: https://es.wikipedia.org/wiki/Mitolog%C3%ADa_chilota
+@FIN
+
+@ENTIDAD
+ID:: lucerna
+NOMBRE:: La Lucerna
+ALIAS:: Lucerda
+SECCION:: 05-bestias
+CATEGORIA:: bestia-zoomorfa
+REINO:: mar
+ORIGEN:: prehispanico
+ALCANCE:: chilota
+CONDICION:: ambiguo
+JERARQUIA:: —
+GANCHO:: Una criatura luminosa de las aguas de Chiloé.
+RESUMEN:: Criatura acuática luminosa del bestiario chilote, recogida por Quintana y otras recopilaciones.
+DESCRIPCION:: Ser de las aguas asociado a la luz, que figura en las recopilaciones de la mitología chilota (aparece como "El Lucerna" en el índice de Quintana y en los listados de personajes acuáticos).
+DESARROLLO:: escaso
+RELACIONES:: carbunco
+FUENTE:: Quintana (1972), Chiloé Mitológico
+ENLACE:: https://es.wikipedia.org/wiki/Mitolog%C3%ADa_chilota
+@FIN
+
+@ENTIDAD
+ID:: basilisco
+NOMBRE:: El Basilisco chilote
+ALIAS:: —
+SECCION:: 05-bestias
+CATEGORIA:: bestia-zoomorfa
+REINO:: casa
+ORIGEN:: mestizo
+ALCANCE:: chilota
+CONDICION:: malefico
+JERARQUIA:: —
+GANCHO:: Nace de un huevo que pone un gallo y se esconde bajo las tablas de la casa. De noche te bebe el aliento mientras duermes.
+RESUMEN:: Criatura mitad gallo mitad serpiente, nacida de un huevo de gallo, que consume el aliento de los habitantes de la casa hasta matarlos.
+DESCRIPCION:: Mitad gallo y mitad serpiente, cresta roja y cuerpo de culebra, nacido de un huevo puesto por un gallo viejo (contra natura). De día se esconde bajo la casa; de noche se arrastra dentro y, con un canto hipnótico que mantiene dormida a la gente, se alimenta del aliento y la saliva de los habitantes, secándolos hasta la muerte.
+VARIANTE:: La mirada que petrifica | Algunos le atribuyen, como al basilisco europeo, el poder de petrificar con la mirada.
+VARIANTE:: Vínculo con el Piuchén | Dicen que el gallo colorado, tras poner el huevo, se convierte en Piuchén.
+DEFENSA:: No hay modo de echarlo una vez instalado: la casa debe ser abandonada o quemada hasta los cimientos.
+INTERPRETACION:: Tiene raíz en el Colocolo mapuche (mezcla de gallo, serpiente y rata que también succiona la saliva). Fusión con el basilisco europeo.
+RELACIONES:: piuchen
+FUENTE:: Cavada (1914)
+ENLACE:: https://es.wikipedia.org/wiki/Basilisco_chilote
+@FIN
+
+@ENTIDAD
+ID:: piuchen
+NOMBRE:: El Piuchén
+ALIAS:: Peuchén; Piguchén; Pihuichén; Piwuchén
+SECCION:: 05-bestias
+CATEGORIA:: vampiro
+REINO:: bosque
+ORIGEN:: prehispanico
+ALCANCE:: chilota-raiz-mapuche
+CONDICION:: malefico
+JERARQUIA:: —
+ETIMOLOGIA:: del mapudungun "piwicheñ" = "secar a la gente"
+GANCHO:: No tiene una forma sola: serpiente que vuela, murciélago gigante, lagarto con alas. Cambia. Y en cualquier forma bebe la sangre.
+RESUMEN:: Vampiro de forma cambiante que chupa la sangre del ganado y a veces de los hombres. Su nombre significa "secar a la gente".
+DESCRIPCION:: Vampiro del sur, presente en la mitología chilota. Se alimenta de sangre (de ovejas, cabras y a veces de hombres). Su marca es que no tiene forma fija: generalmente culebra voladora (las alas le crecen al madurar), pero también murciélago gigante, lagarto alado, ave, pez o mezcla monstruosa. Algunos lo describen cubierto de pasto y cuernos torcidos.
+VARIANTE:: El silbido que mata | Emite silbidos que aturden o matan a la presa antes de beberla.
+VARIANTE:: El castigo de la machi | Una versión cuenta que fue un poderoso machi castigado por abusar de su sabiduría, condenado a vivir entre dos mundos como esta criatura alada.
+INTERPRETACION:: El mito nació del murciélago vampiro real (Desmodus rotundus); el abate Molina (s.XVIII) lo describió como "gran murciélago". Señalado como posible abuelo del "chupacabras".
+DESARROLLO:: pan-sur, pero plenamente integrado en la mitología chilota
+RELACIONES:: basilisco
+FUENTE:: Cavada (1914)
+FUENTE:: abate Molina (s.XVIII)
+ENLACE:: https://es.wikipedia.org/wiki/Piuch%C3%A9n
+@FIN
+
+@ENTIDAD
+ID:: cahuelche
+NOMBRE:: El Cahuelche
+ALIAS:: —
+SECCION:: 05-bestias
+CATEGORIA:: bestia-zoomorfa
+REINO:: mar
+ORIGEN:: prehispanico
+ALCANCE:: chilota
+CONDICION:: malefico
+JERARQUIA:: Mensajero de la Huenchur
+GANCHO:: Cuando la Huenchur necesita mandar un mensaje a los hombres de la tierra, envía a su delfín. Si llora cerca de tu casa de noche, alguien va a morir.
+RESUMEN:: Ser semejante a una tonina o delfín, mensajero de la Huenchur. Anuncia el arribo del Caleuche o la Pincoya y, con sus llantos, la muerte próxima.
+DESCRIPCION:: Criatura muy parecida a una tonina o delfín, cuya dueña es la Huenchur (administradora de las tempestades y las mareas). Su oficio es el de mensajero: avisa el arribo del Caleuche o de la Pincoya. Cuando el mensaje es fatal —la muerte próxima de alguien que vive junto al mar— la Huenchur lo envía hasta muy cerca de la casa señalada, y allí emite sonoros llantos que los moradores interpretan de inmediato como anuncio de muerte.
+VARIANTE:: Su origen en el mito mayor | Cuando Tenten Vilu transformó a los que se ahogaban en el diluvio, algunos fueron vueltos peces y mamíferos marinos; de uno de ellos, dicen, nació el cahuelche, "el delfín parlante".
+RELACIONES:: huenchur; caleuche; pincoya; tenten-caicai
+FUENTE:: Quintana (1972), Chiloé Mitológico
+FUENTE:: Núñez (2022), Servicio Nacional del Patrimonio Cultural
+ENLACE:: http://mitologiachilota.blogspot.com/2016/04/el-cahuelche.html
+@FIN
+
+################################################################################
+#  SECCIÓN 06 — CRIATURAS MENORES Y DOMÉSTICAS                                  #
+################################################################################
+
+@ENTIDAD
+ID:: coñipoñi
+NOMBRE:: El Coñipoñi
+ALIAS:: Coñi Poñi
+SECCION:: 06-menores
+CATEGORIA:: bestia-zoomorfa
+REINO:: casa
+ORIGEN:: prehispanico
+ALCANCE:: chilota
+CONDICION:: benefico
+JERARQUIA:: —
+GANCHO:: La criatura más dulce de Chiloé: un gusanito que vive entre las papas y protege a los recién nacidos.
+RESUMEN:: Gusano que cuida a los niños. Las madres lo ponen bajo la almohada del recién nacido y lo alimentan con leche materna.
+DESCRIPCION:: Gusano que cumple la función de cuidar a los niños. Habita en los tallos de las plantas de papa (alimento sagrado de Chiloé, con cientos de variedades nativas). Las madres se alegran al encontrar uno: lo colocan bajo la almohada del recién nacido y lo alimentan con unas gotas de leche materna para que vele por el pequeño y sea feliz y tranquilo.
+INTERPRETACION:: Representa el lado luminoso y doméstico del mito chilote: no todo es brujo y espanto, también hay ternura. Su variante femenina es la Coñieuma.
+RELACIONES:: coñieuma; origen-de-la-papa
+FUENTE:: Quintana (1972), Chiloé Mitológico
+ENLACE:: https://arescronida.wordpress.com/tag/carbunco/
+@FIN
+
+@ENTIDAD
+ID:: coñieuma
+NOMBRE:: La Coñieuma
+ALIAS:: —
+SECCION:: 06-menores
+CATEGORIA:: bestia-zoomorfa
+REINO:: casa
+ORIGEN:: prehispanico
+ALCANCE:: chilota
+CONDICION:: benefico
+JERARQUIA:: —
+GANCHO:: La compañera del Coñipoñi en el cuidado de la infancia.
+RESUMEN:: Pareja o variante femenina del Coñipoñi, ligada al cuidado de los niños. De escaso desarrollo en las fuentes.
+DESCRIPCION:: Figura emparejada con el Coñipoñi en las recopilaciones de Quintana, vinculada a la protección de los recién nacidos.
+DESARROLLO:: escaso
+RELACIONES:: coñipoñi
+FUENTE:: Quintana (1972), Chiloé Mitológico
+ENLACE:: https://es.wikipedia.org/wiki/Mitolog%C3%ADa_chilota
+@FIN
+
+@ENTIDAD
+ID:: vilpoñi
+NOMBRE:: El Vilpoñi
+ALIAS:: Vilponi
+SECCION:: 06-menores
+CATEGORIA:: bestia-zoomorfa
+REINO:: casa
+ORIGEN:: prehispanico
+ALCANCE:: chilota
+CONDICION:: benefico
+JERARQUIA:: —
+GANCHO:: La lagartija de los galpones, que limpia la casa de plagas.
+RESUMEN:: Lagartija que habita galpones y bodegas; come ratones, arañas e insectos, librando la casa de plagas.
+DESCRIPCION:: Lagartija de los galpones y bodegas chilotas. Se alimenta de ratones, arañas e insectos, por lo que se la considera útil y protectora del hogar y las cosechas.
+DESARROLLO:: escaso
+RELACIONES:: —
+FUENTE:: Quintana (1972), Chiloé Mitológico
+ENLACE:: https://es.wikipedia.org/wiki/Mitolog%C3%ADa_chilota
+@FIN
+
+@ENTIDAD
+ID:: piruquina
+NOMBRE:: La Piruquina
+ALIAS:: —
+SECCION:: 06-menores
+CATEGORIA:: bestia-zoomorfa
+REINO:: bosque
+ORIGEN:: prehispanico
+ALCANCE:: chilota
+CONDICION:: ambiguo
+JERARQUIA:: —
+ETIMOLOGIA:: su nombre significa "estirpe de los gusanos"
+GANCHO:: Una culebra gigantesca de color rojo intenso, que se arrastra por la tierra de Chiloé.
+RESUMEN:: Culebra gigantesca de color rojo intenso, cuyo nombre significa "estirpe de los gusanos".
+DESCRIPCION:: Culebra gigantesca de color rojo intenso. Figura en el bestiario chilote recopilado por Quintana y otros.
+DESARROLLO:: escaso
+RELACIONES:: nirivilu
+FUENTE:: Quintana (1972), Chiloé Mitológico
+ENLACE:: https://arescronida.wordpress.com/2008/02/16/leyendas-de-chiloe-3-monstruos-locales/
+@FIN
+
+@ENTIDAD
+ID:: den
+NOMBRE:: El Deñ
+ALIAS:: Den
+SECCION:: 06-menores
+CATEGORIA:: ave-bruja
+REINO:: aire
+ORIGEN:: prehispanico
+ALCANCE:: chilota
+CONDICION:: malefico
+JERARQUIA:: —
+GANCHO:: Una de las aves de la noche ligadas a los brujos de Chiloé.
+RESUMEN:: Ave nocturna relacionada con los brujos, junto al Coo, el Raiquén y el Mandao.
+DESCRIPCION:: Ave de la noche que la tradición cuenta entre las criaturas estrechamente ligadas a los Brujos de Chiloé (junto al Coo, el Raiquén y el Mandao). Sirve a los brujos como las demás aves-mensajeras.
+DESARROLLO:: escaso
+RELACIONES:: coo; raiquen; mandao; brujo-chilote
+FUENTE:: Quintana (1972), Chiloé Mitológico
+ENLACE:: https://arescronida.wordpress.com/2008/02/16/leyendas-de-chiloe-3-monstruos-locales/
+@FIN
+
+@ENTIDAD
+ID:: lluhay
+NOMBRE:: El Lluhay
+ALIAS:: —
+SECCION:: 06-menores
+CATEGORIA:: bestia-zoomorfa
+REINO:: bosque
+ORIGEN:: prehispanico
+ALCANCE:: chilota
+CONDICION:: ambiguo
+JERARQUIA:: —
+GANCHO:: Una criatura del bestiario chilote recogida por Quintana.
+RESUMEN:: Ser de la mitología chilota recopilado por Quintana, de escaso desarrollo en las fuentes.
+DESCRIPCION:: Criatura que figura en "Chiloé Mitológico" de Bernardo Quintana, entre los mitos de la tierra.
+DESARROLLO:: escaso
+RELACIONES:: —
+FUENTE:: Quintana (1972), Chiloé Mitológico
+ENLACE:: https://es.wikipedia.org/wiki/Mitolog%C3%ADa_chilota
+@FIN
+
+@ENTIDAD
+ID:: puyo
+NOMBRE:: El Puyo
+ALIAS:: —
+SECCION:: 06-menores
+CATEGORIA:: bestia-zoomorfa
+REINO:: bosque
+ORIGEN:: prehispanico
+ALCANCE:: chilota
+CONDICION:: ambiguo
+JERARQUIA:: —
+GANCHO:: Otra criatura menor del bestiario que Quintana recogió de la voz de los viejos.
+RESUMEN:: Ser de la mitología chilota recopilado por Quintana, de escaso desarrollo en las fuentes.
+DESCRIPCION:: Criatura que figura en "Chiloé Mitológico" de Bernardo Quintana.
+DESARROLLO:: escaso
+RELACIONES:: —
+FUENTE:: Quintana (1972), Chiloé Mitológico
+ENLACE:: https://es.wikipedia.org/wiki/Mitolog%C3%ADa_chilota
+@FIN
+
+@ENTIDAD
+ID:: carbunco
+NOMBRE:: El Carbunco
+ALIAS:: Carbunclo; Carbúnculo
+SECCION:: 06-menores
+CATEGORIA:: guardian
+REINO:: subsuelo
+ORIGEN:: mestizo
+ALCANCE:: chilota
+CONDICION:: ambiguo
+JERARQUIA:: —
+ETIMOLOGIA:: del latín "carbunculus" = pequeño carbón (por su brillo de brasa)
+GANCHO:: En las noches cercanas al solsticio de invierno brilla una luz roja-verdosa entre los matorrales. Donde aparece, hay un tesoro enterrado.
+RESUMEN:: Pequeña bestia luminosa, guardiana de los metales y tesoros del subsuelo. Donde aparece hay un "entierro". Castiga la codicia.
+DESCRIPCION:: En la mitología chilota es el guardián de los metales y tesoros que oculta el subsuelo. En las noches cercanas al solsticio de invierno (fines de junio) hace súbitas apariciones, emergiendo del suelo como una llamarada; si alguien lo ve, desaparece tragado por la tierra. Su luz viene del oro y las piedras que guarda. Donde aparece, hay con seguridad un tesoro escondido ("entierro").
+VARIANTE:: Sus formas | Perrillo blanco con aureola roja-verdosa; una simple luz; un molusco bivalvo con forma de mazorca; un gato negro con un diamante en la frente. Tiene finísimo oído y se cierra como una piedra para esconderse.
+VARIANTE:: El rito del tesoro | Si se le lanza una cuerda, toma el objeto y desaparece; al día siguiente el objeto aparece al pie de un calafate, marcando el tesoro. Para sacarlo: pala nueva, una anciana viuda y un gato negro; cavar vara a vara lanzando el gato cada vez. Hay que actuar sin miedo y sin codicia.
+INTERPRETACION:: En la tradición chilota, sin grandes minas pero llena de leyendas de "entierros", el Carbunco se volvió guardián de los tesoros enterrados. (Nota: tiene parientes en el norte minero y en otras tierras, pero esta ficha recoge solo su versión chilota.)
+RELACIONES:: entierros; lucerna
+FUENTE:: García Barría, Tesoro Mitológico
+FUENTE:: Sonia Montecino, Mitos de Chile (2015)
+ENLACE:: http://mitologiachilota.blogspot.com/2016/04/el-carbunco.html
+@FIN
+
+@ENTIDAD
+ID:: curamilla
+NOMBRE:: La Curamilla
+ALIAS:: —
+SECCION:: 06-menores
+CATEGORIA:: objeto-magico
+REINO:: lugar
+ORIGEN:: prehispanico
+ALCANCE:: chilota
+CONDICION:: benefico
+JERARQUIA:: —
+ETIMOLOGIA:: del mapudungun "cura" (piedra) + "milla" (oro)
+GANCHO:: No es bestia ni fantasma: es una piedra viva, de oro macizo, que emerge del fondo de un lago para mirar a una joven hermosa.
+RESUMEN:: Piedra mágica de oro macizo cerca de Cucao que, al brillar con el sol, trae felicidad y salud al pueblo. Castiga la codicia.
+DESCRIPCION:: Gran piedra mágica de oro macizo, de forma cónica, que brilla intensamente cuando la tocan los primeros rayos del sol, de donde saca su poder. Situada en un lago cerca de Cucao, ligada a una caverna que llegaba al interior de la tierra (hoy bloqueada por el terremoto de 1960).
+VARIANTE:: El relato | Una joven hermosísima salía cada verano al amanecer a nadar en el lago; al verla, emergía la Curamilla a observarla, y al asomarse traía felicidad y salud a todos. Un forastero codicioso quiso robarla, pero al ver a la joven se enamoró y olvidó el robo; se fueron juntos a tierras lejanas, llevándose el secreto.
+VARIANTE:: Los buscadores | Calcus y machis buscan la Curamilla o un trozo de ella; las machis no por codicia, sino porque su poseedor obtiene felicidad y dones. La codicia jamás la alcanza.
+RELACIONES:: cucao; calcu; machi
+FUENTE:: Quintana (1972), Chiloé Mitológico
+ENLACE:: https://www.purochile.ch/mitos-y-leyendas-de-chiloe/
+@FIN
+
+
+################################################################################
+#  SECCIÓN 07 — AVES DE LOS BRUJOS                                              #
+################################################################################
+
+@ENTIDAD
+ID:: coo
+NOMBRE:: El Coo
+ALIAS:: —
+SECCION:: 07-aves-brujas
+CATEGORIA:: ave-bruja
+REINO:: aire
+ORIGEN:: mestizo
+ALCANCE:: chilota
+CONDICION:: malefico
+JERARQUIA:: —
+GANCHO:: Si una lechuza se posa en tu techo y canta de noche, reza por el enfermo de la casa. El Coo no viene por casualidad.
+RESUMEN:: Ave nocturna tipo lechuza, sierva de los brujos, cuyo canto sobre el techo anuncia una muerte.
+DESCRIPCION:: Ave nocturna semejante a lechuza o búho, ligada a los brujos. Cuando se posa en el techo de una casa y canta, presagia la muerte del enfermo o del jefe de la familia. Los brujos lo emplean para vigilar a las familias que acechan.
+VARIANTE:: La transformación | Según algunas voces, es el propio brujo quien se transforma en Coo: tras dormir a su víctima, entra a la casa y la lacera con sus garras o le arranca cabello para preparar polvos mágicos.
+RELACIONES:: raiquen; mandao; den; brujo-chilote; chonchon
+FUENTE:: Cavada (1914)
+FUENTE:: Romo Sánchez, Diccionario de la Brujería
+ENLACE:: https://www.memoriachilena.gob.cl/archivos2/pdfs/MC0033461.pdf
+@FIN
+
+@ENTIDAD
+ID:: raiquen
+NOMBRE:: El Raiquén
+ALIAS:: Raiquen
+SECCION:: 07-aves-brujas
+CATEGORIA:: ave-bruja
+REINO:: aire
+ORIGEN:: mestizo
+ALCANCE:: chilota
+CONDICION:: malefico
+JERARQUIA:: —
+GANCHO:: Un búho de plumaje negrísimo y mirada sobrenatural, que el brujo usa para anunciar en persona la muerte.
+RESUMEN:: Forma de búho en que se transforma el brujo para señalar personalmente la muerte de alguien. Su vuelo suena como espuelas.
+DESCRIPCION:: Ave muy similar al Tucúquere (un búho de la región), pero con plumaje más negro, un canto diferente y una mirada que lo señala como presencia sobrenatural. Es una de las formas en que se transforma el brujo, usada para indicar personalmente la muerte de una persona. Su anuncio se reconoce por el ruido que hace al volar —como espuelas que se agitan— o por un canto similar a las palabras "Piruí-piruí-piruí".
+RELACIONES:: coo; mandao; den; brujo-chilote
+FUENTE:: Quintana (1972), Chiloé Mitológico
+ENLACE:: https://arescronida.wordpress.com/2008/02/16/leyendas-de-chiloe-3-monstruos-locales/
+@FIN
+
+@ENTIDAD
+ID:: mandao
+NOMBRE:: El Mandao
+ALIAS:: Huilco; Diucón
+SECCION:: 07-aves-brujas
+CATEGORIA:: ave-bruja
+REINO:: aire
+ORIGEN:: mestizo
+ALCANCE:: chilota
+CONDICION:: malefico
+JERARQUIA:: —
+GANCHO:: El pájaro que trae presagios al servicio de los brujos.
+RESUMEN:: Ave mensajera de presagios ligada a los brujos, también llamada Huilco o Diucón.
+DESCRIPCION:: Pájaro mensajero de presagios, una de las aves estrechamente relacionadas con los Brujos de Chiloé (junto al Coo, el Raiquén y el Deñ). Conocido también como Huilco o Diucón.
+DESARROLLO:: escaso
+RELACIONES:: coo; raiquen; den; brujo-chilote
+FUENTE:: Quintana (1972), Chiloé Mitológico
+ENLACE:: https://es.wikipedia.org/wiki/Mitolog%C3%ADa_chilota
+@FIN
+
+@ENTIDAD
+ID:: chonchon
+NOMBRE:: El Chonchón
+ALIAS:: Tué Tué
+SECCION:: 07-aves-brujas
+CATEGORIA:: ave-bruja
+REINO:: aire
+ORIGEN:: prehispanico
+ALCANCE:: chilota-raiz-mapuche
+CONDICION:: malefico
+JERARQUIA:: —
+GANCHO:: Dicen "Tué Tué Tué" en la noche, y al oírlo se persigna la gente. Es una cabeza humana con alas en las orejas, volando hacia el aquelarre.
+RESUMEN:: La cabeza voladora de un brujo, con las orejas convertidas en alas. Una de las formas de vuelo de los brujos.
+DESCRIPCION:: Es la cabeza de un brujo o bruja, separada del cuerpo, que vuela de noche. El brujo se aplica un ungüento en la garganta y su cabeza se desprende; las orejas se agrandan y se vuelven alas. El cuerpo queda atrás, inerte, hasta que la cabeza regresa al amanecer. Vuela hacia un aquelarre o a causar daño. Se le reconoce por su canto: "Tué, tué, tué" (de ahí el nombre Tué Tué).
+INTERPRETACION:: Pariente de la Voladora: ambos son formas del vuelo brujo. El Chonchón se lleva la cabeza entera; la Voladora deja las vísceras.
+RELACIONES:: voladora; brujo-chilote; coo
+FUENTE:: Cavada (1914)
+FUENTE:: Romo Sánchez, Diccionario de la Brujería
+ENLACE:: https://es.wikipedia.org/wiki/Mitolog%C3%ADa_chilota
+@FIN
+
+################################################################################
+#  SECCIÓN 08 — LAS PENAS Y LOS ANUNCIOS DE MUERTE                              #
+################################################################################
+
+@ENTIDAD
+ID:: llorona-pucullen
+NOMBRE:: La Llorona / La Pucullén
+ALIAS:: La Pucullén
+SECCION:: 08-penas
+CATEGORIA:: alma-en-pena
+REINO:: almas
+ORIGEN:: mestizo
+ALCANCE:: chilota
+CONDICION:: doliente
+JERARQUIA:: —
+ETIMOLOGIA:: "Pucullén" de "cullén" (lágrima) + "pu" (plural)
+GANCHO:: En las noches de tormenta se desliza una mujer alta y delgada, de negro, rostro verde pálido y siempre lloroso. Va de la casa del enfermo al cementerio.
+RESUMEN:: Espíritu femenino que anuncia la muerte y guía a las almas, señalando con sus lágrimas dónde abrir la fosa. Solo la ven moribundos, machis y perros.
+DESCRIPCION:: Mujer alta y muy delgada, de vestido negro liso como mortaja, pañuelo negro sobre la cabeza, rostro verde pálido y siempre lloroso, cabellos largos y erizados como alas negras. Recorre llorando el camino desde la casa del grave enfermo hasta el cementerio del cerro. Su llanto anuncia la muerte inminente del enfermo, que ocurrirá en la bajamar, con luna menguante. Solo es visible para gente de corta vida, los machis y algunos animales (los perros, que aúllan).
+VARIANTE:: Su oficio de guía | Con la ruta de sus pasos señala el camino del muerto al más allá; en el camposanto, con un charco de sus lágrimas, marca el sitio de la fosa. La tierra debe alcanzar para cubrir el féretro: si faltara, otro familiar moriría antes de un año.
+VARIANTE:: Por qué llora | Llora por todos los familiares (sobre todo los parcos en lágrimas) para que se consuelen pronto, y para que el muerto no vuelva a penarlos. Según una versión, llora eternamente porque le quitaron a su hijo de pequeño.
+RELACIONES:: animas-de-cucao; viuda; condena; machi
+FUENTE:: Quintana (1972), Chiloé Mitológico
+ENLACE:: https://chiloemitologico.cl/los-mitos-de-chiloe/mitos-terrestres/la-llorona/
+@FIN
+
+@ENTIDAD
+ID:: viuda
+NOMBRE:: La Viuda
+ALIAS:: —
+SECCION:: 08-penas
+CATEGORIA:: alma-en-pena
+REINO:: almas
+ORIGEN:: mestizo
+ALCANCE:: chilota
+CONDICION:: doliente
+JERARQUIA:: —
+GANCHO:: El jinete que cruza solo los caminos de noche teme que su caballo se encabrite de pronto, sin razón. Es la señal: la Viuda anda cerca.
+RESUMEN:: Figura espectral femenina de luto que acecha los caminos de noche y asusta a los jinetes solitarios.
+DESCRIPCION:: Figura espectral que acecha los caminos rurales de Chiloé en la oscuridad. Los jinetes solitarios temen encontrarla en algún recodo. La primera señal es el caballo, que se encabrita inquieto presintiendo lo que el jinete aún no ve.
+DESARROLLO:: escaso (las fuentes clásicas la desarrollan poco; figura entre los espantos nocturnos de los caminos)
+RELACIONES:: llorona-pucullen; condena
+FUENTE:: Quintana (1972), Chiloé Mitológico
+ENLACE:: https://chiloemitologico.cl/los-mitos-de-chiloe/mitos-terrestres/la-vuida/
+@FIN
+
+@ENTIDAD
+ID:: condena
+NOMBRE:: La Condená
+ALIAS:: La Condenada
+SECCION:: 08-penas
+CATEGORIA:: alma-en-pena
+REINO:: almas
+ORIGEN:: mestizo
+ALCANCE:: chilota
+CONDICION:: doliente
+JERARQUIA:: —
+GANCHO:: Un alma de mujer condenada a vagar sin descanso, tallada por los artesanos de Chiloé en madera y fibra.
+RESUMEN:: Alma femenina condenada a penar, de la tríada de las penas (con la Viuda y la Llorona). Según una tradición, madre de la Fiura.
+DESCRIPCION:: Alma de mujer condenada a vagar sin hallar descanso. Forma, con la Viuda y la Llorona, la tríada de las penas femeninas del archipiélago. De ella vienen los dichos chilotes "lo tentó la condená", "condenao". Una tradición la hace madre de la Fiura.
+VARIANTE:: En la cultura material | Aunque su relato es escueto, su figura está entre las que el Museo Regional de Ancud conserva talladas (con la Pincoya, la Sirena, el Trauco, el Ten-Ten y el Basilisco) en fibra vegetal, madera y piedra cancagua.
+DESARROLLO:: escaso en relato, pero presencia real en la cultura material chilota
+RELACIONES:: fiura; viuda; llorona-pucullen
+FUENTE:: Núñez (2022), Servicio Nacional del Patrimonio Cultural
+ENLACE:: https://www.investigacion.patrimoniocultural.gob.cl/
+@FIN
+
+@ENTIDAD
+ID:: caballero-de-lata
+NOMBRE:: El Caballero de Lata
+ALIAS:: —
+SECCION:: 08-penas
+CATEGORIA:: alma-en-pena
+REINO:: almas
+ORIGEN:: colonial
+ALCANCE:: chilota
+CONDICION:: doliente
+JERARQUIA:: —
+GANCHO:: Por los antiguos fuertes españoles, en la noche, resuena el paso de un fantasma cubierto de armadura: el Caballero de Lata.
+RESUMEN:: Fantasma de un soldado o caballero español con armadura ("lata"), que pena en los antiguos fuertes y lugares coloniales de Chiloé.
+DESCRIPCION:: Figura espectral con armadura (la "lata") que aparece en sitios ligados a la presencia colonial española en Chiloé, como los antiguos fuertes. Su paso metálico anuncia su presencia. Es un fantasma de origen colonial, memoria de los siglos de dominación española en el archipiélago (Chiloé fue el último bastión realista en Chile).
+DESARROLLO:: escaso
+RELACIONES:: —
+FUENTE:: Quintana (1972), Chiloé Mitológico
+ENLACE:: https://es.wikipedia.org/wiki/Categor%C3%ADa:Mitolog%C3%ADa_chilota
+@FIN
+
+################################################################################
+################################################################################
+##                                                                            ##
+##         SECCIÓN 09 — LA RECTA PROVINCIA                                     ##
+##         El gobierno secreto de los brujos de Chiloé                         ##
+##         (APARTADO ESPECIAL Y EXTENSO)                                       ##
+##                                                                            ##
+##  La mitología de Chiloé no termina en bestias y espíritus: tiene, en su    ##
+##  centro, una sociedad secreta de brujos que durante un siglo (s.XVIII-XIX) ##
+##  gobernó las islas en las sombras, con rey, leyes, tribunales y territorio  ##
+##  propios. A diferencia de casi todo lo demás, esta parte tiene archivos,    ##
+##  juicio y fecha: el Proceso de Ancud de 1880. Pasó de verdad —o al menos,   ##
+##  de verdad fue creída. Este apartado la cubre en profundidad: qué es el     ##
+##  brujo, de dónde viene, cómo se inicia, sus poderes y objetos, su           ##
+##  organización, sus criaturas sirvientes, su sede y su caída.                ##
+##                                                                            ##
+##  ORDEN DE LECTURA SUGERIDO PARA EL SITIO:                                   ##
+##    1. brujo-chilote   2. machi   3. calcu   4. recta-provincia              ##
+##    5. la-mayoria   6. siete-republicas   7. iniciacion   8. macun           ##
+##    9. poderes-del-brujo   10. challanco   11. invunche   12. voladora       ##
+##    13. cueva-quicavi   14. libro-de-moraleda   15. juicio-1880              ##
+##                                                                            ##
+################################################################################
+################################################################################
+
+@ENTIDAD
+ID:: brujo-chilote
+NOMBRE:: El Brujo chilote
+ALIAS:: El Brujo de Chiloé
+SECCION:: 09-recta-provincia
+CATEGORIA:: brujo-humano
+REINO:: lugar
+ORIGEN:: mestizo
+ALCANCE:: chilota
+CONDICION:: ambiguo
+JERARQUIA:: Miembro de la cofradía de la Recta Provincia
+GANCHO:: No es un monstruo: es una persona, un vecino, un viejo de la isla a quien uno saluda en el muelle. Esa es su parte más temible.
+RESUMEN:: Persona con poderes mágicos, miembro de una organización secreta, que puede sanar o matar. Fusión de la machi y el calcu mapuche con la bruja europea.
+DESCRIPCION:: El brujo chilote es una persona con poderes mágicos que pertenece a una organización secreta. Puede sanar o matar, según le paguen y le plazca; se le teme y respeta por igual. No es un invento puro ni indígena ni europeo: nace de la fusión de personas que sabían de medicina natural y hierbas, de figuras mapuche (la machi sanadora y el calcu hechicero), y de las creencias europeas sobre brujas (pacto con el Diablo, vuelo nocturno, aquelarre). De esa mezcla, en el aislamiento de las islas y con aporte de esclavos africanos, nació el brujo chilote.
+VARIANTE:: El Código de Moral | Según algunas fuentes, al brujo se le hacía jurar un "Código de Moral" que le prohibía la violación de mujeres y el hurto.
+RELACIONES:: machi; calcu; recta-provincia; iniciacion; macun; poderes-del-brujo
+FUENTE:: Cavada (1914)
+FUENTE:: Cárdenas, Chiloé: manual del pensamiento mágico (1985)
+ENLACE:: https://es.wikipedia.org/wiki/Brujos_de_Chilo%C3%A9
+@FIN
+
+@ENTIDAD
+ID:: machi
+NOMBRE:: La Machi
+ALIAS:: —
+SECCION:: 09-recta-provincia
+CATEGORIA:: brujo-humano
+REINO:: lugar
+ORIGEN:: prehispanico
+ALCANCE:: chilota-raiz-mapuche
+CONDICION:: benefico
+JERARQUIA:: —
+GANCHO:: La sanadora, la que cura con hierbas y conoce el mundo de los espíritus.
+RESUMEN:: Sanadora de raíz mapuche, con funciones parcialmente distintas en Chiloé. Cura, no daña; contrapunto del brujo y el calcu.
+DESCRIPCION:: Persona que desempeña un rol importante en la cultura y religión mapuche, pero que en Chiloé tiene características y funciones parcialmente diferentes. Es la sanadora: cura con hierbas, conoce el mundo espiritual y obra para el bien (a diferencia del calcu y del brujo dañino). Puede buscar la Curamilla o lacear al Camahueto sin codicia, por sus dones.
+RELACIONES:: brujo-chilote; calcu; camahueto; curamilla
+FUENTE:: tradición mapuche-chilota
+ENLACE:: https://es.wikipedia.org/wiki/Mitolog%C3%ADa_chilota
+@FIN
+
+@ENTIDAD
+ID:: calcu
+NOMBRE:: El Calcu
+ALIAS:: Kalku
+SECCION:: 09-recta-provincia
+CATEGORIA:: brujo-humano
+REINO:: lugar
+ORIGEN:: prehispanico
+ALCANCE:: chilota-raiz-mapuche
+CONDICION:: malefico
+JERARQUIA:: —
+GANCHO:: El hechicero que hace daño, raíz indígena del brujo chilote.
+RESUMEN:: Hechicero mapuche que obra el mal, una de las raíces del brujo de Chiloé. Domina maleficios y criaturas oscuras.
+DESCRIPCION:: Hechicero de la tradición mapuche que se dedica a hacer daño (a diferencia de la machi, que sana). Es una de las raíces directas del brujo chilote. Domina maleficios, busca objetos de poder como la Curamilla por codicia, y se vincula a la creación de seres oscuros como el Invunche ("producto de la unión de un calcu con una bruja", según una versión).
+RELACIONES:: brujo-chilote; machi; invunche
+FUENTE:: tradición mapuche-chilota
+ENLACE:: https://es.wikipedia.org/wiki/Brujos_de_Chilo%C3%A9
+@FIN
+
+@ENTIDAD
+ID:: recta-provincia
+NOMBRE:: La Recta Provincia
+ALIAS:: La Mayoría; El Tribunal de la Raza Indígena
+SECCION:: 09-recta-provincia
+CATEGORIA:: relato
+REINO:: lugar
+ORIGEN:: mestizo
+ALCANCE:: chilota
+CONDICION:: ambiguo
+JERARQUIA:: Gobierno secreto del archipiélago
+GANCHO:: Un Estado dentro del Estado. Un gobierno en la sombra, con rey, leyes, tribunales y territorio propios, que durante un siglo gobernó Chiloé.
+RESUMEN:: Sociedad secreta de brujos (s.XVIII-XIX) con estructura jerárquica, justicia y territorio propios, que operó como poder paralelo al Estado chileno.
+DESCRIPCION:: No era un grupo de brujos sueltos, sino una organización con estructura, jerarquía, leyes, tribunales y territorio: un Estado dentro del Estado, comparable a un partido político en clandestinidad. Los brujos llamaban "Recta Provincia" a la Provincia de Chiloé entera, como si fuera de ellos. Su consejo gobernante era "La Mayoría"; por su función de impartir justicia se la llamó "Tribunal de la Raza Indígena". Impartía justicia, cobraba por sus servicios y castigaba; en muchas localidades su autoridad pesó tanto o más que la del Estado.
+INTERPRETACION:: Su existencia expresa la resistencia de la cultura insular al Estado central que llegó tras la incorporación de Chiloé a Chile en 1826. Es el corazón histórico-mítico de la brujería chilota.
+RELACIONES:: brujo-chilote; la-mayoria; siete-republicas; cueva-quicavi; juicio-1880; libro-de-moraleda
+FUENTE:: Gonzalo Rojas Flores, Reyes sobre la tierra
+FUENTE:: Sergio Fritz Roa, La Recta Provincia
+ENLACE:: https://es.wikipedia.org/wiki/Recta_Provincia
+ENLACE:: https://viajaachiloe.com/la-recta-provincia-el-enigmatico-gobierno-secreto-de-los-brujos-de-chiloe/
+@FIN
+
+@ENTIDAD
+ID:: la-mayoria
+NOMBRE:: La Mayoría
+ALIAS:: El consejo de la Recta Provincia
+SECCION:: 09-recta-provincia
+CATEGORIA:: relato
+REINO:: lugar
+ORIGEN:: mestizo
+ALCANCE:: chilota
+CONDICION:: ambiguo
+JERARQUIA:: Consejo gobernante de la Recta Provincia
+GANCHO:: Al frente, un Rey. Bajo él, un consejo y un enjambre de cargos que imitaban a los de un gobierno real: virreyes, escribanos, alcaldes.
+RESUMEN:: El consejo de gobierno de la Recta Provincia, con un Rey a la cabeza y cargos jerárquicos que remedaban un Estado.
+DESCRIPCION:: La cúpula de la Recta Provincia. Al frente, un Rey (a veces se habla de reyes y presidentes). Bajo él, el consejo gobernante (la Mayoría) y un enjambre de funcionarios con nombres de gobierno real: virreyes, escribanos, alcaldes, secretarios, reparadores, investigadores; luego los brujos comunes, curanderos, machis y los guardianes (porteros de la cueva). El jefe supremo en Quicaví era llamado "el Supremo" o "el Buta". La justicia funcionaba por petición: quien necesitaba una venganza, curación o hallar a un ladrón acudía al presidente de su distrito, que elevaba el caso a la Mayoría; para identificar culpables usaban el challanco.
+RELACIONES:: recta-provincia; siete-republicas; challanco; cueva-quicavi
+FUENTE:: Romo Sánchez, Diccionario de la Brujería
+FUENTE:: crónicas del Proceso de Ancud
+ENLACE:: https://es.wikipedia.org/wiki/Recta_Provincia
+@FIN
+
+@ENTIDAD
+ID:: siete-republicas
+NOMBRE:: Las siete repúblicas
+ALIAS:: Los distritos de la Recta Provincia
+SECCION:: 09-recta-provincia
+CATEGORIA:: relato
+REINO:: lugar
+ORIGEN:: mestizo
+ALCANCE:: chilota
+CONDICION:: ambiguo
+JERARQUIA:: División territorial de la cofradía
+GANCHO:: Para operar en secreto, dividieron el archipiélago en siete distritos con nombres en clave de ciudades lejanas: Lima, España, Salamanca...
+RESUMEN:: La Recta Provincia dividió Chiloé en siete distritos o "repúblicas", cada uno con un nombre en clave de una ciudad española o colonial.
+DESCRIPCION:: Para operar en secreto, la Recta Provincia dividió el archipiélago en siete Distritos o Repúblicas, cada uno con un nombre en clave tomado de lugares de España y sus colonias, para esconder los lugares reales de Chiloé. Cada distrito tenía su presidente y respondía al Rey. Las equivalencias eran: Buenos Aires = Achao; España = Queilén; Lima = Quicaví (la sede del Rey); Perú = Caucahué; Salamanca = Rauco; Santiago = Tenaún; Villarrica = Dalcahue.
+RELACIONES:: recta-provincia; la-mayoria; cueva-quicavi; achao; tenaun
+FUENTE:: Wikipedia (Recta Provincia)
+FUENTE:: Fritz Roa, La Recta Provincia
+ENLACE:: https://es.wikipedia.org/wiki/Recta_Provincia
+@FIN
+
+@ENTIDAD
+ID:: iniciacion
+NOMBRE:: La iniciación del brujo
+ALIAS:: El camino oscuro
+SECCION:: 09-recta-provincia
+CATEGORIA:: relato
+REINO:: lugar
+ORIGEN:: mestizo
+ALCANCE:: chilota
+CONDICION:: malefico
+JERARQUIA:: —
+ADVERTENCIA:: Relato tradicional con actos atroces. Se conserva como testimonio de lo que un pueblo temió, no como instrucción.
+GANCHO:: Para entrar en la Recta Provincia no bastaba con querer: había que recorrer un camino de horror, de cuatro pruebas.
+RESUMEN:: El rito de ingreso a la cofradía: borrar el bautismo, llevar una lagartija, matar al ser más amado y confeccionar el macuñ, seguido de un juramento al Diablo.
+DESCRIPCION:: Las fuentes (juicio de 1880, Cavada, Fritz Roa) coinciden en cuatro pruebas. PRIMERA: borrar el bautismo cristiano bajo una caída de agua (un "traiguen"), durante varias noches o hasta cuarenta días; una variante lo hace lavando la cabeza con sangre de un recién nacido no bautizado. SEGUNDA: llevar una lagartija sobre el cuerpo varios días, atada a la frente con un pañuelo rojo, para recibir su sabiduría. TERCERA: asesinar al ser más amado (un hijo o pariente querido), un día martes por la noche. CUARTA: confeccionar el macuñ con piel humana. Luego, en la Cueva de Quicaví ante la Mayoría, el aspirante daba tres vueltas a las islas desnudo, gritando una invocación al Diablo; aparecido este, el jefe le entregaba el macuñ y tomaba el juramento de adhesión al Demonio y secreto absoluto (revelar que se es brujo trae la muerte antes de un año).
+RELACIONES:: brujo-chilote; macun; cueva-quicavi; la-mayoria
+FUENTE:: Documentos del Proceso de Ancud (1880)
+FUENTE:: Fritz Roa, La iniciación y los poderes del brujo chilote
+ENLACE:: https://es.wikipedia.org/wiki/Brujos_de_Chilo%C3%A9
+@FIN
+
+@ENTIDAD
+ID:: macun
+NOMBRE:: El Macuñ
+ALIAS:: Macuñ; chaleco de brujo
+SECCION:: 09-recta-provincia
+CATEGORIA:: objeto-magico
+REINO:: lugar
+ORIGEN:: mestizo
+ALCANCE:: chilota
+CONDICION:: malefico
+JERARQUIA:: —
+ETIMOLOGIA:: del mapudungun "makuñ" = manto
+GANCHO:: Un chaleco hecho con la piel del pecho de un muerto, que alumbra como un farol y permite al brujo volar.
+RESUMEN:: El chaleco mágico de piel humana, objeto más central del brujo. Da el poder de volar y alumbra con luz amarillenta. Sin él, el brujo no es nada.
+DESCRIPCION:: Chaleco sin espaldar, atado a la espalda con cordones, hecho con la piel del pecho de un cadáver (de un hombre cristiano o una mujer muerta virgen), sacada del lado izquierdo y curtida con hierbas. Mientras no se usa, se enrolla como erizo; al extenderlo y ponérselo, alumbra como un farol. Su luz viene del aceite humano con que se le frota. Para volar, el brujo seguía un régimen sin sal; al estar listo (le lagrimeaba un ojo) descubría el macuñ y decía "arrehalhue" para elevarse, y "Macuñ, arréame, Diablo" para bajar. El macuñ tiene vida propia: si se olvida, vuelve solo a saltitos diciendo "cheche". Las luces misteriosas que se ven de noche en los campos del sur se atribuyen a brujos volando con su macuñ.
+RELACIONES:: brujo-chilote; iniciacion; poderes-del-brujo
+FUENTE:: Romo Sánchez, Diccionario de la Brujería
+FUENTE:: Fritz Roa
+ENLACE:: https://www.memoriachilena.gob.cl/archivos2/pdfs/MC0033461.pdf
+@FIN
+
+@ENTIDAD
+ID:: poderes-del-brujo
+NOMBRE:: Los poderes del brujo
+ALIAS:: —
+SECCION:: 09-recta-provincia
+CATEGORIA:: relato
+REINO:: lugar
+ORIGEN:: mestizo
+ALCANCE:: chilota
+CONDICION:: malefico
+JERARQUIA:: —
+GANCHO:: Volar, transformarse en animal, hablar con los muertos, lanzar males a distancia, dominar las aguas.
+RESUMEN:: El repertorio de poderes del brujo chilote, según la enumeración de Fritz Roa, más sus técnicas de maleficio.
+DESCRIPCION:: Con el macuñ y su arte, el brujo podía: (a) volar mediante el macuñ; (b) transformarse en animales (perro, caballo, lagartija); (c) adormecer a hombres y animales; (d) hablar con los muertos y hacerlos hablar; (e) lanzar males a distancia —el "mal tirado", el "llancazo", el "coihuazo", maleficios disparados como balas invisibles; (f) dominar las aguas (detenerlas, subirlas, bajarlas); (g) preparar venenos y filtros de amor con hierbas (el "llapuy"); (h) usar el challanco. Para saber si una víctima era vulnerable, le hacía "sajaduras" (cortaduras imperceptibles) y observaba la reacción.
+RELACIONES:: brujo-chilote; macun; challanco; ruende
+FUENTE:: Fritz Roa, La iniciación y los poderes del brujo chilote
+FUENTE:: Romo Sánchez, Diccionario de la Brujería
+ENLACE:: http://brujeriachilena.blogspot.com/2016/03/la-iniciacion-y-los-poderes-del-brujo.html
+@FIN
+
+@ENTIDAD
+ID:: challanco
+NOMBRE:: El Challanco
+ALIAS:: La mapa; el revisorio
+SECCION:: 09-recta-provincia
+CATEGORIA:: objeto-magico
+REINO:: lugar
+ORIGEN:: mestizo
+ALCANCE:: chilota
+CONDICION:: malefico
+JERARQUIA:: —
+GANCHO:: El objeto con que el brujo ve lo que pasa lejos, conoce el futuro y descubre quién lanzó un maleficio.
+RESUMEN:: Objeto adivinatorio del brujo, que permite ver a distancia, conocer el futuro e identificar al autor de un maleficio.
+DESCRIPCION:: Objeto adivinatorio del brujo. Permite saber lo que ocurre en lugares lejanos, conocer el futuro, y revelar a la víctima de un maleficio quién fue el brujo que se lo lanzó. No hay acuerdo sobre qué es: para unos una batea con agua, para otros un espejo, para otros una bola de cristal. Se le llamaba también "la mapa" o "el revisorio". La Mayoría lo usaba para identificar culpables en sus juicios.
+RELACIONES:: poderes-del-brujo; la-mayoria; brujo-chilote
+FUENTE:: Romo Sánchez, Diccionario de la Brujería
+FUENTE:: Mateo Coñuecar (declaración, Proceso de Ancud 1880)
+ENLACE:: https://www.memoriachilena.gob.cl/archivos2/pdfs/MC0033461.pdf
+@FIN
+
+@ENTIDAD
+ID:: invunche
+NOMBRE:: El Invunche
+ALIAS:: Imbunche; Ivunche; el Machucho de la cueva
+SECCION:: 09-recta-provincia
+CATEGORIA:: guardian
+REINO:: lugar
+ORIGEN:: mestizo
+ALCANCE:: chilota
+CONDICION:: malefico
+JERARQUIA:: Guardián de la cueva de los brujos
+ADVERTENCIA:: El relato de su creación es de los más oscuros de Chiloé. Se conserva sin suavizar, como testimonio.
+GANCHO:: En la boca de la cueva de los brujos hay algo que vigila. Fue un niño, una vez. Ya no.
+RESUMEN:: Ser deforme creado por los brujos a partir de un niño, que guarda la entrada de la Cueva de Quicaví. No puede hablar y se mueve torcido.
+DESCRIPCION:: Criatura monstruosa y deforme que guarda la entrada de las cuevas de los brujos y les sirve de consejero (responde sí o no con la cabeza). No nace: es hecho. Los brujos roban un niño primogénito menor de nueve días, le "raspan" el bautismo, le quiebran y tuercen la pierna derecha hasta ponérsela sobre la espalda, le tuercen el pie y a veces la cabeza hacia atrás. Lo dejan desnudo, cubierto de pelos, hinchado por las palizas. Usa un báculo retorcido como el Trauco.
+VARIANTE:: El origen del niño (discrepancia) | Unos dicen que es un niño robado (Cavada, Quintana); otros, que es el hijo de un brujo entregado a la cofradía (Molina 1950); una tercera versión lo dice "producto de la unión de un calcu con una bruja". No hay acuerdo.
+VARIANTE:: Arma de venganza | Para causar daño, los brujos lo sacan de la cueva azotándolo hasta el lugar del maleficio; emite chivateos que anuncian su paso.
+INTERPRETACION:: Comparado con el macho cabrío europeo (el diablo) y los "blemias" medievales. Es la criatura chilota que más toca el horror puro.
+RELACIONES:: cueva-quicavi; calcu; recta-provincia; trauco
+FUENTE:: Cavada (1914)
+FUENTE:: Molina (1950); Cárdenas (1998)
+ENLACE:: https://es.wikipedia.org/wiki/Imbunche
+@FIN
+
+@ENTIDAD
+ID:: voladora
+NOMBRE:: La Voladora
+ALIAS:: —
+SECCION:: 09-recta-provincia
+CATEGORIA:: ave-bruja
+REINO:: aire
+ORIGEN:: mestizo
+ALCANCE:: chilota
+CONDICION:: malefico
+JERARQUIA:: Mensajera de la cofradía
+GANCHO:: Para poder volar, vomita sus propias entrañas y las deja en una fuente. Convertida en pájaro, sale a llevar los mensajes de los brujos.
+RESUMEN:: Mujer al servicio de los brujos que actúa como mensajera; vomita sus vísceras para aligerarse y volar de noche convertida en pájaro.
+DESCRIPCION:: Mujer al servicio de los brujos, el correo de la cofradía. Aunque tiene poderes, ocupa un lugar subordinado (muchos secretos le están vetados). Para volar, al caer la noche vomita sus intestinos y los deja escondidos en una fuente o paila entre los matorrales, aligerando su cuerpo; convertida en pájaro, cumple los encargos, y al amanecer regresa, se traga las entrañas y recobra su forma.
+VARIANTE:: Su punto débil | Si alguien halla los intestinos y los sala —o solo los mueve— la Voladora no puede recomponerse y muere al amanecer.
+INTERPRETACION:: Pariente del Chonchón: ambos son formas del vuelo brujo. El Chonchón se lleva la cabeza; la Voladora deja las vísceras.
+RELACIONES:: chonchon; brujo-chilote; recta-provincia
+FUENTE:: Cavada (1914)
+ENLACE:: https://www.guioteca.com/cultura-chilena/mitologia-de-chiloe-guia-para-conocer-y-entender-a-sus-extranas-y-temibles-criaturas/
+@FIN
+
+@ENTIDAD
+ID:: cueva-quicavi
+NOMBRE:: La Cueva de Quicaví
+ALIAS:: La Casa Grande; La Revisoria
+SECCION:: 09-recta-provincia
+CATEGORIA:: lugar
+REINO:: lugar
+ORIGEN:: mestizo
+ALCANCE:: chilota
+CONDICION:: malefico
+JERARQUIA:: Sede de la Mayoría; capital de la brujería
+GANCHO:: La capital de la Recta Provincia. Una cueva oculta en la costa de Quemchi, con letras grabadas que nadie ha podido leer, y el Invunche en la boca.
+RESUMEN:: La cueva-sede de la Recta Provincia, en Quicaví (Quemchi), donde se reunía la Mayoría y residía el Rey, guardada por el Invunche.
+DESCRIPCION:: También llamada la Casa Grande o la Revisoria, era el corazón de la Recta Provincia: morada oficial de los brujos, donde se reunía la Mayoría, residía el Rey, llegaban volando los brujos con sus macuñ encendidos, se hacían las iniciaciones y se dictaban los castigos. Está en los alrededores de Quicaví, comuna de Quemchi (costa este de la Isla Grande). La cuidaba el Invunche. Su entrada se abría con un ritual (algunos hablan de una "llave de alquimia"). Aún hoy se halla en la zona una cueva con letras grabadas casi borradas por el musgo, de origen desconocido.
+VARIANTE:: "Aquelarre" | Cuando en la escuela de Quicaví se consultó a los niños para ponerle nombre, ellos eligieron llamarla "Aquelarre".
+RELACIONES:: recta-provincia; la-mayoria; invunche; quicavi; iniciacion
+FUENTE:: Wikipedia (Brujos de Chiloé)
+FUENTE:: Romo Sánchez, Diccionario de la Brujería
+ENLACE:: https://es.wikipedia.org/wiki/Brujos_de_Chilo%C3%A9
+@FIN
+
+@ENTIDAD
+ID:: libro-de-moraleda
+NOMBRE:: El Libro de Moraleda
+ALIAS:: El Libro de Arte
+SECCION:: 09-recta-provincia
+CATEGORIA:: relato
+REINO:: lugar
+ORIGEN:: colonial
+ALCANCE:: chilota
+CONDICION:: ambiguo
+JERARQUIA:: —
+GANCHO:: El grimorio perdido del que, según la leyenda, nació toda la brujería de Chiloé.
+RESUMEN:: Libro de hechicería europea que el explorador español Moraleda habría regalado a una bruja chilota tras un duelo de magia, origen legendario de la Recta Provincia.
+DESCRIPCION:: Según el origen legendario de la cofradía, hacia 1786, en Tenaún, la bruja chilota Chilpilla se enfrentó al explorador español José de Moraleda (personaje real que cartografió estas costas). Para demostrar su poder, la bruja dejó el barco de Moraleda "en seco", varado; él, rendido, le regaló un libro de hechicería europea (el "Libro de Arte"), cuyo paradero se desconoce. De ese encuentro entre la magia indígena y el saber europeo habría nacido la brujería organizada de Chiloé. Es leyenda, pero recoge una verdad: que la brujería chilota es ese cruce de dos mundos.
+RELACIONES:: recta-provincia; tenaun; juicio-1880
+FUENTE:: Esploraciones jeográficas de José de Moraleda (Anuario Hidrográfico, 1887)
+FUENTE:: Fritz Roa, La Recta Provincia
+ENLACE:: https://es.wikipedia.org/wiki/Recta_Provincia
+@FIN
+
+@ENTIDAD
+ID:: juicio-1880
+NOMBRE:: El juicio de Ancud de 1880
+ALIAS:: El Proceso de Ancud
+SECCION:: 09-recta-provincia
+CATEGORIA:: relato
+REINO:: lugar
+ORIGEN:: mestizo
+ALCANCE:: chilota
+CONDICION:: ambiguo
+JERARQUIA:: —
+GANCHO:: El día que el Estado de Chile entró a la cueva: llevó a los brujos a juicio, y lo que era rumor se volvió expediente.
+RESUMEN:: El proceso judicial de 1880 contra más de treinta brujos por asociación ilícita, que documentó la estructura de la Recta Provincia y marcó su caída.
+DESCRIPCION:: Hacia 1880 la Recta Provincia derivó de cofradía de justicia a algo más parecido a una mafia: muchos brujos hacían "trabajos" por su cuenta sin permiso de la Mayoría. Ese año se inició en Ancud un proceso judicial contra más de treinta brujos por "asociación ilícita" y delitos asociados (hechicería, asesinatos). Fue el choque frontal entre el naciente Estado chileno (Chiloé se incorporó a Chile en 1826) y las tradiciones del archipiélago. En las declaraciones de los acusados quedaron registrados los detalles que hoy conocemos: la estructura de la Mayoría, los nombres en clave de los distritos, la confección del macuñ, los ritos. Doce personas fueron condenadas; la organización se fragmentó y muchos brujos huyeron al norte.
+VARIANTE:: Los archivos quemados | Los archivos originales del juicio se quemaron; quedaron solo crónicas de diarios, revistas folclóricas y la tradición oral. El fuego se llevó los papeles; la memoria del pueblo guardó el resto.
+RELACIONES:: recta-provincia; la-mayoria; siete-republicas; libro-de-moraleda
+FUENTE:: Los brujos de Chiloé: documentos de un proceso judicial (2018)
+FUENTE:: crónicas del Proceso de Ancud
+ENLACE:: https://agenciatrova.cl/news/brujos/
+@FIN
+
+################################################################################
+#  SECCIÓN 10 — LUGARES DE PODER Y GEOGRAFÍA MÍTICA                             #
+################################################################################
+
+@ENTIDAD
+ID:: muelle-de-las-almas
+NOMBRE:: El Muelle de las Almas
+ALIAS:: Punta Pirulil
+SECCION:: 10-lugares
+CATEGORIA:: lugar
+REINO:: lugar
+ORIGEN:: prehispanico
+ALCANCE:: chilota
+CONDICION:: doliente
+JERARQUIA:: —
+GANCHO:: Un muelle de madera que asciende sinuoso hacia el vacío del océano y termina de golpe, frente al mar abierto. Aquí las almas llaman al barquero.
+RESUMEN:: El acantilado de Punta Pirulil, al sur de Cucao, donde según la leyenda las almas esperan a Tempilcahue. Hoy hay una pasarela escultórica que materializa el mito.
+DESCRIPCION:: Acantilado en Punta Pirulil, al sur de Cucao, sobre el Pacífico. Según la tradición, es el lugar al que llegan las almas de los muertos para gritar "¡balseo!" y esperar a Tempilcahue, que las cruza al otro mundo; las que no pueden cruzar penan como las Ánimas de Cucao. El "Muelle de las Almas" físico —una pasarela de madera nativa que asciende hacia el vacío y termina abruptamente— fue construido en 2005 por el escultor Marcelo Orellana Rivera (proyecto FONDART), inspirado en la leyenda. Se ha vuelto uno de los principales atractivos de Chiloé, pero su raíz es el mito antiguo del paso de las almas.
+RELACIONES:: tempilcahue; animas-de-cucao; cucao
+FUENTE:: tradición huilliche-chilota
+FUENTE:: Quintana (1972), Chiloé Mitológico
+ENLACE:: https://viajaachiloe.com/muelle-de-las-almas-imperdible-paraje-lleno-de-mitologia-y-encanto/
+@FIN
+
+@ENTIDAD
+ID:: cucao
+NOMBRE:: Cucao
+ALIAS:: Lago Cucao
+SECCION:: 10-lugares
+CATEGORIA:: lugar
+REINO:: lugar
+ORIGEN:: prehispanico
+ALCANCE:: chilota
+CONDICION:: ambiguo
+JERARQUIA:: —
+GANCHO:: Entre las furiosas olas del Pacífico y las aguas oscuras del lago, un cordón de arenas auríferas y la puerta al mundo de los muertos.
+RESUMEN:: Localidad y lago de la costa oeste de Chiloé, epicentro mítico: el paso de las almas, el origen de la Pincoya y de la Huenchur, y arenas auríferas.
+DESCRIPCION:: Sector poblado de la costa occidental de Chiloé (comuna de Chonchi), habitado desde época colonial, visitado por Charles Darwin en 1835 y aislado del resto de la isla hasta 1981. Es uno de los epicentros de la mitología chilota: aquí está el Muelle de las Almas y penan las Ánimas de Cucao; el lago toma su nombre del trágico esposo de la Huenchur; cerca nacen versiones de la Pincoya (laguna Huelde) y se sitúa la Curamilla. Sus playas son de finas arenas auríferas. En Cucao nadie se atreve a mirar su reflejo en el agua, por temor al Millalobo.
+RELACIONES:: muelle-de-las-almas; animas-de-cucao; tempilcahue; huenchur; pincoya; curamilla; millalobo
+FUENTE:: Quintana (1972), Chiloé Mitológico
+FUENTE:: Negrón Vera, Mitos de Chanquín y Cucao
+ENLACE:: https://chiloemitologico.cl/los-mitos-de-chiloe/mitos-acuaticos/las-animas-de-cucao/
+@FIN
+
+@ENTIDAD
+ID:: quicavi
+NOMBRE:: Quicaví
+ALIAS:: La cuna de la brujería chilota
+SECCION:: 10-lugares
+CATEGORIA:: lugar
+REINO:: lugar
+ORIGEN:: mestizo
+ALCANCE:: chilota
+CONDICION:: malefico
+JERARQUIA:: Capital de la Recta Provincia ("Lima")
+GANCHO:: El pueblo donde, dicen, gobernaba el Rey de los Brujos. Conocido en todo Chiloé como la cuna de la brujería.
+RESUMEN:: Localidad de la comuna de Quemchi, sede de la Recta Provincia y de su cueva. En clave de la cofradía se llamaba "Lima". Hoy ofrece recorridos sobre la brujería.
+DESCRIPCION:: Localidad de la costa este de la Isla Grande, comuna de Quemchi. Es la capital histórico-mítica de la brujería de Chiloé: aquí estaba la Cueva de la Recta Provincia (la Casa Grande), sede de la Mayoría y morada del Rey, guardada por el Invunche. En el código de las siete repúblicas, Quicaví era "Lima", la sede del Rey. Sigue siendo conocida como "la cuna de la brujería chilota"; hoy hay recorridos nocturnos que cuentan su historia y muestran una representación del Invunche.
+RELACIONES:: cueva-quicavi; recta-provincia; la-mayoria; siete-republicas; invunche
+FUENTE:: Wikipedia (Brujos de Chiloé)
+FUENTE:: Romo Sánchez, Diccionario de la Brujería
+ENLACE:: https://www.meteored.cl/noticias/ocio/el-recorrido-nocturno-que-lleva-a-conocer-la-historia-de-los-brujos-de-chiloe-un-viaje-a-los-misterios-de-quicavi.html
+@FIN
+
+@ENTIDAD
+ID:: tenaun
+NOMBRE:: Tenaún
+ALIAS:: —
+SECCION:: 10-lugares
+CATEGORIA:: lugar
+REINO:: lugar
+ORIGEN:: mestizo
+ALCANCE:: chilota
+CONDICION:: ambiguo
+JERARQUIA:: Distrito de la Recta Provincia ("Santiago")
+GANCHO:: El pueblo de la iglesia de estrellas azules, donde la bruja Chilpilla dejó en seco el barco del explorador Moraleda.
+RESUMEN:: Localidad de la costa este, escenario del duelo legendario que originó la Recta Provincia. Su iglesia es Patrimonio de la Humanidad. En clave era "Santiago".
+DESCRIPCION:: Pueblo de la costa este de Chiloé, famoso por su iglesia de madera (Patrimonio de la Humanidad, reconocible por las estrellas azules de su fachada). Es el escenario del origen legendario de la Recta Provincia: aquí, hacia 1786, la bruja chilota Chilpilla habría dejado "en seco" el barco del explorador español José de Moraleda, recibiendo de él el Libro de Arte. En el código de las siete repúblicas, Tenaún era "Santiago".
+RELACIONES:: libro-de-moraleda; recta-provincia; siete-republicas
+FUENTE:: Fritz Roa, La Recta Provincia
+FUENTE:: Esploraciones jeográficas de José de Moraleda (1887)
+ENLACE:: https://es.wikipedia.org/wiki/Recta_Provincia
+@FIN
+
+@ENTIDAD
+ID:: achao
+NOMBRE:: Achao
+ALIAS:: —
+SECCION:: 10-lugares
+CATEGORIA:: lugar
+REINO:: lugar
+ORIGEN:: mestizo
+ALCANCE:: chilota
+CONDICION:: ambiguo
+JERARQUIA:: Distrito de la Recta Provincia ("Buenos Aires")
+GANCHO:: La villa de la iglesia más antigua de Chiloé, y la tierra natal del doctor Quintana, que rescató estas leyendas.
+RESUMEN:: Localidad de la isla Quinchao, con la iglesia más antigua del archipiélago. Distrito "Buenos Aires" de la Recta Provincia y cuna de Bernardo Quintana.
+DESCRIPCION:: Localidad de la isla de Quinchao. Alberga la iglesia de Santa María de Loreto, la más antigua de Chiloé (mediados del s.XVIII) y Patrimonio de la Humanidad. En el código de las siete repúblicas, Achao era "Buenos Aires". Es además la tierra natal del doctor Bernardo Quintana Mansilla, cuya obra "Chiloé Mitológico" (1972) recogió de la voz de los ancianos buena parte de estas leyendas.
+RELACIONES:: siete-republicas; recta-provincia
+FUENTE:: Quintana (1972), Chiloé Mitológico
+FUENTE:: Wikipedia (Recta Provincia)
+ENLACE:: https://es.wikipedia.org/wiki/Recta_Provincia
+@FIN
+
+
+################################################################################
+#  SECCIÓN 11 — RELATOS Y TESOROS                                               #
+################################################################################
+
+@ENTIDAD
+ID:: entierros
+NOMBRE:: Los Entierros
+ALIAS:: Tesoros enterrados
+SECCION:: 11-relatos
+CATEGORIA:: relato
+REINO:: subsuelo
+ORIGEN:: mestizo
+ALCANCE:: chilota
+CONDICION:: ambiguo
+JERARQUIA:: —
+GANCHO:: Bajo la tierra de Chiloé hay oro escondido. Una luz en la noche lo señala; el Carbunco lo guarda; hallarlo es cosa de valor y de reglas.
+RESUMEN:: La creencia en tesoros enterrados bajo el archipiélago, señalados por luces nocturnas o por el Carbunco. Desenterrarlos exige ritos y ausencia de codicia.
+DESCRIPCION:: Los "entierros" son tesoros enterrados que, según la creencia chilota, yacen bajo la tierra del archipiélago. La señal de un entierro es una luz misteriosa que aparece de noche sobre el punto donde está el oro (a veces el Carbunco mismo). Desenterrarlo exige ritos, condiciones y, sobre todo, ausencia de codicia y de miedo (ver el rito completo en la ficha del Carbunco). Quien se muestra ambicioso pierde el tesoro —se vuelve carbón o piedra— o paga con ceguera, parálisis o muerte.
+INTERPRETACION:: La creencia se enlaza con la historia real: Chiloé fue zona de paso de piratas y corsarios, refugio de españoles y tierra de naufragios; muchos entierros se atribuyen a los jesuitas. Sobre esa semilla histórica creció la magia de las luces y el Carbunco.
+RELACIONES:: carbunco; lucerna
+FUENTE:: Quintana (1972), Chiloé Mitológico
+FUENTE:: García Barría, Tesoro Mitológico
+ENLACE:: http://mitologiachilota.blogspot.com/2016/04/el-carbunco.html
+@FIN
+
+@ENTIDAD
+ID:: campana-sumergida
+NOMBRE:: La Campana Sumergida
+ALIAS:: —
+SECCION:: 11-relatos
+CATEGORIA:: relato
+REINO:: mar
+ORIGEN:: mestizo
+ALCANCE:: chilota
+CONDICION:: ambiguo
+JERARQUIA:: —
+GANCHO:: A veces, desde el fondo del agua, se oye tañer una campana. No hay torre que la sostenga, pero suena.
+RESUMEN:: Relato chilote de una campana que suena bajo el agua. Recogido por Quintana; motivo de campanas hundidas que aún tañen.
+DESCRIPCION:: Relato de la tradición chilota, recogido por Bernardo Quintana en "Chiloé Mitológico", que da cuenta de una campana sumergida cuyo tañido se oye desde el fondo del agua. Pertenece al motivo folclórico —presente en Chiloé, tierra de iglesias y de naufragios— de las campanas hundidas que siguen sonando.
+DESARROLLO:: escaso (el relato detallado está en Quintana; las fuentes en línea solo lo registran por su título)
+RELACIONES:: islita-imelev
+FUENTE:: Quintana (1972), Chiloé Mitológico
+ENLACE:: https://staticcl1.fidelizador.com/cataloni/comunicados/mitos-chilotes/Preliminares_MitosChilotes.pdf
+@FIN
+
+@ENTIDAD
+ID:: islita-imelev
+NOMBRE:: La islita Imelev
+ALIAS:: —
+SECCION:: 11-relatos
+CATEGORIA:: relato
+REINO:: mar
+ORIGEN:: mestizo
+ALCANCE:: chilota
+CONDICION:: ambiguo
+JERARQUIA:: —
+GANCHO:: Una isla que a veces está y a veces no: aparece entre la niebla y se oculta cuando uno se acerca.
+RESUMEN:: Relato chilote de una isla que aparece y desaparece. Recogido por Quintana; motivo de la isla encantada o fantasma.
+DESCRIPCION:: Relato de la tradición chilota recogido por Bernardo Quintana en "Chiloé Mitológico", sobre una islita —Imelev— que aparece y desaparece. Pertenece al motivo folclórico de las islas encantadas o fantasmas, frecuente en las mitologías de archipiélagos.
+DESARROLLO:: escaso (el relato detallado está en Quintana; las fuentes en línea solo lo registran por su título)
+RELACIONES:: campana-sumergida
+FUENTE:: Quintana (1972), Chiloé Mitológico
+ENLACE:: https://staticcl1.fidelizador.com/cataloni/comunicados/mitos-chilotes/Preliminares_MitosChilotes.pdf
+@FIN
+
+@ENTIDAD
+ID:: origen-de-la-papa
+NOMBRE:: Cómo nació la papa
+ALIAS:: El origen de la papa
+SECCION:: 11-relatos
+CATEGORIA:: relato
+REINO:: lugar
+ORIGEN:: prehispanico
+ALCANCE:: chilota
+CONDICION:: benefico
+JERARQUIA:: —
+GANCHO:: La papa es el corazón de Chiloé —cientos de variedades nativas— y tiene su propio relato de origen.
+RESUMEN:: Relato etiológico sobre el origen de la papa, el alimento sagrado de Chiloé. Recogido por Quintana.
+DESCRIPCION:: Relato de la tradición chilota, recogido por Bernardo Quintana, que explica el origen de la papa: el alimento fundamental del archipiélago, del que Chiloé conserva cientos de variedades nativas (es uno de los centros mundiales de origen de la papa). El relato pertenece a la familia de los mitos etiológicos, que explican de dónde vienen las cosas esenciales de la vida.
+DESARROLLO:: escaso (el relato detallado está en Quintana; en línea se registra por su título)
+RELACIONES:: coñipoñi
+FUENTE:: Quintana (1972), Chiloé Mitológico
+ENLACE:: https://staticcl1.fidelizador.com/cataloni/comunicados/mitos-chilotes/Preliminares_MitosChilotes.pdf
+@FIN
+
+@ENTIDAD
+ID:: animitas
+NOMBRE:: Las animitas
+ALIAS:: —
+SECCION:: 11-relatos
+CATEGORIA:: relato
+REINO:: lugar
+ORIGEN:: mestizo
+ALCANCE:: chilota
+CONDICION:: doliente
+JERARQUIA:: —
+GANCHO:: Pequeños altares al borde del camino, donde alguien murió de golpe, y donde el alma —dicen— se queda y concede favores.
+RESUMEN:: Altares populares en los sitios de muerte trágica, donde el alma del difunto permanece y se le pide protección o milagros. Práctica viva en Chiloé y todo Chile.
+DESCRIPCION:: Pequeños altares o casitas que se levantan en el lugar donde una persona murió de manera repentina o trágica (un accidente, una desgracia). La creencia sostiene que el alma del difunto queda ligada a ese sitio y puede interceder: la gente les enciende velas, les deja flores y les pide favores y protección, prometiendo pagar la "manda" si se cumplen. Las animitas no son exclusivas de Chiloé —son una devoción popular de todo Chile— pero forman parte viva del paisaje espiritual del archipiélago y de su modo de tratar con la muerte.
+INTERPRETACION:: Expresan el mismo trato cercano con los muertos que recorre la mitología chilota (las Ánimas de Cucao, la Pucullén): la muerte no como final lejano, sino como presencia con la que se convive y se negocia.
+RELACIONES:: animas-de-cucao; llorona-pucullen
+FUENTE:: Quintana (1972), Chiloé Mitológico
+FUENTE:: tradición popular chilena
+ENLACE:: https://es.wikipedia.org/wiki/Animita
+@FIN
+
+################################################################################
+#  EXCLUSIONES — qué se dejó FUERA y por qué                                    #
+#  (Decisión editorial: este archivo es PURO CHILOÉ)                            #
+################################################################################
+#
+#  Se han excluido del cuerpo de entidades los mitos que NO son propios de
+#  Chiloé, aunque a veces aparezcan en recopilaciones generales:
+#
+#  · CIUDAD DE LOS CÉSARES — Mito pan-austral (Patagonia chileno-argentina) de
+#    origen colonial. Aunque algunas recopilaciones lo incluyen, su raíz y su
+#    desarrollo pertenecen al imaginario patagónico y de los conquistadores,
+#    NO al archipiélago. EXCLUIDA.
+#
+#  · ANCHIMALLÉN / ANCHIMALLEÑ — Ser luminoso de la mitología MAPUCHE del
+#    continente. Aparece de pasada en algún índice chilote, pero es propiamente
+#    mapuche. EXCLUIDO.
+#
+#  · WEKUFE / HUECUVE — Espíritu maligno genérico de la cosmovisión mapuche,
+#    no una criatura chilota específica. EXCLUIDO.
+#
+#  · CARBUNCO (versiones foráneas) — La criatura SÍ existe en la mitología
+#    chilota (guardián de tesoros/entierros) y por eso tiene ficha. Pero se han
+#    OMITIDO sus versiones de Paraguay (añangá pytã), del norte minero de Chile
+#    y la glosa literaria de Borges, por no ser chilotas. La ficha recoge solo
+#    la versión del archipiélago.
+#
+#  CRITERIO SOBRE LO PAN-MAPUCHE: criaturas como el Cuero, el Piuchén, el
+#  Chonchón, el Ñirivilu, los Sumpall o la Pucullén tienen parientes en otras
+#  zonas del sur, pero están PLENAMENTE INTEGRADAS y reelaboradas en la
+#  tradición chilota, y por eso SÍ se incluyen. Para transparencia, llevan el
+#  campo ALCANCE:: chilota-raiz-mapuche.
+#
+################################################################################
+
+
+################################################################################
+#  GLOSARIO — palabras del mundo chilote                                        #
+#                                                                              #
+#  Formato parseable: dentro de @GLOSARIO ... @FIN_GLOSARIO, cada línea es:     #
+#       término ::: definición                                                 #
+#  (separador exacto " ::: ", tres dos-puntos entre espacios)                  #
+################################################################################
+
+@GLOSARIO
+vilu ::: serpiente (mapudungun); raíz de Tenten-Vilu, Caicai-Vilu, Cuchivilu, Ñirivilu
+milla ::: oro (mapudungun); raíz de Millalobo, Curamilla
+cura ::: piedra (mapudungun); raíz de Curamilla
+trewa ::: perro (mapudungun); raíz de Trehuaco
+ko ::: agua (mapudungun); raíz de Trehuaco
+che ::: gente (mapudungun); raíz de Caleuche ("gente transformada")
+trawko ::: forma mapuche del nombre del Trauco
+piwicheñ ::: "secar a la gente" (mapudungun); origen del Piuchén
+cullén ::: lágrima (mapudungun); con "pu" (plural) forma Pucullén
+makuñ ::: manto (mapudungun); origen de "macuñ", el chaleco del brujo
+machi ::: sanador/a de la tradición mapuche; en Chiloé, con funciones propias
+calcu ::: hechicero mapuche que hace daño; raíz indígena del brujo chilote
+recta provincia ::: nombre que los brujos daban a la Provincia de Chiloé; su cofradía secreta
+la mayoría ::: el consejo de gobierno de la Recta Provincia
+buta ::: "el Supremo", jefe máximo de los brujos en Quicaví
+macuñ ::: chaleco mágico de piel humana que da el vuelo al brujo
+challanco ::: objeto adivinatorio del brujo (batea, espejo o bola de cristal)
+llapuy ::: poción mágica de amor usada por brujos y por el Ruende
+traiguen ::: cascada o caída de agua usada en la iniciación del brujo
+mal tirado ::: maleficio lanzado a distancia (también "llancazo", "coihuazo")
+sajaduras ::: cortaduras imperceptibles con que el brujo prueba si una víctima es vulnerable
+cheputo ::: ceremonia que deshace la maldición del Cuchivilu
+chincheños ::: sarna que contrae quien se baña donde pasó el Cuchivilu
+lacero ::: brujo especializado en lacear y desarmar al Camahueto
+pahueldún ::: bastón retorcido del Trauco
+quilineja ::: fibra vegetal con que se teje el traje del Trauco
+balseo ::: el cruce de las almas al otro mundo; grito con que se llama a Tempilcahue
+entierro ::: tesoro enterrado bajo tierra, señalado por luces o por el Carbunco
+curanto ::: comida festiva chilota cocida bajo tierra; atrae a la Pincoya
+mankial ::: piedras en que Tenten transformó a los petrificados de miedo del diluvio
+sumpall ::: tritones y sirenas del agua, de raíz mapuche
+pillán ::: espíritu/fuerza mayor de la cosmovisión mapuche (Peripillán, Antu)
+@FIN_GLOSARIO
+
+
+################################################################################
+#  FUENTES MAESTRAS — bibliografía de referencia                                #
+################################################################################
+#
+#  FUNDACIONALES (siglo XX, recopilación):
+#    · Francisco J. Cavada, "Chiloé y los chilotes" (1914) — obra fundacional;
+#      acuñó el concepto de "mitología de Chiloé".
+#    · Alejandro Cañas Pinochet (1911) — de los primeros recopiladores.
+#    · Julio Vicuña Cifuentes, "Mitos y supersticiones" (1910/1947).
+#    · Bernardo Quintana Mansilla, "Chiloé Mitológico" (1972) — texto de
+#      estudio del Ministerio de Educación; liberado en chiloemitologico.cl
+#    · Nicasio Tangol, "Chiloé, mitos y leyendas" (1972).
+#    · Narciso García Barría, "Tesoro Mitológico del Archipiélago de Chiloé"
+#      (1985) — clasificación prehispánico/colonial.
+#    · Renato Cárdenas A. y Catherine Hall, "Chiloé: manual del pensamiento
+#      mágico y la creencia popular" (1985); "El Libro de la Mitología" (1998).
+#    · Manuel Romo Sánchez, "Diccionario de la Brujería en Chiloé".
+#    · Sonia Montecino, "Mitos de Chile: Enciclopedia de seres, apariciones y
+#      encantos" (2015).
+#
+#  SOBRE LA BRUJERÍA Y LA RECTA PROVINCIA:
+#    · Gonzalo Rojas Flores, "Reyes sobre la tierra: brujería y chamanismo en
+#      una cultura insular".
+#    · Sergio Fritz Roa, "La Recta Provincia" y "La iniciación y los poderes
+#      del brujo chilote".
+#    · "Los brujos de Chiloé: documentos de un proceso judicial" (2018).
+#    · Documentos del Proceso de Ancud (1880) — parcialmente conservados en
+#      crónicas; los originales se quemaron.
+#    · "Esploraciones jeográficas de José de Moraleda", Anuario Hidrográfico
+#      de la Marina (1887).
+#
+#  ACADÉMICAS Y PATRIMONIALES (actuales):
+#    · David Núñez, "El sustrato indígena de los seres mitológicos de Chiloé"
+#      (2022), Servicio Nacional del Patrimonio Cultural — testimonios vivos
+#      en Caylin, Chana y Chaitén.
+#    · Estudios de geomitología, U. de Chile (2019-2020) — Tenten/Caicai.
+#    · Revista Nothofagus, U. de Los Lagos.
+#    · Museo Regional de Ancud — figuras míticas en fibra, madera y cancagua.
+#    · Memoria Chilena — patrimonio documental.
+#
+#  MARCO HISTÓRICO: Chiloé se incorporó a Chile en 1826 (último territorio en
+#  hacerlo); 2026 marca 200 años. La tensión entre el mundo mágico insular y
+#  el Estado que llegó a gobernarlo atraviesa toda la brujería chilota.
+#
+################################################################################
+#                          FIN DE LA BASE DE DATOS                              #
+################################################################################
