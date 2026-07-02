@@ -313,6 +313,7 @@
       }
       var ticking = false;
       function update() {
+        if (document.documentElement.classList.contains("motion-off")) { ticking = false; return; }
         var y = window.pageYOffset;
         layers.forEach(function (L) {
           var base = L.rel ? Math.max(0, y - L.relTop) : y;

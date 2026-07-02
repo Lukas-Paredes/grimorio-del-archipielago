@@ -596,6 +596,19 @@ a { color: var(--amber-soft); }
 .reveal.is-visible { opacity: 1; transform: none; }
 
 /* ════════════════════════════════════════════════════════════════════════
+   Pausa manual de movimiento — la clase .motion-off la pone en <html> el
+   script anti-flash del <head> (pref grimorio:motion / reduced-motion). Espeja
+   el bloque de prefers-reduced-motion de abajo. (El botón visible "marea" en
+   las fichas llega en F4.)
+   ════════════════════════════════════════════════════════════════════════ */
+.motion-off { scroll-behavior: auto; }
+.motion-off *, .motion-off *::before, .motion-off *::after { animation-play-state: paused !important; }
+.motion-off .fog__layer, .motion-off .hero__name, .motion-off .hero__lantern,
+.motion-off .hero__chev, .motion-off .cierre__glow { animation: none !important; }
+.motion-off .abyss__sea, .motion-off .hero__art, .motion-off [data-parallax] { transform: none !important; }
+.motion-off .reveal { opacity: 1; transform: none; transition: none; }
+
+/* ════════════════════════════════════════════════════════════════════════
    Responsive · 390px y angosto
    ════════════════════════════════════════════════════════════════════════ */
 @media (max-width: 560px) {

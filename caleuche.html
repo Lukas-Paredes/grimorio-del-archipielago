@@ -6,12 +6,27 @@
 <title>El Caleuche · El Grimorio del Archipiélago</title>
 <meta name="description" content="El Caleuche — buque fantasma de la mitología de Chiloé. Ficha del bestiario de El Grimorio del Archipiélago.">
 
-<!-- Tipografías: Jacquard 24 (pixel gótica · nombre/títulos), Pixelify Sans
-     (pixel sans · etiquetas/UI), EB Garamond (serif · cuerpo). CDN; si no hay
-     red, caen a serif/monospace del sistema. -->
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Jacquard+24&family=Pixelify+Sans:wght@400;500;600;700&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<!-- Preferencia de movimiento: aplicar ANTES del primer frame (sin flash de
+     movimiento). motion-off si el usuario lo eligió, o si respeta reduced-motion
+     sin haber elegido todavía. Idéntico en index/caleuche/trauco. -->
+<script>
+(function () {
+  try {
+    var m = localStorage.getItem("grimorio:motion");
+    var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (m === "off" || (m === null && reduce)) {
+      document.documentElement.classList.add("motion-off");
+    }
+  } catch (e) {}
+})();
+</script>
+
+<!-- Tipografías self-host (Jacquard 24 · nombre/títulos, Pixelify Sans · UI,
+     EB Garamond · cuerpo). Definidas en assets/css/fuentes.css; sin red externa.
+     Preload del subset latin de las dos visibles primero; crossorigin (CORS). -->
+<link rel="preload" as="font" type="font/woff2" href="assets/fonts/jacquard24-latin.woff2" crossorigin>
+<link rel="preload" as="font" type="font/woff2" href="assets/fonts/eb-garamond-latin.woff2" crossorigin>
+<link rel="stylesheet" href="assets/css/fuentes.css">
 
 <link rel="stylesheet" href="assets/css/ficha.css">
 </head>
