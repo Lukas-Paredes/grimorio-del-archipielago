@@ -9,15 +9,16 @@ Cada imagen se sirve en **WebP** (lo que carga el navegador) + **PNG** de fallba
 
 ## FICHAS de criatura — NO TOCAR estas rutas (las fichas dependen de ellas)
 
-Ya optimizadas (≤1800px, WebP + PNG).
+Ya optimizadas (WebP + PNG). Los heroes pasaron por `herramientas/normalizar_img.py`
+(grid 3 · 96 colores · sello tapado); sus originales 1800px viven en `_raw/`.
 
 | Archivo (`.webp` + `.png`) | Rol | Dimensiones |
 |---|---|---|
-| `caleuche` | FICHA **Caleuche** · hero (buque fantasma) | 1800×1005 |
+| `caleuche-hero` | FICHA **Caleuche** · hero (buque fantasma) | 600×335 |
 | `fondo-mar` | FICHA **Caleuche** · fondo fijo (mar) | 1005×1800 |
 | `fondo-abismo` | FICHA **Caleuche** · descenso | 1005×1800 |
 | `fondo-lecho` | FICHA **Caleuche** · cierre (lecho) | 1800×1005 |
-| `trauco` | FICHA **Trauco** · hero (bosque) | 1800×1005 |
+| `trauco-hero` | FICHA **Trauco** · hero (bosque) | 600×335 |
 | `trauco-descenso` | FICHA **Trauco** · descenso | 1005×1800 |
 | `trauco-cierre` | FICHA **Trauco** · cierre | 1800×1005 |
 
@@ -42,4 +43,4 @@ Respaldo de los crudos originales de Gemini (antes de cubrir el sello y optimiza
 
 ---
 
-_Convención de nombres para criaturas futuras:_ `<criatura>` (hero), `<criatura>-descenso`, `<criatura>-cierre` (+ fondo fijo opcional). Cada una en `.webp` + `.png`.
+_Convención de nombres (`<id>-<slot>`):_ `<id>-hero`, `<id>-descenso`, `<id>-cierre`, `<id>-card` (+ `<id>-fondo` opcional). Cada una en `.webp` + `.png`. Las produce `herramientas/normalizar_img.py`; los fondos genéricos `fondo-*` y los `portada-*` conservan su nombre (no son por-criatura).

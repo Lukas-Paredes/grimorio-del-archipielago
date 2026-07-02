@@ -4,7 +4,32 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>El Trauco · El Grimorio del Archipiélago</title>
-<meta name="description" content="El Trauco — el señor de los bosques de la mitología de Chiloé. Ficha del bestiario de El Grimorio del Archipiélago.">
+<meta name="description" content="Hombrecillo deforme del bosque que seduce a las mujeres en sueños (explicando embarazos) y tulle a los hombres con su aliento.">
+<meta name="theme-color" content="#02060c">
+<link rel="canonical" href="trauco.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="El Trauco">
+<meta property="og:description" content="Hombrecillo deforme del bosque que seduce a las mujeres en sueños (explicando embarazos) y tulle a los hombres con su aliento.">
+<meta property="og:image" content="assets/img/trauco-hero.webp">
+<meta property="og:locale" content="es_CL">
+<meta name="twitter:card" content="summary_large_image">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "CreativeWork",
+  "name": "El Trauco",
+  "inLanguage": "es-CL",
+  "description": "Hombrecillo deforme del bosque que seduce a las mujeres en sueños (explicando embarazos) y tulle a los hombres con su aliento.",
+  "isPartOf": {
+    "@type": "WebSite",
+    "name": "El Grimorio del Archipiélago"
+  },
+  "citation": [
+    "Cavada (1914)",
+    "Núñez (2022), Servicio Nacional del Patrimonio Cultural"
+  ]
+}
+</script>
 
 <!-- Preferencia de movimiento: aplicar ANTES del primer frame (sin flash de
      movimiento). motion-off si el usuario lo eligió, o si respeta reduced-motion
@@ -30,9 +55,8 @@
 
 <link rel="stylesheet" href="assets/css/ficha.css">
 
-<!-- Imágenes de ESTA criatura (bosque). IMPORTANTE: las url() de variables CSS
-     las resuelve el navegador relativo a ficha.css (assets/css/), por eso van
-     con "../img/..." (igual que los fallbacks de ficha.css), NO "assets/img/...".
+<!-- Imágenes de ESTA criatura. Las url() de variables CSS las resuelve el
+     navegador relativo a ficha.css (assets/css/), por eso van con "../img/...".
      El <img> del hero, en cambio, es relativo a la página: "assets/img/...". -->
 <style>
   body {
@@ -42,8 +66,9 @@
   }
 </style>
 
-<!-- Config de la página: datos (bloque @ENTIDAD), prosa del grimorio y frase de
-     cierre. ficha.js la lee (window.FICHA); sin esto caería al Caleuche. -->
+<!-- Config de la página. GENERADA por herramientas/generar_fichas.py desde
+     El_Grimorio_Datos_Estructurados.txt (raw VERBATIM) + contenido/prosa/<id>.txt.
+     No editar a mano: regenerar. ficha.js la lee (window.FICHA). -->
 <script>
   window.FICHA = {
     raw: `@ENTIDAD
@@ -68,26 +93,23 @@ FUENTE:: Cavada (1914)
 FUENTE:: Núñez (2022), Servicio Nacional del Patrimonio Cultural
 ENLACE:: https://www.cdbp.gob.cl/noticias/chiloe-hogar-de-criaturas-mitologicas-fascinantes
 @FIN`,
-    // Prosa del grimorio literario (cap. "X · EL TRAUCO"). Limpia, sin cajas ni
-    // bullets ni enlaces. Este capítulo NO tiene "de dónde nació el mito".
     prosa: {
-      // "LO QUE SE SABE CON CERTEZA" + "DE SU FIGURA Y SUS ROPAS" (juntas).
-      descripcion: [
+      "descripcion": [
         "El Trauco es un hombre pequeño y deforme, de entre sesenta y noventa centímetros según quien lo cuente. Habita los huecos de los árboles y las cavernas del bosque, y se alimenta de sus frutos. Pese a su tamaño, posee una fuerza descomunal. Carga siempre un hacha de piedra, y con ella golpea los troncos para anunciar que ha llegado.",
         "Su poder es doble. Sobre las mujeres jóvenes ejerce un hechizo: las seduce con la mirada y las posee en sueños; ellas despiertan confundidas, sin recordar con claridad lo ocurrido —hasta que, nueve meses después, nace un hijo. Sobre los hombres descarga su maleficio: con la mirada o con el poder nefasto de su aliento les causa torceduras de cuello, tullimiento y deformidades semejantes a las suyas.",
         "Viste un traje tejido de quilineja y un sombrero cónico de fibras silvestres. Sus piernas terminan en un remedo de pie, sin talón y sin dedos, por lo que no camina bien; se ayuda de un bastón retorcido —tan retorcido como él— llamado pahueldún, con el cual se le reconoce."
       ],
-      // "LO QUE DICEN LOS QUE ESTUDIAN" → enriquece la nota del archivero.
-      interpretacion: "Hay quienes ven en el Trauco una explicación antigua para los embarazos fuera del matrimonio, en tiempos en que quedar encinta sin esposo era deshonra: el hombrecillo del bosque cargaba la culpa, y la madre soltera quedaba a salvo del juicio del pueblo. Otros lo emparentan con el fauno de los romanos y el sátiro de los griegos —seres de instinto, habitantes de los bosques solitarios, dominados por la lujuria."
+      "interpretacion": "Hay quienes ven en el Trauco una explicación antigua para los embarazos fuera del matrimonio, en tiempos en que quedar encinta sin esposo era deshonra: el hombrecillo del bosque cargaba la culpa, y la madre soltera quedaba a salvo del juicio del pueblo. Otros lo emparentan con el fauno de los romanos y el sátiro de los griegos —seres de instinto, habitantes de los bosques solitarios, dominados por la lujuria."
     },
-    cierre: "Y en lo más hondo del bosque, donde el hacha golpea sin leñador, algo todavía espera."
+    cierre: "Y en lo más hondo del bosque, donde el hacha golpea sin leñador, algo todavía espera.",
+    publicadas: ["caleuche", "trauco"]
   };
 </script>
 </head>
 
 <body data-entity="trauco">
 
-<!-- Fondo de bosque en penumbra, fijo, con parallax + overlay (sin imagen de mar) -->
+<!-- Fondo abisal fijo con parallax + overlay de legibilidad -->
 <div class="abyss" aria-hidden="true">
   <div class="abyss__sea" data-parallax="0.06"></div>
   <div class="abyss__veil"></div>
@@ -99,8 +121,8 @@ ENLACE:: https://www.cdbp.gob.cl/noticias/chiloe-hogar-de-criaturas-mitologicas-
   <header class="hero" aria-labelledby="hero-name">
     <div class="hero__art" data-parallax="0.12">
       <picture>
-        <source srcset="assets/img/trauco.webp" type="image/webp">
-        <img src="assets/img/trauco.png" alt="El Trauco: hombrecillo deforme del bosque, entre los árboles, con su hacha de piedra." onerror="this.classList.add('is-missing')">
+        <source srcset="assets/img/trauco-hero.webp" type="image/webp">
+        <img src="assets/img/trauco-hero.png" alt="Hombrecillo deforme del bosque que seduce a las mujeres en sueños (explicando embarazos) y tulle a los hombres con su aliento." onerror="this.classList.add('is-missing')">
       </picture>
     </div>
     <div class="hero__lantern" aria-hidden="true"></div>
@@ -129,7 +151,7 @@ ENLACE:: https://www.cdbp.gob.cl/noticias/chiloe-hogar-de-criaturas-mitologicas-
   <!-- ════════ DESCENSO · cuerpo de la ficha ════════ -->
   <div class="scroll" id="descenso">
 
-    <!-- Fondo del descenso: internarse en el bosque una sola vez arriba, fundido al negro -->
+    <!-- Fondo del descenso: el mundo de la criatura una sola vez arriba, fundido al negro -->
     <div class="descenso-bg" aria-hidden="true" data-parallax="0.16" data-rel="descenso"></div>
 
     <!-- Gancho: epígrafe atmosférico -->
@@ -200,7 +222,7 @@ ENLACE:: https://www.cdbp.gob.cl/noticias/chiloe-hogar-de-criaturas-mitologicas-
     <footer class="movement reveal pie" id="pie"></footer>
   </div>
 
-  <!-- ════════ CIERRE · el corazón del bosque (fin del viaje) ════════ -->
+  <!-- ════════ CIERRE · el corazón del mundo (fin del viaje) ════════ -->
   <section class="cierre" id="cierre" aria-label="Cierre">
     <div class="cierre__bg" aria-hidden="true"></div>
     <div class="cierre__edges" aria-hidden="true"></div>

@@ -4,3 +4,7 @@ Thumbs.db
 .env
 .env.*
 !.env.example
+
+# Herramientas offline: artefactos temporales (no forman parte del sitio)
+herramientas/contacto/
+__pycache__/

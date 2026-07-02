@@ -213,21 +213,29 @@
       vbox.appendChild(card);
     });
 
-    // Vitrina: otras piezas (tiles, links muertos por ahora)
+    // Vitrina: otras piezas. Si window.FICHA.publicadas incluye el id, la pieza
+    // enlaza a su ficha; si no, queda "ficha pendiente" (link muerto). (Excepción E2.)
     var vit = document.getElementById("vitrina");
+    var pubs = CFG.publicadas || [];
     d.relaciones.forEach(function (id) {
       var name = titleCase(id);
+      var publicada = pubs.indexOf(id) !== -1;
       var a = el("a", "pieza");
-      a.href = "#"; a.setAttribute("data-id", id);
-      a.setAttribute("title", "Ficha pendiente: " + name);
-      a.addEventListener("click", function (e) { e.preventDefault(); });
+      if (publicada) {
+        a.href = id + ".html";
+        a.setAttribute("title", "Abrir ficha: " + name);
+      } else {
+        a.href = "#"; a.setAttribute("data-id", id);
+        a.setAttribute("title", "Ficha pendiente: " + name);
+        a.addEventListener("click", function (e) { e.preventDefault(); });
+      }
       var frame = el("div", "frame");
       var art = el("div", "pieza__art pixel");
       art.appendChild(el("span", "pieza__sigil", name.charAt(0)));
       frame.appendChild(art);
       a.appendChild(frame);
       a.appendChild(el("span", "pieza__name", name));
-      a.appendChild(el("span", "pieza__tag", "ficha pendiente"));
+      a.appendChild(el("span", "pieza__tag", publicada ? "ficha" : "ficha pendiente"));
       vit.appendChild(a);
     });
 

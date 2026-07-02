@@ -1,0 +1,4 @@
+# Criaturas publicadas (una por línea). El generador solo emite estos <id>.html.
+# El resto se reporta en herramientas/pendientes.md pero no se escribe.
+caleuche
+trauco
