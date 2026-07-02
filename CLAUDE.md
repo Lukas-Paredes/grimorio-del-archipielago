@@ -25,13 +25,28 @@ Diferencia siempre entre:
 
 La arquitectura vigente es HTML estático, CSS modular y JavaScript clásico, sin frameworks, sin npm, sin backend y sin cadena de compilación.
 
-- `index.html` es una cáscara estructural: carga estilos, scripts, datos, componentes y el renderizador de portada.
-- La portada se renderiza desde `assets/js/pages/home.js`.
+En el repositorio conviven **dos sistemas** que comparten paleta y ADN visual:
+
+**Sitio antiguo (consulta pública; NO se modifica).** Es el archivo clásico, operativo:
+
+- `index-legacy.html` es una cáscara estructural: carga estilos, scripts, datos, componentes y el renderizador de portada.
+- La portada de ese sitio se renderiza desde `assets/js/pages/home.js`.
 - Las páginas secundarias están en `pages/`.
-- Los estilos viven en `assets/css/` y se dividen por responsabilidad.
 - Los datos estructurados viven en `assets/js/data/`.
 - Los componentes reutilizables viven en `assets/js/components/`.
 - Los renderizadores de página viven en `assets/js/pages/`.
+
+La descripción anterior (`home.js`, componentes, renderizadores) corresponde a este sitio antiguo.
+
+**Sistema nuevo (donde se trabaja).**
+
+- `index.html` es la portada-descenso estática, con estilo e interacción propios en `assets/css/portada.css` y `assets/js/portada.js`.
+- Las fichas de criatura son config-driven: cada criatura es un `.html` en la raíz (`caleuche.html`, `trauco.html`, …) que declara su `window.FICHA` embebido y sus imágenes.
+- El motor de fichas es genérico y compartido: `assets/js/ficha.js` + `assets/css/ficha.css`. No se editan por criatura.
+
+Reglas comunes a ambos sistemas:
+
+- Los estilos viven en `assets/css/` y se dividen por responsabilidad.
 - Las rutas deben seguir siendo relativas para funcionar en local y en una subruta tipo `/grimorio-del-archipielago/`.
 - No uses `fetch()` como requisito estructural.
 - No uses módulos ES.
@@ -55,6 +70,8 @@ desde:
 http://localhost:8000/
 ```
 
+Las herramientas offline de `herramientas/` (scripts Python de contenido e imágenes) están permitidas; el sitio publicado no depende de ellas y sigue abriendo con `python -m http.server 8000`. No constituyen una cadena de compilación.
+
 ## Flujo Git
 
 - Trabaja solamente en la rama actual.
@@ -69,9 +86,15 @@ http://localhost:8000/
 
 ## Criterios de diseño
 
-Mantén la dirección editorial marítima, gótico insular, archivo cultural y museo nocturno: papel, tinta, mar, bosque, neblina, cobre y óxido.
+Mantén la dirección editorial marítima, gótico insular, archivo cultural y museo nocturno: mar, niebla, bosque, bronce y óxido, con UNA sola luz cálida ámbar sobre una paleta abisal (#02060c→#15384a; ámbar #f2b65a).
+
+En el sistema nuevo NUNCA uses pergamino ni textura de papel: las superficies son placas de bronce y agua abisal.
 
 Evita tarjetas repetidas, exceso de bordes redondeados, exceso de sombras, estética genérica de inteligencia artificial, apariencia SaaS, lenguaje de videojuego y elementos visuales sin función cultural.
+
+## Lenguaje
+
+La capa interactiva se denomina «relato interactivo» o «recorrido narrativo». Nunca «juego», «RPG», «niveles» ni «quests» en interfaz, textos ni documentación.
 
 ## Conceptos principales
 
@@ -89,9 +112,9 @@ Revisa como mínimo:
 - portada;
 - todas las páginas;
 - enlaces relativos;
-- búsqueda;
-- filtros;
-- vista rápida;
+- búsqueda (sitio antiguo, mientras exista);
+- filtros (sitio antiguo, mientras exista);
+- vista rápida (sitio antiguo, mientras exista);
 - menú móvil;
 - consola del navegador;
 - funcionamiento a 390 px;
