@@ -85,3 +85,7 @@ Slots de imagen: `hero` (16:9) · `descenso` (9:16) · `cierre` (16:9) · `card`
 ## Pendiente de UI (registrado desde F0)
 - Botón visible «marea» (pausa de movimiento) en las fichas → **F4** (toca `ficha.css`).
 
+## Pendiente de imágenes de portada (Gemini)
+- `portada-trauco` (fondo del módulo Trauco en la portada-descenso) **por generar en Gemini**;
+  hoy ese módulo usa `trauco-hero` provisional con los velos del sistema.
+

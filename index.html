@@ -1,5 +1,6 @@
 <!doctype html>
-<html lang="es">
+<!-- snap-on: scroll-snap proximity (F2). Apagarlo = quitar la clase (1 línea). -->
+<html lang="es" class="snap-on">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -41,69 +42,53 @@
 <!-- Toggle de bocina · PREVISTO para audio ambiente futuro (sin cablear) -->
 <button class="bocina" type="button" aria-pressed="false" aria-label="Audio ambiente (próximamente)" title="Audio ambiente · próximamente">🔇</button>
 
-<!-- Marea · pausa/reanuda el movimiento (parallax, niebla). Persiste en grimorio:motion. -->
+<!-- Marea · pausa/reanuda el movimiento (parallax, niebla, motas, brillos). Persiste en grimorio:motion. -->
 <button class="marea" type="button" aria-pressed="false" aria-label="Pausar o reanudar el movimiento" title="Movimiento activo — clic para pausar">🌊</button>
 
-<!-- Sonda de profundidad: navegación vertical fija que marca la profundidad -->
+<!-- Motas de sedimento (F2): capa fija, CSS puro; aparecen al entrar al abismo.
+     Se pausan con la marea y desaparecen con reduced-motion. -->
+<div class="motas" aria-hidden="true"></div>
+
+<!-- Sonda de profundidad: los nodos los genera portada-capitulos.js desde los datos -->
 <nav class="sonda" aria-label="Profundidad del descenso">
   <span class="sonda__linea" aria-hidden="true"><span class="sonda__fill"></span></span>
-  <a class="sonda__nodo is-active" href="#superficie" data-target="superficie" aria-label="Superficie"><span class="sonda__label">Superficie</span></a>
-  <a class="sonda__nodo" href="#caleuche" data-target="caleuche" aria-label="Caleuche"><span class="sonda__label">Caleuche</span></a>
-  <a class="sonda__nodo" href="#descenso" data-target="descenso" aria-label="Descenso"><span class="sonda__label">Descenso</span></a>
-  <a class="sonda__nodo" href="#abismo" data-target="abismo" aria-label="Abismo"><span class="sonda__label">Abismo</span></a>
+  <span class="sonda__brazas" aria-hidden="true">0 brazas</span>
 </nav>
 
 <main>
 
   <!-- ════════ 1 · SUPERFICIE ════════ -->
-  <section class="capa capa--superficie" id="superficie" aria-labelledby="marca">
+  <section class="capa capa--superficie" id="superficie" data-zona="superficie" aria-labelledby="marca">
     <div class="capa__bg" data-parallax="0.14" aria-hidden="true"></div>
     <div class="capa__veil" aria-hidden="true"></div>
+    <!-- El farol del palafito titila (F2); bajo la niebla, pausable -->
+    <span class="brillo brillo--farol" aria-hidden="true"
+          style="--brillo-x:64%; --brillo-y:58%; --brillo-rx:10%; --brillo-ry:20%; --brillo-a:0.26"></span>
     <div class="fog" aria-hidden="true"><span></span><span></span></div>
     <div class="capa__content reveal">
       <h1 class="marca" id="marca">El Grimorio del Archipiélago</h1>
       <p class="bajada">Un archivo del imaginario de Chiloé. Se entra descendiendo: de la superficie de las islas a lo que el mar guarda debajo.</p>
-      <a class="cue" href="#caleuche"><span>desciende</span><span aria-hidden="true">▼</span></a>
+      <a class="cue" href="#descenso-capitulos"><span>desciende</span><span aria-hidden="true">▼</span></a>
     </div>
   </section>
 
-  <!-- ════════ 2 · CALEUCHE (tráiler) ════════ -->
-  <section class="capa capa--caleuche" id="caleuche" aria-labelledby="cal-nombre">
-    <div class="capa__bg" data-parallax="0.14" aria-hidden="true"></div>
-    <div class="capa__veil" aria-hidden="true"></div>
-    <div class="fog" aria-hidden="true"><span></span><span></span></div>
-    <span class="mist mist--caleuche-columna" data-parallax="0.22" aria-hidden="true"></span>
-
-    <!-- El buque de la imagen es clickeable (mismo destino que "Abordar") -->
-    <a class="buque-link" href="caleuche.html" aria-label="Abordar el Caleuche"></a>
-
-    <div class="capa__content reveal">
-      <article class="trailer">
-        <span class="rivet tl" aria-hidden="true"></span><span class="rivet tr" aria-hidden="true"></span>
-        <span class="rivet bl" aria-hidden="true"></span><span class="rivet br" aria-hidden="true"></span>
-        <div class="trailer__panel">
-          <h2 id="cal-nombre">El Caleuche</h2>
-          <p class="alias">el buque de arte</p>
-          <blockquote class="gancho">Se oye música y risas sobre el agua, y luces donde no debería haberlas. Los que suben a su cubierta no vuelven a bajar.</blockquote>
-          <ul class="tags"><li>Mar</li><li>Barco fantasma</li><li>Chilota</li></ul>
-          <p class="teaser">Cuatro relatos lo explican. Ninguno del todo.</p>
-          <a class="cta" href="caleuche.html">Abordar <span aria-hidden="true">▼</span></a>
-        </div>
-      </article>
-    </div>
-  </section>
+  <!-- ════════ 2 · CAPÍTULOS (data-driven) ════════
+       Los renderiza assets/js/pages/portada-capitulos.js desde
+       assets/js/data/capitulos.js: separador de acto + módulo por criatura. -->
+  <div id="descenso-capitulos"></div>
 
   <!-- ════════ 3 · DESCENSO (columna) ════════ -->
-  <section class="capa capa--columna" id="descenso">
+  <section class="capa capa--columna" id="descenso" data-zona="abismo">
     <div class="capa__bg" data-parallax="0.14" aria-hidden="true"></div>
     <div class="capa__veil" aria-hidden="true"></div>
+    <span class="mist mist--columna" data-parallax="0.22" aria-hidden="true"></span>
     <div class="capa__content reveal">
       <p class="susurro">más piezas del archipiélago descienden aquí</p>
     </div>
   </section>
 
   <!-- ════════ 4 · ABISMO (lecho, pie) ════════ -->
-  <section class="capa capa--lecho" id="abismo" aria-labelledby="ab-titulo">
+  <section class="capa capa--lecho" id="abismo" data-zona="abismo" aria-labelledby="ab-titulo">
     <div class="capa__bg" data-parallax="0.14" aria-hidden="true"></div>
     <div class="capa__veil" aria-hidden="true"></div>
     <div class="fog" aria-hidden="true"><span></span><span></span></div>
@@ -123,6 +108,8 @@
 
 </main>
 
+<script src="assets/js/data/capitulos.js" defer></script>
+<script src="assets/js/pages/portada-capitulos.js" defer></script>
 <script src="assets/js/portada.js" defer></script>
 </body>
 </html>

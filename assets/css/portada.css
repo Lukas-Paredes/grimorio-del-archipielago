@@ -32,8 +32,21 @@
 *, *::before, *::after { box-sizing: border-box; }
 html, body { margin: 0; overflow-x: hidden; }
 html { scroll-behavior: smooth; }
+
+/* ── Zonas de color (F2): el reino visible tiñe el fondo del documento.
+   html[data-zona] lo setea portada.js al cruzar secciones; cose las costuras. ── */
+html[data-zona="superficie"] { --zona-bg: #050d18; }
+html[data-zona="mar"]        { --zona-bg: #081726; }
+html[data-zona="bosque"]     { --zona-bg: #06120f; }
+html[data-zona="abismo"]     { --zona-bg: #02060c; }
+
+/* ── Scroll-snap (F2): suave, proximity. Se apaga quitando .snap-on de <html>. ── */
+html.snap-on { scroll-snap-type: y proximity; }
+.capa, .acto { scroll-snap-align: start; }
+
 body {
-  background: var(--abyss);
+  background: var(--zona-bg, var(--abyss));
+  transition: background-color 1.2s var(--ease);
   color: var(--bone);
   font-family: var(--font-body);
   font-size: clamp(1.02rem, 0.96rem + 0.4vw, 1.18rem);
@@ -70,8 +83,13 @@ a { color: var(--amber-soft); }
   background-image: image-set(url("../img/portada-superficie.webp") type("image/webp"), url("../img/portada-superficie.png") type("image/png"));
   background-position: center top;
 }
-.capa--caleuche .capa__bg {
-  background-image: image-set(url("../img/portada-caleuche.webp") type("image/webp"), url("../img/portada-caleuche.png") type("image/png"));
+/* Fondo de módulo-capítulo: <img> lazy dentro del wrapper (F1). */
+.capa__bg--img { background: none; }
+.capa__bg--img picture { display: block; width: 100%; height: 100%; }
+.capa__img {
+  display: block; width: 100%; height: 100%;
+  object-fit: cover; object-position: center;
+  image-rendering: pixelated;
 }
 .capa--columna .capa__bg {
   background-image: image-set(url("../img/portada-columna.webp") type("image/webp"), url("../img/portada-columna.png") type("image/png"));
@@ -96,11 +114,14 @@ a { color: var(--amber-soft); }
     linear-gradient(180deg, rgba(2,6,12,0.28) 0%, transparent 34%, transparent 66%, var(--abyss) 100%),
     radial-gradient(130% 96% at 50% 40%, transparent 48%, rgba(2, 6, 12, 0.6) 100%);
 }
-.capa--caleuche .capa__veil { /* más oscuro: hay una tarjeta encima */
+.capa--capitulo .capa__veil { /* más oscuro: hay una tarjeta encima */
   background:
     linear-gradient(180deg, var(--abyss) 0%, transparent 16%, transparent 72%, var(--abyss) 100%),
     radial-gradient(120% 90% at 50% 50%, transparent 28%, rgba(2, 6, 12, 0.74) 100%);
 }
+/* Costo de layout fuera de pantalla: solo se renderiza lo cercano (F1). */
+.capa--capitulo { content-visibility: auto; contain-intrinsic-size: auto 100vh; contain-intrinsic-size: auto 100svh; }
+.acto           { content-visibility: auto; contain-intrinsic-size: auto 55vh;  contain-intrinsic-size: auto 55svh; }
 
 /* Banda de niebla (portada-niebla) para suavizar una costura. */
 .mist {
@@ -119,7 +140,7 @@ a { color: var(--amber-soft); }
   image-rendering: pixelated;
   will-change: transform;
 }
-.mist--caleuche-columna { bottom: -4vh; }   /* niebla en el fondo del Caleuche, hacia la costura */
+.mist--columna { top: -6vh; }   /* niebla en la costura de entrada a la columna */
 
 /* Niebla animada reutilizable (deriva lenta). */
 .fog { position: absolute; inset: 0; z-index: -2; pointer-events: none; overflow: hidden; }
@@ -165,19 +186,78 @@ a { color: var(--amber-soft); }
 .cue span:last-child { font-size: 0.9rem; animation: bob 2.4s ease-in-out infinite; }
 @keyframes bob { 0%,100% { transform: translateY(0); } 50% { transform: translateY(6px); } }
 
-/* ════════ 2 · CALEUCHE (tráiler) ════════ */
-/* Zona clickeable sobre el buque de la imagen (mismo destino que "Abordar"). */
-.buque-link {
+/* ════════ SEPARADOR DE ACTO (F1): numeral + título del Libro + regla ════════ */
+.acto {
+  position: relative;
+  min-height: 55vh; min-height: 55svh;
+  display: grid; align-content: center; justify-items: center; gap: 0.4rem;
+  padding: 3rem 1.2rem;
+  text-align: center;
+}
+.acto__numeral {
+  margin: 0;
+  font-family: var(--font-pixel); font-size: 0.66rem; font-weight: 600;
+  letter-spacing: 0.34em; text-transform: uppercase; text-indent: 0.34em;
+  color: var(--amber-deep);
+}
+.acto__titulo {
+  margin: 0;
+  font-family: var(--font-display); font-weight: 400;
+  font-size: clamp(1.6rem, 1.2rem + 2vw, 2.7rem);
+  color: #f6ecd6; text-shadow: 0 0 22px var(--amber-glow);
+}
+.acto__titulo::after {
+  content: ""; display: block;
+  width: min(240px, 46vw); height: 2px; margin: 1rem auto 0;
+  background: linear-gradient(90deg, transparent, var(--amber-line), transparent);
+}
+.acto__selladas { display: flex; flex-wrap: wrap; gap: 0.9rem; justify-content: center; margin-top: 1.4rem; }
+
+/* Placa sellada: pieza compacta, marco bronce apagado, sin link. */
+.sellada {
+  display: grid; gap: 0.3rem; justify-items: center;
+  width: min(10rem, 42vw);
+  padding: 1rem 0.8rem 1.1rem;
+  background: rgba(6, 14, 22, 0.5);
+  border: 1px solid rgba(185, 119, 43, 0.34);
+  clip-path: polygon(
+    0 6px, 6px 6px, 6px 0, calc(100% - 6px) 0, calc(100% - 6px) 6px, 100% 6px,
+    100% calc(100% - 6px), calc(100% - 6px) calc(100% - 6px), calc(100% - 6px) 100%,
+    6px 100%, 6px calc(100% - 6px), 0 calc(100% - 6px));
+}
+.sellada__sigilo {
+  font-family: var(--font-display); font-size: 2.4rem; line-height: 1;
+  color: rgba(242, 182, 90, 0.4); text-shadow: 0 0 16px rgba(242, 182, 90, 0.18);
+}
+.sellada__nombre { font-family: var(--font-pixel); font-size: 0.72rem; letter-spacing: 0.06em; color: var(--bone); }
+.sellada__tag {
+  font-family: var(--font-pixel); font-size: 0.52rem;
+  letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--bone-soft); opacity: 0.8;
+}
+
+/* ════════ MÓDULO-CAPÍTULO (F1; generaliza el tráiler del Caleuche) ════════ */
+/* Ventana clickeable sobre la criatura (coords por variables desde los datos). */
+.ventana {
   position: absolute; z-index: 0;      /* sobre el fondo pero bajo la tarjeta (z-index:1) */
-  left: 8%; top: 26%; width: 42%; height: 40%;
+  left: var(--v-left, 10%); top: var(--v-top, 25%);
+  width: var(--v-w, 40%); height: var(--v-h, 40%);
   border-radius: 50%;
   cursor: pointer;
   transition: box-shadow 0.4s var(--ease);
 }
-.buque-link:hover, .buque-link:focus-visible {
+.ventana:hover, .ventana:focus-visible {
   box-shadow: 0 0 90px 20px rgba(242, 182, 90, 0.14);
-  outline: none;
 }
+/* Nº de capítulo en la placa */
+.trailer .cap-num {
+  margin: 0 0 0.3rem;
+  font-family: var(--font-pixel); font-size: 0.6rem; font-weight: 600;
+  letter-spacing: 0.3em; text-transform: uppercase;
+  color: var(--amber-deep);
+}
+/* Lado alternado por paridad (ritmo visual): impar derecha, par izquierda. */
+.capa--par .trailer { margin-left: clamp(0px, 4vw, 3rem); margin-right: auto; }
 
 /* Tarjeta-tráiler: placa de bronce / agua abisal (NO pergamino). */
 .trailer {
@@ -334,6 +414,12 @@ a { color: var(--amber-soft); }
 .sonda__nodo:hover .sonda__label,
 .sonda__nodo.is-active .sonda__label { opacity: 1; }
 .sonda__nodo.is-active .sonda__label { color: var(--amber); }
+/* Profundímetro (F2): brazas bajo la sonda; decorativo (aria-hidden). */
+.sonda__brazas {
+  position: absolute; top: calc(100% + 1rem); right: 50%; transform: translateX(50%);
+  font-family: var(--font-pixel); font-size: 0.55rem; letter-spacing: 0.08em;
+  white-space: nowrap; color: var(--bone-soft); opacity: 0.8;
+}
 
 /* ════════ BOCINA (toggle de audio · previsto, sin cablear) ════════ */
 .bocina {
@@ -372,7 +458,7 @@ a { color: var(--amber-soft); }
 .marea:focus-visible,
 .cue:focus-visible,
 .cta:focus-visible,
-.buque-link:focus-visible,
+.ventana:focus-visible,
 .puertas a:focus-visible,
 .metodo a:focus-visible {
   outline: 2px solid var(--amber);
@@ -382,32 +468,98 @@ a { color: var(--amber-soft); }
 /* La CTA está recortada (clip-path): el outline se recorta, así que glow ámbar. */
 .cta:focus-visible { filter: brightness(1.1) drop-shadow(0 0 6px var(--amber)); }
 
+/* ════════ ATMÓSFERA (F2): un cuadro vivo — quieto pero respirando ════════ */
+
+/* Luz lejana que respira: farol de la superficie (titila) y resplandor del
+   Caleuche (late). Bajo la niebla (z -2, antes de .fog en el DOM), pausable. */
+.brillo {
+  position: absolute; inset: 0; z-index: -2; pointer-events: none;
+  mix-blend-mode: screen;
+  background: radial-gradient(
+    var(--brillo-rx, 12%) var(--brillo-ry, 16%) at var(--brillo-x, 50%) var(--brillo-y, 50%),
+    rgb(242 182 90 / var(--brillo-a, 0.3)), transparent 70%);
+}
+.brillo--latido { animation: brillo-latido 7.5s ease-in-out infinite; }
+.brillo--farol  { animation: farol-titila 6.5s linear infinite; }
+@keyframes brillo-latido { 0%, 100% { opacity: 0.45; } 50% { opacity: 1; } }
+@keyframes farol-titila {
+  0% { opacity: 0.8; } 6% { opacity: 0.55; } 9% { opacity: 0.85; } 14% { opacity: 0.7; }
+  22% { opacity: 0.95; } 31% { opacity: 0.62; } 38% { opacity: 0.9; } 47% { opacity: 0.75; }
+  55% { opacity: 1; } 63% { opacity: 0.6; } 71% { opacity: 0.9; } 82% { opacity: 0.72; }
+  90% { opacity: 0.95; } 100% { opacity: 0.8; }
+}
+
+/* Motas de sedimento: UNA capa fija, CSS puro, caída lenta (~6 px/s). Aparecen
+   al entrar al abismo (y apenas en el mar); opacidad transiciona con la zona. */
+.motas {
+  position: fixed; left: -24px; right: -24px; top: -560px; bottom: -24px;
+  z-index: 6; pointer-events: none;
+  opacity: 0;
+  transition: opacity 1.2s var(--ease);
+  background-image:
+    radial-gradient(circle at 30% 40%, rgba(236, 228, 210, 0.38) 0 1.2px, transparent 1.9px),
+    radial-gradient(circle at 70% 80%, rgba(159, 182, 189, 0.32) 0 0.9px, transparent 1.5px);
+  background-size: 280px 280px, 140px 140px;
+  animation: motas-caer 90s linear infinite;
+  will-change: transform;
+}
+/* 560 px = 2×280 = 4×140 → el bucle empalma sin costura en ambas tramas. */
+@keyframes motas-caer { from { transform: translate3d(0, 0, 0); } to { transform: translate3d(0, 560px, 0); } }
+html[data-zona="abismo"] .motas { opacity: 0.16; }
+html[data-zona="mar"]    .motas { opacity: 0.05; }
+
+/* Parallax v2 (F2): scroll-driven en CSS donde hay soporte (cero JS por frame).
+   portada.js pone .has-sda en <html> y desactiva su loop para estas capas. */
+@supports (animation-timeline: view()) {
+  html.has-sda .capa__bg {
+    animation: capa-sumergir linear both;
+    animation-timeline: view(block);
+    animation-range: cover 0% cover 100%;
+  }
+  html.has-sda .mist {
+    animation: mist-sumergir linear both;
+    animation-timeline: view(block);
+    animation-range: cover 0% cover 100%;
+  }
+}
+@keyframes capa-sumergir { from { transform: translate3d(0, 8%, 0); } to { transform: translate3d(0, -8%, 0); } }
+@keyframes mist-sumergir { from { transform: translate3d(0, 60%, 0); } to { transform: translate3d(0, -60%, 0); } }
+
 /* ════════ Revelado ════════ */
 .reveal { opacity: 0; transform: translateY(30px); transition: opacity 1s var(--ease), transform 1s var(--ease); }
 .reveal.is-visible { opacity: 1; transform: none; }
 
 /* ════════ Pausa manual de movimiento (botón "marea") ════════ */
 /* Espeja prefers-reduced-motion cuando <html> tiene .motion-off. La clase la
-   pone el script anti-flash del <head> antes del primer frame, o el botón. */
+   pone el script anti-flash del <head> antes del primer frame, o el botón.
+   Congela: niebla, brillos, motas, parallax (JS y scroll-driven). */
 .motion-off { scroll-behavior: auto; }
+/* Congelar EN SU LUGAR (play-state paused), no resetear: niebla, motas, brillos,
+   cue. El parallax sí se anula con transform:none (posición neutra). */
 .motion-off *, .motion-off *::before, .motion-off *::after { animation-play-state: paused !important; }
 .motion-off .capa__bg, .motion-off .mist, .motion-off [data-parallax] { transform: none !important; }
-.motion-off .fog span, .motion-off .cue span:last-child { animation: none !important; }
 .motion-off .reveal { opacity: 1; transform: none; transition: none; }
 
 /* ════════ 390px ════════ */
 @media (max-width: 640px) {
-  .trailer { justify-self: center; margin-right: 0; }
-  .buque-link { left: 4%; top: 20%; width: 60%; height: 34%; }
+  .trailer, .capa--par .trailer { margin-left: auto; margin-right: auto; }  /* tarjeta centrada */
+  /* La ventana usa sus coords móviles si el capítulo las declara. */
+  .ventana {
+    left: var(--vm-left, var(--v-left, 10%)); top: var(--vm-top, var(--v-top, 25%));
+    width: var(--vm-w, var(--v-w, 40%)); height: var(--vm-h, var(--v-h, 40%));
+  }
   .sonda { right: 0.5rem; gap: 1.9rem; }
   .sonda__label { display: none; }   /* en móvil solo los nodos */
+  .sonda__brazas { display: none; }  /* el profundímetro es detalle de escritorio */
 }
 
 /* ════════ Movimiento reducido ════════ */
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
-  .capa__bg, .mist, [data-parallax] { transform: none !important; }
-  .fog span, .cue span:last-child { animation: none !important; }
+  html.snap-on { scroll-snap-type: none; }
+  .capa__bg, .mist, [data-parallax] { transform: none !important; animation: none !important; }
+  .fog span, .cue span:last-child, .brillo { animation: none !important; }
+  .motas { display: none; }
   .reveal { opacity: 1; transform: none; transition: none; }
   * { transition-duration: 0.001ms !important; }
 }
