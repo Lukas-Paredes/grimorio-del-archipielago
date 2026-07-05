@@ -31,8 +31,14 @@
   var zonaActual = null;
   var goteoTimer = null;
 
-  var VOL = 0.35;          // volumen maestro: presencia discreta, museo nocturno
-  var FADE = 1.6;          // crossfade entre mezclas (s)
+  // Afinables en config.js (FASE 3); estos son los defaults si no existe.
+  var CONF = (G.config && G.config.audio) || {};
+  var VOL = CONF.volumen || 0.35;      // volumen maestro: presencia discreta
+  var FADE = CONF.crossfadeS || 1.6;   // crossfade entre mezclas (s)
+  var LP = CONF.lowpass || {};
+  var LP_ARRIBA = LP.arribaHz || 6000;
+  var LP_FONDO = LP.fondoHz || 550;
+  var LP_CURVA = LP.curva || 1.4;
 
   /* Mezclas por zona: nivel 0..1 de cada capa. */
   var MEZCLAS = {
@@ -163,8 +169,8 @@
     var doc = document.documentElement;
     var max = Math.max(1, doc.scrollHeight - window.innerHeight);
     var p = Math.min(1, Math.max(0, window.scrollY / max));   // 0 arriba → 1 abajo
-    // Claridad en superficie (6 kHz) → ahogado en el fondo (550 Hz).
-    var hz = 6000 - Math.pow(p, 1.4) * 5450;
+    // Claridad en superficie → ahogado en el fondo (curva en config.js).
+    var hz = LP_ARRIBA - Math.pow(p, LP_CURVA) * (LP_ARRIBA - LP_FONDO);
     lowpass.frequency.setTargetAtTime(hz, ctx.currentTime, 0.25);
   }
   function escucharProfundidad() {

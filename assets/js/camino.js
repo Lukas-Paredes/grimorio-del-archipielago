@@ -20,6 +20,11 @@
   var G = window.Grimorio || {};
   var P = G.portada || { actos: [], capitulos: [], fin: null };
   var INDICE = G.indice || [];
+  // Tiempos de la bruma: afinables en config.js (FASE 3); defaults idénticos.
+  var BRUMA = (G.config && G.config.bruma) || {};
+  var BRUMA_SALIDA = BRUMA.salidaMs || 420;
+  var BRUMA_ENTRADA = BRUMA.entradaMs || 1400;
+  var BRUMA_SEGURIDAD = BRUMA.seguridadMs || 3000;
   var ROMAN = ["I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X"];
   var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   function paused() { return html.classList.contains("motion-off"); }
@@ -266,7 +271,7 @@
   // Entrada: html.bruma-in la puso el script del <head>; CSS la desvanece sola.
   if (html.classList.contains("bruma-in")) {
     try { sessionStorage.removeItem("grimorio:bruma"); } catch (e) {}
-    window.setTimeout(function () { html.classList.remove("bruma-in"); }, 1400);
+    window.setTimeout(function () { html.classList.remove("bruma-in"); }, BRUMA_ENTRADA);
   }
   // Salida: velo que se cierra antes de navegar.
   var bruma = el("div", "bruma");
@@ -289,8 +294,8 @@
     try { sessionStorage.setItem("grimorio:bruma", "1"); } catch (er) {}
     if (reduce || paused()) { location.href = href; return; }
     bruma.classList.add("is-activa");
-    window.setTimeout(function () { location.href = href; }, 420);
+    window.setTimeout(function () { location.href = href; }, BRUMA_SALIDA);
     // Red de seguridad: si algo bloquea la navegación, el velo se levanta solo.
-    window.setTimeout(function () { bruma.classList.remove("is-activa"); }, 3000);
+    window.setTimeout(function () { bruma.classList.remove("is-activa"); }, BRUMA_SEGURIDAD);
   });
 }());
