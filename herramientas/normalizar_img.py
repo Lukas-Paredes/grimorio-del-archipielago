@@ -27,7 +27,15 @@ import numpy as np
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 IMG_DIR = os.path.join(ROOT, "assets", "img")
 # Proporción esperada por slot (solo para avisar; no recorta).
-SLOTS = {"hero": (16, 9), "descenso": (9, 16), "cierre": (16, 9), "card": (1, 1), "portada": None}
+SLOTS = {"hero": (16, 9), "descenso": (9, 16), "cierre": (16, 9), "card": (1, 1),
+         "portada": None, "fondo": None}
+# REGLA DE ORO (auditoría 2026-07): los slots FULL-VIEWPORT (fondos de página
+# completa: portada-*, fondo-*, descenso, cierre) se sirven a 1800 px por el
+# lado mayor y NUNCA pasan por grid-reduction ni cuantización de paleta —
+# solo sello tapado + resize LANCZOS + WebP q90. El criterio de aceptación es
+# VISUAL a pantalla completa, no el peso. Grid+paleta queda SOLO para heroes.
+FULLVIEW = {"portada", "fondo", "descenso", "cierre"}
+FULLVIEW_MAX = 1800
 
 
 def smoothstep(e0, e1, x):
@@ -102,37 +110,66 @@ def procesar(src, grid, colors, dither, sello=True, radio_frac=0.20, verbose=Tru
     return q, (w0, h0), n
 
 
+def procesar_fondo(src, sello=True, radio_frac=0.20, verbose=True):
+    """Pipeline FULL-VIEWPORT: sello tapado + resize LANCZOS al lado mayor de
+    1800 px. SIN grid, SIN cuantización (regla de oro: calidad visual manda)."""
+    im = Image.open(src)
+    w0, h0 = im.size
+    rgb = cubrir_sello(im, radio_frac=radio_frac, verbose=verbose) if sello else im.convert("RGB")
+    w, h = rgb.size
+    if max(w, h) > FULLVIEW_MAX:
+        if w >= h:
+            nw, nh = FULLVIEW_MAX, round(h * FULLVIEW_MAX / w)
+        else:
+            nw, nh = round(w * FULLVIEW_MAX / h), FULLVIEW_MAX
+        rgb = rgb.resize((nw, nh), Image.Resampling.LANCZOS)
+    return rgb, (w0, h0)
+
+
 def run_slot(args):
     src = args.src
     if not os.path.isfile(src):
         sys.exit("No existe el crudo: " + src)
     if args.slot not in SLOTS:
         sys.exit("Slot inválido: %s (válidos: %s)" % (args.slot, ", ".join(SLOTS)))
-    base = "%s-%s" % (args.id, args.slot)
+    base = args.out or ("%s-%s" % (args.id, args.slot))
     out_webp = os.path.join(IMG_DIR, base + ".webp")
     out_png = os.path.join(IMG_DIR, base + ".png")
-    for p in (out_webp, out_png):
+    fullview = args.slot in FULLVIEW
+    for p in (out_webp,) + (() if (fullview and args.sin_png) else (out_png,)):
         if os.path.exists(p) and not args.forzar:
             sys.exit("Ya existe %s (usá --forzar para sobrescribir)." % os.path.relpath(p, ROOT))
-    print("Normalizando %s -> %s(.webp/.png)  grid=%d colors=%d dither=%s"
-          % (os.path.relpath(src, ROOT), base, args.grid, args.colors, bool(args.dither)))
-    q, (w0, h0), n = procesar(src, args.grid, args.colors, args.dither,
-                              sello=not args.no_sello, radio_frac=args.sello_radio)
-    qrgb = q.convert("RGB")
-    kb_webp, modo = export_webp(qrgb, out_webp)
-    q.save(out_png, "PNG", optimize=True)
-    kb_png = os.path.getsize(out_png)
-    w1, h1 = qrgb.size
-    print("  antes:   %dx%d" % (w0, h0))
-    print("  después: %dx%d  · %d colores" % (w1, h1, n))
-    print("  webp:  %7.1f KB (%s)" % (kb_webp / 1024.0, modo))
-    print("  png-8: %7.1f KB" % (kb_png / 1024.0))
-    ar = SLOTS[args.slot]
-    if ar and abs((w1 / h1) - (ar[0] / ar[1])) > 0.06:
-        print("  AVISO: proporción %.3f no coincide con %d:%d del slot '%s'."
-              % (w1 / h1, ar[0], ar[1], args.slot))
-    if args.slot == "hero" and kb_webp / 1024.0 > 60:
-        print("  AVISO: el hero webp supera 60 KB (%.1f KB)." % (kb_webp / 1024.0))
+    if fullview:
+        print("Normalizando (FULL-VIEWPORT, sin grid/paleta) %s -> %s"
+              % (os.path.relpath(src, ROOT), base))
+        rgb, (w0, h0) = procesar_fondo(src, sello=not args.no_sello, radio_frac=args.sello_radio)
+        kb_webp, modo = export_webp(rgb, out_webp)
+        print("  antes:   %dx%d" % (w0, h0))
+        print("  después: %dx%d (LANCZOS, color pleno)" % rgb.size)
+        print("  webp:  %7.1f KB (%s)" % (kb_webp / 1024.0, modo))
+        if not args.sin_png:
+            rgb.save(out_png, "PNG", optimize=True)
+            print("  png:   %7.1f KB (RGB, fallback)" % (os.path.getsize(out_png) / 1024.0))
+    else:
+        print("Normalizando %s -> %s(.webp/.png)  grid=%d colors=%d dither=%s"
+              % (os.path.relpath(src, ROOT), base, args.grid, args.colors, bool(args.dither)))
+        q, (w0, h0), n = procesar(src, args.grid, args.colors, args.dither,
+                                  sello=not args.no_sello, radio_frac=args.sello_radio)
+        qrgb = q.convert("RGB")
+        kb_webp, modo = export_webp(qrgb, out_webp)
+        q.save(out_png, "PNG", optimize=True)
+        kb_png = os.path.getsize(out_png)
+        w1, h1 = qrgb.size
+        print("  antes:   %dx%d" % (w0, h0))
+        print("  después: %dx%d  · %d colores" % (w1, h1, n))
+        print("  webp:  %7.1f KB (%s)" % (kb_webp / 1024.0, modo))
+        print("  png-8: %7.1f KB" % (kb_png / 1024.0))
+        ar = SLOTS[args.slot]
+        if ar and abs((w1 / h1) - (ar[0] / ar[1])) > 0.06:
+            print("  AVISO: proporción %.3f no coincide con %d:%d del slot '%s'."
+                  % (w1 / h1, ar[0], ar[1], args.slot))
+        if args.slot == "hero" and kb_webp / 1024.0 > 60:
+            print("  AVISO: el hero webp supera 60 KB (%.1f KB)." % (kb_webp / 1024.0))
     print("Listo: %s" % os.path.relpath(out_webp, ROOT))
 
 
@@ -187,7 +224,10 @@ def main():
     ap = argparse.ArgumentParser(description="Normalizador de imágenes del Grimorio (offline).")
     ap.add_argument("src", nargs="?", help="PNG crudo de entrada (modo normal).")
     ap.add_argument("--id", help="id de la criatura (p. ej. trauco).")
-    ap.add_argument("--slot", help="hero|descenso|cierre|card|portada")
+    ap.add_argument("--slot", help="hero|descenso|cierre|card|portada|fondo")
+    ap.add_argument("--out", help="nombre de salida exacto (para fondos históricos: portada-*, fondo-*).")
+    ap.add_argument("--sin-png", action="store_true",
+                    help="full-viewport: no regenerar el PNG de fallback (conservar el existente).")
     ap.add_argument("--grid", type=int, default=3, help="factor de downscale NEAREST (default 3, fijado con las anclas).")
     ap.add_argument("--colors", type=int, default=96,
                     help="colores de la cuantización (default 96: calibrado con las anclas — 48 "
@@ -202,10 +242,10 @@ def main():
     args = ap.parse_args()
     if args.contacto:
         run_contacto(args)
-    elif args.src and args.id and args.slot:
+    elif args.src and args.slot and (args.id or args.out):
         run_slot(args)
     else:
-        ap.error("Modo normal requiere: src --id --slot ; o usá --contacto IMG...")
+        ap.error("Modo normal requiere: src --slot y (--id o --out); o usá --contacto IMG...")
 
 
 if __name__ == "__main__":
