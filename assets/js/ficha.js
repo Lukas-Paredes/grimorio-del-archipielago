@@ -352,6 +352,22 @@
       items.forEach(function (n) { obs.observe(n); });
     }
 
+    // FASE 2 (mandato 2): relato scroll-vinculado — la prosa emerge párrafo
+    // a párrafo mientras se desciende (grano más fino que el reveal por
+    // sección). motion-off y reduced-motion la muestran entera, sin animar.
+    var prosaItems = document.querySelectorAll("#descripcion > *, #origen-mito > *");
+    prosaItems.forEach(function (n) { n.classList.add("reveal-p"); });
+    if (reduce || !("IntersectionObserver" in window)) {
+      prosaItems.forEach(function (n) { n.classList.add("is-visible"); });
+    } else {
+      var obsP = new IntersectionObserver(function (entries) {
+        entries.forEach(function (en) {
+          if (en.isIntersecting) { en.target.classList.add("is-visible"); obsP.unobserve(en.target); }
+        });
+      }, { threshold: 0.1, rootMargin: "0px 0px -6% 0px" });
+      prosaItems.forEach(function (n) { obsP.observe(n); });
+    }
+
     // Parallax (fondo y niebla más lentos que el contenido).
     // Capas con data-rel hacen parallax RELATIVO a ese ancestro (p.ej. el abismo,
     // anclado al entrar al descenso) en vez de al scroll absoluto de la página.
@@ -368,8 +384,22 @@
             relTop: 0
           };
         });
+      // FASE 2 (mandato 2): sonda de lectura — la plomada desciende por su
+      // línea con el avance del capítulo. Solo lectura pasiva del progreso;
+      // motion-off y reduced-motion la ocultan por CSS (y el JS la respeta).
+      var sonda = el("div", "sonda-lectura");
+      sonda.setAttribute("aria-hidden", "true");
+      sonda.appendChild(el("span", "sonda-lectura__linea"));
+      var plomo = document.createElement("img");
+      plomo.src = "assets/img/indicador-plomada.png";
+      plomo.alt = ""; plomo.width = 19; plomo.height = 48;
+      sonda.appendChild(plomo);
+      document.body.appendChild(sonda);
+      var sondaH = 0, plomoH = 22;
+
       function measure() {
         layers.forEach(function (L) { L.relTop = L.rel ? L.rel.offsetTop : 0; });
+        sondaH = sonda.clientHeight;
       }
       var ticking = false;
       function update() {
@@ -379,6 +409,9 @@
           var base = L.rel ? Math.max(0, y - L.relTop) : y;
           L.el.style.transform = "translate3d(0," + (base * L.speed).toFixed(1) + "px,0)";
         });
+        var max = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
+        var p = Math.min(1, Math.max(0, y / max));
+        plomo.style.transform = "translate(-50%," + (p * Math.max(0, sondaH - plomoH)).toFixed(1) + "px)";
         ticking = false;
       }
       measure();
