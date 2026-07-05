@@ -497,7 +497,12 @@ a { color: var(--amber-soft); }
   border-bottom: 1px dotted rgba(242, 182, 90, 0.45);
   transform: translateY(-0.28em);
 }
-.prosa-regla__linea strong { color: var(--amber-soft, #f2b65a); font-weight: 600; white-space: nowrap; }
+/* FASE 4: los resultados de la regla en VERSALES, como los tipografía el
+   DEFINITIVO («habrá ABUNDANCIA»). */
+.prosa-regla__linea strong {
+  color: var(--amber-soft, #f2b65a); font-weight: 600; white-space: nowrap;
+  text-transform: uppercase; font-size: 0.82em; letter-spacing: 0.08em;
+}
 @media (max-width: 480px) {
   .prosa-regla__linea { flex-wrap: wrap; }
   .prosa-regla__linea strong { white-space: normal; }
@@ -525,7 +530,21 @@ a { color: var(--amber-soft); }
   margin-right: 0.5rem; color: var(--amber-soft);
   font-variant-numeric: tabular-nums;
 }
-.cajon p { margin: 0; font-size: 1.02rem; color: var(--bone); }
+/* FASE 4 (D-05): el cajón se abre de verdad — el título es un botón. */
+.cajon__toggle {
+  display: flex; align-items: baseline; gap: 0.35rem; width: 100%;
+  margin: 0; padding: 0; border: 0; background: none; cursor: pointer;
+  font: inherit; color: inherit; text-align: left;
+  letter-spacing: inherit; text-shadow: inherit;
+}
+.cajon__toggle:focus-visible { outline: 2px solid var(--amber); outline-offset: 3px; }
+.cajon__indicador {
+  margin-left: auto; padding-left: 0.6rem; flex: 0 0 auto;
+  font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--amber-soft); opacity: 0.85;
+}
+.cajon p { margin: 0.55rem 0 0; font-size: 1.02rem; color: var(--bone); }
+.cajon p[hidden] { display: none; }
 .cajon { transition: transform 0.35s var(--ease), filter 0.35s var(--ease); }
 .cajon:hover { transform: translateY(-5px); filter: drop-shadow(0 12px 20px rgba(242, 182, 90, 0.22)) brightness(1.05); }
 .cajon:hover h3 { color: #ffd470; text-shadow: 0 0 18px var(--amber-glow); }

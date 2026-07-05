@@ -248,7 +248,10 @@
       datos.appendChild(box);
     });
 
-    // Variantes: cajones de archivo
+    // Variantes: cajones de archivo EXPANDIBLES (FASE 4, decisión D-05:
+    // «primera lectura limpia; fuentes/variantes en capa visible expandible»).
+    // El tirador del cajón ahora abre de verdad: título siempre visible,
+    // texto al clic (botón con aria-expanded; teclado incluido).
     var vbox = document.getElementById("variantes");
     d.variantes.forEach(function (va, i) {
       var card = el("article", "cajon reveal");
@@ -256,10 +259,25 @@
       var frame = el("div", "frame");
       var panel = el("div", "frame__panel");
       var h3 = el("h3");
-      h3.appendChild(el("span", "num", ROMAN[i] || String(i + 1)));
-      h3.appendChild(document.createTextNode(va.titulo));
+      var btn = el("button", "cajon__toggle");
+      btn.type = "button";
+      btn.setAttribute("aria-expanded", "false");
+      btn.appendChild(el("span", "num", ROMAN[i] || String(i + 1)));
+      btn.appendChild(document.createTextNode(" " + (va.titulo || "Variante")));
+      var ind = el("span", "cajon__indicador", "abrir +");
+      ind.setAttribute("aria-hidden", "true");
+      btn.appendChild(ind);
+      h3.appendChild(btn);
       panel.appendChild(h3);
-      panel.appendChild(el("p", null, va.texto));
+      var texto = el("p", null, va.texto);
+      texto.hidden = true;
+      panel.appendChild(texto);
+      btn.addEventListener("click", function () {
+        var abierto = btn.getAttribute("aria-expanded") === "true";
+        btn.setAttribute("aria-expanded", abierto ? "false" : "true");
+        texto.hidden = abierto;
+        ind.textContent = abierto ? "abrir +" : "cerrar −";
+      });
       frame.appendChild(panel);
       card.appendChild(frame);
       vbox.appendChild(card);
