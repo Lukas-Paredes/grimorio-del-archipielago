@@ -48,8 +48,9 @@ body {
   background: var(--zona-bg, var(--abyss));
   transition: background-color 1.2s var(--ease);
   color: var(--bone);
+  /* Accesibilidad amplia: cuerpo >= 17px efectivos */
+  font-size: clamp(1.0625rem, 1rem + 0.4vw, 1.22rem);
   font-family: var(--font-body);
-  font-size: clamp(1.02rem, 0.96rem + 0.4vw, 1.18rem);
   line-height: 1.7;
   -webkit-font-smoothing: antialiased;
 }
@@ -178,10 +179,11 @@ a { color: var(--amber-soft); }
 .cue {
   display: inline-grid; justify-items: center; gap: 0.35rem;
   margin-top: clamp(2rem, 6vh, 4rem);
+  padding: 0.6rem 1.2rem;                 /* target táctil >= 44px */
   color: var(--amber);
   font-family: var(--font-pixel);
-  font-size: 0.64rem; letter-spacing: 0.34em; text-transform: uppercase;
-  text-decoration: none; opacity: 0.85;
+  font-size: 0.72rem; letter-spacing: 0.34em; text-transform: uppercase;
+  text-decoration: none; opacity: 0.9;
 }
 .cue span:last-child { font-size: 0.9rem; animation: bob 2.4s ease-in-out infinite; }
 @keyframes bob { 0%,100% { transform: translateY(0); } 50% { transform: translateY(6px); } }
@@ -196,9 +198,9 @@ a { color: var(--amber-soft); }
 }
 .acto__numeral {
   margin: 0;
-  font-family: var(--font-pixel); font-size: 0.66rem; font-weight: 600;
+  font-family: var(--font-pixel); font-size: 0.74rem; font-weight: 600;
   letter-spacing: 0.34em; text-transform: uppercase; text-indent: 0.34em;
-  color: var(--amber-deep);
+  color: var(--amber-soft);
 }
 .acto__titulo {
   margin: 0;
@@ -229,11 +231,11 @@ a { color: var(--amber-soft); }
   font-family: var(--font-display); font-size: 2.4rem; line-height: 1;
   color: rgba(242, 182, 90, 0.4); text-shadow: 0 0 16px rgba(242, 182, 90, 0.18);
 }
-.sellada__nombre { font-family: var(--font-pixel); font-size: 0.72rem; letter-spacing: 0.06em; color: var(--bone); }
+.sellada__nombre { font-family: var(--font-pixel); font-size: 0.8rem; letter-spacing: 0.06em; color: var(--bone); }
 .sellada__tag {
-  font-family: var(--font-pixel); font-size: 0.52rem;
+  font-family: var(--font-pixel); font-size: 0.62rem;
   letter-spacing: 0.18em; text-transform: uppercase;
-  color: var(--bone-soft); opacity: 0.8;
+  color: var(--bone-soft); opacity: 0.85;
 }
 
 /* ════════ MÓDULO-CAPÍTULO (F1; generaliza el tráiler del Caleuche) ════════ */
@@ -252,9 +254,9 @@ a { color: var(--amber-soft); }
 /* Nº de capítulo en la placa */
 .trailer .cap-num {
   margin: 0 0 0.3rem;
-  font-family: var(--font-pixel); font-size: 0.6rem; font-weight: 600;
+  font-family: var(--font-pixel); font-size: 0.7rem; font-weight: 600;
   letter-spacing: 0.3em; text-transform: uppercase;
-  color: var(--amber-deep);
+  color: var(--amber-soft);
 }
 /* Lado alternado por paridad (ritmo visual): impar derecha, par izquierda. */
 .capa--par .trailer { margin-left: clamp(0px, 4vw, 3rem); margin-right: auto; }
@@ -298,7 +300,7 @@ a { color: var(--amber-soft); }
 }
 .trailer .alias {
   margin: 0.15rem 0 0.9rem;
-  font-family: var(--font-pixel); font-size: 0.72rem;
+  font-family: var(--font-pixel); font-size: 0.78rem;
   letter-spacing: 0.14em; text-transform: uppercase; color: var(--foam);
 }
 .trailer .gancho {
@@ -311,9 +313,9 @@ a { color: var(--amber-soft); }
   margin: 0 0 1rem; padding: 0; list-style: none;
 }
 .trailer .tags li {
-  font-family: var(--font-pixel); font-size: 0.62rem;
+  font-family: var(--font-pixel); font-size: 0.7rem;
   letter-spacing: 0.08em; text-transform: uppercase;
-  color: var(--foam); padding: 0.28rem 0.6rem;
+  color: var(--foam); padding: 0.3rem 0.65rem;
   border: 1px solid var(--amber-line); border-radius: 999px;
   background: rgba(8, 18, 26, 0.5);
 }
@@ -415,14 +417,31 @@ a { color: var(--amber-soft); }
     var(--brillo-rx, 12%) var(--brillo-ry, 16%) at var(--brillo-x, 50%) var(--brillo-y, 50%),
     rgb(242 182 90 / var(--brillo-a, 0.3)), transparent 70%);
 }
-.brillo--latido { animation: brillo-latido 7.5s ease-in-out infinite; }
-.brillo--farol  { animation: farol-titila 6.5s linear infinite; }
-@keyframes brillo-latido { 0%, 100% { opacity: 0.45; } 50% { opacity: 1; } }
+.brillo--latido { animation: brillo-latido 8.5s ease-in-out infinite; }
+.brillo--farol  { animation: farol-titila 11s linear infinite; }
+/* Latido del resplandor: respiración lenta con un doble pulso leve (no uniforme). */
+@keyframes brillo-latido {
+  0%, 100% { opacity: 0.45; }
+  38% { opacity: 0.95; }
+  48% { opacity: 0.78; }
+  58% { opacity: 1; }
+}
+/* Farol como VELA REAL: calmas largas y caídas de brillo bruscas, marcadas e
+   irregulares (sutil en frecuencia, dramático en contraste). */
 @keyframes farol-titila {
-  0% { opacity: 0.8; } 6% { opacity: 0.55; } 9% { opacity: 0.85; } 14% { opacity: 0.7; }
-  22% { opacity: 0.95; } 31% { opacity: 0.62; } 38% { opacity: 0.9; } 47% { opacity: 0.75; }
-  55% { opacity: 1; } 63% { opacity: 0.6; } 71% { opacity: 0.9; } 82% { opacity: 0.72; }
-  90% { opacity: 0.95; } 100% { opacity: 0.8; }
+  0%   { opacity: 0.92; }
+  18%  { opacity: 0.88; }   /* calma larga */
+  20%  { opacity: 0.38; }   /* caída seca */
+  21.5%{ opacity: 0.85; }
+  23%  { opacity: 0.55; }   /* rebote corto */
+  25%  { opacity: 0.95; }
+  47%  { opacity: 0.9; }    /* calma larga */
+  49%  { opacity: 0.45; }   /* segunda caída */
+  50.5%{ opacity: 0.92; }
+  74%  { opacity: 0.96; }   /* calma */
+  76%  { opacity: 0.62; }   /* tercer temblor, más suave */
+  78%  { opacity: 0.9; }
+  100% { opacity: 0.92; }
 }
 
 /* Motas de sedimento: UNA capa fija, CSS puro, caída lenta (~6 px/s). Aparecen

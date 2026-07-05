@@ -135,7 +135,7 @@
 }
 .camino-cita {
   margin-top: 0.5rem;
-  font-family: var(--font-pixel); font-style: normal; font-size: 0.66rem;
+  font-family: var(--font-pixel); font-style: normal; font-size: 0.72rem;
   letter-spacing: 0.08em; color: var(--bone-soft);
 }
 .camino-siguiente__prox {

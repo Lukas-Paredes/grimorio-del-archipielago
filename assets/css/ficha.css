@@ -48,7 +48,8 @@ body {
   color: var(--bone);
   background: var(--abyss);
   font-family: var(--font-body);
-  font-size: clamp(1.04rem, 0.98rem + 0.4vw, 1.2rem);
+  /* Accesibilidad amplia: cuerpo de lectura >= 17px efectivos */
+  font-size: clamp(1.0625rem, 1rem + 0.4vw, 1.24rem);
   line-height: 1.74;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
@@ -147,9 +148,15 @@ a { color: var(--amber-soft); }
   position: absolute; inset: 0; z-index: -2; pointer-events: none;
   background: radial-gradient(34% 26% at 50% 44%, var(--amber-glow), transparent 70%);
   mix-blend-mode: screen;
-  animation: lantern 6.5s ease-in-out infinite;
+  animation: lantern 9s ease-in-out infinite;
 }
-@keyframes lantern { 0%,100% { opacity: 0.6; } 50% { opacity: 1; } }
+/* Halo con carácter de llama: respiración con un temblor breve, no uniforme. */
+@keyframes lantern {
+  0%, 100% { opacity: 0.6; }
+  42% { opacity: 1; }
+  50% { opacity: 0.72; }
+  56% { opacity: 0.95; }
+}
 /* Fundido a negro en los bordes para encuadrar la ilustración */
 .hero__edges {
   position: absolute; inset: 0; z-index: -1; pointer-events: none;
@@ -180,7 +187,7 @@ a { color: var(--amber-soft); }
 .hero__eyebrow {
   margin: 0 0 1rem;
   font-family: var(--font-pixel);
-  font-size: clamp(0.6rem, 0.55rem + 0.3vw, 0.8rem);
+  font-size: clamp(0.7rem, 0.64rem + 0.3vw, 0.86rem);
   font-weight: 600;
   letter-spacing: 0.4em;
   text-transform: uppercase;
@@ -211,7 +218,7 @@ a { color: var(--amber-soft); }
   margin: 1.1rem auto 0;
   max-width: 40ch;
   font-family: var(--font-pixel);
-  font-size: clamp(0.72rem, 0.66rem + 0.4vw, 0.98rem);
+  font-size: clamp(0.78rem, 0.7rem + 0.4vw, 1rem);
   font-weight: 500;
   letter-spacing: 0.18em;
   text-transform: uppercase;
@@ -224,10 +231,10 @@ a { color: var(--amber-soft); }
   position: relative; z-index: 2;
   display: inline-grid; justify-items: center; gap: 0.4rem;
   margin: 0 auto clamp(1.4rem, 4vh, 3rem);
-  padding: 0.4rem 0.6rem;
+  padding: 0.6rem 1.2rem;               /* target táctil >= 44px */
   color: var(--amber);
   font-family: var(--font-pixel);
-  font-size: 0.62rem;
+  font-size: 0.72rem;
   letter-spacing: 0.34em;
   text-transform: uppercase;
   text-decoration: none;
@@ -372,11 +379,11 @@ a { color: var(--amber-soft); }
 .datos dt {
   margin: 0 0 0.32rem;
   font-family: var(--font-pixel);
-  font-size: 0.62rem; font-weight: 600;
+  font-size: 0.72rem; font-weight: 600;
   letter-spacing: 0.22em; text-transform: uppercase;
-  color: var(--amber-deep);
+  color: var(--amber-soft);
 }
-.datos dd { margin: 0; font-size: 1.06rem; color: var(--bone); }
+.datos dd { margin: 0; font-size: 1.08rem; color: var(--bone); }
 .datos dd.etim { font-style: italic; line-height: 1.55; color: var(--foam); }
 
 /* ── Lectura: resumen + descripción ───────────────────────────────────────── */
@@ -419,15 +426,15 @@ a { color: var(--amber-soft); }
 .cajon h3 {
   margin: 0 0 0.55rem;
   font-family: var(--font-pixel); font-weight: 600;
-  font-size: 0.96rem; letter-spacing: 0.04em;
+  font-size: 1rem; letter-spacing: 0.04em;
   color: var(--amber);
   text-shadow: 0 0 12px var(--amber-glow);
 }
 .cajon h3 .num {
-  margin-right: 0.5rem; color: var(--amber-deep);
+  margin-right: 0.5rem; color: var(--amber-soft);
   font-variant-numeric: tabular-nums;
 }
-.cajon p { margin: 0; font-size: 0.98rem; color: var(--bone); }
+.cajon p { margin: 0; font-size: 1.02rem; color: var(--bone); }
 .cajon { transition: transform 0.35s var(--ease), filter 0.35s var(--ease); }
 .cajon:hover { transform: translateY(-5px); filter: drop-shadow(0 12px 20px rgba(242, 182, 90, 0.22)) brightness(1.05); }
 .cajon:hover h3 { color: #ffd470; text-shadow: 0 0 18px var(--amber-glow); }
@@ -453,8 +460,8 @@ a { color: var(--amber-soft); }
 }
 .nota__label {
   display: block; margin-bottom: 0.6rem;
-  font-family: var(--font-pixel); font-size: 0.64rem; font-weight: 600;
-  letter-spacing: 0.24em; text-transform: uppercase; color: var(--rust);
+  font-family: var(--font-pixel); font-size: 0.72rem; font-weight: 600;
+  letter-spacing: 0.24em; text-transform: uppercase; color: #d2775a;
 }
 .nota__text { margin: 0; font-style: italic; line-height: 1.66; color: #e8ddc8; }
 
@@ -469,7 +476,7 @@ a { color: var(--amber-soft); }
   border: 1px dashed rgba(159, 182, 189, 0.4);
   color: var(--bone-soft);
   font-style: italic;
-  font-size: 0.94rem;
+  font-size: 0.98rem;
 }
 
 /* ── Vitrina: otras piezas (tiles pixel art enmarcados) ───────────────────── */
@@ -499,12 +506,12 @@ a { color: var(--amber-soft); }
 }
 .pieza__name {
   display: block; padding: 0.5rem 0.4rem 0.2rem;
-  font-family: var(--font-pixel); font-size: 0.74rem; font-weight: 500;
+  font-family: var(--font-pixel); font-size: 0.8rem; font-weight: 500;
   letter-spacing: 0.04em; text-align: center; color: var(--bone);
 }
 .pieza__tag {
   display: block; padding: 0 0.4rem 0.5rem;
-  font-family: var(--font-pixel); font-size: 0.54rem;
+  font-family: var(--font-pixel); font-size: 0.62rem;
   letter-spacing: 0.16em; text-transform: uppercase; text-align: center;
   color: var(--bone-soft);
 }
@@ -518,12 +525,12 @@ a { color: var(--amber-soft); }
   padding-top: 1.6rem;
   border-top: 1px solid var(--amber-line);
   color: var(--bone-soft);
-  font-size: 0.9rem;
+  font-size: 0.96rem;
 }
 .pie dt {
   margin-bottom: 0.4rem;
-  font-family: var(--font-pixel); font-size: 0.6rem; font-weight: 600;
-  letter-spacing: 0.22em; text-transform: uppercase; color: var(--amber-deep);
+  font-family: var(--font-pixel); font-size: 0.7rem; font-weight: 600;
+  letter-spacing: 0.22em; text-transform: uppercase; color: var(--amber-soft);
 }
 .pie ul { margin: 0 0 1.2rem; padding-left: 1.1rem; }
 .pie li { margin: 0.15rem 0; }
@@ -532,9 +539,9 @@ a { color: var(--amber-soft); }
 .sello {
   width: var(--col); margin: clamp(3rem, 8vh, 5rem) auto 0;
   text-align: center;
-  font-family: var(--font-pixel); font-size: 0.58rem;
+  font-family: var(--font-pixel); font-size: 0.64rem;
   letter-spacing: 0.3em; text-transform: uppercase;
-  color: rgba(170, 176, 173, 0.45);
+  color: rgba(170, 176, 173, 0.55);
 }
 
 /* ════════════════════════════════════════════════════════════════════════
