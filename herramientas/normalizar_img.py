@@ -15,7 +15,14 @@ Uso:
     -> herramientas/contacto/contacto.html (compara grid 2/3/4; NO toca assets/img/)
 
 Slots: hero (16:9) · descenso (9:16) · cierre (16:9) · card (1:1) · portada (libre)
-El nombre de salida SIEMPRE es <id>-<slot>.
+       · ui (pieza suelta sobre negro: plomada, sigilos, ornamentos)
+El nombre de salida SIEMPRE es <id>-<slot> (o el --out exacto).
+
+El slot `ui` (regla del mandato 2026-07): SIN grid ni paleta; el negro del
+lienzo se recorta a transparencia (umbral sobre el canal máximo), se recorta
+la caja de la pieza (el sello ✦ queda fuera del recorte) y se reduce con
+LANCZOS a la altura real de uso (--alto, p. ej. 48 px). Nitidez a tamaño
+real de uso, no a tamaño de lienzo.
 
 Pipeline (Pillow): sello -> grid (NEAREST) -> paleta (MEDIANCUT) -> export webp+png8.
 No es una cadena de build; el sitio abre igual sin esto.
@@ -28,7 +35,7 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 IMG_DIR = os.path.join(ROOT, "assets", "img")
 # Proporción esperada por slot (solo para avisar; no recorta).
 SLOTS = {"hero": (16, 9), "descenso": (9, 16), "cierre": (16, 9), "card": (1, 1),
-         "portada": None, "fondo": None}
+         "portada": None, "fondo": None, "ui": None}
 # REGLA DE ORO (auditoría 2026-07): los slots FULL-VIEWPORT (fondos de página
 # completa: portada-*, fondo-*, descenso, cierre) se sirven a 1800 px por el
 # lado mayor y NUNCA pasan por grid-reduction ni cuantización de paleta —
@@ -105,6 +112,12 @@ def procesar(src, grid, colors, dither, sello=True, radio_frac=0.20, verbose=Tru
     w0, h0 = im.size
     rgb = cubrir_sello(im, radio_frac=radio_frac, verbose=verbose) if sello else im.convert("RGB")
     rgb = snap_grid(rgb, grid)
+    if colors <= 0:
+        # --colors 0: SIN cuantización (ley de calidad, mandato 2026-07).
+        # MEDIANCUT sacrifica degradés brillantes que ocupan pocos píxeles
+        # (p. ej. el cuerno dorado del Camahueto quedaba apagado hasta con
+        # 256 colores, al MISMO peso webp). El PNG fallback sale RGB.
+        return rgb, (w0, h0), 0
     q = cuantizar(rgb, colors, dither)             # P-mode (paleta)
     n = len(q.getcolors(maxcolors=256) or [])
     return q, (w0, h0), n
@@ -126,6 +139,37 @@ def procesar_fondo(src, sello=True, radio_frac=0.20, verbose=True):
     return rgb, (w0, h0)
 
 
+def procesar_ui(src, alto, umbral=20, margen=6, verbose=True):
+    """Pipeline UI (mandato 2026-07): pieza suelta sobre lienzo negro.
+    Negro -> alfa (umbral duro: es pixel art, bordes netos), recorte de la
+    caja de la pieza (el sello ✦ de la esquina inf-der se excluye de la
+    máscara, así el recorte lo deja fuera), LANCZOS a la altura de uso."""
+    im = Image.open(src).convert("RGB")
+    a = np.asarray(im)
+    h, w = a.shape[:2]
+    lum = a.max(axis=2)
+    mask = lum > umbral
+    # El sello vive en la esquina inferior derecha: se excluye de la caja.
+    sello_zone = np.zeros_like(mask)
+    sello_zone[int(h * 0.72):, int(w * 0.72):] = True
+    pieza = mask & ~sello_zone
+    ys, xs = np.where(pieza)
+    if not len(xs):
+        sys.exit("ui: no se encontró pieza sobre el negro (umbral %d)." % umbral)
+    x0, x1 = max(0, xs.min() - margen), min(w, xs.max() + margen + 1)
+    y0, y1 = max(0, ys.min() - margen), min(h, ys.max() + margen + 1)
+    rgba = np.dstack([a, np.where(mask, 255, 0).astype(np.uint8)])
+    rec = rgba[y0:y1, x0:x1]
+    out = Image.fromarray(rec, "RGBA")
+    if verbose:
+        print("  pieza: caja %dx%d (recortada del lienzo %dx%d; sello fuera)"
+              % (out.size[0], out.size[1], w, h))
+    if alto and out.size[1] > alto:
+        nw = max(1, round(out.size[0] * alto / out.size[1]))
+        out = out.resize((nw, alto), Image.Resampling.LANCZOS)
+    return out, (w, h)
+
+
 def run_slot(args):
     src = args.src
     if not os.path.isfile(src):
@@ -139,6 +183,18 @@ def run_slot(args):
     for p in (out_webp,) + (() if (fullview and args.sin_png) else (out_png,)):
         if os.path.exists(p) and not args.forzar:
             sys.exit("Ya existe %s (usá --forzar para sobrescribir)." % os.path.relpath(p, ROOT))
+    if args.slot == "ui":
+        print("Normalizando (UI, negro->alfa, sin grid) %s -> %s  alto=%s"
+              % (os.path.relpath(src, ROOT), base, args.alto or "original"))
+        out, (w0, h0) = procesar_ui(src, args.alto, umbral=args.ui_umbral)
+        out.save(out_webp, "WEBP", lossless=True, method=6)
+        out.save(out_png, "PNG", optimize=True)
+        print("  antes:   %dx%d (lienzo)" % (w0, h0))
+        print("  después: %dx%d RGBA" % out.size)
+        print("  webp:  %7.1f KB (lossless+alfa)" % (os.path.getsize(out_webp) / 1024.0))
+        print("  png:   %7.1f KB (RGBA)" % (os.path.getsize(out_png) / 1024.0))
+        print("Listo: %s" % os.path.relpath(out_webp, ROOT))
+        return
     if fullview:
         print("Normalizando (FULL-VIEWPORT, sin grid/paleta) %s -> %s"
               % (os.path.relpath(src, ROOT), base))
@@ -228,6 +284,10 @@ def main():
     ap.add_argument("--out", help="nombre de salida exacto (para fondos históricos: portada-*, fondo-*).")
     ap.add_argument("--sin-png", action="store_true",
                     help="full-viewport: no regenerar el PNG de fallback (conservar el existente).")
+    ap.add_argument("--alto", type=int, default=None,
+                    help="slot ui: altura final en px (tamaño real de uso, p. ej. 48).")
+    ap.add_argument("--ui-umbral", type=int, default=20,
+                    help="slot ui: umbral de negro->alfa sobre el canal máximo (default 20).")
     ap.add_argument("--grid", type=int, default=3, help="factor de downscale NEAREST (default 3, fijado con las anclas).")
     ap.add_argument("--colors", type=int, default=96,
                     help="colores de la cuantización (default 96: calibrado con las anclas — 48 "
