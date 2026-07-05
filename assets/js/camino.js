@@ -78,13 +78,17 @@
     var on = bSon.getAttribute("aria-pressed") === "true";
     bSon.innerHTML = on ? '<span aria-hidden="true">🔈</span> Sonido'
                         : '<span aria-hidden="true">🔇</span> Sonido';
+    bSon.title = on ? "Apagar el sonido ambiente"
+                    : "Encender el sonido ambiente (procedural, apagado por defecto)";
   }
   bSon.setAttribute("aria-pressed", read("grimorio:audio") === "on" ? "true" : "false");
-  bSon.title = "Audio ambiente · próximamente";
   bSon.addEventListener("click", function () {
     var on = bSon.getAttribute("aria-pressed") === "true";
     bSon.setAttribute("aria-pressed", on ? "false" : "true");
     store("grimorio:audio", on ? "off" : "on");
+    // FASE 1 (mandato 2): el AudioManager procedural vive en sonido.js;
+    // el botón es el ÚNICO camino de encendido (nunca autoplay).
+    if (G.sonido) { G.sonido.set(!on); }
     reflectSon();
   });
 
