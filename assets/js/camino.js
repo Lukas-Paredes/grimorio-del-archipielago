@@ -250,13 +250,17 @@
     try { sessionStorage.removeItem("grimorio:bruma"); } catch (e) {}
     window.setTimeout(function () { html.classList.remove("bruma-in"); }, 1400);
   }
-  window.addEventListener("pageshow", function (ev) {
-    if (ev.persisted) { html.classList.remove("bruma-in"); }
-  });
   // Salida: velo que se cierra antes de navegar.
   var bruma = el("div", "bruma");
   bruma.setAttribute("aria-hidden", "true");
   document.body.appendChild(bruma);
+  // CRÍTICO: al volver con el botón «atrás» (bfcache) la página se restaura
+  // TAL CUAL quedó — con el velo de salida aún activo tapando los clics.
+  // pageshow corre en toda carga y restauración: se limpia SIEMPRE.
+  window.addEventListener("pageshow", function () {
+    html.classList.remove("bruma-in");
+    bruma.classList.remove("is-activa");
+  });
   document.addEventListener("click", function (e) {
     var a = e.target && e.target.closest ? e.target.closest("a[data-transicion]") : null;
     if (!a || e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) { return; }
@@ -268,5 +272,7 @@
     if (reduce || paused()) { location.href = href; return; }
     bruma.classList.add("is-activa");
     window.setTimeout(function () { location.href = href; }, 420);
+    // Red de seguridad: si algo bloquea la navegación, el velo se levanta solo.
+    window.setTimeout(function () { bruma.classList.remove("is-activa"); }, 3000);
   });
 }());
