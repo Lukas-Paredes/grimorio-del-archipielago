@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Dominio placeholder: ajustar si el dominio final difiere (ver DEPLOY.md). -->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url><loc>https://grimoriodelarchipielago.cl/</loc><priority>1.0</priority></url>
+  <url><loc>https://grimoriodelarchipielago.cl/caleuche.html</loc><priority>0.9</priority></url>
+  <url><loc>https://grimoriodelarchipielago.cl/trauco.html</loc><priority>0.9</priority></url>
+  <url><loc>https://grimoriodelarchipielago.cl/lecho.html</loc><priority>0.7</priority></url>
+  <url><loc>https://grimoriodelarchipielago.cl/index-legacy.html</loc><priority>0.6</priority></url>
+  <url><loc>https://grimoriodelarchipielago.cl/pages/bestiario.html</loc><priority>0.6</priority></url>
+  <url><loc>https://grimoriodelarchipielago.cl/pages/mundos.html</loc><priority>0.5</priority></url>
+  <url><loc>https://grimoriodelarchipielago.cl/pages/recta-provincia.html</loc><priority>0.5</priority></url>
+  <url><loc>https://grimoriodelarchipielago.cl/pages/cosmologia.html</loc><priority>0.5</priority></url>
+  <url><loc>https://grimoriodelarchipielago.cl/pages/metodologia.html</loc><priority>0.6</priority></url>
+</urlset>

@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+Disallow: /herramientas/
+Disallow: /_handoff/
+Disallow: /legacy/
+
+Sitemap: https://grimoriodelarchipielago.cl/sitemap.xml

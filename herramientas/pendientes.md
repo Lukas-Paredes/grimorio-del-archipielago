@@ -82,10 +82,19 @@ Slots de imagen: `hero` (16:9) · `descenso` (9:16) · `cierre` (16:9) · `card`
 - Con prosa curada: **2**
 - Con hero: **2**
 
-## Pendiente de UI (registrado desde F0)
-- Botón visible «marea» (pausa de movimiento) en las fichas → **F4** (toca `ficha.css`).
+## Pendiente de imágenes (Gemini)
+- `portada-trauco` (fondo del umbral/módulo Trauco) **por generar en Gemini**;
+  hoy usa `trauco-hero` provisional con los velos del sistema.
 
-## Pendiente de imágenes de portada (Gemini)
-- `portada-trauco` (fondo del módulo Trauco en la portada-descenso) **por generar en Gemini**;
-  hoy ese módulo usa `trauco-hero` provisional con los velos del sistema.
+## Decisiones y compras de Lucas (mandato 2026-07)
+- **Documento NotebookLM (CAMINO DEL MITO)**: pendiente de entrega. El orden de
+  capítulos actual es PROVISIONAL (curatorial); al llegar, ajustar `n` y cargar
+  los `puente { texto, fuente }` en `assets/js/data/capitulos.js` (todo data-driven).
+- **Dominio + hosting**: seguir `DEPLOY.md` (NIC Chile para el .cl + GitHub Pages).
+  Al confirmar dominio: renombrar `CNAME.placeholder` → `CNAME` y revisar
+  canonical/og/sitemap si el dominio difiere del placeholder.
+- **Scroll-snap**: probar en Android real; si marea, quitar la clase `snap-on` de <html>.
+- **Acto «Libro Segundo · Los señores del mar» + Pincoya sellada**: opcional,
+  el renderer ya lo soporta (agregar el acto y la entrada sellada en capitulos.js).
+- **Pincoya**: cuando estén sus imágenes → normalizador → `publicadas.txt` → prosa → generar.
 

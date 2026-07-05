@@ -80,7 +80,8 @@
   botonera.appendChild(bCarta);
   botonera.appendChild(bMarea);
   botonera.appendChild(bSon);
-  document.body.appendChild(botonera);
+  // Al INICIO del body: primera parada del tabulador (accesibilidad teclado).
+  document.body.insertBefore(botonera, document.body.firstChild);
 
   /* ── 2 · Carta de capítulos (<dialog>) ─────────────────────────────────── */
   function seccionNombre(slug) {
