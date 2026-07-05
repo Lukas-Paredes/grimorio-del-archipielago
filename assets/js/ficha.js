@@ -128,7 +128,9 @@
     prehispanico: "Prehispánico", mestizo: "Mestizo", colonial: "Colonial",
     mar: "Mar", bosque: "Bosque", "cerro-rio": "Cerro y río", casa: "Casa", aire: "Aire",
     subsuelo: "Subsuelo", almas: "Almas", lugar: "Lugar",
-    chilota: "Chilota", "chilota-raiz-mapuche": "Chilota (raíz mapuche)"
+    chilota: "Chilota", "chilota-raiz-mapuche": "Chilota (raíz mapuche)",
+    "espiritu-marino": "Espíritu marino", "bestia-zoomorfa": "Bestia zoomorfa",
+    guardian: "Guardián", "barco-fantasma": "Barco fantasma"
   };
   function titleCase(s) { return s.replace(/-/g, " ").replace(/\b\w/g, function (c) { return c.toUpperCase(); }); }
   function label(v) { return v === "—" || v === "" ? (v || "—") : (LABELS[v] || titleCase(v)); }
@@ -151,6 +153,41 @@
     if (n) { n.hidden = !hasData; }
   }
 
+  /* Prosa curada (contenido/prosa/<id>.txt): cada párrafo puede ser
+     · texto plano                     → <p>
+     · "» cita…" (+ línea "— fuente") → <blockquote> con <footer> (verbatim)
+     · líneas "| lado → lado"          → placa de regla con punteado
+     Convención mínima del mandato 2026-07; el texto sigue siendo VERBATIM,
+     estos prefijos solo marcan la forma tipográfica del original. */
+  function prosaNodo(t) {
+    if (t.slice(0, 2) === "» ") {
+      var cuerpo = [], fuente = null;
+      t.split("\n").forEach(function (l) {
+        if (l.slice(0, 2) === "— ") { fuente = l.slice(2); }
+        else { cuerpo.push(l.replace(/^» /, "")); }
+      });
+      var bq = el("blockquote", "prosa-cita");
+      bq.appendChild(el("p", null, cuerpo.join(" ")));
+      if (fuente) { bq.appendChild(el("footer", "prosa-cita__fuente", "— " + fuente)); }
+      return bq;
+    }
+    if (t.slice(0, 2) === "| ") {
+      var caja = el("div", "prosa-regla");
+      t.split("\n").forEach(function (l) {
+        var partes = l.replace(/^\| /, "").split(" → ");
+        var linea = el("p", "prosa-regla__linea");
+        linea.appendChild(el("span", null, partes[0]));
+        if (partes.length > 1) {
+          linea.appendChild(el("span", "prosa-regla__punteado"));
+          linea.appendChild(el("strong", null, partes[1]));
+        }
+        caja.appendChild(linea);
+      });
+      return caja;
+    }
+    return el("p", null, t);
+  }
+
   /* ── Render ───────────────────────────────────────────────────────────── */
   function render(d) {
     document.title = d.nombre + " · El Grimorio del Archipiélago";
@@ -167,7 +204,7 @@
       desc.innerHTML = "";
       var cuerpo = (PROSA.descripcion && PROSA.descripcion.length) ? PROSA.descripcion
                  : (d.descripcion ? [d.descripcion] : []);
-      cuerpo.forEach(function (t) { desc.appendChild(el("p", null, t)); });
+      cuerpo.forEach(function (t) { desc.appendChild(prosaNodo(t)); });
     }
     var resEl = document.getElementById("resumen"); if (resEl) { resEl.hidden = !d.resumen; }
 
@@ -175,14 +212,14 @@
     var origen = document.getElementById("origen-mito");
     if (origen) {
       origen.innerHTML = "";
-      (PROSA.origenMito || []).forEach(function (t) { origen.appendChild(el("p", null, t)); });
+      (PROSA.origenMito || []).forEach(function (t) { origen.appendChild(prosaNodo(t)); });
     }
 
     // Datos de bestiario: TODOS los campos presentes (orden fijo; cada fila solo si hay valor).
     var datos = document.getElementById("datos");
     var datoRows = [
       { k: "Reino", v: d.reino && label(d.reino) },
-      { k: "Categoría", v: d.categoria && titleCase(d.categoria) },
+      { k: "Categoría", v: d.categoria && label(d.categoria) },
       { k: "Condición", v: d.condicion && label(d.condicion) },
       { k: "Origen", v: d.origen && label(d.origen) },
       { k: "Alcance", v: d.alcance && label(d.alcance) },

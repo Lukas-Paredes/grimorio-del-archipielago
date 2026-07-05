@@ -14,14 +14,21 @@ window.Grimorio = window.Grimorio || {};
 window.Grimorio.portada = {
   /* Fin del camino: adonde lleva el "Siguiente" del último capítulo publicado. */
   fin: { href: "lecho.html", nombre: "El lecho", frase: "El camino desciende hasta el lecho del archipiélago." },
-  /* ORDEN PROVISIONAL (decisión reversible, 2026-07): orden curatorial actual.
-     Cuando llegue el documento bibliográfico (CAMINO-DEL-MITO), el orden se
-     ajusta cambiando los `n` y los puentes se cargan en el campo `puente`
-     de cada capítulo ({ texto, fuente }) — todo data-driven, cero HTML. */
+  /* ORDEN DEL MANDATO 2026-07-05 (reversible): Caleuche → Pincoya → Trauco →
+     Invunche → Camahueto (mar → bosque → cueva → desembocadura). Cuando llegue
+     el documento bibliográfico (CAMINO-DEL-MITO), el orden se ajusta cambiando
+     los `n` y los puentes se cargan en el campo `puente` de cada capítulo
+     ({ texto, fuente }) — todo data-driven, cero HTML. */
   actos: [
     // Solo los Libros con capítulos publicados o sellados; agregar actos es gratis.
+    // El orden del array sigue la travesía (n del primer capítulo de cada Libro),
+    // para que la carta lea Capítulo I, II, III… de corrido; numeral/título
+    // VERBATIM de los Libros del DEFINITIVO (versales → redonda, práctica aprobada).
     { id: "libro-3", numeral: "Libro Tercero", titulo: "Los barcos y el paso de las almas", zona: "mar" },
-    { id: "libro-4", numeral: "Libro Cuarto",  titulo: "Los señores del bosque",            zona: "bosque" }
+    { id: "libro-2", numeral: "Libro Segundo", titulo: "Los señores del mar",               zona: "mar" },
+    { id: "libro-4", numeral: "Libro Cuarto",  titulo: "Los señores del bosque",            zona: "bosque" },
+    { id: "libro-8", numeral: "Libro Octavo",  titulo: "La Recta Provincia",                zona: "cueva" },
+    { id: "libro-5", numeral: "Libro Quinto",  titulo: "Las bestias del agua y la tierra",  zona: "cerro-rio" }
   ],
   capitulos: [
     {
@@ -43,8 +50,26 @@ window.Grimorio.portada = {
       brillo: { x: "30%", y: "52%", rx: "16%", ry: "24%", a: 0.3, tipo: "latido" }
     },
     {
-      id: "trauco",
+      id: "pincoya",
       n: 2,
+      acto: "libro-2",
+      nombre: "La Pincoya",
+      alias: "Princesa de las mareas · Dueña de los mariscos",  // ALIAS:: del @ENTIDAD (verbatim, unidos con ·)
+      gancho: "Sale del agua al amanecer, de cabellos dorados y vestida de algas, y baila en la arena. Es lo más cercano a la bondad que tiene el océano de Chiloé.",
+      tags: ["Mar", "Espíritu marino", "Chilota"],
+      // sin teaser: no se redacta texto nuevo (regla sagrada)
+      verbo: "Acercarse",
+      labelSonda: "Pincoya",
+      href: "pincoya.html",
+      estado: "publicado",
+      img: "portada-pincoya",     // playa negra con resplandor dorado en el agua
+      ventana: { left: "28%", top: "30%", w: "26%", h: "32%" },
+      ventanaMovil: { left: "12%", top: "28%", w: "60%", h: "32%" },
+      brillo: { x: "40%", y: "45%", rx: "13%", ry: "18%", a: 0.32, tipo: "latido" }
+    },
+    {
+      id: "trauco",
+      n: 3,
       acto: "libro-4",
       nombre: "El Trauco",
       alias: "Thrauco · Chauco · Trauko",   // ALIAS:: del @ENTIDAD (verbatim, unidos con ·)
@@ -55,10 +80,10 @@ window.Grimorio.portada = {
       labelSonda: "Trauco",
       href: "trauco.html",
       estado: "publicado",
-      // PROVISIONAL: no existe portada-trauco todavía (registrado en
-      // herramientas/pendientes.md); se usa el hero de la ficha con los velos.
-      img: "trauco-hero",
-      ventana: { left: "50%", top: "22%", w: "36%", h: "50%" }
+      img: "portada-trauco",      // cosecha 2026-07-05: claro del bosque con rayo de luna
+      ventana: { left: "52%", top: "38%", w: "26%", h: "34%" },
+      ventanaMovil: { left: "30%", top: "34%", w: "55%", h: "30%" },
+      brillo: { x: "63%", y: "60%", rx: "14%", ry: "18%", a: 0.28, tipo: "latido" }
     }
   ]
 };
