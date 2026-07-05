@@ -1,0 +1,197 @@
+/* ════════════════════════════════════════════════════════════════════════
+   camino.css — Chrome del camino del mito (botonera, carta de capítulos,
+   bloque «El camino continúa», bruma entre páginas). Acompaña a camino.js.
+   Autocontenido: define su paleta (los mismos valores del ADN) por si la
+   página no carga portada.css/ficha.css. Accesibilidad amplia: botones con
+   texto, targets ≥44px, foco visible, reduced-motion y pausa manual.
+   ════════════════════════════════════════════════════════════════════════ */
+:root {
+  --abyss: #02060c; --abyss-2: #050d18; --deep: #081726;
+  --sea: #0e2433; --sea-2: #15384a; --foam: #9fb6bd;
+  --amber: #f2b65a; --amber-soft: #e0a24a; --amber-deep: #b9772b;
+  --amber-line: rgba(242, 182, 90, 0.42); --amber-glow: rgba(242, 182, 90, 0.28);
+  --rust: #a04a30; --bone: #ece4d2; --bone-soft: #aab0ad;
+  --font-display: "Jacquard 24", "UnifrakturCook", Georgia, serif;
+  --font-pixel: "Pixelify Sans", "Courier New", monospace;
+  --font-body: "EB Garamond", Georgia, "Times New Roman", serif;
+  --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+/* ── Botonera fija: Capítulos · Movimiento · Sonido ──────────────────────── */
+.camino-botonera {
+  position: fixed; z-index: 40;
+  top: clamp(0.7rem, 1.6vw, 1.2rem); right: clamp(0.7rem, 1.6vw, 1.2rem);
+  display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 0.5rem;
+}
+.camino-btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 0.45em;
+  min-height: 44px; padding: 0.5rem 1rem;
+  font-family: var(--font-pixel); font-size: 0.82rem; letter-spacing: 0.05em;
+  color: var(--bone); text-decoration: none;
+  background: rgba(5, 13, 24, 0.82);
+  border: 1px solid var(--amber-line); border-radius: 6px;
+  cursor: pointer;
+  transition: color 0.25s var(--ease), border-color 0.25s var(--ease), background 0.25s var(--ease);
+}
+.camino-btn:hover { color: var(--amber); border-color: var(--amber); }
+.camino-btn:focus-visible { outline: 2px solid var(--amber); outline-offset: 3px; }
+.camino-btn--primario {
+  min-height: 52px; padding: 0.7rem 1.6rem;
+  font-size: 0.95rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--abyss);
+  background: linear-gradient(180deg, #ffd470, var(--amber-deep));
+  border: none;
+}
+.camino-btn--primario:hover { color: var(--abyss); filter: brightness(1.08); }
+.camino-btn--marea[aria-pressed="true"] { opacity: 0.75; }
+
+/* ── Carta de capítulos (<dialog>) ───────────────────────────────────────── */
+.carta {
+  width: min(100% - 2rem, 64rem);
+  max-height: min(88vh, 88svh);
+  padding: clamp(1.2rem, 3vw, 2.4rem);
+  color: var(--bone);
+  background: rgba(2, 6, 12, 0.96);
+  border: 1px solid var(--amber-line); border-radius: 8px;
+  font-family: var(--font-body);
+}
+.carta::backdrop { background: rgba(2, 6, 12, 0.72); }
+.carta__cerrar { position: sticky; top: 0; float: right; margin-left: 1rem; z-index: 2; }
+.carta__titulo {
+  margin: 0 0 1.2rem;
+  font-family: var(--font-display); font-weight: 400;
+  font-size: clamp(1.8rem, 4vw, 2.6rem);
+  color: #f6ecd6; text-shadow: 0 0 22px var(--amber-glow);
+}
+.carta__acto {
+  margin: 1.6rem 0 0.8rem;
+  font-family: var(--font-pixel); font-size: 0.88rem; font-weight: 600;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--amber);
+}
+.carta__seccion {
+  margin: 1.1rem 0 0.5rem;
+  font-family: var(--font-pixel); font-size: 0.74rem; font-weight: 600;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--amber-soft);
+}
+.carta__grid {
+  display: grid; gap: 0.7rem;
+  grid-template-columns: repeat(auto-fill, minmax(13rem, 1fr));
+}
+.carta__grid--selladas { grid-template-columns: repeat(auto-fill, minmax(10.5rem, 1fr)); }
+.carta__placa {
+  display: grid; gap: 0.25rem; align-content: start;
+  min-height: 44px; padding: 0.85rem 1rem;
+  text-decoration: none; color: var(--bone);
+  background: linear-gradient(158deg, rgba(22, 52, 70, 0.45), rgba(4, 13, 24, 0.6));
+  border: 1px solid var(--amber-line); border-radius: 6px;
+  transition: border-color 0.25s var(--ease), transform 0.25s var(--ease);
+}
+.carta__placa:hover { border-color: var(--amber); transform: translateY(-2px); }
+.carta__placa:focus-visible { outline: 2px solid var(--amber); outline-offset: 3px; }
+.carta__placa--sellada { opacity: 0.62; border-style: dashed; }
+.carta__num {
+  font-family: var(--font-pixel); font-size: 0.7rem; font-weight: 600;
+  letter-spacing: 0.14em; text-transform: uppercase; color: var(--amber-soft);
+}
+.carta__nombre { font-family: var(--font-body); font-size: 1.12rem; font-weight: 600; }
+.carta__estado {
+  font-family: var(--font-pixel); font-size: 0.68rem;
+  letter-spacing: 0.1em; text-transform: uppercase; color: var(--bone-soft);
+}
+.carta__pie {
+  display: flex; flex-wrap: wrap; gap: 0.6rem;
+  margin-top: 1.8rem; padding-top: 1.2rem;
+  border-top: 1px solid var(--amber-line);
+}
+
+/* ── Posición del capítulo en el hero ────────────────────────────────────── */
+.camino-cap {
+  margin: 0 0 0.7rem;
+  font-family: var(--font-pixel); font-size: 0.72rem; font-weight: 600;
+  letter-spacing: 0.22em; text-transform: uppercase; text-indent: 0.22em;
+  color: var(--bone-soft);
+}
+
+/* ── «El camino continúa» (tras el cierre de cada capítulo) ─────────────── */
+.camino-siguiente {
+  position: relative; z-index: 1;
+  width: min(100% - 2.2rem, 44rem);
+  margin: 0 auto; padding: clamp(2.4rem, 7vh, 4.5rem) 0 clamp(3rem, 8vh, 5rem);
+  text-align: center;
+  font-family: var(--font-body);
+  background: var(--abyss);
+}
+.camino-siguiente__kicker {
+  margin: 0 0 1.4rem;
+  font-family: var(--font-pixel); font-size: 0.72rem; font-weight: 600;
+  letter-spacing: 0.3em; text-transform: uppercase; text-indent: 0.3em;
+  color: var(--amber-deep);
+}
+.camino-siguiente__puente {
+  margin: 0 auto 1.4rem; max-width: 38rem;
+  font-style: italic; font-size: 1.1rem; line-height: 1.7; color: var(--bone);
+}
+.camino-cita {
+  margin-top: 0.5rem;
+  font-family: var(--font-pixel); font-style: normal; font-size: 0.66rem;
+  letter-spacing: 0.08em; color: var(--bone-soft);
+}
+.camino-siguiente__prox {
+  margin: 0 0 0.7rem;
+  font-family: var(--font-display); font-weight: 400;
+  font-size: clamp(1.7rem, 4vw, 2.4rem);
+  color: #f6ecd6; text-shadow: 0 0 20px var(--amber-glow);
+}
+.camino-siguiente__gancho {
+  margin: 0 auto 1.6rem; max-width: 36rem;
+  font-style: italic; font-size: 1.08rem; line-height: 1.65; color: var(--foam);
+}
+.camino-siguiente__extra {
+  display: flex; flex-wrap: wrap; justify-content: center; gap: 0.6rem;
+  margin-top: 1.4rem;
+}
+.camino-modo-sellado {
+  margin: 1.6rem 0 0;
+  font-family: var(--font-pixel); font-size: 0.68rem;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--bone-soft); opacity: 0.7;
+}
+
+/* ── Bruma entre páginas ─────────────────────────────────────────────────── */
+/* Salida (JS): el velo se cierra antes de navegar. */
+.bruma {
+  position: fixed; inset: 0; z-index: 90; pointer-events: none;
+  opacity: 0;
+  background:
+    linear-gradient(180deg, rgba(2, 6, 12, 0.94), rgba(2, 6, 12, 0.98)),
+    url("../img/portada-niebla.webp") center / cover no-repeat;
+  transition: opacity 0.4s var(--ease);
+}
+.bruma.is-activa { opacity: 1; pointer-events: auto; }
+/* Entrada (CSS solo): html.bruma-in la pone el script del <head>; se
+   desvanece SOLA por animación — si el JS no corre, no tapa nada. */
+html.bruma-in::after {
+  content: ""; position: fixed; inset: 0; z-index: 90; pointer-events: none;
+  background:
+    linear-gradient(180deg, rgba(2, 6, 12, 0.94), rgba(2, 6, 12, 0.98)),
+    url("../img/portada-niebla.webp") center / cover no-repeat;
+  animation: bruma-abrirse 0.9s var(--ease) 0.12s both;
+}
+@keyframes bruma-abrirse { from { opacity: 1; } to { opacity: 0; } }
+
+/* ── Pausa manual y movimiento reducido ──────────────────────────────────── */
+.motion-off .bruma, .motion-off.bruma-in::after { transition: none; animation: none; opacity: 0; }
+@media (prefers-reduced-motion: reduce) {
+  .bruma, html.bruma-in::after { transition: none; animation: none; opacity: 0; }
+  .camino-btn, .carta__placa { transition: none; }
+}
+
+/* ── 390 px ──────────────────────────────────────────────────────────────── */
+@media (max-width: 640px) {
+  .camino-botonera { left: 0.7rem; right: 0.7rem; justify-content: center; }
+  .camino-btn { font-size: 0.78rem; padding: 0.5rem 0.8rem; }
+  .carta { width: calc(100% - 1.2rem); padding: 1rem; }
+  .carta__grid, .carta__grid--selladas { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}

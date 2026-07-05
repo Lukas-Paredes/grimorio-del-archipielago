@@ -12,6 +12,12 @@
    ════════════════════════════════════════════════════════════════════════ */
 window.Grimorio = window.Grimorio || {};
 window.Grimorio.portada = {
+  /* Fin del camino: adonde lleva el "Siguiente" del último capítulo publicado. */
+  fin: { href: "lecho.html", nombre: "El lecho", frase: "El camino desciende hasta el lecho del archipiélago." },
+  /* ORDEN PROVISIONAL (decisión reversible, 2026-07): orden curatorial actual.
+     Cuando llegue el documento bibliográfico (CAMINO-DEL-MITO), el orden se
+     ajusta cambiando los `n` y los puentes se cargan en el campo `puente`
+     de cada capítulo ({ texto, fuente }) — todo data-driven, cero HTML. */
   actos: [
     // Solo los Libros con capítulos publicados o sellados; agregar actos es gratis.
     { id: "libro-3", numeral: "Libro Tercero", titulo: "Los barcos y el paso de las almas", zona: "mar" },

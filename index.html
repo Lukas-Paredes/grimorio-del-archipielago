@@ -1,17 +1,25 @@
 <!doctype html>
-<!-- snap-on: scroll-snap proximity (F2). Apagarlo = quitar la clase (1 línea). -->
+<!-- snap-on: scroll-snap proximity. Apagarlo = quitar la clase (1 línea). -->
 <html lang="es" class="snap-on">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>El Grimorio del Archipiélago</title>
-<meta name="description" content="Archivo del imaginario de Chiloé. Un descenso: de la superficie de las islas hasta lo que el mar guarda en el abismo.">
+<meta name="description" content="Archivo del imaginario de Chiloé, recorrido capítulo a capítulo: el camino del mito empieza en la superficie de las islas y desciende hasta el lecho.">
+<link rel="canonical" href="https://grimoriodelarchipielago.cl/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="El Grimorio del Archipiélago">
+<meta property="og:description" content="Archivo del imaginario de Chiloé. El camino del mito empieza en la superficie y desciende, capítulo a capítulo.">
+<meta property="og:image" content="assets/img/portada-superficie.png">
+<meta property="og:locale" content="es_CL">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#02060c">
 
 <link rel="icon" type="image/svg+xml" href="assets/icons/favicon.svg">
 
-<!-- Preferencia de movimiento: aplicar ANTES del primer frame (sin flash de
-     movimiento). motion-off si el usuario lo eligió, o si respeta reduced-motion
-     sin haber elegido todavía. Idéntico en index/caleuche/trauco. -->
+<!-- Preferencias ANTES del primer frame: pausa de movimiento (grimorio:motion /
+     reduced-motion) y velo de bruma si venimos de otra página del camino.
+     Idéntico en todas las páginas del sistema nuevo. -->
 <script>
 (function () {
   try {
@@ -19,6 +27,9 @@
     var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     if (m === "off" || (m === null && reduce)) {
       document.documentElement.classList.add("motion-off");
+    }
+    if (sessionStorage.getItem("grimorio:bruma") === "1") {
+      document.documentElement.classList.add("bruma-in");
     }
   } catch (e) {}
 })();
@@ -28,79 +39,53 @@
 <link rel="preload" as="image" href="assets/img/portada-superficie.webp" type="image/webp">
 
 <!-- Tipografías self-host (Jacquard 24 · marca/títulos, Pixelify Sans · UI,
-     EB Garamond · cuerpo). Definidas en assets/css/fuentes.css; sin red externa.
-     Preload del subset latin de las dos visibles primero; crossorigin (CORS). -->
+     EB Garamond · cuerpo). Definidas en assets/css/fuentes.css; sin red externa. -->
 <link rel="preload" as="font" type="font/woff2" href="assets/fonts/jacquard24-latin.woff2" crossorigin>
 <link rel="preload" as="font" type="font/woff2" href="assets/fonts/eb-garamond-latin.woff2" crossorigin>
 <link rel="stylesheet" href="assets/css/fuentes.css">
 
 <link rel="stylesheet" href="assets/css/portada.css">
+<link rel="stylesheet" href="assets/css/camino.css">
 </head>
 
-<body>
+<body data-camino="inicio">
 
-<!-- Toggle de bocina · PREVISTO para audio ambiente futuro (sin cablear) -->
-<button class="bocina" type="button" aria-pressed="false" aria-label="Audio ambiente (próximamente)" title="Audio ambiente · próximamente">🔇</button>
-
-<!-- Marea · pausa/reanuda el movimiento (parallax, niebla, motas, brillos). Persiste en grimorio:motion. -->
-<button class="marea" type="button" aria-pressed="false" aria-label="Pausar o reanudar el movimiento" title="Movimiento activo — clic para pausar">🌊</button>
-
-<!-- Motas de sedimento (F2): capa fija, CSS puro; aparecen al entrar al abismo.
-     Se pausan con la marea y desaparecen con reduced-motion. -->
+<!-- Motas de sedimento: capa fija, CSS puro; visibles hacia el abismo.
+     Se pausan con el botón de movimiento y desaparecen con reduced-motion. -->
 <div class="motas" aria-hidden="true"></div>
-
-<!-- Sonda de profundidad: los nodos los genera portada-capitulos.js desde los datos -->
-<nav class="sonda" aria-label="Profundidad del descenso">
-  <span class="sonda__linea" aria-hidden="true"><span class="sonda__fill"></span></span>
-  <span class="sonda__brazas" aria-hidden="true">0 brazas</span>
-</nav>
 
 <main>
 
-  <!-- ════════ 1 · SUPERFICIE ════════ -->
+  <!-- ════════ 1 · SUPERFICIE — aquí empieza el camino ════════ -->
   <section class="capa capa--superficie" id="superficie" data-zona="superficie" aria-labelledby="marca">
     <div class="capa__bg" data-parallax="0.14" aria-hidden="true"></div>
     <div class="capa__veil" aria-hidden="true"></div>
-    <!-- El farol del palafito titila (F2); bajo la niebla, pausable -->
+    <!-- El farol del palafito titila como vela real; bajo la niebla, pausable -->
     <span class="brillo brillo--farol" aria-hidden="true"
           style="--brillo-x:64%; --brillo-y:58%; --brillo-rx:10%; --brillo-ry:20%; --brillo-a:0.26"></span>
     <div class="fog" aria-hidden="true"><span></span><span></span></div>
     <div class="capa__content reveal">
       <h1 class="marca" id="marca">El Grimorio del Archipiélago</h1>
       <p class="bajada">Un archivo del imaginario de Chiloé. Se entra descendiendo: de la superficie de las islas a lo que el mar guarda debajo.</p>
-      <a class="cue" href="#descenso-capitulos"><span>desciende</span><span aria-hidden="true">▼</span></a>
+      <a class="cue" href="#umbral-capitulo"><span>desciende</span><span aria-hidden="true">▼</span></a>
     </div>
   </section>
 
-  <!-- ════════ 2 · CAPÍTULOS (data-driven) ════════
-       Los renderiza assets/js/pages/portada-capitulos.js desde
-       assets/js/data/capitulos.js: separador de acto + módulo por criatura. -->
-  <div id="descenso-capitulos"></div>
+  <!-- ════════ 2 · UMBRAL DEL CAMINO — Capítulo 1 ════════
+       Lo llena assets/js/pages/portada-capitulos.js con el primer capítulo
+       publicado de assets/js/data/capitulos.js (fondo + placa + Abordar). -->
+  <section class="capa capa--capitulo" id="umbral-capitulo" data-zona="mar"></section>
 
-  <!-- ════════ 3 · DESCENSO (columna) ════════ -->
-  <section class="capa capa--columna" id="descenso" data-zona="abismo">
-    <div class="capa__bg" data-parallax="0.14" aria-hidden="true"></div>
-    <div class="capa__veil" aria-hidden="true"></div>
-    <span class="mist mist--columna" data-parallax="0.22" aria-hidden="true"></span>
-    <div class="capa__content reveal">
-      <p class="susurro">más piezas del archipiélago descienden aquí</p>
-    </div>
-  </section>
-
-  <!-- ════════ 4 · ABISMO (lecho, pie) ════════ -->
-  <section class="capa capa--lecho" id="abismo" data-zona="abismo" aria-labelledby="ab-titulo">
-    <div class="capa__bg" data-parallax="0.14" aria-hidden="true"></div>
+  <!-- ════════ 3 · CIERRE CORTO — orientación ════════ -->
+  <section class="capa capa--final" id="final" data-zona="abismo" aria-labelledby="final-titulo">
     <div class="capa__veil" aria-hidden="true"></div>
     <div class="fog" aria-hidden="true"><span></span><span></span></div>
     <div class="capa__content reveal">
-      <h2 class="abismo-titulo" id="ab-titulo">El lecho</h2>
-      <p class="abismo-sub">Aquí abajo descansa el resto del archipiélago. Las puertas que ya existen:</p>
-      <nav class="puertas" aria-label="Secciones del archivo">
-        <a class="puertas__principal" href="index-legacy.html">Entrar al archivo</a>
-        <a href="pages/bestiario.html">Bestiario</a>
-        <a href="pages/mundos.html">Mundos</a>
-        <a href="pages/recta-provincia.html">Recta Provincia</a>
-        <a href="pages/cosmologia.html">Cosmología</a>
+      <h2 class="abismo-titulo" id="final-titulo">Un capítulo a la vez</h2>
+      <p class="abismo-sub">El Grimorio se recorre como un descenso: cada criatura es un capítulo del camino, y cada capítulo termina donde empieza el siguiente.</p>
+      <nav class="puertas" aria-label="Otras entradas">
+        <button class="puertas__principal" type="button" data-abrir-carta>Ver todos los capítulos</button>
+        <a href="index-legacy.html">Archivo completo (consulta)</a>
       </nav>
       <p class="metodo"><a href="pages/metodologia.html">Fuentes y método</a> — qué es tradición documentada, qué es interpretación, y de dónde sale cada cosa.</p>
     </div>
@@ -109,7 +94,9 @@
 </main>
 
 <script src="assets/js/data/capitulos.js" defer></script>
+<script src="assets/js/data/indice.js" defer></script>
 <script src="assets/js/pages/portada-capitulos.js" defer></script>
+<script src="assets/js/camino.js" defer></script>
 <script src="assets/js/portada.js" defer></script>
 </body>
 </html>

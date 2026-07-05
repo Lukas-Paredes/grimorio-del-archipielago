@@ -319,8 +319,8 @@ a { color: var(--amber-soft); }
 }
 .trailer .teaser { margin: 0 0 1.3rem; color: var(--bone-soft); font-style: italic; }
 .cta {
-  display: inline-flex; align-items: center; gap: 0.5rem;
-  padding: 0.65rem 1.3rem;
+  display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem;
+  min-height: 44px; padding: 0.65rem 1.3rem;
   font-family: var(--font-pixel); font-size: 0.82rem; letter-spacing: 0.1em;
   text-transform: uppercase; text-decoration: none;
   color: var(--abyss);
@@ -329,6 +329,21 @@ a { color: var(--amber-soft); }
   transition: transform 0.3s var(--ease), filter 0.3s var(--ease);
 }
 .cta:hover { transform: translateY(-2px); filter: brightness(1.08); }
+/* CTA del umbral: más grande y obvio (accesibilidad 40-70). */
+.cta--grande { min-height: 52px; padding: 0.8rem 1.8rem; font-size: 0.95rem; font-weight: 600; }
+/* Kicker del Libro sobre la placa del umbral (verbatim del grimorio). */
+.umbral__libro {
+  margin: 0 0 1rem;
+  font-family: var(--font-pixel); font-size: 0.74rem; font-weight: 600;
+  letter-spacing: 0.22em; text-transform: uppercase; text-indent: 0.22em;
+  color: var(--amber-soft);
+  text-shadow: 0 1px 10px rgba(0, 0, 0, 0.9);
+}
+/* Cierre corto del inicio (sin imagen: penumbra abisal pura). */
+.capa--final { background: linear-gradient(180deg, var(--deep) 0%, var(--abyss) 70%); }
+.capa--final .capa__veil {
+  background: radial-gradient(120% 90% at 50% 40%, transparent 40%, rgba(2, 6, 12, 0.6) 100%);
+}
 
 /* ════════ 3 · DESCENSO (columna) ════════ */
 .susurro {
@@ -355,111 +370,32 @@ a { color: var(--amber-soft); }
   display: flex; flex-wrap: wrap; justify-content: center; gap: 0.7rem;
   margin: 0 auto 1.6rem; max-width: 44rem;
 }
-.puertas a {
-  padding: 0.6rem 1.1rem;
-  font-family: var(--font-pixel); font-size: 0.78rem; letter-spacing: 0.04em;
+.puertas a, .puertas button {
+  display: inline-flex; align-items: center; justify-content: center;
+  min-height: 44px; padding: 0.6rem 1.1rem;
+  font-family: var(--font-pixel); font-size: 0.82rem; letter-spacing: 0.04em;
   text-decoration: none; color: var(--bone);
   border: 1px solid var(--amber-line); border-radius: 4px;
   background: rgba(8, 18, 26, 0.55);
+  cursor: pointer;
   transition: color 0.3s var(--ease), background 0.3s var(--ease), transform 0.3s var(--ease);
 }
-.puertas a:hover { color: var(--abyss); background: var(--amber); transform: translateY(-2px); }
-.puertas a.puertas__principal { border-color: var(--amber); color: var(--amber); }
-.metodo { margin: 0; color: var(--bone-soft); font-size: 0.92rem; }
+.puertas a:hover, .puertas button:hover { color: var(--abyss); background: var(--amber); transform: translateY(-2px); }
+.puertas .puertas__principal { border-color: var(--amber); color: var(--amber); }
+.puertas--camino { margin-top: 1.8rem; }
+.metodo { margin: 0; color: var(--bone-soft); font-size: 0.98rem; }
 .metodo a { color: var(--foam); }
 
-/* ════════ SONDA DE PROFUNDIDAD (nav vertical fija) ════════ */
-.sonda {
-  position: fixed; z-index: 20;
-  right: clamp(0.6rem, 2vw, 1.6rem); top: 50%;
-  transform: translateY(-50%);
-  display: grid; gap: clamp(1.9rem, 4vh, 2.6rem);
-}
-.sonda__linea {
-  position: absolute; left: 50%; top: -0.4rem; bottom: -0.4rem;
-  width: 2px; transform: translateX(-50%);
-  background: rgba(242, 182, 90, 0.18);
-}
-.sonda__fill {
-  position: absolute; left: 0; top: 0; width: 100%; height: 0;
-  background: linear-gradient(180deg, var(--amber), var(--amber-deep));
-  box-shadow: 0 0 8px var(--amber-glow);
-  transition: height 0.2s linear;
-}
-.sonda__nodo {
-  position: relative; z-index: 1;
-  display: grid; place-items: center;
-  width: 16px; height: 16px;
-}
-/* Área táctil >= 44x44px sin agrandar el diamante visual (accesibilidad). */
-.sonda__nodo::before {
-  content: ""; position: absolute; top: 50%; left: 50%;
-  width: 44px; height: 44px; transform: translate(-50%, -50%);
-}
-.sonda__nodo::after {
-  content: ""; width: 9px; height: 9px; transform: rotate(45deg);
-  background: var(--abyss); border: 1.5px solid var(--amber-line);
-  transition: background 0.3s var(--ease), border-color 0.3s var(--ease), box-shadow 0.3s var(--ease);
-}
-.sonda__nodo.is-active::after {
-  background: var(--amber); border-color: #ffd470;
-  box-shadow: 0 0 12px var(--amber-glow);
-}
-.sonda__label {
-  position: absolute; right: 150%; top: 50%; transform: translateY(-50%);
-  font-family: var(--font-pixel); font-size: 0.6rem; letter-spacing: 0.1em;
-  text-transform: uppercase; white-space: nowrap; color: var(--bone-soft);
-  opacity: 0; transition: opacity 0.3s var(--ease); pointer-events: none;
-}
-.sonda__nodo:hover .sonda__label,
-.sonda__nodo.is-active .sonda__label { opacity: 1; }
-.sonda__nodo.is-active .sonda__label { color: var(--amber); }
-/* Profundímetro (F2): brazas bajo la sonda; decorativo (aria-hidden). */
-.sonda__brazas {
-  position: absolute; top: calc(100% + 1rem); right: 50%; transform: translateX(50%);
-  font-family: var(--font-pixel); font-size: 0.55rem; letter-spacing: 0.08em;
-  white-space: nowrap; color: var(--bone-soft); opacity: 0.8;
-}
-
-/* ════════ BOCINA (toggle de audio · previsto, sin cablear) ════════ */
-.bocina {
-  position: fixed; z-index: 20;
-  top: clamp(0.8rem, 2vw, 1.4rem); right: clamp(0.8rem, 2vw, 1.4rem);
-  width: 2.6rem; height: 2.6rem;
-  display: grid; place-items: center;
-  color: var(--amber-soft);
-  background: rgba(6, 14, 22, 0.55);
-  border: 1px solid var(--amber-line); border-radius: 50%;
-  cursor: pointer; font-size: 1rem;
-  transition: color 0.3s var(--ease), border-color 0.3s var(--ease);
-}
-.bocina:hover { color: var(--amber); border-color: var(--amber); }
-.bocina[aria-pressed="false"] { opacity: 0.7; }
-
-/* ════════ MAREA (pausa de movimiento · junto a la bocina) ════════ */
-.marea {
-  position: fixed; z-index: 20;
-  top: clamp(0.8rem, 2vw, 1.4rem);
-  right: calc(clamp(0.8rem, 2vw, 1.4rem) + 3.2rem);   /* a la izquierda de la bocina */
-  width: 2.6rem; height: 2.6rem;
-  display: grid; place-items: center;
-  color: var(--amber-soft);
-  background: rgba(6, 14, 22, 0.55);
-  border: 1px solid var(--amber-line); border-radius: 50%;
-  cursor: pointer; font-size: 1rem;
-  transition: color 0.3s var(--ease), border-color 0.3s var(--ease);
-}
-.marea:hover { color: var(--amber); border-color: var(--amber); }
-.marea[aria-pressed="true"] { opacity: 0.7; }   /* movimiento en pausa: atenuado */
+/* (La sonda, la bocina y la marea circulares del descenso-en-una-página se
+   retiraron: la botonera del camino —camino.css/camino.js— es la dueña de
+   Capítulos, Movimiento y Sonido en todas las páginas.) */
 
 /* ════════ Foco visible ámbar en TODOS los interactivos (accesibilidad) ════════ */
-.sonda__nodo:focus-visible,
-.bocina:focus-visible,
-.marea:focus-visible,
 .cue:focus-visible,
 .cta:focus-visible,
 .ventana:focus-visible,
 .puertas a:focus-visible,
+.puertas button:focus-visible,
 .metodo a:focus-visible {
   outline: 2px solid var(--amber);
   outline-offset: 3px;

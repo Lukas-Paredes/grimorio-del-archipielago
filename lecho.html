@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>El lecho · El Grimorio del Archipiélago</title>
+<meta name="description" content="El fin del camino del mito: el lecho del archipiélago y las puertas al archivo completo del Grimorio.">
+<link rel="canonical" href="https://grimoriodelarchipielago.cl/lecho.html">
+<meta property="og:type" content="website">
+<meta property="og:title" content="El lecho · El Grimorio del Archipiélago">
+<meta property="og:description" content="El fin del camino del mito: el lecho del archipiélago y las puertas al archivo.">
+<meta property="og:image" content="assets/img/portada-lecho.png">
+<meta property="og:locale" content="es_CL">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#02060c">
+
+<link rel="icon" type="image/svg+xml" href="assets/icons/favicon.svg">
+
+<!-- Preferencias ANTES del primer frame (idéntico en todas las páginas). -->
+<script>
+(function () {
+  try {
+    var m = localStorage.getItem("grimorio:motion");
+    var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (m === "off" || (m === null && reduce)) {
+      document.documentElement.classList.add("motion-off");
+    }
+    if (sessionStorage.getItem("grimorio:bruma") === "1") {
+      document.documentElement.classList.add("bruma-in");
+    }
+  } catch (e) {}
+})();
+</script>
+
+<link rel="preload" as="font" type="font/woff2" href="assets/fonts/jacquard24-latin.woff2" crossorigin>
+<link rel="preload" as="font" type="font/woff2" href="assets/fonts/eb-garamond-latin.woff2" crossorigin>
+<link rel="stylesheet" href="assets/css/fuentes.css">
+<link rel="stylesheet" href="assets/css/portada.css">
+<link rel="stylesheet" href="assets/css/camino.css">
+</head>
+
+<body data-camino="lecho">
+
+<div class="motas" aria-hidden="true"></div>
+
+<main>
+
+  <!-- ════════ 1 · LA COLUMNA — la caída final ════════ -->
+  <section class="capa capa--columna" id="descenso" data-zona="abismo">
+    <div class="capa__bg" data-parallax="0.14" aria-hidden="true"></div>
+    <div class="capa__veil" aria-hidden="true"></div>
+    <span class="mist mist--columna" data-parallax="0.22" aria-hidden="true"></span>
+    <div class="capa__content reveal">
+      <p class="susurro">más piezas del archipiélago descienden aquí</p>
+    </div>
+  </section>
+
+  <!-- ════════ 2 · EL LECHO — las puertas del archivo ════════ -->
+  <section class="capa capa--lecho" id="abismo" data-zona="abismo" aria-labelledby="ab-titulo">
+    <div class="capa__bg" data-parallax="0.14" aria-hidden="true"></div>
+    <div class="capa__veil" aria-hidden="true"></div>
+    <div class="fog" aria-hidden="true"><span></span><span></span></div>
+    <div class="capa__content reveal">
+      <h2 class="abismo-titulo" id="ab-titulo">El lecho</h2>
+      <p class="abismo-sub">Aquí termina el camino y descansa el resto del archipiélago. Las puertas que ya existen:</p>
+      <nav class="puertas" aria-label="Secciones del archivo">
+        <a class="puertas__principal" href="index-legacy.html">Entrar al archivo</a>
+        <a href="pages/bestiario.html">Bestiario</a>
+        <a href="pages/mundos.html">Mundos</a>
+        <a href="pages/recta-provincia.html">Recta Provincia</a>
+        <a href="pages/cosmologia.html">Cosmología</a>
+      </nav>
+      <p class="metodo"><a href="pages/metodologia.html">Fuentes y método</a> — qué es tradición documentada, qué es interpretación, y de dónde sale cada cosa.</p>
+      <nav class="puertas puertas--camino" aria-label="Volver al camino">
+        <a href="index.html" data-transicion>Volver al inicio del camino</a>
+        <button type="button" data-abrir-carta>Todos los capítulos</button>
+      </nav>
+    </div>
+  </section>
+
+</main>
+
+<script src="assets/js/data/capitulos.js" defer></script>
+<script src="assets/js/data/indice.js" defer></script>
+<script src="assets/js/camino.js" defer></script>
+<script src="assets/js/portada.js" defer></script>
+</body>
+</html>

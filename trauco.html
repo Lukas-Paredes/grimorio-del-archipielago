@@ -31,9 +31,9 @@
 }
 </script>
 
-<!-- Preferencia de movimiento: aplicar ANTES del primer frame (sin flash de
-     movimiento). motion-off si el usuario lo eligió, o si respeta reduced-motion
-     sin haber elegido todavía. Idéntico en index/caleuche/trauco. -->
+<!-- Preferencias ANTES del primer frame: pausa de movimiento (grimorio:motion /
+     reduced-motion) y velo de bruma si venimos de otra página del camino.
+     Idéntico en todas las páginas del sistema nuevo. -->
 <script>
 (function () {
   try {
@@ -41,6 +41,9 @@
     var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     if (m === "off" || (m === null && reduce)) {
       document.documentElement.classList.add("motion-off");
+    }
+    if (sessionStorage.getItem("grimorio:bruma") === "1") {
+      document.documentElement.classList.add("bruma-in");
     }
   } catch (e) {}
 })();
@@ -54,6 +57,7 @@
 <link rel="stylesheet" href="assets/css/fuentes.css">
 
 <link rel="stylesheet" href="assets/css/ficha.css">
+<link rel="stylesheet" href="assets/css/camino.css">
 
 <!-- Imágenes de ESTA criatura. Las url() de variables CSS las resuelve el
      navegador relativo a ficha.css (assets/css/), por eso van con "../img/...".
@@ -237,5 +241,8 @@ ENLACE:: https://www.cdbp.gob.cl/noticias/chiloe-hogar-de-criaturas-mitologicas-
 </main>
 
 <script src="assets/js/ficha.js" defer></script>
+<script src="assets/js/data/capitulos.js" defer></script>
+<script src="assets/js/data/indice.js" defer></script>
+<script src="assets/js/camino.js" defer></script>
 </body>
 </html>
