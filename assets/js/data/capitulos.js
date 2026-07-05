@@ -84,6 +84,46 @@ window.Grimorio.portada = {
       ventana: { left: "52%", top: "38%", w: "26%", h: "34%" },
       ventanaMovil: { left: "30%", top: "34%", w: "55%", h: "30%" },
       brillo: { x: "63%", y: "60%", rx: "14%", ry: "18%", a: 0.28, tipo: "latido" }
+    },
+    {
+      id: "invunche",
+      n: 4,
+      acto: "libro-8",
+      nombre: "El Invunche",
+      alias: "Imbunche · Ivunche · el Machucho de la cueva",  // ALIAS:: del @ENTIDAD (verbatim)
+      gancho: "En la boca de la cueva de los brujos hay algo que vigila. Fue un niño, una vez. Ya no.",
+      tags: ["Guardián", "Chilota"],
+      // sin teaser: no se redacta texto nuevo (regla sagrada)
+      verbo: "Asomarse",
+      labelSonda: "Invunche",
+      href: "invunche.html",
+      estado: "publicado",
+      // PROVISIONAL: no existe portada-invunche todavía (registrado en
+      // herramientas/pendientes.md); se usa el hero de la ficha con los velos.
+      img: "invunche-hero",
+      ventana: { left: "30%", top: "25%", w: "40%", h: "55%" },
+      ventanaMovil: { left: "15%", top: "22%", w: "65%", h: "45%" },
+      brillo: { x: "34%", y: "81%", rx: "10%", ry: "12%", a: 0.3, tipo: "latido" }
+    },
+    {
+      id: "camahueto",
+      n: 5,
+      acto: "libro-5",
+      nombre: "El Camahueto",
+      // sin alias: el @ENTIDAD lo trae vacío (—)
+      gancho: "Nace en lo alto de los cerros y duerme décadas. Un día de tormenta despierta y baja al mar arrasando todo; los surcos de su cuerno se vuelven ríos.",
+      tags: ["Cerro y río", "Bestia zoomorfa", "Chilota"],
+      // sin teaser: no se redacta texto nuevo (regla sagrada)
+      verbo: "Seguir el surco",
+      labelSonda: "Camahueto",
+      href: "camahueto.html",
+      estado: "publicado",
+      // PROVISIONAL: no existe portada-camahueto todavía (registrado en
+      // herramientas/pendientes.md); se usa el hero de la ficha con los velos.
+      img: "camahueto-hero",
+      ventana: { left: "18%", top: "12%", w: "45%", h: "55%" },
+      ventanaMovil: { left: "8%", top: "14%", w: "70%", h: "45%" },
+      brillo: { x: "55%", y: "41%", rx: "12%", ry: "16%", a: 0.3, tipo: "latido" }
     }
   ]
 };

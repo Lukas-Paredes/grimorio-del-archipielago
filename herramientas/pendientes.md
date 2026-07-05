@@ -21,7 +21,7 @@ Slots de imagen: `hero` (16:9) · `descenso` (9:16) · `cierre` (16:9) · `card`
 | fiura | 04-bosque | hero:— descenso:— cierre:— card:— | — | — |
 | ruende | 04-bosque | hero:— descenso:— cierre:— card:— | — | — |
 | trehuaco | 04-bosque | hero:— descenso:— cierre:— card:— | — | — |
-| camahueto | 05-bestias | hero:sí descenso:sí cierre:sí card:— | — | — |
+| camahueto | 05-bestias | hero:sí descenso:sí cierre:sí card:— | sí | sí |
 | cuchivilu | 05-bestias | hero:— descenso:— cierre:— card:— | — | — |
 | caballo-marino | 05-bestias | hero:— descenso:— cierre:— card:— | — | — |
 | cuero | 05-bestias | hero:— descenso:— cierre:— card:— | — | — |
@@ -60,7 +60,7 @@ Slots de imagen: `hero` (16:9) · `descenso` (9:16) · `cierre` (16:9) · `card`
 | macun | 09-recta-provincia | hero:— descenso:— cierre:— card:— | — | — |
 | poderes-del-brujo | 09-recta-provincia | hero:— descenso:— cierre:— card:— | — | — |
 | challanco | 09-recta-provincia | hero:— descenso:— cierre:— card:— | — | — |
-| invunche | 09-recta-provincia | hero:sí descenso:sí cierre:sí card:— | — | — |
+| invunche | 09-recta-provincia | hero:sí descenso:sí cierre:sí card:— | sí | sí |
 | voladora | 09-recta-provincia | hero:— descenso:— cierre:— card:— | — | — |
 | cueva-quicavi | 09-recta-provincia | hero:— descenso:— cierre:— card:— | — | — |
 | libro-de-moraleda | 09-recta-provincia | hero:— descenso:— cierre:— card:— | — | — |
@@ -78,8 +78,8 @@ Slots de imagen: `hero` (16:9) · `descenso` (9:16) · `cierre` (16:9) · `card`
 
 ## Resumen
 - Entidades: **68**
-- Publicadas: **3**
-- Con prosa curada: **3**
+- Publicadas: **5**
+- Con prosa curada: **5**
 - Con hero: **5**
 
 ## Pendiente de imágenes (Gemini)

@@ -96,7 +96,7 @@
     return {
       id: single.ID || "",
       nombre: single.NOMBRE || "",
-      alias: (single.ALIAS || "").split("; ").filter(Boolean),
+      alias: (single.ALIAS || "").split("; ").filter(function (a) { return a && a !== "—"; }),
       seccion: single.SECCION || "",
       categoria: single.CATEGORIA || "",
       reino: single.REINO || "",
@@ -110,6 +110,7 @@
       descripcion: single.DESCRIPCION || "",
       interpretacion: single.INTERPRETACION || "",
       defensa: single.DEFENSA || "",
+      advertencia: single.ADVERTENCIA || "",
       desarrollo: single.DESARROLLO || "",
       relaciones: (single.RELACIONES || "").split("; ").filter(Boolean),
       variantes: repeat.VARIANTE.map(function (v) {
@@ -197,6 +198,20 @@
     set("gancho", d.gancho);
     set("resumen", d.resumen);
     set("interpretacion", PROSA.interpretacion || d.interpretacion);
+
+    // Advertencia del archivero (VERBATIM del @ENTIDAD, p. ej. Invunche):
+    // encuadre ético ANTES del relato. Es testimonio, no espectáculo.
+    if (d.advertencia) {
+      var secRelato = document.getElementById("sec-relato");
+      var resumenEl = document.getElementById("resumen");
+      if (secRelato && resumenEl) {
+        var adv = el("aside", "advertencia");
+        adv.setAttribute("role", "note");
+        adv.appendChild(el("span", "advertencia__label", "Advertencia"));
+        adv.appendChild(el("p", "advertencia__texto", d.advertencia));
+        secRelato.insertBefore(adv, resumenEl);
+      }
+    }
 
     // Descripción (en su propio <p> para la capitular)
     var desc = document.getElementById("descripcion");
