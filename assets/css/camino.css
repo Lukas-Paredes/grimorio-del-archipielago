@@ -44,6 +44,13 @@
 }
 .camino-btn--primario:hover { color: var(--abyss); filter: brightness(1.08); }
 .camino-btn--marea[aria-pressed="true"] { opacity: 0.75; }
+/* Plomada de sonda en los botones del camino (cosecha 2026-07-05).
+   Los botones primarios son dorados: la plomada va en silueta, como el texto. */
+.camino-plomada {
+  display: inline-block; height: 1.15em; width: auto;
+  vertical-align: -0.2em; margin-left: 0.45em;
+}
+.camino-btn--primario .camino-plomada { filter: brightness(0.22); }
 
 /* ── Carta de capítulos (<dialog>) ───────────────────────────────────────── */
 .carta {

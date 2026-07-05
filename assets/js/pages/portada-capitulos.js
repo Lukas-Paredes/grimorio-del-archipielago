@@ -107,7 +107,12 @@
   cta.href = cap.href;
   cta.setAttribute("data-transicion", "");
   cta.appendChild(document.createTextNode(cap.verbo + " "));
-  var chev = el("span", null, "▼");
+  // Plomada de sonda (cosecha 2026-07-05) en lugar del ▼ genérico.
+  var chev = document.createElement("img");
+  chev.className = "cta__plomada";
+  chev.src = "assets/img/indicador-plomada.png";
+  chev.alt = "";
+  chev.width = 19; chev.height = 48;
   chev.setAttribute("aria-hidden", "true");
   cta.appendChild(chev);
   panel.appendChild(cta);

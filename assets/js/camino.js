@@ -33,6 +33,18 @@
     return n;
   }
 
+  /* La plomada de sonda (cosecha 2026-07-05) reemplaza el ▼ genérico:
+     es el instrumento náutico del descenso, no un glifo de teclado. */
+  function plomada() {
+    var img = document.createElement("img");
+    img.className = "camino-plomada";
+    img.src = "assets/img/indicador-plomada.png";
+    img.alt = "";
+    img.width = 19; img.height = 48;
+    img.setAttribute("aria-hidden", "true");
+    return img;
+  }
+
   var publicados = P.capitulos.filter(function (c) { return c.estado === "publicado"; })
                               .sort(function (a, b) { return a.n - b.n; });
 
@@ -219,7 +231,8 @@
       var go = el("a", "camino-btn camino-btn--primario");
       go.href = prox.href;
       go.setAttribute("data-transicion", "");
-      go.textContent = "Siguiente capítulo ▼";
+      go.textContent = "Siguiente capítulo ";
+      go.appendChild(plomada());
       sig.appendChild(go);
     } else if (P.fin) {
       sig.appendChild(el("p", "camino-siguiente__prox", P.fin.nombre));
@@ -227,7 +240,8 @@
       var fin = el("a", "camino-btn camino-btn--primario");
       fin.href = P.fin.href;
       fin.setAttribute("data-transicion", "");
-      fin.textContent = "Descender al lecho ▼";
+      fin.textContent = "Descender al lecho ";
+      fin.appendChild(plomada());
       sig.appendChild(fin);
     }
     var extra = el("div", "camino-siguiente__extra");

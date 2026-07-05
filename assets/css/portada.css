@@ -186,6 +186,16 @@ a { color: var(--amber-soft); }
   text-decoration: none; opacity: 0.9;
 }
 .cue span:last-child { font-size: 0.9rem; animation: bob 2.4s ease-in-out infinite; }
+/* Plomada de sonda (cosecha 2026-07-05): reemplaza el ▼ genérico. */
+.cue__plomada {
+  display: block; height: 26px; width: auto; margin: 0 auto;
+  filter: drop-shadow(0 0 8px rgba(242, 182, 90, 0.35));
+}
+.cta__plomada {
+  display: inline-block; height: 1.1em; width: auto;
+  vertical-align: -0.18em; margin-left: 0.1em;
+  filter: brightness(0.22);   /* silueta sobre el botón dorado, como el texto */
+}
 @keyframes bob { 0%,100% { transform: translateY(0); } 50% { transform: translateY(6px); } }
 
 /* ════════ SEPARADOR DE ACTO (F1): numeral + título del Libro + regla ════════ */
@@ -444,16 +454,20 @@ a { color: var(--amber-soft); }
   100% { opacity: 0.92; }
 }
 
-/* Motas de sedimento: UNA capa fija, CSS puro, caída lenta (~6 px/s). Aparecen
-   al entrar al abismo (y apenas en el mar); opacidad transiciona con la zona. */
+/* Motas de sedimento: UNA capa fija, caída lenta (~6 px/s). Aparecen al
+   entrar al abismo (y apenas en el mar); opacidad transiciona con la zona.
+   Cosecha 2026-07-05: sprites texturados (motas-capa-1/2.png, misma trama
+   280/140 que los radial-gradient anteriores) — sedimento con grano en vez
+   de punto plano. Las motas ámbar de la hoja NO se usan aquí: sembrarían
+   lucecitas cálidas por todo el viewport y la dirección manda UNA sola luz. */
 .motas {
   position: fixed; left: -24px; right: -24px; top: -560px; bottom: -24px;
   z-index: 6; pointer-events: none;
   opacity: 0;
   transition: opacity 1.2s var(--ease);
   background-image:
-    radial-gradient(circle at 30% 40%, rgba(236, 228, 210, 0.38) 0 1.2px, transparent 1.9px),
-    radial-gradient(circle at 70% 80%, rgba(159, 182, 189, 0.32) 0 0.9px, transparent 1.5px);
+    url("../img/motas-capa-1.png"),
+    url("../img/motas-capa-2.png");
   background-size: 280px 280px, 140px 140px;
   animation: motas-caer 90s linear infinite;
   will-change: transform;
