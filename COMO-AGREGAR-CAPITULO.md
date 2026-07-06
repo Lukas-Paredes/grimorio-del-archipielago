@@ -89,8 +89,17 @@ revisión humana.
    `nombre`/`alias`/`gancho` VERBATIM del `@ENTIDAD`, `tags` del vocabulario
    controlado (REINO/CATEGORIA/ALCANCE), `verbo` (UI), `labelSonda`, `href`,
    `estado: "publicado"`, `img` (`portada-<id>` o el hero provisional),
-   `ventana`/`ventanaMovil` (zona clicable sobre la imagen, en %) y `brillo`
-   (resplandor animado, opcional).
+   `ventana`/`ventanaMovil` (zona clicable sobre la imagen, en %), `brillo`
+   (resplandor animado, opcional) y **`atmosfera`** — el sonido del reino.
+   Atmósferas disponibles (recetas procedurales de `sonido.js`):
+   `superficie` · `niebla` (mar lejano + fiesta insinuada, Caleuche) ·
+   `mar-adentro` (subacuático, Pincoya) · `bosque` (follaje + crujidos,
+   Trauco) · `espesura` (bosque cerrado + goteo, reservada para la Fiura) ·
+   `cueva` (drone + goteo con eco, Invunche) · `tormenta` (lluvia + viento
+   racheado + trueno, Camahueto) · `abismo` (el fondo del mundo, lecho).
+   Si se omite, se deriva de la `zona` del acto (mar→mar-adentro,
+   bosque→bosque, cueva→cueva, cerro-rio→tormenta). Las perillas de cada
+   receta se ajustan sin tocar código en `config.js` (`audio.atmosferas`).
 3. Si el capítulo se inserta en medio, correr los `n` siguientes.
 4. Cuando llegue el documento CAMINO-DEL-MITO: ajustar `n` y cargar los
    `puente { texto, fuente }` (cita bibliográfica del tránsito entre

@@ -8,3 +8,6 @@ Thumbs.db
 # Herramientas offline: artefactos temporales (no forman parte del sitio)
 herramientas/contacto/
 __pycache__/
+
+# Bandeja local de crudos nuevos (los canonicos van a assets/img/_raw/)
+entrada/

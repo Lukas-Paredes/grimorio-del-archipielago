@@ -18,11 +18,25 @@ window.Grimorio.config = {
   /* Audio ambiente procedural (sonido.js). */
   audio: {
     volumen: 0.35,       // ganancia maestra (presencia discreta)
-    crossfadeS: 1.6,     // crossfade entre mezclas de zona
+    crossfadeS: 3.0,     // crossfade entre ATMÓSFERAS al cambiar de capítulo (2–4 s)
     lowpass: {
       arribaHz: 6000,    // claridad en la superficie
       fondoHz: 550,      // ahogado al fondo del capítulo
       curva: 1.4         // exponente del descenso (1 = lineal)
+    },
+    /* Perillas por atmósfera (mandato sonido-por-capítulo): cualquier valor
+       puesto aquí SOBREESCRIBE la receta homónima de sonido.js, perilla a
+       perilla. Ganancias 0–1 (subir/bajar una capa), frecuencias en Hz,
+       cadencias de eventos en segundos (promedio; el sistema varía ±).
+       Ejemplos listos para descomentar y ajustar a oído:
+    atmosferas: {
+      niebla:        { fiesta: 0.02, fiestaCadaS: 40 },  // fiesta aún más tímida
+      "mar-adentro": { burbuja: 0.08, burbujaCadaS: 12 },
+      bosque:        { hojas: 0.24, crujidoCadaS: 40 },
+      cueva:         { goteoCadaS: 18, drone: 0.04 },
+      tormenta:      { trueno: 0.09, truenoCadaS: 60, lluvia: 0.12 },
+      abismo:        { drone: 0.05 }
     }
+       Recetas y perillas disponibles: ver RECETAS en assets/js/sonido.js. */
   }
 };

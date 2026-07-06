@@ -44,6 +44,7 @@ window.Grimorio.portada = {
       labelSonda: "Caleuche",
       href: "caleuche.html",
       estado: "publicado",          // "publicado" | "sellado"
+      atmosfera: "niebla",          // sonido del reino (sonido.js); mar lejano + fiesta insinuada
       img: "portada-caleuche",      // base → assets/img/<img>.webp/.png
       ventana: { left: "8%", top: "26%", w: "42%", h: "40%" },
       ventanaMovil: { left: "4%", top: "20%", w: "60%", h: "34%" },
@@ -62,6 +63,7 @@ window.Grimorio.portada = {
       labelSonda: "Pincoya",
       href: "pincoya.html",
       estado: "publicado",
+      atmosfera: "mar-adentro",     // subacuático: denso, burbujeo escaso
       img: "portada-pincoya",     // playa negra con resplandor dorado en el agua
       ventana: { left: "28%", top: "30%", w: "26%", h: "32%" },
       ventanaMovil: { left: "12%", top: "28%", w: "60%", h: "32%" },
@@ -80,6 +82,7 @@ window.Grimorio.portada = {
       labelSonda: "Trauco",
       href: "trauco.html",
       estado: "publicado",
+      atmosfera: "bosque",          // viento en el follaje + crujidos espaciados; nada de mar
       img: "portada-trauco",      // cosecha 2026-07-05: claro del bosque con rayo de luna
       ventana: { left: "52%", top: "38%", w: "26%", h: "34%" },
       ventanaMovil: { left: "30%", top: "34%", w: "55%", h: "30%" },
@@ -98,6 +101,7 @@ window.Grimorio.portada = {
       labelSonda: "Invunche",
       href: "invunche.html",
       estado: "publicado",
+      atmosfera: "cueva",           // drone mínimo + goteo con eco; el silencio ES el sonido
       // PROVISIONAL: no existe portada-invunche todavía (registrado en
       // herramientas/pendientes.md); se usa el hero de la ficha con los velos.
       img: "invunche-hero",
@@ -118,6 +122,7 @@ window.Grimorio.portada = {
       labelSonda: "Camahueto",
       href: "camahueto.html",
       estado: "publicado",
+      atmosfera: "tormenta",        // lluvia + viento racheado + trueno lejano ocasional
       // PROVISIONAL: no existe portada-camahueto todavía (registrado en
       // herramientas/pendientes.md); se usa el hero de la ficha con los velos.
       img: "camahueto-hero",
