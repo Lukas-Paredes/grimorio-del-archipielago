@@ -39,12 +39,22 @@
 
   // Afinables en config.js (FASE 3); estos son los defaults si no existe.
   var CONF = (G.config && G.config.audio) || {};
-  var VOL = CONF.volumen || 0.35;      // volumen maestro: presencia discreta
-  var FADE = CONF.crossfadeS || 3.0;   // crossfade entre atmósferas (s)
+  var VOL_ATM = CONF.volumen || 0.35;          // nivel de la ATMÓSFERA procedural (bus propio)
+  var VOL_MUS = CONF.volumenMusica || 0.62;    // nivel de la MÚSICA (bus propio, bajo la atmósfera)
+  var NIVEL_DEF = CONF.volumenMaestroDefault || 0.72;  // slider inicial si no hay preferencia
+  var MUS_AJUSTE = CONF.musica || {};          // multiplicador de nivel por pista
+  var CAL = CONF.caleuche || {};               // ciclo intermitente del Caleuche
+  var FADE = CONF.crossfadeS || 3.0;           // crossfade entre atmósferas (s)
   var LP = CONF.lowpass || {};
   var LP_ARRIBA = LP.arribaHz || 6000;
   var LP_FONDO = LP.fondoHz || 550;
   var LP_CURVA = LP.curva || 1.4;
+
+  // Buses (creados en construirBase) + estado de la capa de música.
+  var atmBus = null, musicaBus = null;
+  var musEl = null, musSrc = null, musGain = null, musId = null, calTimers = [];
+  var nivel = NIVEL_DEF;                        // volumen maestro del usuario [0..1]
+  function curva(v) { return v * v; }           // curva perceptual: ganancia = valor²
 
   /* ── RECETAS por reino: perillas nombradas (ganancias 0–1, Hz, segundos).
      Sobreescribibles una a una desde config.js → audio.atmosferas.<reino>. ── */
@@ -128,6 +138,9 @@
     lowpass.frequency.value = LP_ARRIBA;
     lowpass.Q.value = 0.4;
     lowpass.connect(master); master.connect(ctx.destination);
+    // Dos buses bajo el low-pass de profundidad: la atmósfera y, más abajo, la música.
+    atmBus = ctx.createGain(); atmBus.gain.value = VOL_ATM; atmBus.connect(lowpass);
+    musicaBus = ctx.createGain(); musicaBus.gain.value = VOL_MUS; musicaBus.connect(lowpass);
     var seg = 2, n = ctx.sampleRate * seg;
     ruidoBuf = ctx.createBuffer(1, n, ctx.sampleRate);
     var d = ruidoBuf.getChannelData(0);
@@ -140,7 +153,7 @@
     this.nombre = nombre;
     this.bus = ctx.createGain();
     this.bus.gain.value = 0;
-    this.bus.connect(lowpass);
+    this.bus.connect(atmBus);
     this.timers = [];
     this.vivo = true;
   }
@@ -336,12 +349,120 @@
     }, { passive: true });
   }
 
+  /* ── Música por capítulo: capa por DEBAJO de la atmósfera ─────────────
+     <audio> en streaming (memoria acotada, ideal móvil) ruteado por Web Audio.
+     El Caleuche es INTERMITENTE y suena «a lo lejos» (low-pass + eco). ───── */
+  var puedeOgg = null;
+  function formatoMusica() {
+    if (puedeOgg === null) {
+      var a = document.createElement("audio");
+      puedeOgg = !!(a.canPlayType && a.canPlayType('audio/ogg; codecs="vorbis"'));
+    }
+    return puedeOgg ? "ogg" : "mp3";
+  }
+  function urlMusica(id) { return "assets/audio/musica-" + id + "." + formatoMusica(); }
+  function ajuste(id) { var a = MUS_AJUSTE[id]; return (typeof a === "number") ? a : 1; }
+
+  function musicaDePagina() {
+    var ent = document.body.getAttribute("data-entity");
+    if (ent && G.portada) {
+      var cap = null;
+      (G.portada.capitulos || []).forEach(function (c) { if (c.id === ent) { cap = c; } });
+      return (cap && cap.musica) || null;
+    }
+    if (document.body.getAttribute("data-camino") === "inicio" && G.portada) {
+      return G.portada.musicaInicio || null;
+    }
+    return null;   // lecho, sitio viejo… = solo atmósfera, sin error
+  }
+  function proximaMusica() {   // la del capítulo siguiente (para prefetch)
+    var ent = document.body.getAttribute("data-entity");
+    if (!ent || !G.portada) { return null; }
+    var pub = (G.portada.capitulos || []).filter(function (c) { return c.estado === "publicado"; })
+                .sort(function (a, b) { return a.n - b.n; });
+    for (var i = 0; i < pub.length; i++) {
+      if (pub[i].id === ent) { return (pub[i + 1] && pub[i + 1].musica) || null; }
+    }
+    return null;
+  }
+  function reproducir() {
+    if (!musEl) { return; }
+    var p = musEl.play();
+    if (p && p.catch) { p.catch(function () {}); }   // el gesto ya lo retoma reanudarConGesto
+  }
+  function destruirMusica() {
+    calTimers.forEach(function (t) { window.clearTimeout(t); });
+    calTimers = [];
+    if (musEl) { try { musEl.pause(); } catch (e) {} }
+    if (musSrc) { try { musSrc.disconnect(); } catch (e) {} }
+    if (musGain) { try { musGain.disconnect(); } catch (e) {} }
+    musEl = musSrc = musGain = null; musId = null;
+  }
+  function prefetchProxima() {
+    var prox = proximaMusica();
+    if (!prox || document.querySelector('link[data-mus="' + prox + '"]')) { return; }
+    var l = document.createElement("link");
+    l.rel = "prefetch"; l.href = urlMusica(prox);
+    l.setAttribute("as", "audio"); l.setAttribute("data-mus", prox);
+    document.head.appendChild(l);
+  }
+  function cicloCaleuche() {   // aparece 4–6s · suena 40–60s · se va · calla 30–50s · vuelve
+    if (!encendido || musId !== "caleuche" || !musGain || !ctx) { return; }
+    var t = ctx.currentTime;
+    var fi = CAL.fadeInS || 5, fo = CAL.fadeOutS || 6;
+    var son = (CAL.sonarMinS || 40) + Math.random() * ((CAL.sonarMaxS || 60) - (CAL.sonarMinS || 40));
+    var sil = (CAL.silencioMinS || 30) + Math.random() * ((CAL.silencioMaxS || 50) - (CAL.silencioMinS || 30));
+    var pico = Math.max(0.02, ajuste("caleuche"));
+    musGain.gain.cancelScheduledValues(t);
+    musGain.gain.setValueAtTime(Math.max(0.0001, musGain.gain.value), t);
+    musGain.gain.exponentialRampToValueAtTime(pico, t + fi);                // emerge entre la niebla
+    musGain.gain.setValueAtTime(pico, t + fi + son);
+    musGain.gain.exponentialRampToValueAtTime(0.0001, t + fi + son + fo);   // y se aleja
+    calTimers.push(window.setTimeout(cicloCaleuche, (fi + son + fo + sil) * 1000));
+  }
+  function cargarMusica(id) {
+    if (!ctx || id === musId) { return; }
+    destruirMusica();
+    if (!id) { return; }
+    musId = id;
+    musEl = new Audio();
+    musEl.src = urlMusica(id);
+    musEl.loop = true; musEl.preload = "auto";
+    musSrc = ctx.createMediaElementSource(musEl);
+    musGain = ctx.createGain(); musGain.gain.value = 0.0001;
+    if (id === "caleuche") {
+      var dist = ctx.createBiquadFilter(); dist.type = "lowpass";
+      dist.frequency.value = CAL.distanciaHz || 1200; dist.Q.value = 0.6;
+      var delay = ctx.createDelay(0.6); delay.delayTime.value = CAL.reverbS || 0.16;
+      var fb = ctx.createGain(); fb.gain.value = CAL.reverb || 0.32;
+      var wet = ctx.createBiquadFilter(); wet.type = "lowpass"; wet.frequency.value = 1400;
+      musSrc.connect(dist);
+      dist.connect(musGain);                                                    // seco (ya lejano)
+      dist.connect(delay); delay.connect(wet); wet.connect(fb); fb.connect(delay); wet.connect(musGain);  // eco
+      musGain.connect(musicaBus);
+      calTimers.push(window.setTimeout(cicloCaleuche, 1500 + Math.random() * 2500));  // 1ª aparición
+    } else {
+      musSrc.connect(musGain); musGain.connect(musicaBus);
+      var t = ctx.currentTime;
+      musGain.gain.setValueAtTime(0.0001, t);
+      musGain.gain.exponentialRampToValueAtTime(Math.max(0.02, ajuste(id)), t + 2.4);  // fade-in suave
+    }
+    reproducir();
+    prefetchProxima();
+  }
+  function setVolumen(v) {
+    v = Math.min(1, Math.max(0, Number(v) || 0));
+    nivel = v;
+    store("grimorio:volumen", String(v));
+    if (ctx && encendido) { master.gain.setTargetAtTime(curva(v), ctx.currentTime, 0.08); }
+  }
+
   /* ── Encendido / apagado ────────────────────────────────────────────── */
   function reanudarConGesto() {
     function unaVez() {
       document.removeEventListener("pointerdown", unaVez);
       document.removeEventListener("keydown", unaVez);
-      if (ctx && encendido) { ctx.resume(); }
+      if (ctx && encendido) { ctx.resume(); reproducir(); }
     }
     document.addEventListener("pointerdown", unaVez, { once: true });
     document.addEventListener("keydown", unaVez, { once: true });
@@ -359,15 +480,17 @@
         }, 120);
       }
       activarAtmosfera(atmosferaDePagina());
-      master.gain.setTargetAtTime(VOL, ctx.currentTime, FADE / 2);  // fade-in
+      cargarMusica(musicaDePagina());
+      master.gain.setTargetAtTime(curva(nivel), ctx.currentTime, FADE / 2);  // fade-in (volumen del usuario)
       profundidad();
     } else if (ctx) {
-      master.gain.setTargetAtTime(0, ctx.currentTime, 0.25);        // fade-out
+      master.gain.setTargetAtTime(0, ctx.currentTime, 0.25);        // fade-out: apaga TODO (atmósfera + música)
       if (patch) {
         var viejo = patch;
         window.setTimeout(function () { viejo.destruir(); }, 900);
         patch = null;
       }
+      window.setTimeout(destruirMusica, 900);
     }
   }
 
@@ -392,10 +515,13 @@
     if (encendido && ctx) {
       if (ctx.state === "suspended") { ctx.resume().then(null, function () {}); }
       activarAtmosfera(atmosferaDePagina());   // por si el bfcache trae otra página
-      master.gain.setTargetAtTime(VOL, ctx.currentTime, FADE / 2);
+      cargarMusica(musicaDePagina());          // música de la página restaurada
+      reproducir();                            // el <audio> quedó en pausa al salir
+      master.gain.setTargetAtTime(curva(nivel), ctx.currentTime, FADE / 2);
     }
   });
   window.addEventListener("pagehide", function () {
+    if (musEl) { try { musEl.pause(); } catch (e) {} }
     if (ctx && ctx.state === "running") { try { ctx.suspend(); } catch (e) {} }
   });
 
@@ -403,9 +529,15 @@
   G.sonido = {
     set: set,
     activo: function () { return encendido; },
+    volumen: setVolumen,                          // slider maestro (curva perceptual)
+    volumenActual: function () { return nivel; },
     estado: function () {   // para QA/diagnóstico en consola
       return { contexto: ctx ? ctx.state : "sin-contexto",
                atmosfera: patch ? patch.nombre : null,
+               musica: musId,
+               musNivel: musGain ? +musGain.gain.value.toFixed(3) : null,
+               musSonando: musEl ? !musEl.paused : null,
+               volumen: nivel,
                lowpassHz: lowpass ? Math.round(lowpass.frequency.value) : null };
     },
     analizar: function () { // para QA: energía por bandas de la salida real
@@ -427,6 +559,13 @@
       return { grave: banda(20, 200), medio: banda(200, 1200), agudo: banda(1200, 6000) };
     }
   };
+
+  /* Volumen del usuario guardado (separado del on/off). */
+  (function () {
+    var v = read("grimorio:volumen");
+    var f = v === null ? NaN : parseFloat(v);
+    if (!isNaN(f)) { nivel = Math.min(1, Math.max(0, f)); }
+  }());
 
   /* Persistencia: si el visitante dejó el sonido encendido, se retoma
      (con gesto del navegador si hace falta). Jamás se enciende solo. */

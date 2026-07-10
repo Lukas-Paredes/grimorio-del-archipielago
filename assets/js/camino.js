@@ -77,30 +77,47 @@
     if (!off) { window.dispatchEvent(new Event("scroll")); }  // re-sincroniza parallax JS
   });
 
+  // Grupo Sonido: el botón (on/off) + el slider de volumen maestro.
+  var grupoSon = el("div", "camino-sonido");
   var bSon = el("button", "camino-btn camino-btn--bocina");
   bSon.type = "button";
+
+  var slider = document.createElement("input");
+  slider.type = "range"; slider.min = "0"; slider.max = "100"; slider.step = "1";
+  slider.className = "camino-vol";
+  slider.setAttribute("aria-label", "Volumen del sonido");
+  var volIni = (G.sonido && G.sonido.volumenActual) ? G.sonido.volumenActual()
+             : (function () { var v = read("grimorio:volumen"); var f = v === null ? 0.72 : parseFloat(v); return isNaN(f) ? 0.72 : f; }());
+  slider.value = String(Math.round(volIni * 100));
+  slider.addEventListener("input", function () {
+    if (G.sonido && G.sonido.volumen) { G.sonido.volumen(slider.value / 100); }  // curva v² y persistencia en sonido.js
+  });
+
   function reflectSon() {
     var on = bSon.getAttribute("aria-pressed") === "true";
     bSon.innerHTML = on ? '<span aria-hidden="true">🔈</span> Sonido'
                         : '<span aria-hidden="true">🔇</span> Sonido';
-    bSon.title = on ? "Apagar el sonido ambiente"
-                    : "Encender el sonido ambiente (procedural, apagado por defecto)";
+    bSon.title = on ? "Apagar el sonido (música + atmósfera)"
+                    : "Encender el sonido (música + atmósfera; apagado por defecto)";
+    grupoSon.classList.toggle("abierto", on);   // móvil: el slider se despliega al encender
   }
   bSon.setAttribute("aria-pressed", read("grimorio:audio") === "on" ? "true" : "false");
   bSon.addEventListener("click", function () {
     var on = bSon.getAttribute("aria-pressed") === "true";
     bSon.setAttribute("aria-pressed", on ? "false" : "true");
     store("grimorio:audio", on ? "off" : "on");
-    // FASE 1 (mandato 2): el AudioManager procedural vive en sonido.js;
-    // el botón es el ÚNICO camino de encendido (nunca autoplay).
+    // El AudioManager (sonido.js) es el ÚNICO camino de encendido; nunca autoplay.
+    // Un solo botón controla TODO: atmósfera procedural + música.
     if (G.sonido) { G.sonido.set(!on); }
     reflectSon();
   });
+  grupoSon.appendChild(bSon);
+  grupoSon.appendChild(slider);
 
   reflectMarea(); reflectSon();
   botonera.appendChild(bCarta);
   botonera.appendChild(bMarea);
-  botonera.appendChild(bSon);
+  botonera.appendChild(grupoSon);
   // Al INICIO del body: primera parada del tabulador (accesibilidad teclado).
   document.body.insertBefore(botonera, document.body.firstChild);
 

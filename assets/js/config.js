@@ -24,6 +24,22 @@ window.Grimorio.config = {
       fondoHz: 550,      // ahogado al fondo del capítulo
       curva: 1.4         // exponente del descenso (1 = lineal)
     },
+
+    /* ── Música de fondo por capítulo (capa POR DEBAJO de la atmósfera) ──
+       Archivos en assets/audio/musica-<pista>.ogg/.mp3; se asignan en
+       capitulos.js (campo `musica`). El botón de Sonido y el slider controlan
+       música + atmósfera JUNTAS (un solo master). */
+    volumenMusica: 0.62,          // nivel de la música respecto a la atmósfera (0–1)
+    volumenMaestroDefault: 0.72,  // posición inicial del slider si no hay preferencia (0–1)
+    musica: {                     // ajuste fino por pista (multiplicador) si alguna quedó dispareja
+      // caleuche: 1.0, camahueto: 0.9, trauco: 1.0
+    },
+    caleuche: {                   // ciclo INTERMITENTE del buque (fiel al mito)
+      fadeInS: 5, sonarMinS: 40, sonarMaxS: 60, fadeOutS: 6,   // aparece 4–6s, suena 40–60s, se va
+      silencioMinS: 30, silencioMaxS: 50,                       // y calla 30–50s antes de volver
+      distanciaHz: 1200, reverb: 0.32, reverbS: 0.16            // low-pass de distancia + eco «fiesta lejana»
+    },
+
     /* Perillas por atmósfera (mandato sonido-por-capítulo): cualquier valor
        puesto aquí SOBREESCRIBE la receta homónima de sonido.js, perilla a
        perilla. Ganancias 0–1 (subir/bajar una capa), frecuencias en Hz,

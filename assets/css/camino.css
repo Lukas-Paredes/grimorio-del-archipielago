@@ -44,6 +44,38 @@
 }
 .camino-btn--primario:hover { color: var(--abyss); filter: brightness(1.08); }
 .camino-btn--marea[aria-pressed="true"] { opacity: 0.75; }
+
+/* ── Grupo Sonido: botón + slider de volumen (placa de bronce) ──────────── */
+.camino-sonido { display: inline-flex; align-items: center; gap: 0.5rem; }
+.camino-vol {
+  -webkit-appearance: none; appearance: none;
+  width: 6.5rem; height: 44px;           /* alto = área táctil ≥44px */
+  margin: 0; background: transparent; cursor: pointer;
+}
+.camino-vol:focus-visible { outline: 2px solid var(--amber); outline-offset: 3px; border-radius: 4px; }
+/* Riel: agua abisal hundida con filo de bronce */
+.camino-vol::-webkit-slider-runnable-track {
+  height: 6px; border-radius: 3px;
+  background: linear-gradient(180deg, #04101c, #0a1e2e);
+  border: 1px solid var(--amber-line);
+}
+.camino-vol::-moz-range-track {
+  height: 6px; border-radius: 3px;
+  background: linear-gradient(180deg, #04101c, #0a1e2e);
+  border: 1px solid var(--amber-line);
+}
+/* Perilla ámbar (remache) */
+.camino-vol::-webkit-slider-thumb {
+  -webkit-appearance: none; appearance: none;
+  width: 18px; height: 18px; margin-top: -7px; border-radius: 50%;
+  background: radial-gradient(circle at 38% 34%, #ffd470, var(--amber-deep));
+  border: 1px solid #7a4f1f; box-shadow: 0 0 8px var(--amber-glow);
+}
+.camino-vol::-moz-range-thumb {
+  width: 18px; height: 18px; border-radius: 50%;
+  background: radial-gradient(circle at 38% 34%, #ffd470, var(--amber-deep));
+  border: 1px solid #7a4f1f; box-shadow: 0 0 8px var(--amber-glow);
+}
 /* Plomada de sonda en los botones del camino (cosecha 2026-07-05).
    Los botones primarios son dorados: la plomada va en silueta, como el texto. */
 .camino-plomada {
@@ -201,4 +233,10 @@ html.bruma-in::after {
   .camino-btn { font-size: 0.78rem; padding: 0.5rem 0.8rem; }
   .carta { width: calc(100% - 1.2rem); padding: 1rem; }
   .carta__grid, .carta__grid--selladas { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  /* El slider se despliega al encender el sonido (ahorra espacio en la barra). */
+  .camino-vol {
+    width: 0; opacity: 0; pointer-events: none;
+    transition: width 0.25s var(--ease), opacity 0.25s var(--ease);
+  }
+  .camino-sonido.abierto .camino-vol { width: 5.5rem; opacity: 1; pointer-events: auto; }
 }
