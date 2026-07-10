@@ -101,6 +101,26 @@ Slots de imagen: `hero` (16:9) · `descenso` (9:16) · `cierre` (16:9) · `card`
   de Lucas; el plan gratuito no sirve Pages en repos privados). URL prevista:
   `lukas-paredes.github.io/grimorio-del-archipielago` (ya cableada en canonical/og/sitemap).
 
+## Recta Provincia — dossier del proceso de Ancud (1880)
+- **Fuente primaria domesticada: LISTA.** `fuentes/proceso-ancud-1880.md`
+  (transcripción verbatim: marco procesal, declaración de Mateo Coñuecar,
+  declaración de Aurora Quinchem y sentencia del juez Beytía, 1881) + el OCR
+  crudo y el PDF fuente en `fuentes/_raw/` (Ponce Hermanos, 1908; Memoria
+  Chilena MC0033459).
+- **Falta decisión de montaje.** Cómo presentar el testimonio en el sitio:
+  doble columna «mito / testimonio» y/o un módulo **«El Expediente»** dentro
+  de `09-recta-provincia` (entidades ya previstas: `juicio-1880`,
+  `recta-provincia`, `cueva-quicavi`, `libro-de-moraleda`, `macun`,
+  `challanco`). Nada montado aún — solo la fuente está domesticada.
+- **Vacío de fuente (no inventar):** la «orden de recogida» del intendente
+  Martiniano Rodríguez NO aparece en el folleto de 1908. El dossier transcribe
+  el marco procesal que sí existe (el juez letrado de Ancud levantó el proceso,
+  feb. 1880) y marca el vacío. Si Lucas tiene esa pieza (Intendencia /
+  Vicuña Mackenna / Espech), pasarla para completar el Bloque A.
+- **QA pendiente (tu ojo):** cotejar el «Aparato crítico» del .md contra el
+  PDF — ~13 marcas `[¿?]` (topónimos, fitónimos y apellidos ilegibles) y la
+  tabla de correcciones crudo→limpio.
+
 ## Decisiones y compras de Lucas (mandato 2026-07)
 - **Documento NotebookLM (CAMINO DEL MITO)**: pendiente de entrega. El orden
   vigente (mandato 2026-07-05) es Caleuche → Pincoya → Trauco → Invunche →

@@ -2,6 +2,14 @@
 
 **Dossier de fuente primaria — Recta Provincia.**
 
+> **NOTA CURATORIAL (del equipo editor, no de la fuente).**
+>
+> **Cadena de custodia.** Estas declaraciones no nos llegan directamente del expediente judicial. Los originales del proceso levantado en el Juzgado de Letras de Ancud se dan por **perdidos**. El texto que aquí se transcribe proviene del folleto de Ponce Hermanos (1908), último eslabón de una cadena de copias y reediciones que la tradición hace pasar por manos como las de **Francisco Espech** y **Benjamín Vicuña Mackenna** antes de llegar a esa imprenta. Es decir: leemos una **recreación editorial de 1908 de un documento judicial de 1880**, no el acta original. Ninguna cifra, foja ni fecha se da por documentada más allá de lo que el propio folleto afirma.
+>
+> **Sobre el marco de 1908.** El folleto envuelve las declaraciones en una narración editorial de tono **colonial y racista** (habla de «jente ignorante i malvada», «bajo pueblo sin educacion», «indios supersticiosos»). Ese marco es del editor de 1908, no de los declarantes. **Por eso, en el sitio, se presentan las voces —los testimonios de Mateo Coñuecar y Aurora Quinchem, la letra de la sentencia— y no ese marco.** El marco se conserva en el OCR crudo de `_raw/` por trazabilidad, pero no se reproduce como encuadre.
+>
+> **Estatus del material.** Antecedente histórico y recreación editorial de una fuente judicial; no es tradición documentada ni validación patrimonial. Lo que sigue es transcripción fiel de esa fuente, con su ortografía de época.
+
 **Fuente:** Ponce Hermanos, *Los brujos de Chiloé. Célebre proceso del Juzgado de Ancud. Declaraciones de los reos.* Imprenta i Casa Editora de Ponce Hermanos, calle de Nataniel Cox, número 65, Santiago de Chile, 1908. Digitalizado por la Biblioteca Nacional de Chile — Memoria Chilena, identificador **MC0033459**. Folleto de 43 páginas. URL: <https://www.memoriachilena.gob.cl/archivos2/pdfs/MC0033459.pdf>
 
 Material de dominio público. El OCR crudo íntegro, sin tocar, y el PDF fuente están archivados en [`_raw/`](_raw/) (`proceso-ancud-1880_OCR-crudo.txt`, `MC0033459.pdf`).
