@@ -164,9 +164,9 @@ def img_vars(d):
     return "\n".join(lines)
 
 
-# Dominio de publicación (placeholder; ajustar si el dominio final difiere —
-# ver DEPLOY.md). canonical/og:image requieren URL absoluta para los crawlers.
-SITE = "https://grimoriodelarchipielago.cl/"
+# URL de publicación VIGENTE (GitHub Pages). Al migrar al dominio .cl propio:
+# cambiarla y regenerar (ver DEPLOY.md). canonical/og:image exigen URL absoluta.
+SITE = "https://lukas-paredes.github.io/grimorio-del-archipielago/"
 
 
 def build_meta(d):
@@ -278,6 +278,14 @@ def emit_pendientes(entidades, publicadas):
            "- `camahueto-cierre` vino a mitad de resolución (1376×768, no 2752×1536):",
            "  montada tal cual (sin inventar píxeles); regenerar a resolución completa si se puede.",
            "- Siguen por generar: sigilos, ornamentos, separadores, botones, marco, niebla-capas.",
+           "",
+           "## Frentes del proyecto",
+           "- **Postulación al fondo: ENVIADA / CERRADA — frente congelado.** No regenerar",
+           "  PDFs ni tocar `postulacion/`. El mockup quedó con la sección 11 (equipo de tres)",
+           "  y datos reales de portada. Prioridad única: la plataforma (audio, pulido).",
+           "- **Deploy a GitHub Pages**: parqueado — requiere hacer el repo PÚBLICO (decisión",
+           "  de Lucas; el plan gratuito no sirve Pages en repos privados). URL prevista:",
+           "  `lukas-paredes.github.io/grimorio-del-archipielago` (ya cableada en canonical/og/sitemap).",
            "",
            "## Decisiones y compras de Lucas (mandato 2026-07)",
            "- **Documento NotebookLM (CAMINO DEL MITO)**: pendiente de entrega. El orden",

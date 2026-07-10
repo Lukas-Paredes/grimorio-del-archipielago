@@ -4,4 +4,4 @@ Disallow: /herramientas/
 Disallow: /_handoff/
 Disallow: /legacy/
 
-Sitemap: https://grimoriodelarchipielago.cl/sitemap.xml
+Sitemap: https://lukas-paredes.github.io/grimorio-del-archipielago/sitemap.xml

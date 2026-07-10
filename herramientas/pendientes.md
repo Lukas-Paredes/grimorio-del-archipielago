@@ -93,6 +93,14 @@ Slots de imagen: `hero` (16:9) · `descenso` (9:16) · `cierre` (16:9) · `card`
   montada tal cual (sin inventar píxeles); regenerar a resolución completa si se puede.
 - Siguen por generar: sigilos, ornamentos, separadores, botones, marco, niebla-capas.
 
+## Frentes del proyecto
+- **Postulación al fondo: ENVIADA / CERRADA — frente congelado.** No regenerar
+  PDFs ni tocar `postulacion/`. El mockup quedó con la sección 11 (equipo de tres)
+  y datos reales de portada. Prioridad única: la plataforma (audio, pulido).
+- **Deploy a GitHub Pages**: parqueado — requiere hacer el repo PÚBLICO (decisión
+  de Lucas; el plan gratuito no sirve Pages en repos privados). URL prevista:
+  `lukas-paredes.github.io/grimorio-del-archipielago` (ya cableada en canonical/og/sitemap).
+
 ## Decisiones y compras de Lucas (mandato 2026-07)
 - **Documento NotebookLM (CAMINO DEL MITO)**: pendiente de entrega. El orden
   vigente (mandato 2026-07-05) es Caleuche → Pincoya → Trauco → Invunche →

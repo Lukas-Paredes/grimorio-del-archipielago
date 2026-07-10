@@ -11,3 +11,6 @@ __pycache__/
 
 # Bandeja local de crudos nuevos (los canonicos van a assets/img/_raw/)
 entrada/
+
+# Bandeja local de audio crudo (los finales normalizados van a assets/audio/)
+_entrada-audio/
