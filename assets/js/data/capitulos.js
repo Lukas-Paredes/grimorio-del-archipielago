@@ -19,7 +19,12 @@ window.Grimorio.portada = {
      Invunche → Camahueto (mar → bosque → cueva → desembocadura). Cuando llegue
      el documento bibliográfico (CAMINO-DEL-MITO), el orden se ajusta cambiando
      los `n` y los puentes se cargan en el campo `puente` de cada capítulo
-     ({ texto, fuente }) — todo data-driven, cero HTML. */
+     ({ texto, fuente }) — todo data-driven, cero HTML.
+     MANDATO 2026-07-10 (Recta Provincia, PROVISIONAL y reversible): el bloque
+     de la Recta Provincia se inserta tras el Invunche (piloto: Cueva de
+     Quicaví n:5; Camahueto pasa a n:6). El `n` definitivo espera el
+     CAMINO-DEL-MITO; el Proceso de Ancud irá al final del bloque, como
+     clímax, dentro del MISMO Libro Octavo (no se crea Libro Noveno). */
   actos: [
     // Solo los Libros con capítulos publicados o sellados; agregar actos es gratis.
     // El orden del array sigue la travesía (n del primer capítulo de cada Libro),
@@ -115,8 +120,30 @@ window.Grimorio.portada = {
       brillo: { x: "34%", y: "81%", rx: "10%", ry: "12%", a: 0.3, tipo: "latido" }
     },
     {
+      id: "cueva-quicavi",          // PILOTO Recta Provincia (mandato 2026-07-10)
+      n: 5,                         // PROVISIONAL: tras el Invunche (espera CAMINO-DEL-MITO)
+      acto: "libro-8",
+      nombre: "La Cueva de Quicaví",
+      alias: "La Casa Grande · La Revisoria",   // ALIAS:: del @ENTIDAD (verbatim, unidos con ·)
+      gancho: "La capital de la Recta Provincia. Una cueva oculta en la costa de Quemchi, con letras grabadas que nadie ha podido leer, y el Invunche en la boca.",
+      tags: ["Lugar", "Chilota"],
+      // sin teaser: no se redacta texto nuevo (regla sagrada)
+      verbo: "Entrar",
+      labelSonda: "Quicaví",
+      href: "cueva-quicavi.html",
+      estado: "publicado",
+      atmosfera: "cueva",           // el reino de libro-8; drone mínimo + goteo con eco
+      // sin musica: no existe musica-cueva-quicavi.* — sonido.js lo tolera
+      // (solo atmósfera); si se compone la pista, añadir `musica` aquí.
+      img: "portada-recta-provincia",  // umbral del bloque Recta Provincia (solo se
+                                       // consume si fuera el primer capítulo publicado)
+      ventana: { left: "30%", top: "28%", w: "40%", h: "48%" },
+      ventanaMovil: { left: "14%", top: "24%", w: "66%", h: "42%" },
+      brillo: { x: "50%", y: "56%", rx: "13%", ry: "17%", a: 0.3, tipo: "latido" }
+    },
+    {
       id: "camahueto",
-      n: 5,
+      n: 6,                         // era 5; corre un puesto por el piloto (PROVISIONAL)
       acto: "libro-5",
       nombre: "El Camahueto",
       // sin alias: el @ENTIDAD lo trae vacío (—)
