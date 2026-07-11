@@ -105,6 +105,35 @@ La capa interactiva se denomina «relato interactivo» o «recorrido narrativo»
 - **Cosmología o Relaciones**: lectura interpretativa de vínculos.
 - **Fuentes y Metodología**: trazabilidad, criterios, límites y pendientes.
 
+## Decisiones
+
+Registro de decisiones editoriales/técnicas vigentes (fecha · decisión):
+
+- **2026-07-10 · Doble columna mito‖testimonio**: sección `@TESTIMONIO` aditiva
+  tras flag en la prosa curada; etiqueta curatorial obligatoria («Antecedente
+  histórico — declaración del proceso de Ancud, 1880 (recreación editorial,
+  Ponce Hermanos, 1908)»). Jamás «tradición documentada».
+- **2026-07-10 · El Expediente**: `juicio-1880.html` es página bespoke
+  (excepción declarada, en la lista `BESPOKE` del generador: nunca se
+  regenera). Su texto se deriva del maestro `fuentes/proceso-ancud-1880.md`.
+- **2026-07-11 · Capa Lecturas**: sección `@LECTURAS` («qué dice la academia»)
+  como patrón aditivo tras flag, igual que `@TESTIMONIO`. Solo se publica lo
+  VERIFICADO contra los PDF/txt de `fuentes/_raw/lecturas/`, con
+  (Autor, año, p. X); lo no verificable queda `[por verificar]` y no se monta.
+- **2026-07-11 · El Epílogo del Expediente**: el cierre histórico del capítulo
+  es la absolución de todos los imputados por la Corte de Apelaciones de
+  Concepción (verificada contra Catepillan 2019, p. 93) + la desarticulación.
+  El folleto de 1908 termina en la sentencia; el sitio cuenta el final.
+- **2026-07-11 · Cifras del proceso = VARIANTE**: los números divergen entre
+  fuentes (≈80 Ampuero p. 66 · ≥54 Catepillan p. 92 · 9 condenados Catepillan
+  p. 93 n. 29 · 12 corpus · penas divergentes). Se muestran todas con su
+  fuente; ninguna se zanja.
+- **2026-07-11 · Política de archivo de papers**: los papers académicos van a
+  `fuentes/_raw/lecturas/` como `autor-año-titulo.pdf` + su `.txt` extraído.
+  Si el PDF es un número de revista completo y pesado (caso Ampuero/Mapocho,
+  ~20 MB), se versiona solo el `.txt` del artículo con cabecera de
+  procedencia; el PDF queda referenciado, no versionado.
+
 ## Verificación antes de cerrar una intervención
 
 Revisa como mínimo:
