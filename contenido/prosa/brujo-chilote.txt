@@ -1,0 +1,6 @@
+@DESCRIPCION
+El Brujo chilote no es un monstruo: es una persona —un vecino, un viejo de la isla, alguien que uno saluda en el muelle. Esa es, justamente, su parte más temible. Tiene poderes mágicos y pertenece a una organización secreta. Puede sanar o puede matar, según le paguen y según le plazca. Se le teme y se le respeta por igual.
+
+Los brujos de Chiloé no son un invento puro ni indígena ni europeo: son una mezcla. Su raíz está, por un lado, en personas reales que sabían de medicina natural, de hierbas, de curar; y por otro, en figuras de la tradición mapuche —la machi (sanadora) y sobre todo el calcu (el hechicero que hace daño). A eso se sumaron, con la conquista, las creencias europeas sobre las brujas: el pacto con el Diablo, el vuelo nocturno, el aquelarre. De esa fusión, en el aislamiento de las islas, nació el brujo chilote tal como se le teme hoy.
+@CIERRE
+No es un monstruo: es una persona.

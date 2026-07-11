@@ -1,0 +1,4 @@
+@DESCRIPCION
+Objeto adivinatorio del brujo. Permite saber lo que ocurre en lugares lejanos y conocer el futuro; y revela a la víctima de un maleficio quién fue el brujo que se lo «lanzó». No hay acuerdo sobre qué es: para unos, una batea con agua; para otros, un espejo; para otros, una bola de cristal. Se le llamaba también «la mapa» o «el revisorio».
+@CIERRE
+La Mayoría lo usaba para identificar culpables en sus juicios.

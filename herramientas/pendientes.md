@@ -50,18 +50,18 @@ Slots de imagen: `hero` (16:9) · `lamina` (2:3, retrato) · `descenso` (9:16) �
 | viuda | 08-penas | hero:— lamina:— descenso:— cierre:— card:— | — | — |
 | condena | 08-penas | hero:— lamina:— descenso:— cierre:— card:— | — | — |
 | caballero-de-lata | 08-penas | hero:— lamina:— descenso:— cierre:— card:— | — | — |
-| brujo-chilote | 09-recta-provincia | hero:— lamina:sí descenso:— cierre:— card:— | — | — |
+| brujo-chilote | 09-recta-provincia | hero:— lamina:sí descenso:— cierre:— card:— | sí | sí |
 | machi | 09-recta-provincia | hero:— lamina:— descenso:— cierre:— card:— | — | — |
 | calcu | 09-recta-provincia | hero:— lamina:— descenso:— cierre:— card:— | — | — |
-| recta-provincia | 09-recta-provincia | hero:— lamina:— descenso:— cierre:— card:— | — | — |
+| recta-provincia | 09-recta-provincia | hero:sí lamina:— descenso:— cierre:— card:— | sí | sí |
 | la-mayoria | 09-recta-provincia | hero:— lamina:— descenso:— cierre:— card:— | — | — |
 | siete-republicas | 09-recta-provincia | hero:— lamina:— descenso:— cierre:— card:— | — | — |
-| iniciacion | 09-recta-provincia | hero:— lamina:sí descenso:— cierre:— card:— | — | — |
-| macun | 09-recta-provincia | hero:— lamina:sí descenso:— cierre:— card:— | — | — |
+| iniciacion | 09-recta-provincia | hero:— lamina:sí descenso:— cierre:— card:— | sí | — |
+| macun | 09-recta-provincia | hero:— lamina:sí descenso:— cierre:— card:— | sí | sí |
 | poderes-del-brujo | 09-recta-provincia | hero:— lamina:— descenso:— cierre:— card:— | — | — |
-| challanco | 09-recta-provincia | hero:— lamina:sí descenso:— cierre:— card:— | — | — |
+| challanco | 09-recta-provincia | hero:— lamina:sí descenso:— cierre:— card:— | sí | sí |
 | invunche | 09-recta-provincia | hero:sí lamina:— descenso:sí cierre:sí card:— | sí | sí |
-| voladora | 09-recta-provincia | hero:— lamina:sí descenso:— cierre:— card:— | — | — |
+| voladora | 09-recta-provincia | hero:— lamina:sí descenso:— cierre:— card:— | sí | sí |
 | cueva-quicavi | 09-recta-provincia | hero:— lamina:sí descenso:— cierre:— card:— | sí | sí |
 | libro-de-moraleda | 09-recta-provincia | hero:— lamina:— descenso:— cierre:— card:— | — | — |
 | juicio-1880 | 09-recta-provincia | hero:sí lamina:— descenso:— cierre:— card:— | — | — |
@@ -78,9 +78,9 @@ Slots de imagen: `hero` (16:9) · `lamina` (2:3, retrato) · `descenso` (9:16) �
 
 ## Resumen
 - Entidades: **68**
-- Publicadas: **6**
-- Con prosa curada: **6**
-- Con hero: **6**
+- Publicadas: **11**
+- Con prosa curada: **12**
+- Con hero: **7**
 
 ## Pendiente de imágenes (Gemini)
 - `portada-invunche` y `portada-camahueto` (fondo de umbral de sus capítulos)

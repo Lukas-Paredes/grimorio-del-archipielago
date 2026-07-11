@@ -135,15 +135,117 @@ window.Grimorio.portada = {
       atmosfera: "cueva",           // el reino de libro-8; drone mínimo + goteo con eco
       // sin musica: no existe musica-cueva-quicavi.* — sonido.js lo tolera
       // (solo atmósfera); si se compone la pista, añadir `musica` aquí.
-      img: "portada-recta-provincia",  // umbral del bloque Recta Provincia (solo se
-                                       // consume si fuera el primer capítulo publicado)
+      img: "recta-provincia-hero",     // umbral del bloque Recta Provincia (renombrada de
+                                       // portada-recta-provincia: ahora es también el hero
+                                       // de la ficha recta-provincia; solo se consume aquí
+                                       // si fuera el primer capítulo publicado)
       ventana: { left: "30%", top: "28%", w: "40%", h: "48%" },
       ventanaMovil: { left: "14%", top: "24%", w: "66%", h: "42%" },
       brillo: { x: "50%", y: "56%", rx: "13%", ry: "17%", a: 0.3, tipo: "latido" }
     },
     {
+      id: "recta-provincia",        // hub del bloque Recta Provincia (mandato 2026-07-10)
+      n: 6,                         // PROVISIONAL (espera CAMINO-DEL-MITO)
+      acto: "libro-8",
+      nombre: "La Recta Provincia",
+      alias: "La Mayoría · El Tribunal de la Raza Indígena",  // ALIAS:: del @ENTIDAD (verbatim)
+      gancho: "Un Estado dentro del Estado. Un gobierno en la sombra, con rey, leyes, tribunales y territorio propios, que durante un siglo gobernó Chiloé.",
+      tags: ["Relato", "Chilota"],
+      // sin teaser: no se redacta texto nuevo (regla sagrada)
+      verbo: "Descubrir",
+      labelSonda: "Recta Provincia",
+      href: "recta-provincia.html",
+      estado: "publicado",
+      atmosfera: "cueva",           // el reino de libro-8
+      // sin musica: no existe la pista — sonido.js lo tolera (solo atmósfera)
+      img: "recta-provincia-hero",
+      ventana: { left: "28%", top: "26%", w: "44%", h: "48%" },
+      ventanaMovil: { left: "12%", top: "22%", w: "70%", h: "42%" },
+      brillo: { x: "50%", y: "52%", rx: "14%", ry: "18%", a: 0.3, tipo: "latido" }
+    },
+    {
+      id: "brujo-chilote",
+      n: 7,                         // PROVISIONAL
+      acto: "libro-8",
+      nombre: "El Brujo chilote",
+      alias: "El Brujo de Chiloé",  // ALIAS:: del @ENTIDAD (verbatim)
+      gancho: "No es un monstruo: es una persona, un vecino, un viejo de la isla a quien uno saluda en el muelle. Esa es su parte más temible.",
+      tags: ["Brujo humano", "Chilota"],
+      // sin teaser: no se redacta texto nuevo (regla sagrada)
+      verbo: "Conocer",
+      labelSonda: "Brujo",
+      href: "brujo-chilote.html",
+      estado: "publicado",
+      atmosfera: "cueva",
+      // sin musica: no existe la pista — sonido.js lo tolera (solo atmósfera)
+      img: "brujo-chilote-lamina",  // PROVISIONAL como imagen de umbral (lámina 2:3)
+      ventana: { left: "34%", top: "22%", w: "32%", h: "56%" },
+      ventanaMovil: { left: "18%", top: "20%", w: "62%", h: "48%" },
+      brillo: { x: "50%", y: "44%", rx: "12%", ry: "16%", a: 0.28, tipo: "latido" }
+    },
+    {
+      id: "macun",
+      n: 8,                         // PROVISIONAL
+      acto: "libro-8",
+      nombre: "El Macuñ",
+      alias: "Macuñ · chaleco de brujo",  // ALIAS:: del @ENTIDAD (verbatim)
+      gancho: "Un chaleco hecho con la piel del pecho de un muerto, que alumbra como un farol y permite al brujo volar.",
+      tags: ["Objeto mágico", "Chilota"],
+      // sin teaser: no se redacta texto nuevo (regla sagrada)
+      verbo: "Examinar",
+      labelSonda: "Macuñ",
+      href: "macun.html",
+      estado: "publicado",
+      atmosfera: "cueva",
+      // sin musica: no existe la pista — sonido.js lo tolera (solo atmósfera)
+      img: "macun-lamina",          // PROVISIONAL como imagen de umbral (lámina 2:3)
+      ventana: { left: "36%", top: "24%", w: "28%", h: "52%" },
+      ventanaMovil: { left: "20%", top: "22%", w: "60%", h: "46%" },
+      brillo: { x: "50%", y: "48%", rx: "11%", ry: "15%", a: 0.3, tipo: "latido" }
+    },
+    {
+      id: "challanco",
+      n: 9,                         // PROVISIONAL
+      acto: "libro-8",
+      nombre: "El Challanco",
+      alias: "La mapa · el revisorio",  // ALIAS:: del @ENTIDAD (verbatim)
+      gancho: "El objeto con que el brujo ve lo que pasa lejos, conoce el futuro y descubre quién lanzó un maleficio.",
+      tags: ["Objeto mágico", "Chilota"],
+      // sin teaser: no se redacta texto nuevo (regla sagrada)
+      verbo: "Mirar",
+      labelSonda: "Challanco",
+      href: "challanco.html",
+      estado: "publicado",
+      atmosfera: "cueva",
+      // sin musica: no existe la pista — sonido.js lo tolera (solo atmósfera)
+      img: "challanco-lamina",      // PROVISIONAL como imagen de umbral (lámina 2:3)
+      ventana: { left: "36%", top: "26%", w: "28%", h: "50%" },
+      ventanaMovil: { left: "20%", top: "24%", w: "60%", h: "44%" },
+      brillo: { x: "50%", y: "50%", rx: "11%", ry: "15%", a: 0.3, tipo: "latido" }
+    },
+    {
+      id: "voladora",
+      n: 10,                        // PROVISIONAL
+      acto: "libro-8",
+      nombre: "La Voladora",
+      // sin alias: el @ENTIDAD lo trae vacío (—)
+      gancho: "Para poder volar, vomita sus propias entrañas y las deja en una fuente. Convertida en pájaro, sale a llevar los mensajes de los brujos.",
+      tags: ["Aire", "Ave bruja", "Chilota"],
+      // sin teaser: no se redacta texto nuevo (regla sagrada)
+      verbo: "Avistar",
+      labelSonda: "Voladora",
+      href: "voladora.html",
+      estado: "publicado",
+      atmosfera: "cueva",           // coherencia del bloque libro-8 (ajustable en una línea)
+      // sin musica: no existe la pista — sonido.js lo tolera (solo atmósfera)
+      img: "voladora-lamina",       // PROVISIONAL como imagen de umbral (lámina 2:3)
+      ventana: { left: "34%", top: "20%", w: "32%", h: "54%" },
+      ventanaMovil: { left: "18%", top: "18%", w: "62%", h: "48%" },
+      brillo: { x: "50%", y: "42%", rx: "12%", ry: "16%", a: 0.28, tipo: "latido" }
+    },
+    {
       id: "camahueto",
-      n: 6,                         // era 5; corre un puesto por el piloto (PROVISIONAL)
+      n: 12,                        // era 5→6; el bloque Recta Provincia (n:5-11) va antes (PROVISIONAL)
       acto: "libro-5",
       nombre: "El Camahueto",
       // sin alias: el @ENTIDAD lo trae vacío (—)
