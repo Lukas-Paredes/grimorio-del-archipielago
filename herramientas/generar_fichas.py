@@ -165,8 +165,14 @@ def img_vars(d):
         lines.append('    --img-fondo: none;                                  /* sin imagen de mar; solo penumbra */')
     if has("descenso"):
         lines.append('    --img-descenso: %s;' % image_set(idc + "-descenso"))
+    elif reino and reino != "mar":
+        # Sin arte propio y fuera del mar: nada de naufragio heredado
+        # (fondo-abismo es escenografía del reino mar) — degradado abisal neutro.
+        lines.append('    --img-descenso: none;                               /* sin naufragio; degradado abisal neutro */')
     if has("cierre"):
         lines.append('    --img-cierre: %s;' % image_set(idc + "-cierre"))
+    elif reino and reino != "mar":
+        lines.append('    --img-cierre: none;                                 /* sin lecho marino; degradado abisal neutro */')
     return "\n".join(lines)
 
 
