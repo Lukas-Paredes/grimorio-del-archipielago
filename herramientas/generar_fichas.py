@@ -36,6 +36,12 @@ PENDIENTES = os.path.join(ROOT, "herramientas", "pendientes.md")
 
 SLOTS_IMG = ["hero", "lamina", "descenso", "cierre", "card"]
 
+# ── Páginas bespoke (excepción declarada · mandato 2026-07-10) ─────────────────
+# Viven en publicadas.txt para que las vitrinas las enlacen y figuren como
+# publicadas, pero su HTML se escribe A MANO y el generador NUNCA lo emite
+# (protege la página de una regeneración accidental).
+BESPOKE = {"juicio-1880"}
+
 # ── Vitrina del capítulo (mandato Recta Provincia 2026-07-10) ──────────────────
 # Piezas SIN parada propia en el descenso, montadas dentro del hub de su
 # capítulo: se embebe el bloque @ENTIDAD VERBATIM (+ su prosa curada si
@@ -358,9 +364,13 @@ def emit_pendientes(entidades, publicadas):
            "  Doble columna mito‖testimonio vía `@TESTIMONIO` (flag aditivo);",
            "  «El Expediente» = página bespoke `juicio-1880.html`; slot `lamina` 2:3;",
            "  `recogida.png` FUERA (ilustra la orden del intendente, sin fuente 1908).",
-           "- **PILOTO montado: cueva-quicavi** (ficha plena + lámina + doble columna,",
-           "  n provisional tras Invunche). Pendiente QA de Lucas; con su «dale» siguen",
-           "  las otras 5 plenas → vitrina → Expediente.",
+           "- **CAPÍTULO COMPLETO MONTADO (piloto aprobado 2026-07-10):** paradas V-XI",
+           "  (cueva-quicavi, recta-provincia, brujo-chilote, macun, challanco,",
+           "  voladora, juicio-1880) + vitrina de 7 piezas en el hub recta-provincia +",
+           "  «El Expediente» (juicio-1880.html, bespoke, en la lista BESPOKE del",
+           "  generador). Pendiente: QA de Lucas del capítulo completo; su cotejo de",
+           "  las marcas [¿?] contra el PDF sigue pendiente antes de publicar a",
+           "  producción; `n` definitivo espera CAMINO-DEL-MITO.",
            "- **Vacío de fuente (no inventar):** la «orden de recogida» del intendente",
            "  Martiniano Rodríguez NO aparece en el folleto de 1908. El dossier transcribe",
            "  el marco procesal que sí existe (el juez letrado de Ancud levantó el proceso,",
@@ -435,6 +445,8 @@ def main():
     plantilla = rd(PLANTILLA)
     hechas = []
     for idc in objetivo:
+        if idc in BESPOKE:
+            print("  BESPOKE %s: página a mano, no se regenera." % idc); continue
         if idc not in raw_by_id:
             print("  SALTO %s: no está en el .txt." % idc); continue
         d = next(e for e in entidades if e["id"] == idc)

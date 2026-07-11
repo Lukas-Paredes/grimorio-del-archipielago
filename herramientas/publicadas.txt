@@ -10,4 +10,5 @@ brujo-chilote
 macun
 challanco
 voladora
+juicio-1880
 camahueto

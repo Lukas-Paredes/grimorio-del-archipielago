@@ -64,7 +64,7 @@ Slots de imagen: `hero` (16:9) · `lamina` (2:3, retrato) · `descenso` (9:16) �
 | voladora | 09-recta-provincia | hero:— lamina:sí descenso:— cierre:— card:— | sí | sí |
 | cueva-quicavi | 09-recta-provincia | hero:— lamina:sí descenso:— cierre:— card:— | sí | sí |
 | libro-de-moraleda | 09-recta-provincia | hero:— lamina:— descenso:— cierre:— card:— | — | — |
-| juicio-1880 | 09-recta-provincia | hero:sí lamina:— descenso:— cierre:— card:— | — | — |
+| juicio-1880 | 09-recta-provincia | hero:sí lamina:— descenso:— cierre:— card:— | — | sí |
 | muelle-de-las-almas | 10-lugares | hero:— lamina:— descenso:— cierre:— card:— | — | — |
 | cucao | 10-lugares | hero:— lamina:— descenso:— cierre:— card:— | — | — |
 | quicavi | 10-lugares | hero:— lamina:— descenso:— cierre:— card:— | — | — |
@@ -78,7 +78,7 @@ Slots de imagen: `hero` (16:9) · `lamina` (2:3, retrato) · `descenso` (9:16) �
 
 ## Resumen
 - Entidades: **68**
-- Publicadas: **11**
+- Publicadas: **12**
 - Con prosa curada: **12**
 - Con hero: **7**
 
@@ -115,9 +115,13 @@ Slots de imagen: `hero` (16:9) · `lamina` (2:3, retrato) · `descenso` (9:16) �
   Doble columna mito‖testimonio vía `@TESTIMONIO` (flag aditivo);
   «El Expediente» = página bespoke `juicio-1880.html`; slot `lamina` 2:3;
   `recogida.png` FUERA (ilustra la orden del intendente, sin fuente 1908).
-- **PILOTO montado: cueva-quicavi** (ficha plena + lámina + doble columna,
-  n provisional tras Invunche). Pendiente QA de Lucas; con su «dale» siguen
-  las otras 5 plenas → vitrina → Expediente.
+- **CAPÍTULO COMPLETO MONTADO (piloto aprobado 2026-07-10):** paradas V-XI
+  (cueva-quicavi, recta-provincia, brujo-chilote, macun, challanco,
+  voladora, juicio-1880) + vitrina de 7 piezas en el hub recta-provincia +
+  «El Expediente» (juicio-1880.html, bespoke, en la lista BESPOKE del
+  generador). Pendiente: QA de Lucas del capítulo completo; su cotejo de
+  las marcas [¿?] contra el PDF sigue pendiente antes de publicar a
+  producción; `n` definitivo espera CAMINO-DEL-MITO.
 - **Vacío de fuente (no inventar):** la «orden de recogida» del intendente
   Martiniano Rodríguez NO aparece en el folleto de 1908. El dossier transcribe
   el marco procesal que sí existe (el juez letrado de Ancud levantó el proceso,

@@ -1,0 +1,334 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>El juicio de Ancud de 1880 · El Grimorio del Archipiélago</title>
+<meta name="description" content="El proceso judicial de 1880 contra más de treinta brujos por asociación ilícita, que documentó la estructura de la Recta Provincia y marcó su caída.">
+<meta name="theme-color" content="#02060c">
+<link rel="canonical" href="https://lukas-paredes.github.io/grimorio-del-archipielago/juicio-1880.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="El juicio de Ancud de 1880">
+<meta property="og:description" content="El proceso judicial de 1880 contra más de treinta brujos por asociación ilícita, que documentó la estructura de la Recta Provincia y marcó su caída.">
+<meta property="og:image" content="https://lukas-paredes.github.io/grimorio-del-archipielago/assets/img/juicio-1880-hero.png">
+<meta property="og:locale" content="es_CL">
+<meta name="twitter:card" content="summary_large_image">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "CreativeWork",
+  "name": "El juicio de Ancud de 1880",
+  "inLanguage": "es-CL",
+  "description": "El proceso judicial de 1880 contra más de treinta brujos por asociación ilícita, que documentó la estructura de la Recta Provincia y marcó su caída.",
+  "isPartOf": {
+    "@type": "WebSite",
+    "name": "El Grimorio del Archipiélago"
+  },
+  "citation": [
+    "Los brujos de Chiloé. Célebre proceso del Juzgado de Ancud (Ponce Hermanos, 1908; Memoria Chilena MC0033459)",
+    "Los brujos de Chiloé: documentos de un proceso judicial (2018)",
+    "crónicas del Proceso de Ancud"
+  ]
+}
+</script>
+<link rel="icon" type="image/svg+xml" href="assets/icons/favicon.svg">
+<link rel="icon" type="image/png" sizes="192x192" href="assets/icons/icon-192.png">
+<link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png">
+
+<!-- Preferencias ANTES del primer frame: pausa de movimiento (grimorio:motion /
+     reduced-motion) y velo de bruma si venimos de otra página del camino.
+     Idéntico en todas las páginas del sistema nuevo. -->
+<script>
+(function () {
+  try {
+    var m = localStorage.getItem("grimorio:motion");
+    var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (m === "off" || (m === null && reduce)) {
+      document.documentElement.classList.add("motion-off");
+    }
+    if (sessionStorage.getItem("grimorio:bruma") === "1") {
+      document.documentElement.classList.add("bruma-in");
+    }
+  } catch (e) {}
+})();
+</script>
+
+<link rel="preload" as="font" type="font/woff2" href="assets/fonts/jacquard24-latin.woff2" crossorigin>
+<link rel="preload" as="font" type="font/woff2" href="assets/fonts/eb-garamond-latin.woff2" crossorigin>
+<link rel="stylesheet" href="assets/css/fuentes.css">
+
+<link rel="stylesheet" href="assets/css/ficha.css">
+<link rel="stylesheet" href="assets/css/camino.css">
+<link rel="stylesheet" href="assets/css/expediente.css">
+
+<style>
+  body {
+    --img-fondo: none;                                  /* sin imagen de mar; solo penumbra */
+    --img-cierre: none;                                 /* sin lecho marino; degradado abisal neutro */
+  }
+</style>
+
+<!-- PÁGINA BESPOKE (excepción declarada · mandato Recta Provincia 2026-07-10).
+     «El Expediente»: NO la genera herramientas/generar_fichas.py (está en su
+     lista BESPOKE) ni usa ficha.js. El texto de las placas se transcribe del
+     MAESTRO fuentes/proceso-ancud-1880.md (verbatim, ortografía de época,
+     marcas [¿?] tal cual). Para editar el contenido: editar el maestro y
+     re-derivar; no editar las citas a mano aquí. -->
+</head>
+
+<body data-entity="juicio-1880">
+
+<!-- Fondo abisal fijo + overlay de legibilidad (de ficha.css) -->
+<div class="abyss" aria-hidden="true">
+  <div class="abyss__sea"></div>
+  <div class="abyss__veil"></div>
+</div>
+
+<main id="ficha">
+
+  <!-- ════════ HERO · el expediente se abre ════════ -->
+  <header class="hero" aria-labelledby="hero-name">
+    <div class="hero__art">
+      <picture>
+        <source srcset="assets/img/juicio-1880-hero.webp" type="image/webp">
+        <img src="assets/img/juicio-1880-hero.png" alt="El proceso judicial de 1880 contra más de treinta brujos por asociación ilícita, que documentó la estructura de la Recta Provincia y marcó su caída." onerror="this.classList.add('is-missing')">
+      </picture>
+    </div>
+    <div class="hero__lantern" aria-hidden="true"></div>
+    <div class="hero__edges" aria-hidden="true"></div>
+
+    <div class="fog hero__fog" aria-hidden="true">
+      <span class="fog__layer fog__layer--1"></span>
+      <span class="fog__layer fog__layer--2"></span>
+      <span class="fog__layer fog__layer--3"></span>
+    </div>
+
+    <div class="hero__portal" aria-hidden="true"><span></span></div>
+
+    <div class="hero__copy">
+      <p class="hero__eyebrow" id="hero-cat">Recta Provincia · El Expediente</p>
+      <h1 class="hero__name" id="hero-name">El juicio de Ancud de 1880</h1>
+      <p class="hero__alias" id="hero-alias">El Proceso de Ancud</p>
+    </div>
+
+    <a class="hero__cue" href="#expediente" aria-label="Descender al expediente">
+      <span>desciende</span>
+      <span class="hero__chev" aria-hidden="true"><img class="hero__plomada" src="assets/img/indicador-plomada.png" alt="" width="19" height="48" decoding="async"></span>
+    </a>
+  </header>
+
+  <!-- ════════ EL EXPEDIENTE ════════ -->
+  <div class="scroll">
+
+    <!-- Gancho: epígrafe (VERBATIM del @ENTIDAD juicio-1880) -->
+    <section class="movement movement--gancho">
+      <p class="gancho">El día que el Estado de Chile entró a la cueva: llevó a los brujos a juicio, y lo que era rumor se volvió expediente.</p>
+    </section>
+
+    <div id="expediente">
+<!-- FRAGMENTO GENERADO desde fuentes/proceso-ancud-1880.md (maestro) -->
+<aside class="expediente__nota" role="note">
+  <span class="expediente__nota-label">Nota curatorial</span>
+      <p><strong>NOTA CURATORIAL (del equipo editor, no de la fuente).</strong></p>
+      <p><strong>Cadena de custodia.</strong> Estas declaraciones no nos llegan directamente del expediente judicial. Los originales del proceso levantado en el Juzgado de Letras de Ancud se dan por <strong>perdidos</strong>. El texto que aquí se transcribe proviene del folleto de Ponce Hermanos (1908), último eslabón de una cadena de copias y reediciones que la tradición hace pasar por manos como las de <strong>Francisco Espech</strong> y <strong>Benjamín Vicuña Mackenna</strong> antes de llegar a esa imprenta. Es decir: leemos una <strong>recreación editorial de 1908 de un documento judicial de 1880</strong>, no el acta original. Ninguna cifra, foja ni fecha se da por documentada más allá de lo que el propio folleto afirma.</p>
+      <p><strong>Sobre el marco de 1908.</strong> El folleto envuelve las declaraciones en una narración editorial de tono <strong>colonial y racista</strong> (habla de «jente ignorante i malvada», «bajo pueblo sin educacion», «indios supersticiosos»). Ese marco es del editor de 1908, no de los declarantes. <strong>Por eso, en el sitio, se presentan las voces —los testimonios de Mateo Coñuecar y Aurora Quinchem, la letra de la sentencia— y no ese marco.</strong> El marco se conserva en el OCR crudo de _raw/ por trazabilidad, pero no se reproduce como encuadre.</p>
+      <p><strong>Estatus del material.</strong> Antecedente histórico y recreación editorial de una fuente judicial; no es tradición documentada ni validación patrimonial. Lo que sigue es transcripción fiel de esa fuente, con su ortografía de época.</p>
+</aside>
+<!-- ══ BLOQUE A ══ -->
+<section class="placa" id="bloque-a">
+  <div class="placa__panel">
+    <span class="pr tl" aria-hidden="true"></span><span class="pr tr" aria-hidden="true"></span><span class="pr bl" aria-hidden="true"></span><span class="pr br" aria-hidden="true"></span>
+    <svg class="placa__lacre" viewBox="0 0 64 64" aria-hidden="true">
+      <path d="M32 4c8 0 15 3 20 8s8 12 8 20-2 15-7 20-13 8-21 8-15-2-20-7S4 41 4 33s3-16 8-21 12-8 20-8z" fill="#6e3120"/>
+      <path d="M32 9c7 0 13 2 17 7s7 9 7 16-2 12-6 16-11 7-18 7-13-2-17-6-7-10-7-17 2-12 7-16 10-7 17-7z" fill="#8a3a26"/>
+      <path d="M32 17l3.6 10.4L46 31l-10.4 3.6L32 45l-3.6-10.4L18 31l10.4-3.6z" fill="#f2b65a" opacity="0.92"/>
+    </svg>
+    <h2 class="placa__titulo">A. Marco del proceso</h2>
+      <aside class="expediente__nota expediente__nota--bloque" role="note">
+        <span class="expediente__nota-label">Advertencia del aparato editorial</span>
+        <p>La «orden de recogida» del intendente Martiniano Rodríguez <strong>no aparece en esta fuente</strong>: el folleto de 1908 contiene el marco editorial, las declaraciones de los reos y la sentencia, pero no una orden de la Intendencia. Lo único que la fuente aporta como marco procesal es que el proceso lo levantó el <strong>juez letrado de Ancud</strong> en febrero de 1880. Si esa pieza existe, proviene de otro eslabón de la cadena de custodia y queda pendiente de una fuente aparte.</p>
+      </aside>
+      <p class="placa__apunte">Portada del folleto (verbatim):</p>
+      <blockquote class="placa__cita">
+        <p>LOS BRUJOS DE CHILOÉ. Célebre Proceso del Juzgado de Ancud. Declaraciones de los reos.</p>
+        <p>Imprenta i Casa Editora de Ponce Hermanos. Calle de Nataniel Cox, número 65. Santiago de Chile. 1908.</p>
+      </blockquote>
+      <p class="placa__apunte">Título de sección: <strong>Los brujos de Chiloé — Su verdadera historia. Un espediente judicial.</strong></p>
+      <p class="placa__apunte">Marco procesal, párrafo de presentación (verbatim):</p>
+      <blockquote class="placa__cita">
+        <p>Pero llegó la época en que la autoridad de Chiloé descubrió todo, i la terrible sociedad fue llevada ante la justicia donde sus embustes i pamplinas no le sirvieron de nada. En efecto, el juez letrado de Ancud levantó un severo proceso a dichos brujos allá por Febrero de 1880.</p>
+        <p>Las declaraciones de los hechiceros mismos de esos hombres temibles i [¿sombríos?] convertidos en tímidas ovejas ante el juez, dan completa luz sobre las hazañas monstruosas de la sociedad titulada «La Recta Providencia» que reinaba secretamente con un personal disciplinado i numeroso.</p>
+        <p>Lo que se va a leer es un verdadero espediente cuyo orijinal existe en el juzgado de letras de Ancud.</p>
+        <p>En cada declaración se detallan las estravagancias maliciosas de que se valían los tales brujos para engañar a los ignorantes i en particular a los pobres indios.</p>
+      </blockquote>
+      <footer class="placa__fuente">⚓ FUENTE:: Ponce Hermanos, <em>Los brujos de Chiloé. Célebre proceso del Juzgado de Ancud</em>, Santiago, 1908 (marco editorial, pp. iniciales). Memoria Chilena, Biblioteca Nacional de Chile, MC0033459 — <a href="https://www.memoriachilena.gob.cl/archivos2/pdfs/MC0033459.pdf" target="_blank" rel="noopener noreferrer">https://www.memoriachilena.gob.cl/archivos2/pdfs/MC0033459.pdf</a></footer>
+  </div>
+</section>
+<!-- ══ BLOQUE B ══ -->
+<section class="placa" id="bloque-b">
+  <div class="placa__panel">
+    <span class="pr tl" aria-hidden="true"></span><span class="pr tr" aria-hidden="true"></span><span class="pr bl" aria-hidden="true"></span><span class="pr br" aria-hidden="true"></span>
+    <svg class="placa__lacre" viewBox="0 0 64 64" aria-hidden="true">
+      <path d="M32 4c8 0 15 3 20 8s8 12 8 20-2 15-7 20-13 8-21 8-15-2-20-7S4 41 4 33s3-16 8-21 12-8 20-8z" fill="#6e3120"/>
+      <path d="M32 9c7 0 13 2 17 7s7 9 7 16-2 12-6 16-11 7-18 7-13-2-17-6-7-10-7-17 2-12 7-16 10-7 17-7z" fill="#8a3a26"/>
+      <path d="M32 17l3.6 10.4L46 31l-10.4 3.6L32 45l-3.6-10.4L18 31l10.4-3.6z" fill="#f2b65a" opacity="0.92"/>
+    </svg>
+    <h2 class="placa__titulo">B. Declaración de Mateo Coñuecar (Rei de Santiago — Tenaun)</h2>
+      <blockquote class="placa__cita">
+        <p>En Ancud a veinte i seis de Marzo de mil ochocientos ochenta, el señor juez hizo ocurrir a la presencia judicial, a Mateo Coñuecar, el que bajo promesa de decir verdad espuso: Que es natural de Tenaun (*) en este departamento, casado, de setenta años, agricultor, i no sabe leer i escribir i nunca ha estado preso. Que ahora está por creérsele complicado en varios crímenes que se están averiguando.</p>
+        <p>Que cuando tenia cuarenta años i estando para morir su hermano Andrés Coñuecar, que tenia el titulo de «[¿Comandante?] de la Tierra» en la institución de hechiceros indíjenas que se conocen con el nombre de brujos, le aconsejó que entrara a esa institucion para defenderse de los demas, porque era cosa que le convenia i que no lo comprometía.</p>
+        <p>El aceptó i su mismo hermano lo llevó donde Juan Quinchepane que se titulaba tambien «Comandante de la Recta Provincia.» Su hermano hizo presente a éste de que llevaba al declarante porque trataba de entrar a esa institución i que si queria lo aceptaba, porque él tambien pronto iba a morir por la vejez en que se hallaba.</p>
+        <p>Quinchepane lo aceptó, porque dijo que le hacían falta hombres para el consejo. Ninguno mas estaba presente i fue en la misma casa de Quinchepane donde tuvo lugar su recibimiento. Esto se verificó de esta manera:</p>
+        <p>Le hicieron hacer la señal de la cruz i Quinchepane le interrogó: «¿Jura usted por indíjena?» El declarante contestó que «sí juraba.» En seguida le hicieron hacer la promesa de no decir nada de lo que viera, de no divulgar los secretos, de prestar consejo cuando lo exija i de cumplir estrictamente las ordenes que se le den, amenazándolo con perder la vida [¿en caso de faltar a alguna?] de estas promesas. Quedó así agregado a la dicha institucion, la cual se conoce entre ellos con el nombre de la «Recta Provincia,» i desde luego se le dió el titulo de Consejero.</p>
+        <p>Antes de continuar adelante e interrogado por el señor juez sobre el oríjen de esa asociacion, espuso: Que por la tradición i por habérselo oido a su padre i a otros mas, que ya son muertos, sabe que en un tiempo de que no se tiene noticia, pero ya en la dominacion española, llegó a Payos en un buque de esta nacion un individuo apellidado Moraleda, con el objeto de conseguir algunos naturales para llevar a la península. No consiguió ninguno en ese lugar, por cuya causa se vino a Tenaun, donde tampoco encontró indios que lo siguieran.</p>
+        <p>En ese punto se presentó Moraleda haciendo ver que era hechicero, trasformándose en pescado, lobo, palomo i en otros animales, mostrando por ello que por tal causa debian seguirlo los indios. Casualmente en el mismo punto habia una mujer llamada o apellidada Chillpila residente en Quetalco, (<em>) que tenia fama de hechicera i los mismos indios la buscaron para hacerla competir con Moraleda. Entre las varias pruebas que hizo ésta, consiguió dejar en seco el buque de Moraleda en el mismo punto donde se hallaba anclado, i despues ponerlo a flote. Moraleda con esto se dió por vencido i, en señal de reconocimiento, regaló a la Chillpila un libro de hechicerías para que enseñara a los demás indíjenas. Moraleda se retiró de ahí, recalando en Quicaví (</em>) como de paso, i dejando a este mismo lugar con el nombre de España i Lima.</p>
+        <p>La Chillpila llevó el libro a Quicaví para que aprendieran los indíjenas i de ahí se organizaron las asociaciones en que ahora figura el declarante. Cree si, que aun ántes de la llegada de Moraleda existian brujos en Chiloé, pero de la única de quien queda conocimiento por la tradición es de la ya nombrada Chillpila. Advierte tambien que es tradicion que la Sociedad que fundó esta mujer no tenia todo el carácter perverso que se le ha llegado a dar, pues en el tiempo trascurrido se han ido haciendo innovaciones, como ser las sentencias que se espiden para dar muerte o para hacer sufrir de otro modo a las personas. No tiene conocimiento de los individuos que han hecho esas innovaciones, i el declarante no ha llevado a cabo ninguna desde que ha recibido el puesto que tiene.</p>
+        <p>El libro que dejó Moraleda existe todavia i se han sucedido en tenerlo los jefes de la «Recta Provincia» que habian en Quicaví, de cuyo punto los indíjenas no permitian lo llevaran a ninguna parte. Ese libro lo tiene ahora el declarante i lo dejó encargado en Tenaun, a Benito Nancuante que se lo pidió para aprender la brujería. El libro es impreso i tiene tapas de cartón forradas en cuero. En el mismo Quicaví los indíjenas desde un tiempo mui remoto, pero que debe guardar cierta conformidad con la llegada de la Chillpila a Quicaví, construyeron una casa subterránea que todos la denominan con el nombre de la «Cueva de Quicaví».</p>
+        <p>Esta cueva se halla situada en una quebrada inmediata a la casa en que vivió el finado José Merimañ, de donde hai un camino para llegar a ella. De la casa donde vive Aurora Quinchem tambien parte otro camino que deja la cueva a la derecha como a distancia de cuarenta metros.</p>
+        <p>Esa habitación adentro está enmaderada, tiene una mesa, cuatro sillas principales i tres bancos de madera. Ahora veinte años i cuando era Rei José Merimañ, se le ordenó fuera a dicha cueva para llevarle carne a unos animales que habian dentro de ella. Cumplió la órden, llevándoles carne de un cabrito que degolló.</p>
+        <p>Merimañ lo acompañó i al llegar a la cueva, éste comenzó a dar unos saltos que acostumbran los brujos i en seguida abrió la puerta. Esta se hallaba cubierta con una capa de tierra i césped con pasto para ocultarla; despues se encontraba una chapa que tenia llave de alquimia. Se valió de esta para abrirla i luego vinieron de adentro dos seres completamente desfigurados que se parecía el uno a un chibato (porque tambien se arrastraba), el otro era un hombre desnudo i con barba i el pelo que le llegaba a la mitad del cuerpo era completamente blanco. A este último lo conocian con el nombre de «Ibunche» i a aquel con el de «Chibato». Este tambien tenia el pelo i la barba blancas i mui largas, i su cuerpo lo tenia cubierto de una especie de cerda que le habian hecho salir con la yerba Picochihuín que se halla en los «Traigunus» o saltos de agua, con la cual le hacían fricciones i tambien se la hacian beber, sacándole el zumo de las hojas. Ambos entónces aparentaban tener como cincuenta años, i desde la fundación de la cueva existían esos individuos, reemplazándolos por otros cuando ellos morian.</p>
+        <p>El medio como los adquirian era: se reunia el consejo i determinaban las personas que debian ser Ibunche i Chibato i aun cuando ellos no quisieran, los tomaban por la fuerza i los encerraban en la cueva. Ahí los acostumbraban a vivir como era la costumbre, sin permitir que salieran a ninguna parte i manteniéndolos con carne de chibato, de cabrito o de niños difuntos que robaban en el panteon para llevarles continuamente. La bebida que les daban era agua de picochihuín. Asi acostumbraban a esos individuos a desempeñar el papel que quisieran i les enseñaban a hacer unos saltos o brincos.</p>
+        <p>De esta manera permanecian encerrados i solo ya cuando estaban convencidos de que no se irian a ninguna parte i que se les amenazaba con la vida si se arrancaban, les daban de cuando en cuando permiso para que salieran de noche a divertirse. (Llama a esto el que estuvieran en libertad i que en la pampa dieran sus brincos i se pusieran a gritar como chibatos.) Tienen la creencia de que esos dos seres ya no son cristianos sino el diablo, por lo cual tambien nunca les llevan sino carne de cabro, que creen es del afecto de este último.</p>
+        <p>Dos veces no mas le llevó carne de cabrito al «Chibato» i al «Ibunche», a los cuales los vió en otra ocasion en que tuvieron consejo en la misma cueva José Merimañ, José Quinchipane i el declarante. Merimañ i Quinchepane trataban de quitar la vida a Eusebio Pinda en [¿Tuevigüe?] porque tenia muchos viveres i no les daba a ellos. El declarante se opuso a la determinacion que querian tomar i se retiró sin saber lo que acordarían, pero a los ocho dias falleció el espresado Pinda i no supo quien le daria muerte. El «Chibato» i el «Ibunche» estaban ahí entonces sin tomar parte en nada; los hacian colocar a la entrada. Desde entonces no los vió mas.</p>
+        <p>Merimañ falleció poco tiempo despues i entró a reemplazarlo José Chodil. A la muerte de este, le sucedió su mujer Aurora Quinchem, quien se mancomunó con Cristina Quinchem hasta hace un año en que Antonio Nauta, por comisión del Rei de las Españas (Payos) Juan Pedro Chiguai, los separaron del cargo i nombró en su lugar a Domingo Coñuecar i al declarante, los que aun no estaban confirmados por los pueblos. Aquí advierte que para cada nombramiento que hace el Rei, se reunen los cabildos para aprobarlo, i es solo entónces cuando todos les respetan sin dificultad sus órdenes.</p>
+        <p>El libro de Moraleda i la llave de la cueva se la habia entregado José Aro, que es reparador de la «Recta Provincia», i el cual las conservaba desde la muerte de Merimañ. El libro como lleva dicho, lo dejó en poder de Benito Nancuante.</p>
+        <p>A los tres dias de haberse recibido del nuevo puesto que tiene, ordenó a Miguel Raicagüin de Tenaun i al finado José Calbuyagüe que llevaran la llave i fueran a abrir la cueva. Volvieron diciéndole que no se podia abrir i que la puerta estaba atrancada por dentro. En vista de esto i creyéndose que no tenia facultad para romper la puerta, le previno a su pueblo que se reunieran para acordar lo conveniente. El Rei de las Españas ordenó tambien se hiciera esto, i estaban citándose con ese objeto cuando los descubrieron i los redujeron a prisión en que se hallan. La llave de la cueva dice la tenia oculta en un campanario, el cual se incendió hace poco tiempo i como era de alquimia se derritió con el fuego. No sabe que harian José Chodil, Aurora Quinchem i Cristina Quinchem, del Chibato i del Ibunche, pues nunca lo llevaron a la cueva e ignora si estarán vivos.</p>
+        <p>En tiempo de Merimañ, encima de la mesa de la cueva habían muchos papeles, tinta i plumas para escribir, valiéndose de velas para alumbrarse. Cuando se recibió donde Juan Quinchepane, éste le dijo que debía tener un Chayanco i un Macuñ i Chaquetilla. Llaman a lo primero una piedra cristalina que tambien designan con el nombre de mapa i que sirve para distinguir a los que son brujos. Ellos le dan este poder i el declarante ignora de donde los han adquirido sus compañeros que lo tienen. Lo segundo es una parte de la piel de los brujos que mueren i que los que quieren tenerla, la sacan en el panteon, a la izquierda del cuerpo en dirección del pecho hácia la barriga. Esa piel la curten con ciertas yerbas i en seguida los brujos se la cuelgan con unos cordones al lado izquierdo i con ella andan de noche produciendo una luz especial que los distingue. (Dice aquí que no sabe esplicar la razon de este fenómeno.)</p>
+        <p>Tres semanas ántes que los tomaran presos tuvieron una reunion en casa de Domingo Coñuecar, presidida por el Rei de las Españas, Juan Pedro Chiguai i asistieron algunos individuos de Chelin, (<em>) Manao (</em>) i Achao (*) que no los conoce i asimismo Pedro [¿Lebiureo?], Antonio Güenchucoi, Antonio Nauta, Antonio Coñuecar, Maria Runin i el declarante. La reunion tenia por objeto principal conseguir del Rei que abriera la cueva i como se vió que no quiso hacerlo, cada uno retiró los presentes que habia llevado (plata, jénero i otras especies) i se retiraron sin haber resuelto ninguna cosa.</p>
+        <p>Hace tres años recibió de José Maria Chiguai, rei anterior de las Españas i padre del actual, su titulo de Rei de Santiago (Tenaun), i ese titulo lo quemó porque no le dió importancia en razon de que no le entregaban el libro que ya tantas veces habia nombrado. Ultimamente se le volvió a dar el mismo nombramiento por Juan Pedro Chiguai i éste lo tiene oculto en una caja que tiene enterrada en su propia casa, cerca de donde dormia i debajo de un baúl.</p>
+        <p>Dentro de la misma caja tiene tambien tres sentencias que ha espedido, una contra Catalina Güenel de Tenaun, por demanda de Catalina Canto, porque aquella le habia quitado su marido. Dió la órden a Miguel Raicagüin para que diera muerte a la Güenel. A la semana siguiente falleció ésta i no sabe cómo Raicagüin le daria muerte. Raicagüin era brujo i servía como policial para cumplir las órdenes que se le dieran. Ese individuo tenia chaquetilla i chayanco en su misma casa. Catalina Canto pagó al declarante por la sentencia tres botellas de aguardiente, i este a Raicagüin un peso cincuenta centavos en jénero blanco para que ejecutara su órden.</p>
+        <p>Este hecho tuvo lugar ahora cuatro años. En la misma época i por demanda que le interpuso Juana Carimonei de que Juana Canto le habia levantado el testimonio de vivir ilícitamente con su marido i mediante el pago de cuatro varas de tocuyo, ordenó al mismo Raicagüin diera muerte a la espresada Canto, la que falleció a los dos o tres días i tampoco sabe de qué manera aquél la mataria. Hace presente aquí que para el cumplimiento de estas resoluciones habia ordenado lo hiciera Pedro Güichocoi, pero éste no quiso obedecer diciendo que no sabia el arte.</p>
+        <p>Agrega que poco ántes que lo tomaran preso habia ordenado a José Aro diera muerte a dos hijos de don Fabian Cárdenas, porque tenia quejas de los indíjenas de que este tenia muchos viveres i les cobraba mucho cuando les compraban. No dió a Aro ninguna medicina para cumplir su órden, pero el hecho es que los hijos de Cárdenas, llamados Francisco i José Maria Cárdenas, fallecieron como a los ocho dias despues. Ignora el remedio que les daria Aro, pues este conoce todas las medicinas i venenos.</p>
+        <p>Por Nicolás Coñuecar sabe que su mujer Micaela Tocol envenenó i mató a la madre de éste, Felipa Ininpare, dándole una dósis grande de zumo de Cilmai. Modifica en esta parte su declaración diciendo que el que le dijo esto fue Luis Coñuecar, padre de Nicolas, pero no le refirió otra cosa.</p>
+        <p>Se cree en su pueblo que Estevan Carimonei ha muerto con veneno a su suegro Pascual Carimonei, su suegra Juana Coyopai, su cuñado Marcos Carimonei i una cuñada de ocho años, cuyo nombre equivoca. Todas estas muertes tuvieron lugar sucesivamente i hace algunos años. Carimonei tenia disputa con la familia de su mujer por terrenos i por esto creen de que él mismo, sin órden de nadie, los haya envenenado. En Octubre o Noviembre del año próximo pasado i hallándose trabajando en Quenchí (*), en la máquina de don Miguel Monttet con Estevan Carimonei i Juan Chigüai, Carimonei envenenó al último por una cuestión de un chancho que tuvieron. Esto no lo vió i se lo oyó decir a la misma familia de Chigüai, quienes le dijeron que el cuerpo de éste habia quedado amoratado i hecho pedazos.</p>
+        <p>Refiere que él no sabe mas i que nunca ha tenido ni chaquetilla ni chayanco, porque habiendo muerto Merimañ, ante quien habia hecho el compromiso de tenerlos, se creyó no tenia la obligacion i por eso no se cuidó de tenerlos. Asegura que su finado hermano Andrés Coñuecar tenia todas estas cosas i al morir se las dejó a Justo [¿Peran?] de Cala, junto con otras yerbas, las cuales debe aun conservar en su poder.</p>
+        <p>Advierte que el chayanco lo designan tambien con el nombre de revisorio. Los hechiceros usan unos huesos que designan con el nombre de camahueto i los cuales sirven para restregarse con ellos cuando tienen algun dolor. Esos huesos segun es la tradición, provienen de un animal marino. Son bastante escasos i tienen algun valor. Lo mismo tambien emplean la tierra en que se convierten los cadáveres para quitar las hinchazones, usándola con agua del mar u orines i poniendola como cataplasma. La Chaquigua la emplean en infusión, en pequeña cantidad, para las lombrices i sirve también en cocimiento para la sarna, a donde se aplica igualmente en uso esterno sacando el zumo de la hoja en verde. Tomada en grande cantidad es veneno.</p>
+        <p>Se niega a dar por ahora mas esplicaciones. Con lo cual se suspendió esta dilijencia para continuarla cuando convenga i leida que fué, no firmó el reo por no saber. — Sánchez. — Goicolea, secretario.</p>
+      </blockquote>
+      <footer class="placa__fuente">⚓ FUENTE:: Ponce Hermanos, <em>Los brujos de Chiloé. Célebre proceso del Juzgado de Ancud</em>, Santiago, 1908 (declaración de Mateo Coñuecar, 26 de Marzo de 1880). Memoria Chilena, Biblioteca Nacional de Chile, MC0033459 — <a href="https://www.memoriachilena.gob.cl/archivos2/pdfs/MC0033459.pdf" target="_blank" rel="noopener noreferrer">https://www.memoriachilena.gob.cl/archivos2/pdfs/MC0033459.pdf</a></footer>
+  </div>
+</section>
+<figure class="escena">
+  <picture>
+    <source srcset="assets/img/cueva-vacia.webp" type="image/webp">
+    <img src="assets/img/cueva-vacia.png" alt="Recreación artística: la cueva vacía y atrancada.">
+  </picture>
+  <figcaption>
+    <span class="escena__label">Recreación artística</span>
+    <p>«Volvieron diciéndole que no se podia abrir i que la puerta estaba atrancada por dentro.» — Mateo Coñuecar, 26 de marzo de 1880</p>
+  </figcaption>
+</figure>
+<!-- ══ BLOQUE C ══ -->
+<section class="placa" id="bloque-c">
+  <div class="placa__panel">
+    <span class="pr tl" aria-hidden="true"></span><span class="pr tr" aria-hidden="true"></span><span class="pr bl" aria-hidden="true"></span><span class="pr br" aria-hidden="true"></span>
+    <svg class="placa__lacre" viewBox="0 0 64 64" aria-hidden="true">
+      <path d="M32 4c8 0 15 3 20 8s8 12 8 20-2 15-7 20-13 8-21 8-15-2-20-7S4 41 4 33s3-16 8-21 12-8 20-8z" fill="#6e3120"/>
+      <path d="M32 9c7 0 13 2 17 7s7 9 7 16-2 12-6 16-11 7-18 7-13-2-17-6-7-10-7-17 2-12 7-16 10-7 17-7z" fill="#8a3a26"/>
+      <path d="M32 17l3.6 10.4L46 31l-10.4 3.6L32 45l-3.6-10.4L18 31l10.4-3.6z" fill="#f2b65a" opacity="0.92"/>
+    </svg>
+    <h2 class="placa__titulo">C. Declaración de Aurora Quinchem (Reina de «arriba»)</h2>
+      <blockquote class="placa__cita">
+        <p>En Ancud a veinte i siete de Marzo de mil ochocientos ochenta, el señor juez hizo ocurrir a la presencia judicial a Aurora Quinchem Agüil, quien bajo promesa de decir verdad espuso:</p>
+        <p>Que es natural de Quicaví, viuda, agricultora, no sabe su edad pero revela tener mas de cuarenta años, i no sabe leer ni escribir.</p>
+        <p>Que a la muerte de José Merimañ, se nombró a su finado marido, Juan José Chodil «Presidente sobre la Tierra», por el Rei de las Españas, José Maria Chiguai. Chodil alcanzó a estar como seis meses en su empleo i repentinamente falleció, atribuyendo ella su muerte a Micaela Tocol i a José Aro, quienes deben haberlo envenenado porque le tenian envidia del cargo que desempeñaba i porque decían que no sabia hacer nada en él.</p>
+        <p>Durante la vida de su marido no le vió ninguna cosa de brujeria, ni aun yerbas de ninguna clase.</p>
+        <p>A la muerte de su marido, Pascual Coñuecar que se titulaba «Juez componedor», nombró a la declarante i a Cristina Quinchen con el título de «Reyes de la Recta Provincia» de «arriba» con la obligacion de reparar, de dar consejo i de sentenciar cuando sea conveniente, amenazándola con la muerte si no lo hacia.</p>
+        <p>Mientras ha estado con ese empleo, don Julian Alvarez vino a verla para que sentenciara a Andrés Calbuyagüe por haber dado la muerte a su hijo que tenia, e igual cosa hizo el padre de Eujenio Chamia que la solicitó sentencia a una mujer que habia muerto al espresado Chamia. A uno i otro les dijo que haria lo que le pedían, pero ella no dió paso ninguno i actualmente están vivas las personas que se trata de darles muerte.</p>
+        <p>A causa de que ella no sentenciaba como querían, Estevan Carimonei i Domingo Coñuecar la querian mal i ellos le atropellaban sus facultades para hacer lo que querían.</p>
+        <p>La declarante da a conocer los siguientes remedios que usan los brujos:</p>
+        <p><strong>Chayanco.</strong> — Previene que lo que llaman chayanco para conocer los brujos, es una tapa de botella de vidrio, o a lo ménos es cosa que se le parece.</p>
+        <p><strong>Colmillo de Lobo.</strong> — El colmillo de lobo lo usan para las almorranas i lo calientan hasta que se pueda aguantar.</p>
+        <p><strong>Tonina.</strong> — Por el finado Domingo Calbuyagüe sabe que para la enfermedad de la locura, usan con agua bendita la carne quemada en polvo de cahuel o tonina.</p>
+        <p><strong>Camahueto.</strong> — El camahueto es hueso que los entendidos recojen en los rios i lo emplean en las dislocaciones o quebraduras. Lo raspan i con huevo i harina de trigo hacen un emplasto que lo ponen en la parte afectada con papel colado, pero ántes dando un tajo a donde está la herida.</p>
+        <p><strong>Hueñoto.</strong> — La piedra lipe i el [¿cardenillo?] le dan tambien el nombre de hueñoto.</p>
+        <p><strong>Macuñ.</strong> — Le dan luz al macuñ por medio de un depósito de aceite humano que hacen en medio de él, a semejanza de un candil, prendiéndole fuego despues.</p>
+        <p><strong>Copuca [¿millahuinhuin?].</strong> — Copuca millahuinhuin son dos piedras de rio que les dan la virtud de que frotándolas en agua i regando con esta a las papas que van a sembrar, es mui grande la produccion que se obtiene.</p>
+        <p><strong>[¿Cuchin?].</strong> — El cachin, terrible enfermedad, que en Chiloé es comun i que se ignora su oríjen, se forma de una clase de hormigas que hai en los palos secos i podridos. Los brujos recojen esas hormigas i se las largan a quienes quieren hacer sufrir. Se cura esta enfermedad haciendo un emplasto de las yerbas [¿Ibircun?], [¿Alefuein?], deo i agua salada, lavando las heridas con esta ultima.</p>
+        <p><strong>Bocado.</strong> — Bocado es un remedio que usan los brujos para causar a los hombres una enfermedad que les hincha la barriga, que les da mucha sed i muchos vómitos, sin que les permita pasar nada en el estómago i que los aniquila por completo hasta que llegan a morir. Ese remedio lo hacen de lagartijas i sapos que secan al sol i despues en una pequeña narigada la ponen en polvo en alguna bebida que se quiere dar a la victima. Suelen llegar a restablecerse de esta enfermedad aplicando las mismas lagartijas i sapos tostados con sal, tambien en una pequeña narigada i tomando esto con agua bendita. Asi en una semana puede restablecerse.</p>
+        <p><strong>[¿Puñalada?].</strong> — La puñalada la curan con sal, ciprés i la cavalonga en mui pequeña cantidad tostadas i en seguida poniéndolas a hervir en una cantidad de agua, que es la que se toma.</p>
+        <p><strong>Espina de [¿mechai?].</strong> — La espina de mechai es venenosa i forma tumores en la parte del cuerpo a donde penetra. Se le cura con parches de ajenjo, yerba buena, poleo e [¿ibercun?] mezcladas con agua salada.</p>
+        <p><strong>Miembros recojidos.</strong> — Cuando algun miembro del cuerpo se recoje, hacen fricciones de yerba buena, ajenjo, poleo, deo e [¿ibircun?] i hueso de venado en polvo. Todo esto se mezcla i con el liquido que salga se hace la curación.</p>
+        <p>Todos estos remedios i enfermedades los sabe por habérselo dicho el finado Domingo Calbuyagüe, pero ella nunca ha hecho uso de ellos i no sabe el éxito que produzcan.</p>
+        <p>Nunca ha ido a la cueva, pero Pascual Coñuecar le dijo que se retirara de la casa en que vivia, porque en el punto en que estaba era un lugar malo i ella siempre sentia mucha bulla a los alrededores. Esto la hizo creer que por ahí estaba dicha cueva, i para quedar tranquila se mudó a otra parte, hácia la montaña.</p>
+        <p>Sabe que Micaela Tocol es afamada curandera i se dice que ha hecho muchas muertes. Hace cinco años hubo una reunion en su casa con el objeto de averiguar el archivo, al cual concurrió José Parancan, pero José Aro se negó a entregarlo diciendo que el finado Merimañ se lo habia encargado i que él lo entregaria cuando sea grande un hijo que este dejó. No sabe en que consistia el archivo. José Parancan se titulaba «Reparador de [¿Payos?]».</p>
+        <p>Cuando se hizo cargo Mateo Coñuecar del cargo que tiene, ya no se mezcló en nada e ignora lo que haya pasado despues.</p>
+        <p>Diciendo que nunca ha estado presa, se ratificó en lo espuesto, leida que fué, i no firmó por no saber. — Sánchez. — Goicolea, secretario.</p>
+      </blockquote>
+      <footer class="placa__fuente">⚓ FUENTE:: Ponce Hermanos, <em>Los brujos de Chiloé. Célebre proceso del Juzgado de Ancud</em>, Santiago, 1908 (declaración de Aurora Quinchem Agüil, 27 de Marzo de 1880). Memoria Chilena, Biblioteca Nacional de Chile, MC0033459 — <a href="https://www.memoriachilena.gob.cl/archivos2/pdfs/MC0033459.pdf" target="_blank" rel="noopener noreferrer">https://www.memoriachilena.gob.cl/archivos2/pdfs/MC0033459.pdf</a></footer>
+  </div>
+</section>
+<!-- ══ BLOQUE D ══ -->
+<section class="placa" id="bloque-d">
+  <div class="placa__panel">
+    <span class="pr tl" aria-hidden="true"></span><span class="pr tr" aria-hidden="true"></span><span class="pr bl" aria-hidden="true"></span><span class="pr br" aria-hidden="true"></span>
+    <svg class="placa__lacre" viewBox="0 0 64 64" aria-hidden="true">
+      <path d="M32 4c8 0 15 3 20 8s8 12 8 20-2 15-7 20-13 8-21 8-15-2-20-7S4 41 4 33s3-16 8-21 12-8 20-8z" fill="#6e3120"/>
+      <path d="M32 9c7 0 13 2 17 7s7 9 7 16-2 12-6 16-11 7-18 7-13-2-17-6-7-10-7-17 2-12 7-16 10-7 17-7z" fill="#8a3a26"/>
+      <path d="M32 17l3.6 10.4L46 31l-10.4 3.6L32 45l-3.6-10.4L18 31l10.4-3.6z" fill="#f2b65a" opacity="0.92"/>
+    </svg>
+    <h2 class="placa__titulo">D. Sentencia (juez Beytía, 2 de marzo de 1881)</h2>
+      <p class="placa__apunte">Encabezado de la sección: <strong>Última declaración i sentencia del Juez.</strong></p>
+      <blockquote class="placa__cita">
+        <p>Ignacio Millalonco, Secretario de Domingo Coñuecar, declaró ante el juez que en la casa de éste habia visto reunidas hasta 60 personas i al Rei Juan Pedro Chiguai, todos alrededor de una mesa «i no cuidó de observar lo que estarían haciendo».</p>
+        <p>Segun la sentencia de 2 de Marzo de 1881, del juez Beytía, en el juicio de brujos se ha seguido esta causa por el delito de asociación ilícita contra los comprometidos en la sociedad de los brujos, que estos llaman Recta Provincia. De las declaraciones i de la lectura de los papeles encontrados resulta que esa institucion existe desde tiempos remotos i cuenta con un número excesivo de afiliados, todos los que a su incorporación se les confiere un empleo u ocupacion que aceptan bajo la obligacion de sijilo i obediencia.</p>
+        <p>Por los nombres de los lugares para que han sido nombrados se sabe que han hecho una sub-división territorial bajo nombres i linderos que ellos conocen.</p>
+        <p>Este cuerpo de empleados tan numeroso como el de sus afiliados, lo forman un Rei i Reina, (jefes Supremos), Presidentes i Vice, Intendentes, Secretarios, Comandantes, Reparadores i Médicos.</p>
+        <p>Estos ademas del poder misto i omnímodo que representan, cuentan con el sobrenatural de la adivinacion, con el que tambien los creen investidos los sencillos habitantes de las pequeñas poblaciones donde habitualmente cometen sus [¿brujerías?], hasta haber así obtenido el que aquellos ocurran a su presencia en demanda de saber quiénes son los autores de sus enfermedades o muertes que les ocurren en sus familias, solicitando a la vez un castigo. De aquí procede la facilidad que tienen para conseguir estafarlos, cobrándoles honorarios por notificaciones, sentencias, etc., a fin de atraerlos i hacerlos servir como ajentes de la institucion.</p>
+      </blockquote>
+      <p class="placa__apunte">Reos condenados (verbatim; nombre, edad, cargo, pena):</p>
+      <blockquote class="placa__cita">
+        <p><strong>Mateo Coñuecar</strong>, de 70 años, no sabe leer ni escribir; hace 30 años que se incorporó en dicha institucion sirviendo primero como consejero i despues como Rei de Santiago (Tenaun); oyó demandas i recibió honorarios; fue condenado a <strong>tres años de prision</strong>.</p>
+        <p><strong>Aurora Quinchem</strong>, de 40 años, confiesa ser Reina de «arriba» de la Recta Provincia; tuvo reuniones en su casa; se abstuvo de dar sentencias de muerte; condenada a <strong>541 dias de prision</strong>.</p>
+        <p><strong>Cristino Quinchem</strong>, 61 años, Vice-Presidente de arriba de la Recta Provincia; condenado a <strong>541 dias de prisión</strong>.</p>
+        <p><strong>Domingo Coñuecar</strong>, 54 años, Reparador sobre la tierra, la misma sentencia.</p>
+      </blockquote>
+      <p class="placa__apunte">Cierre editorial del folleto (verbatim):</p>
+      <blockquote class="placa__cita">
+        <p>La Recta Provincia, o sea la institución de los brujos, habia existido en Chiloé desde tiempos antiquísimos; era tolerada porque se ignoraban sus malas tendencias i se le creía mas bien una institución piadosa con fines humanitarios. Pero las investigaciones prolijas hechas por el activo Juez, vinieron a demostrar, ante las autoridades i el pueblo asombrado, el cúmulo de maldades i [¿crímenes?] cometidos por la famosa asociación.</p>
+        <p>La sentencia dictada por el juzgado i la condenacion de los reos que aparecían mas culpables, trajo por consecuencia la desaparicion de los demas brujos. Sin embargo, despues de algun tiempo, cuando creyeron que todo se habia olvidado, principiaron a dar señales de vida en otros lugares e islas de aquellas rejiones. Pero nunca, al ménos, no se ha oido decir, han vuelto a asociarse i a nombrar jefes como en la Recta Provincia. Han llevado hasta hoi una vida oscura i lánguida, pero siempre preocupados de hacer sus estafas i crímenes por medio de procedimientos secretos i vulgares. Los brujos existirán siempre, mientras existan los indios supersticiosos i el bajo pueblo sin educacion.</p>
+      </blockquote>
+      <p class="placa__apunte">Nota de los editores (verbatim — pieza clave para la cadena de custodia):</p>
+      <blockquote class="placa__cita">
+        <p><strong>Nota de los editores.</strong> — No se ha escapado a nosotros, las innumerables faltas de construccion i estilo de que adolece la redaccion del proceso, que no hemos correjido, para que quede fiel al orijinal.</p>
+      </blockquote>
+      <footer class="placa__fuente">⚓ FUENTE:: Ponce Hermanos, <em>Los brujos de Chiloé. Célebre proceso del Juzgado de Ancud</em>, Santiago, 1908 (sentencia del juez Beytía, 2 de Marzo de 1881, y cierre editorial). Memoria Chilena, Biblioteca Nacional de Chile, MC0033459 — <a href="https://www.memoriachilena.gob.cl/archivos2/pdfs/MC0033459.pdf" target="_blank" rel="noopener noreferrer">https://www.memoriachilena.gob.cl/archivos2/pdfs/MC0033459.pdf</a></footer>
+  </div>
+</section>
+<figure class="escena">
+  <picture>
+    <source srcset="assets/img/archivo-ardiendo.webp" type="image/webp">
+    <img src="assets/img/archivo-ardiendo.png" alt="Recreación artística: el archivo del proceso ardiendo.">
+  </picture>
+  <figcaption>
+    <span class="escena__label">Recreación artística</span>
+    <p>«Los archivos originales del juicio se quemaron; quedaron solo crónicas de diarios, revistas folclóricas y la tradición oral. El fuego se llevó los papeles; la memoria del pueblo guardó el resto.» — variante «Los archivos quemados», corpus del Grimorio</p>
+  </figcaption>
+</figure>
+
+
+      <p class="expediente__pie">Transcripción íntegra, política de fidelidad y aparato crítico: <em>fuentes/proceso-ancud-1880.md</em> (documento maestro del repositorio) · Fuente digitalizada: Memoria Chilena, Biblioteca Nacional de Chile, MC0033459.</p>
+    </div>
+  </div>
+
+  <!-- ════════ CIERRE ════════ -->
+  <section class="cierre" id="cierre" aria-label="Cierre">
+    <div class="cierre__bg" aria-hidden="true"></div>
+    <div class="cierre__edges" aria-hidden="true"></div>
+    <div class="cierre__glow" aria-hidden="true"></div>
+    <div class="fog cierre__fog" aria-hidden="true">
+      <span class="fog__layer fog__layer--2"></span>
+      <span class="fog__layer fog__layer--3"></span>
+    </div>
+    <p class="cierre__phrase">Lo que era rumor se volvió expediente.</p>
+    <p class="sello">El Grimorio del Archipiélago</p>
+  </section>
+</main>
+
+<script src="assets/js/config.js" defer></script>
+<script src="assets/js/data/capitulos.js" defer></script>
+<script src="assets/js/data/indice.js" defer></script>
+<script src="assets/js/camino.js" defer></script>
+<script src="assets/js/sonido.js" defer></script>
+</body>
+</html>

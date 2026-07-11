@@ -244,6 +244,26 @@ window.Grimorio.portada = {
       brillo: { x: "50%", y: "42%", rx: "12%", ry: "16%", a: 0.28, tipo: "latido" }
     },
     {
+      id: "juicio-1880",            // EL EXPEDIENTE — clímax del bloque (página bespoke)
+      n: 11,                        // PROVISIONAL: cierra la Recta Provincia, antes del Camahueto
+      acto: "libro-8",
+      nombre: "El juicio de Ancud de 1880",
+      alias: "El Proceso de Ancud", // ALIAS:: del @ENTIDAD (verbatim)
+      gancho: "El día que el Estado de Chile entró a la cueva: llevó a los brujos a juicio, y lo que era rumor se volvió expediente.",
+      tags: ["Relato", "Chilota"],
+      // sin teaser: no se redacta texto nuevo (regla sagrada)
+      verbo: "Abrir el expediente",
+      labelSonda: "Juicio de 1880",
+      href: "juicio-1880.html",     // BESPOKE: no la genera generar_fichas.py
+      estado: "publicado",
+      atmosfera: "cueva",
+      // sin musica: no existe la pista — sonido.js lo tolera (solo atmósfera)
+      img: "juicio-1880-hero",
+      ventana: { left: "26%", top: "24%", w: "48%", h: "50%" },
+      ventanaMovil: { left: "10%", top: "22%", w: "74%", h: "44%" },
+      brillo: { x: "50%", y: "50%", rx: "15%", ry: "18%", a: 0.28, tipo: "latido" }
+    },
+    {
       id: "camahueto",
       n: 12,                        // era 5→6; el bloque Recta Provincia (n:5-11) va antes (PROVISIONAL)
       acto: "libro-5",
