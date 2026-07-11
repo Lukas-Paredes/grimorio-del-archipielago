@@ -852,3 +852,35 @@ a { color: var(--amber-soft); }
   font-size: 0.76rem; letter-spacing: 0.06em;
   color: var(--foam);
 }
+
+/* ════════════════════════════════════════════════════════════════════════
+   LECTURAS · qué dice la academia (mandato capa académica 2026-07-10).
+   Placa SOBRIA y diferenciada del testimonio: registro académico, no voz
+   de época. Bronce apagado, sin brillo cálido; la cita académica al pie va
+   en pixel-font como un sello de catálogo. Flag aditivo: cero impacto en
+   fichas sin @LECTURAS. Sin papel (regla del ADN): placa seca de archivo.
+   ════════════════════════════════════════════════════════════════════════ */
+.lecturas {
+  max-width: 46rem; margin: 0 auto;
+  padding: clamp(1.3rem, 3.5vw, 2rem) clamp(1.2rem, 4vw, 2rem);
+  background: linear-gradient(180deg, rgba(22, 30, 34, 0.72), rgba(14, 22, 26, 0.72));
+  border: 1px solid rgba(120, 132, 120, 0.28);
+  border-top: 2px solid rgba(150, 120, 70, 0.55);
+  box-shadow: 0 10px 26px rgba(0, 0, 0, 0.35);
+}
+.lecturas__intro {
+  margin: 0 0 1.2rem;
+  font-family: var(--font-pixel);
+  font-size: 0.74rem; letter-spacing: 0.16em; text-transform: uppercase;
+  color: var(--foam);
+}
+.lecturas > p { margin: 0.9rem 0 0; color: var(--bone); line-height: 1.7; }
+.lecturas .prosa-cita { margin: 1.1rem 0; border-left-color: rgba(150, 120, 70, 0.55); }
+.lecturas .prosa-cita p { font-style: italic; color: #e7ddc9; }
+.lecturas__fuente {
+  margin: 1.4rem 0 0 !important; padding-top: 0.8rem;
+  border-top: 1px dotted rgba(120, 132, 120, 0.4);
+  font-family: var(--font-pixel);
+  font-size: 0.72rem !important; letter-spacing: 0.05em; line-height: 1.6;
+  color: var(--foam);
+}

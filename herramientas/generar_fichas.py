@@ -157,6 +157,12 @@ def load_prosa(idc):
     # cierra la columna. Solo las fichas que lo traen muestran la doble columna.
     if secs.get("@TESTIMONIO"):
         prosa["testimonio"] = paras(secs["@TESTIMONIO"])
+    # @LECTURAS (mandato capa academica 2026-07-10): que dice la academia de
+    # esta entidad. Paráfrasis fiel + cita corta verbatim + FUENTE:: con
+    # (Autor, año, p. X). Solo se publica lo verificado contra el PDF/txt en
+    # fuentes/_raw/lecturas/. Flag aditivo: sin @LECTURAS, sección oculta.
+    if secs.get("@LECTURAS"):
+        prosa["lecturas"] = paras(secs["@LECTURAS"])
     cierre = secs.get("@CIERRE", "") or None
     return prosa, cierre
 

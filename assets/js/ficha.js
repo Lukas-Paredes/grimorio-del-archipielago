@@ -268,6 +268,23 @@
       (PROSA.origenMito || []).forEach(function (t) { origen.appendChild(prosaNodo(t)); });
     }
 
+    /* Lecturas — qué dice la academia (mandato capa académica 2026-07-10).
+       Placa sobria diferenciada; cada párrafo puede ser texto, cita «» con la
+       convención » / — (prosaNodo) o una línea FUENTE:: (cita académica al
+       pie). Flag aditivo: sin PROSA.lecturas, la sección queda oculta. Solo
+       se monta contenido verificado contra fuentes/_raw/lecturas/. */
+    var lecEl = document.getElementById("lecturas");
+    if (lecEl && PROSA.lecturas && PROSA.lecturas.length) {
+      PROSA.lecturas.forEach(function (t) {
+        if (t.slice(0, 8) === "FUENTE::") {
+          lecEl.appendChild(el("p", "lecturas__fuente", t.slice(8).trim()));
+        } else {
+          lecEl.appendChild(prosaNodo(t));
+        }
+      });
+    }
+    toggleSection("sec-lecturas", !!(PROSA.lecturas && PROSA.lecturas.length));
+
     // Datos de bestiario: TODOS los campos presentes (orden fijo; cada fila solo si hay valor).
     var datos = document.getElementById("datos");
     var datoRows = [
