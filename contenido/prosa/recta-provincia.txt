@@ -17,5 +17,22 @@ Quien necesitaba algo —una venganza, una curación, hallar a un ladrón— acu
 — Sentencia del juez Beytía, 2 de marzo de 1881
 
 FUENTE:: Los brujos de Chiloé. Célebre proceso del Juzgado de Ancud (Ponce Hermanos, Santiago, 1908; Memoria Chilena MC0033459). Transcripción íntegra y aparato crítico: fuentes/proceso-ancud-1880.md.
+@LECTURAS
+El sociólogo Fernando Valenzuela lee el Tribunal de la Raza Indígena como una institución performativa: los discursos recogidos en las actas del proceso de 1880 no solo describían la asociación — la hacían real. En su lectura, ese mundo estaba gobernado por la reciprocidad: su quiebre se manifestaba como enfermedad en los cuerpos, y la magia y la adivinación compensaban, por medio de la venganza, las expectativas rotas.
+
+» Discursos dieron forma e hicieron real la asociación de brujos Tribunal de la Raza Indígena, también llamada Recta Provincia, en Chiloé a fines del siglo diecinueve.
+— Valenzuela (2014), p. 35
+
+El antropólogo David Núñez aporta el sustrato indígena: bajo la figura del «brujo» está el kalku del mapuche kimün — y la traducción misma ya es una distorsión colonial.
+
+» Kalku se suele traducir como hechicero o brujo, conceptos equívocos toda vez que remiten a la idea cristiana de una persona que está aliada con el demonio, figura que no existe originalmente en el mapuche kimün.
+— Núñez (2022), p. 24
+
+Y Evelyn Ampuero recoge el origen como resistencia: la cofradía, que al parecer ya tenía un siglo en 1880,
+
+» surgió como resistencia organizada contra sus amos: el encomendero español y todo el sistema que lo respaldaba.
+— Ampuero (2016), p. 65
+
+FUENTE:: Valenzuela, F. A. (2014). La enfermedad de todos en el cuerpo propio. Universum, 29(1), 35-55 (aquí p. 35; machi/kalku en pp. 38-39) · Núñez, D. (2022). El sustrato indígena de los seres mitológicos de Chiloé. Bajo la Lupa, SNPC (aquí pp. 4 y 24) · Ampuero (2016). Mapocho, (80) (aquí p. 65). Todas verificadas contra los PDF/txt de fuentes/_raw/lecturas/.
 @CIERRE
 Pasó de verdad —o al menos, de verdad fue creída.

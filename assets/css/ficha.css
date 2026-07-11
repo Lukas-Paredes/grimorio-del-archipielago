@@ -884,3 +884,6 @@ a { color: var(--amber-soft); }
   font-size: 0.72rem !important; letter-spacing: 0.05em; line-height: 1.6;
   color: var(--foam);
 }
+
+/* Lecturas dentro de una pieza de la vitrina del capítulo */
+.galeria__lecturas { margin-top: 1.2rem; max-width: none; }

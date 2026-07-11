@@ -400,6 +400,21 @@
           });
           cuerpo.appendChild(tst);
         }
+        // Lecturas de la pieza (capa académica): misma placa sobria que la
+        // sección de ficha; solo contenido verificado (fuentes/_raw/lecturas/).
+        if (pz.prosa && pz.prosa.lecturas && pz.prosa.lecturas.length) {
+          var lecPz = el("aside", "lecturas galeria__lecturas");
+          lecPz.setAttribute("aria-label", "Lecturas académicas de esta pieza");
+          lecPz.appendChild(el("p", "lecturas__intro", "Qué dice la investigación académica sobre esta pieza."));
+          pz.prosa.lecturas.forEach(function (t) {
+            if (t.slice(0, 8) === "FUENTE::") {
+              lecPz.appendChild(el("p", "lecturas__fuente", t.slice(8).trim()));
+            } else {
+              lecPz.appendChild(prosaNodo(t));
+            }
+          });
+          cuerpo.appendChild(lecPz);
+        }
         if (g.fuentes.length) {
           cuerpo.appendChild(el("p", "galeria__fuentes", "Fuentes: " + g.fuentes.join(" · ")));
         }

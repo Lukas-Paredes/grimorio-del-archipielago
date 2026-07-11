@@ -1,4 +1,13 @@
 @DESCRIPCION
 Objeto adivinatorio del brujo. Permite saber lo que ocurre en lugares lejanos y conocer el futuro; y revela a la víctima de un maleficio quién fue el brujo que se lo «lanzó». No hay acuerdo sobre qué es: para unos, una batea con agua; para otros, un espejo; para otros, una bola de cristal. Se le llamaba también «la mapa» o «el revisorio».
+@LECTURAS
+Los archivos penales del proceso de 1880 conservan una escena del objeto en acción — y suman una conformación más a las que registra el corpus (batea con agua, espejo, bola de cristal). Catepillan la rescata de la declaración de Pedro Antonio Güichapane (7 de abril de 1880): el machi Benito Panichine puso unas piedras en un vaso con agua,
+
+» acto seguido de lo cual «comenzó a romancear en veliche» fijándose en el vaso, con la esperanza de averiguar quién tenía enfermo al paisano Colipichun.
+— Catepillan (2019), p. 99, nota 55
+
+Catepillan anota además que esa es la única mención del idioma mapuzugun en todo el proceso. La variante se muestra, no se zanja: vaso, batea, espejo o cristal — las fuentes no acuerdan qué era el challanco, solo qué hacía.
+
+FUENTE:: Catepillan Tessi, T. (2019). La República de la Raza. Trashumante, (13), 84-107 (aquí p. 99, n. 55). Verificado contra el PDF en fuentes/_raw/lecturas/.
 @CIERRE
 La Mayoría lo usaba para identificar culpables en sus juicios.
