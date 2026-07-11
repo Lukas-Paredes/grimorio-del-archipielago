@@ -122,3 +122,18 @@
 
 /* Advertencia dentro de una placa (versión compacta de la nota) */
 .expediente__nota--bloque { margin: 0 0 1.6rem; box-shadow: none; }
+
+/* ── El Epílogo: las cifras del proceso (variantes mostradas, no zanjadas) ── */
+.epilogo__cifras {
+  margin: 0.6rem 0 1.4rem; padding-left: 1.3rem;
+  list-style: none;
+}
+.epilogo__cifras li {
+  position: relative; margin: 0.7rem 0;
+  color: var(--bone); line-height: 1.65; font-size: 0.95rem;
+}
+.epilogo__cifras li::before {
+  content: "✦"; position: absolute; left: -1.3rem;
+  color: var(--amber); font-size: 0.8rem; opacity: 0.85;
+}
+.epilogo__cifras em { color: #9db4b8; font-style: italic; }
