@@ -223,6 +223,44 @@
     }
     var resEl = document.getElementById("resumen"); if (resEl) { resEl.hidden = !d.resumen; }
 
+    /* Mito ‖ testimonio (mandato Recta Provincia 2026-07-10): si la prosa
+       curada trae @TESTIMONIO (citas VERBATIM del proceso de Ancud 1880),
+       «El relato» se abre en doble columna: el mito del corpus al lado de la
+       declaración real. Flag aditivo: sin @TESTIMONIO nada cambia (cero
+       impacto en las demás fichas). Móvil: apilado, mito arriba (orden DOM).
+       La etiqueta es OBLIGATORIA: es antecedente histórico (recreación
+       editorial de 1908), jamás tradición documentada. */
+    if (PROSA.testimonio && PROSA.testimonio.length) {
+      var secR = document.getElementById("sec-relato");
+      if (secR) {
+        var dual = el("div", "dual");
+        var colM = el("div", "dual__mito");
+        colM.appendChild(el("h3", "dual__label", "El mito"));
+        var advEl = secR.querySelector(".advertencia");
+        if (advEl) { colM.appendChild(advEl); }
+        var rEl2 = document.getElementById("resumen");
+        if (rEl2) { colM.appendChild(rEl2); }
+        var dEl2 = document.getElementById("descripcion");
+        if (dEl2) { colM.appendChild(dEl2); }
+        var colT = el("aside", "dual__testimonio");
+        colT.setAttribute("aria-label", "Testimonio del proceso de Ancud, 1880");
+        colT.appendChild(el("h3", "dual__label dual__label--testimonio", "El testimonio"));
+        colT.appendChild(el("p", "dual__etiqueta",
+          "Antecedente histórico — declaración del proceso de Ancud, 1880 (recreación editorial, Ponce Hermanos, 1908)"));
+        PROSA.testimonio.forEach(function (t) {
+          if (t.slice(0, 8) === "FUENTE::") {
+            colT.appendChild(el("p", "dual__fuente", t.slice(8).trim()));
+          } else {
+            colT.appendChild(prosaNodo(t));
+          }
+        });
+        dual.appendChild(colM);
+        dual.appendChild(colT);
+        secR.appendChild(dual);
+        secR.classList.add("lectura--dual");
+      }
+    }
+
     // "De dónde nació el mito" (prosa del grimorio literario)
     var origen = document.getElementById("origen-mito");
     if (origen) {

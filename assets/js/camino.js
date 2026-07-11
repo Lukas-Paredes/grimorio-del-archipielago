@@ -25,7 +25,8 @@
   var BRUMA_SALIDA = BRUMA.salidaMs || 420;
   var BRUMA_ENTRADA = BRUMA.entradaMs || 1400;
   var BRUMA_SEGURIDAD = BRUMA.seguridadMs || 3000;
-  var ROMAN = ["I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X"];
+  var ROMAN = ["I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X",
+               "XI", "XII", "XIII", "XIV", "XV", "XVI", "XVII", "XVIII", "XIX", "XX"];
   var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   function paused() { return html.classList.contains("motion-off"); }
   function store(k, v) { try { localStorage.setItem(k, v); } catch (e) {} }

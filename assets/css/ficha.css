@@ -752,3 +752,67 @@ a { color: var(--amber-soft); }
   .abyss__sea, .hero__art, [data-parallax] { transform: none !important; }
   * { transition-duration: 0.001ms !important; }
 }
+
+/* ════════════════════════════════════════════════════════════════════════
+   MITO ‖ TESTIMONIO · doble columna (mandato Recta Provincia 2026-07-10).
+   Solo aparece si la prosa curada trae @TESTIMONIO (ficha.js añade .dual y
+   .lectura--dual): el mito del corpus al lado de la declaración real del
+   proceso de Ancud (1880). Flag aditivo: cero impacto en las fichas sin
+   testimonio. Móvil: apilado, mito arriba (orden del DOM).
+   ════════════════════════════════════════════════════════════════════════ */
+.lectura--dual { width: min(100% - 2.2rem, 76rem); }
+.dual { display: grid; grid-template-columns: 1fr; gap: 2.6rem; align-items: start; }
+@media (min-width: 960px) {
+  .dual { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(2rem, 4vw, 3.5rem); }
+}
+.dual__label {
+  margin: 0 0 1rem;
+  font-family: var(--font-pixel); font-weight: 600;
+  font-size: 0.8rem; letter-spacing: 0.22em; text-transform: uppercase;
+  color: var(--amber);
+}
+/* La columna del testimonio es una placa de bronce y agua abisal: el
+   documento judicial colgado junto al mito, no mezclado con él. */
+.dual__testimonio {
+  padding: clamp(1.2rem, 3vw, 1.8rem);
+  background: linear-gradient(180deg, rgba(28, 54, 66, 0.55), rgba(10, 26, 36, 0.55));
+  border: 1px solid rgba(150, 120, 70, 0.3);
+  border-left: 3px solid var(--amber);
+  box-shadow: inset 0 1px 0 rgba(242, 182, 90, 0.06), 0 12px 30px rgba(0, 0, 0, 0.35);
+}
+/* Etiqueta curatorial OBLIGATORIA: antecedente histórico, no tradición. */
+.dual__etiqueta {
+  margin: 0 0 1.2rem;
+  font-family: var(--font-pixel);
+  font-size: 0.72rem; letter-spacing: 0.1em; line-height: 1.7;
+  text-transform: uppercase;
+  color: var(--foam);
+}
+.dual__testimonio .prosa-cita { margin: 0 0 1.4rem; }
+.dual__testimonio .prosa-cita:last-of-type { margin-bottom: 0; }
+.dual__fuente {
+  margin: 1.4rem 0 0;
+  padding-top: 0.8rem;
+  border-top: 1px dotted rgba(157, 180, 184, 0.3);
+  font-size: 0.85rem; font-style: italic; color: var(--foam);
+}
+
+/* ── Hero con lámina (retrato 2:3): la ilustración se cuelga como pieza
+   enmarcada sobre el fondo abisal, en vez de cubrir todo el portal.
+   (Slot `lamina`; el respaldo pintado de .hero__art::after queda detrás.) ── */
+.hero--lamina .hero__art {
+  display: flex; align-items: center; justify-content: center;
+  padding: clamp(1.2rem, 5vh, 3rem) 1.1rem clamp(7rem, 20vh, 10rem);
+}
+.hero--lamina .hero__art picture {
+  width: auto; height: 100%;
+  display: flex; align-items: center; justify-content: center;
+}
+.hero--lamina .hero__art img {
+  width: auto; height: 100%;
+  max-width: min(88vw, 30rem);
+  object-fit: contain; object-position: center;
+  border: 1px solid rgba(150, 120, 70, 0.45);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.6), 0 0 42px rgba(242, 182, 90, 0.1);
+  background: rgba(2, 6, 12, 0.4);
+}

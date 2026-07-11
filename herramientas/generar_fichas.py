@@ -34,7 +34,7 @@ PUBLICADAS = os.path.join(ROOT, "herramientas", "publicadas.txt")
 INDICE = os.path.join(ROOT, "assets", "js", "data", "indice.js")
 PENDIENTES = os.path.join(ROOT, "herramientas", "pendientes.md")
 
-SLOTS_IMG = ["hero", "descenso", "cierre", "card"]
+SLOTS_IMG = ["hero", "lamina", "descenso", "cierre", "card"]
 
 
 def rd(p):
@@ -134,6 +134,12 @@ def load_prosa(idc):
         prosa["interpretacion"] = " ".join(paras(secs["@INTERPRETACION"]))
     if secs.get("@ORIGEN-MITO"):
         prosa["origenMito"] = paras(secs["@ORIGEN-MITO"])
+    # @TESTIMONIO (mandato Recta Provincia 2026-07-10): citas VERBATIM del
+    # proceso de Ancud 1880 (fuentes/proceso-ancud-1880.md). Cada párrafo usa
+    # la convención de prosa ("» cita" / "— atribución"); una línea "FUENTE:: "
+    # cierra la columna. Solo las fichas que lo traen muestran la doble columna.
+    if secs.get("@TESTIMONIO"):
+        prosa["testimonio"] = paras(secs["@TESTIMONIO"])
     cierre = secs.get("@CIERRE", "") or None
     return prosa, cierre
 
@@ -169,8 +175,26 @@ def img_vars(d):
 SITE = "https://lukas-paredes.github.io/grimorio-del-archipielago/"
 
 
-def build_meta(d):
+def hero_base(idc):
+    """Resuelve la imagen del portal de entrada de la ficha.
+
+    Slot clásico: <id>-hero (16:9, full-bleed). Slot lámina (mandato Recta
+    Provincia 2026-07-10): <id>-lamina (retrato 2:3) — se cuelga enmarcada
+    sobre el fondo abisal en vez de cubrir el portal (clase hero--lamina).
+    Sin ninguna de las dos: comportamiento actual (onerror → is-missing).
+    """
+    has = lambda base: (os.path.isfile(os.path.join(IMG_DIR, base + ".webp"))
+                        or os.path.isfile(os.path.join(IMG_DIR, base + ".png")))
+    if has(idc + "-hero"):
+        return idc + "-hero", ""
+    if has(idc + "-lamina"):
+        return idc + "-lamina", " hero--lamina"
+    return idc + "-hero", ""
+
+
+def build_meta(d, img_base=None):
     nombre, resumen, idc = d["nombre"], d.get("resumen", ""), d["id"]
+    og_img = img_base or (idc + "-hero")
     ld = {"@context": "https://schema.org", "@type": "CreativeWork",
           "name": nombre, "inLanguage": "es-CL", "description": resumen,
           "isPartOf": {"@type": "WebSite", "name": "El Grimorio del Archipiélago"}}
@@ -183,7 +207,7 @@ def build_meta(d):
         '<meta property="og:type" content="article">',
         '<meta property="og:title" content="%s">' % html_escape(nombre),
         '<meta property="og:description" content="%s">' % html_escape(resumen),
-        '<meta property="og:image" content="%sassets/img/%s-hero.png">' % (SITE, idc),
+        '<meta property="og:image" content="%sassets/img/%s.png">' % (SITE, og_img),
         '<meta property="og:locale" content="es_CL">',
         '<meta name="twitter:card" content="summary_large_image">',
         '<script type="application/ld+json">',
@@ -202,15 +226,17 @@ def generar_html(d, raw, plantilla, publicadas):
         raise RuntimeError("el bloque @ENTIDAD de %s contiene ` , ${ o \\ (rompería el template literal)" % idc)
     alt = d["alt_hero"] or d.get("resumen", "")
     prosa_json = json.dumps(prosa, ensure_ascii=False, indent=2).replace("\n", "\n    ")
+    base, hero_mod = hero_base(idc)
     repl = {
         "{{TITLE}}": "%s · El Grimorio del Archipiélago" % d["nombre"],
-        "{{META}}": build_meta(d),
+        "{{META}}": build_meta(d, base),
         "{{IMG_VARS}}": img_vars(d),
         "{{FICHA_RAW}}": raw,
         "{{PROSA_JSON}}": prosa_json,
         "{{CIERRE}}": json.dumps(cierre or "", ensure_ascii=False),
         "{{PUBLICADAS}}": json.dumps(publicadas, ensure_ascii=False),
-        "{{HERO_IMG}}": "assets/img/%s-hero" % idc,
+        "{{HERO_IMG}}": "assets/img/%s" % base,
+        "{{HERO_MOD}}": hero_mod,
         "{{HERO_ALT}}": html_escape(alt),
         "{{BODY_ID}}": idc,
     }
@@ -253,7 +279,7 @@ def emit_pendientes(entidades, publicadas):
           "_Generado por `herramientas/generar_fichas.py`. Es la lista de trabajo:",
           "qué imágenes faltan por criatura, si hay prosa curada y si está publicada._",
           "",
-          "Slots de imagen: `hero` (16:9) · `descenso` (9:16) · `cierre` (16:9) · `card` (1:1).",
+          "Slots de imagen: `hero` (16:9) · `lamina` (2:3, retrato) · `descenso` (9:16) · `cierre` (16:9) · `card` (1:1).",
           "",
           "| id | sección | imágenes (`<id>-<slot>`) | prosa | publicada |",
           "|---|---|---|---|---|"]
@@ -293,11 +319,17 @@ def emit_pendientes(entidades, publicadas):
            "  declaración de Aurora Quinchem y sentencia del juez Beytía, 1881) + el OCR",
            "  crudo y el PDF fuente en `fuentes/_raw/` (Ponce Hermanos, 1908; Memoria",
            "  Chilena MC0033459).",
-           "- **Falta decisión de montaje.** Cómo presentar el testimonio en el sitio:",
-           "  doble columna «mito / testimonio» y/o un módulo **«El Expediente»** dentro",
-           "  de `09-recta-provincia` (entidades ya previstas: `juicio-1880`,",
-           "  `recta-provincia`, `cueva-quicavi`, `libro-de-moraleda`, `macun`,",
-           "  `challanco`). Nada montado aún — solo la fuente está domesticada.",
+           "- **Montaje EN CURSO (mandato 2026-07-10, decisiones cerradas).** Ambos",
+           "  capítulos bajo `libro-8`. Fichas plenas: brujo-chilote, recta-provincia,",
+           "  cueva-quicavi, macun, challanco, voladora (+ invunche ya publicado) y",
+           "  juicio-1880. Vitrina (sin parada propia): machi, calcu, la-mayoria,",
+           "  siete-republicas, poderes-del-brujo, libro-de-moraleda, iniciacion.",
+           "  Doble columna mito‖testimonio vía `@TESTIMONIO` (flag aditivo);",
+           "  «El Expediente» = página bespoke `juicio-1880.html`; slot `lamina` 2:3;",
+           "  `recogida.png` FUERA (ilustra la orden del intendente, sin fuente 1908).",
+           "- **PILOTO montado: cueva-quicavi** (ficha plena + lámina + doble columna,",
+           "  n provisional tras Invunche). Pendiente QA de Lucas; con su «dale» siguen",
+           "  las otras 5 plenas → vitrina → Expediente.",
            "- **Vacío de fuente (no inventar):** la «orden de recogida» del intendente",
            "  Martiniano Rodríguez NO aparece en el folleto de 1908. El dossier transcribe",
            "  el marco procesal que sí existe (el juez letrado de Ancud levantó el proceso,",
