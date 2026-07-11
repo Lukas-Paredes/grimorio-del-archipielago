@@ -36,6 +36,17 @@ PENDIENTES = os.path.join(ROOT, "herramientas", "pendientes.md")
 
 SLOTS_IMG = ["hero", "lamina", "descenso", "cierre", "card"]
 
+# ── Vitrina del capítulo (mandato Recta Provincia 2026-07-10) ──────────────────
+# Piezas SIN parada propia en el descenso, montadas dentro del hub de su
+# capítulo: se embebe el bloque @ENTIDAD VERBATIM (+ su prosa curada si
+# existe, p. ej. el @TESTIMONIO de iniciacion). El orden es curatorial.
+# Reversible: quitar la entrada y regenerar.
+GALERIAS = {
+    "recta-provincia": ["la-mayoria", "siete-republicas", "iniciacion",
+                        "poderes-del-brujo", "machi", "calcu",
+                        "libro-de-moraleda"],
+}
+
 
 def rd(p):
     return io.open(p, encoding="utf-8").read()
@@ -223,7 +234,20 @@ def build_meta(d, img_base=None):
     return "\n".join(lines)
 
 
-def generar_html(d, raw, plantilla, publicadas):
+def build_galeria(idc, raw_by_id):
+    """Arma las piezas de la vitrina del capítulo (GALERIAS): bloque @ENTIDAD
+    verbatim + prosa curada opcional. Devuelve JSON listo para embeber."""
+    piezas = []
+    for gid in GALERIAS.get(idc, []):
+        if gid not in raw_by_id:
+            print("  AVISO %s: pieza de vitrina '%s' no está en el .txt" % (idc, gid))
+            continue
+        gprosa, _ = load_prosa(gid)
+        piezas.append({"raw": raw_by_id[gid], "prosa": gprosa or {}})
+    return json.dumps(piezas, ensure_ascii=False)
+
+
+def generar_html(d, raw, plantilla, publicadas, raw_by_id=None):
     idc = d["id"]
     prosa, cierre = load_prosa(idc)
     if prosa is None:
@@ -240,6 +264,7 @@ def generar_html(d, raw, plantilla, publicadas):
         "{{FICHA_RAW}}": raw,
         "{{PROSA_JSON}}": prosa_json,
         "{{CIERRE}}": json.dumps(cierre or "", ensure_ascii=False),
+        "{{GALERIA}}": build_galeria(idc, raw_by_id or {}),
         "{{PUBLICADAS}}": json.dumps(publicadas, ensure_ascii=False),
         "{{HERO_IMG}}": "assets/img/%s" % base,
         "{{HERO_MOD}}": hero_mod,
@@ -414,7 +439,7 @@ def main():
             print("  SALTO %s: no está en el .txt." % idc); continue
         d = next(e for e in entidades if e["id"] == idc)
         try:
-            html = generar_html(d, raw_by_id[idc], plantilla, publicadas)
+            html = generar_html(d, raw_by_id[idc], plantilla, publicadas, raw_by_id)
         except RuntimeError as e:
             print("  SALTO %s: %s" % (idc, e)); continue
         out = os.path.join(ROOT, idc + ".html")

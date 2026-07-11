@@ -321,6 +321,85 @@
       vbox.appendChild(card);
     });
 
+    /* Vitrina del capítulo (mandato Recta Provincia 2026-07-10): piezas del
+       corpus SIN parada propia en el descenso, embebidas VERBATIM en
+       window.FICHA.galeria = [{ raw, prosa }]. Mismo parser que la ficha
+       (parseEntidad); cajones expandibles como las variantes. Si la pieza
+       trae prosa.testimonio, se muestra con la etiqueta curatorial
+       OBLIGATORIA (antecedente histórico, jamás tradición documentada).
+       Flag aditivo: sin galeria la sección queda oculta. */
+    var galBox = document.getElementById("galeria");
+    var galItems = CFG.galeria || [];
+    if (galBox && galItems.length) {
+      galItems.forEach(function (pz) {
+        var g;
+        try { g = parseEntidad(pz.raw); } catch (e) { return; }
+        var card = el("article", "cajon galeria__pieza reveal");
+        card.appendChild(el("span", "cajon__tab"));
+        var frame = el("div", "frame");
+        var panel = el("div", "frame__panel");
+        var h3 = el("h3");
+        var btn = el("button", "cajon__toggle");
+        btn.type = "button";
+        btn.setAttribute("aria-expanded", "false");
+        btn.appendChild(document.createTextNode(g.nombre));
+        var ind = el("span", "cajon__indicador", "abrir +");
+        ind.setAttribute("aria-hidden", "true");
+        btn.appendChild(ind);
+        h3.appendChild(btn);
+        panel.appendChild(h3);
+        var cuerpo = el("div", "galeria__cuerpo");
+        cuerpo.hidden = true;
+        if (g.jerarquia && g.jerarquia !== "—") {
+          cuerpo.appendChild(el("p", "galeria__jerarquia", g.jerarquia));
+        }
+        if (g.advertencia) {   // patrón del Invunche: testimonio, no espectáculo
+          var gadv = el("aside", "advertencia");
+          gadv.setAttribute("role", "note");
+          gadv.appendChild(el("span", "advertencia__label", "Advertencia"));
+          gadv.appendChild(el("p", "advertencia__texto", g.advertencia));
+          cuerpo.appendChild(gadv);
+        }
+        if (g.resumen) { cuerpo.appendChild(el("blockquote", "resumen galeria__resumen", g.resumen)); }
+        if (g.descripcion) { cuerpo.appendChild(el("p", "galeria__texto", g.descripcion)); }
+        g.variantes.forEach(function (va) {
+          var v = el("div", "galeria__variante");
+          if (va.titulo) { v.appendChild(el("strong", null, va.titulo)); }
+          v.appendChild(el("p", null, va.texto));
+          cuerpo.appendChild(v);
+        });
+        if (pz.prosa && pz.prosa.testimonio && pz.prosa.testimonio.length) {
+          var tst = el("aside", "dual__testimonio galeria__testimonio");
+          tst.setAttribute("aria-label", "Testimonio del proceso de Ancud, 1880");
+          tst.appendChild(el("h4", "dual__label dual__label--testimonio", "El testimonio"));
+          tst.appendChild(el("p", "dual__etiqueta",
+            "Antecedente histórico — declaración del proceso de Ancud, 1880 (recreación editorial, Ponce Hermanos, 1908)"));
+          pz.prosa.testimonio.forEach(function (t) {
+            if (t.slice(0, 8) === "FUENTE::") {
+              tst.appendChild(el("p", "dual__fuente", t.slice(8).trim()));
+            } else {
+              tst.appendChild(prosaNodo(t));
+            }
+          });
+          cuerpo.appendChild(tst);
+        }
+        if (g.fuentes.length) {
+          cuerpo.appendChild(el("p", "galeria__fuentes", "Fuentes: " + g.fuentes.join(" · ")));
+        }
+        btn.addEventListener("click", function () {
+          var abierto = btn.getAttribute("aria-expanded") === "true";
+          btn.setAttribute("aria-expanded", abierto ? "false" : "true");
+          cuerpo.hidden = abierto;
+          ind.textContent = abierto ? "abrir +" : "cerrar −";
+        });
+        panel.appendChild(cuerpo);
+        frame.appendChild(panel);
+        card.appendChild(frame);
+        galBox.appendChild(card);
+      });
+    }
+    toggleSection("sec-vitrina-cap", !!(galBox && galItems.length));
+
     // Vitrina: otras piezas. Si window.FICHA.publicadas incluye el id, la pieza
     // enlaza a su ficha; si no, queda "ficha pendiente" (link muerto). (Excepción E2.)
     var vit = document.getElementById("vitrina");

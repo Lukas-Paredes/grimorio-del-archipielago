@@ -816,3 +816,39 @@ a { color: var(--amber-soft); }
   box-shadow: 0 24px 60px rgba(0, 0, 0, 0.6), 0 0 42px rgba(242, 182, 90, 0.1);
   background: rgba(2, 6, 12, 0.4);
 }
+
+/* ════════════════════════════════════════════════════════════════════════
+   VITRINA DEL CAPÍTULO (mandato Recta Provincia 2026-07-10): piezas del
+   corpus sin parada propia, embebidas verbatim como cajones expandibles
+   dentro del hub del capítulo. Reusa la estética de los cajones de archivo;
+   el testimonio (si la pieza lo trae) reusa la placa de .dual__testimonio.
+   ════════════════════════════════════════════════════════════════════════ */
+.galeria { display: grid; gap: 1.1rem; }
+.galeria__cuerpo { padding-top: 0.9rem; }
+.galeria__jerarquia {
+  margin: 0 0 0.8rem;
+  font-family: var(--font-pixel);
+  font-size: 0.72rem; letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--foam);
+}
+.galeria__resumen {
+  margin: 0 0 1rem; padding: 0.15rem 0 0.15rem 1.2rem;
+  font-size: clamp(1.05rem, 1rem + 0.5vw, 1.25rem);
+}
+.galeria__texto { margin: 0; color: var(--bone); }
+.galeria__variante {
+  margin: 1rem 0 0; padding: 0.6rem 1rem;
+  border-left: 3px solid var(--amber-line);
+  background: rgba(242, 182, 90, 0.05);
+}
+.galeria__variante strong { color: #f0d9a8; }
+.galeria__variante p { margin: 0.3rem 0 0; color: var(--bone); }
+.galeria__testimonio { margin-top: 1.2rem; }
+.galeria__testimonio h4 { margin-top: 0; }
+.galeria__fuentes {
+  margin: 1.2rem 0 0; padding-top: 0.7rem;
+  border-top: 1px dotted rgba(157, 180, 184, 0.3);
+  font-family: var(--font-pixel);
+  font-size: 0.76rem; letter-spacing: 0.06em;
+  color: var(--foam);
+}
