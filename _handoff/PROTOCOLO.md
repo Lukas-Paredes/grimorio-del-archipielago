@@ -32,9 +32,16 @@ Checklist de apertura (lo hace Code):
 Checklist de cierre (lo hace Code):
 1. Nada sin commitear (`git status` limpio tras el commit final).
 2. `_handoff/HANDOFF.md` actualizado (es el documento de traspaso).
-3. Decisiones nuevas → sección «Decisiones» de `CLAUDE.md`, con fecha.
-4. Push + verificación `git rev-parse HEAD @{u}` (deben coincidir).
-5. Reporte final con URLs locales para QA si hubo montaje.
+3. **Archivo de migración fechado NUEVO** en `_handoff/migraciones/`
+   (`MIGRACION-AAAA-MM-DD.md`): estado del repo, commits de la sesión con
+   hash, estado exacto del trabajo, decisiones vigentes, QUÉ SIGUE por
+   prioridad, y la orden de apertura para retomar. Es el historial de
+   traspasos; nunca se sobreescribe uno anterior.
+4. **`CHANGELOG.md` (raíz) al día**: si la sesión cerró un HITO grande
+   (no cada commit), se registra con fecha y resumen.
+5. Decisiones nuevas → sección «Decisiones» de `CLAUDE.md`, con fecha.
+6. Push + verificación `git rev-parse HEAD @{u}` (deben coincidir).
+7. Reporte final con URLs locales para QA si hubo montaje.
 
 ## Reglas fijas del traspaso
 

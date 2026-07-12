@@ -6,6 +6,12 @@
 > **Primero de todo:** `git status` y `git log --oneline -10`, y leé también
 > `CLAUDE.md`, `pendientes.md` (`herramientas/pendientes.md`) y `ESTADO-DEL-PROYECTO.md`.
 > Después esperá el primer mandato de Lucas.
+>
+> ⚠️ **Snapshot del 2026-07-09.** Desde entonces el sistema creció (capítulo
+> Recta Provincia completo: @TESTIMONIO, @LECTURAS, GALERIAS, BESPOKE, slot
+> lámina, umbral por acto, Expediente). El delta está en: `CLAUDE.md` →
+> Decisiones (fechadas) + `_handoff/migraciones/` (traspasos por sesión) +
+> `CHANGELOG.md` (hitos). Leé la migración más reciente ANTES que este archivo.
 
 ---
 
