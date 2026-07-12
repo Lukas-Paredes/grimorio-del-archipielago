@@ -32,7 +32,7 @@ está digitalizada solo como serie en visor, sin URL de número individual — v
    - *El Chilote* (Ancud), **13 de mayo de 1880** · *El Liberal* (Ancud), **11 de mayo de 1880**.
    - Rastro en repo: Catepillan (2019), **nota 28**.
 
-### La sentencia de primera instancia, publicada en prensa
+### Las sentencias, publicadas en la Gaceta de los Tribunales
 
 3. **«Sentencia de primera instancia contra Mateo Coñuecar y otros por
    asociación ilícita»**, *Gaceta de los Tribunales* (Santiago),
@@ -43,6 +43,17 @@ está digitalizada solo como serie en visor, sin URL de número individual — v
      <https://www.bibliotecanacionaldigital.gob.cl/bnd/630/w3-article-620043.html>
      (visor `BND:620043`). El número del 11-jun-1881 debe ubicarse dentro del
      visor (pista fuerte, descarga manual pendiente).
+
+3-bis. **LA SENTENCIA DE SEGUNDA INSTANCIA (la absolución), TEXTO COMPLETO
+   LOCALIZADO**: *Gaceta de los Tribunales*, año XL, **nº 1964**, «Sentencias
+   dictadas por los Tribunales de Justicia desde el 1° de enero hasta el 31 de
+   diciembre de 1881» (Imprenta de la República, 1882), **p. 457**.
+   - Fechada «Concepción, mayo 24 de 1881»; firmas Riso, Astorga, Soto,
+     Escobar (este último con voto disidente por confirmar la condena).
+   - Rastro en repo: **transcrita íntegra en Hernández (2013), p. 30 (n. 50)**
+     (`fuentes/_raw/lecturas/hernandez-2013-…pdf`) → **ya montada verbatim en
+     el Epílogo del Expediente**.
+   - Mismo visor BND de la serie para ubicar el volumen físico digitalizado.
 
 ### Crónica de época sobre brujos (contexto Quinchao/Apiao, 1849)
 
@@ -82,6 +93,32 @@ está digitalizada solo como serie en visor, sin URL de número individual — v
   - Transcripción moderna comercial: Galleguillos Muñoz, M. (2018),
     *Los brujos de Chiloé: documentos de un proceso judicial* (Ed. Tácitas /
     reed.). NO de acceso abierto — no se piratea; adquisición pendiente de Lucas.
+
+## B-bis. Cosecha de Hernández (2013) — prensa nueva, rastreable en repo
+
+La tesis archivada (`fuentes/_raw/lecturas/hernandez-2013-juicio-brujos-modernidad.pdf`)
+cita y en parte TRANSCRIBE prensa de época adicional:
+
+7. **El Liberal (Ancud) denunció TORMENTOS**: un remitido sin firma aseguraba
+   que el intendente «ha estado haciendo azotar a las personas aprehendidas
+   por los delitos que han perpetrado en el carácter de brujos o hechiceros».
+   **El número de El Liberal está perdido** («no se conocen ejemplares», anota
+   Hernández, n. 33); se conoce por el DESMENTIDO publicado en **El Chilote
+   (Ancud), 21 de mayo de 1880**, transcrito en la tesis (n. 33).
+   → Material narrativo mayor para el Expediente: la prensa acusando azotes,
+   el desmentido oficial, y el número perdido. MARCADO para integración.
+8. **El Chilote (Ancud), 29 de julio de 1880, p. 2** — sobre los brujos
+   (Barrientos; Hernández n. 83). Barrientos era «informante y agente en
+   Achao de El Chilote» (identificación de Hernández).
+9. **El Liberal (Ancud), 9 de abril de 1880** — citado también por Hernández
+   (n. 99): **segunda fuente académica** de la publicación del decreto
+   (corrobora Catepillan n. 27).
+10. **El Chilote, 16 de febrero de 1871** (editorial sobre la justicia
+    provincial; n. 23) · **El Chilote, 4 de febrero de 1878** (n. 25) —
+    contexto judicial previo.
+11. Dato de contexto verificado: Martiniano Rodríguez tuvo DOS períodos de
+    intendencia y persiguió las prácticas también en 1895 (Chauques y Apiao),
+    según Hernández.
 
 ## C. Discrepancias y pendientes
 

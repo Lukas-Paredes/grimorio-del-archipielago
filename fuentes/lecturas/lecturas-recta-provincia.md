@@ -1,6 +1,59 @@
 # Lecturas — capa académica de la Recta Provincia
 
-**Estado: INCOMPLETO — solo bibliografía. NADA de esto se publica todavía.**
+**Estado (2026-07-11, tarde): CAPA MONTADA + LOTE MANUAL EVALUADO.**
+Los papers verificados viven en `fuentes/_raw/lecturas/` (pdf+txt); las citas
+montadas en el sitio llevan (Autor, año, p. X) cotejada contra su PDF.
+
+## Evaluación del lote manual `docs/propuestas/` (decisión 2026-07-11)
+
+Filtro aplicado: se PROMUEVE a fuente citable lo mitológico/histórico
+verificable; queda como REFERENCIA lo que guía al proyecto o no se pudo
+verificar. Lucas tiene la última palabra.
+
+**PROMOVIDOS a fuente citable (archivados en `fuentes/_raw/lecturas/`):**
+- **Hernández, Joaquín (2013).** Tesis sobre el juicio de 1880 y la modernidad
+  (portada sin capa de texto; título exacto `[por confirmar]` — probablemente
+  «Enfrentando saberes: los brujos de Chiloé y el discurso ilustrado
+  (1849-1900)», U. de Chile, repositorio 2250/114292). →
+  `hernandez-2013-juicio-brujos-modernidad.pdf/txt`. **Confirma la absolución
+  total en 2ª instancia (2ª fuente) y aporta prensa de época nueva.**
+- **Romo Sánchez, Manuel. «Diccionario de la Brujería en Chiloé»** (Memoria
+  Chilena MC0033461, dominio público). → `romo-sanchez-diccionario-brujeria.pdf/txt`.
+  La fuente que el corpus ya citaba en macuñ/challanco/la-mayoría — ahora
+  verificable en repo (verificado: «se enrolla como erizo… 'thac'», «Sin él
+  el brujo no sería nada», mapa/revisorio, Mayoría).
+- **León, Marco Antonio (2016).** «Medicina y resistencias culturales en la
+  provincia de Chiloé, 1826-1930», *Magallania* 44(1), 41-55. →
+  `leon-2016-medicina-resistencias.pdf/txt`.
+- **Contreras, Constantino.** «Estudio lingüístico-folklórico de Chiloé: mitos
+  y actividades laborales rudimentarias» (autoría verificada en el interior).
+  → `estudio-linguistico-folklorico-chiloe.pdf/txt`.
+
+**REFERENCIA interna (bibliografía, no corpus del capítulo):**
+- Vanore, I. (2025), *Zibaldone* XIII — traducción italiana de *Chiloé
+  mitológico escolar* (difusión internacional, no fuente del mito).
+- Mohr, M. — *Chiloteando* (memoria de título; proyecto, no corpus).
+- Suárez/Rodríguez (2013) — *Insularidad Canarias-Chiloé* (ensayo cultural).
+- Ulloa (Otras Voces) · Ulloa/Azócar/Mayorga (IX Bienal) · Díaz & Pavez 2025
+  (cine) · Coloquio Sirenas UBA 2024 — contexto/industria cultural.
+
+**PARA DECISIÓN DE LUCAS (no promovidos):**
+- `45802a0de4eb774ac42e38dbf7fba77f.pdf` — escaneado SIN capa de texto, sin
+  identificar (no hay OCR en la máquina). ¿Qué es?
+- `publicadoranuc…CE.pdf` (×2) — ídem, sin capa de texto.
+
+**Duplicados del lote ya integrados antes:** Catepillan 2019 · Valenzuela
+2014 · Núñez 2022 · Mapocho 80 (Ampuero).
+
+## Veredicto del rastreo «el gobernador» (decisión 2026-07-11)
+
+«Francisco Cavada Ojeda» como quien ordenó la redada: **NO aparece en ninguna
+fuente histórica** (ni en el repo, ni en Catepillan/Ampuero/Hernández, ni en
+las institucionales). Todas las fuentes dicen **intendente Luis Martiniano
+Rodríguez** (Ampuero p. 66 · Catepillan p. 92 · Hernández 2013, introducción).
+Francisco J. Cavada es el canónigo AUTOR de «Chiloé y los chilotes» (1914) —
+conflación de apellido-de-fuente con autoridad. **ERROR, no discrepancia**: no
+se presenta como variante. El sitio ya decía Martiniano Rodríguez.
 
 Este archivo recibirá la extracción estructurada (`@FUENTE`/`LECTURA::`) generada
 desde los papers académicos del proyecto (NotebookLM, mandato 2026-07-10).
