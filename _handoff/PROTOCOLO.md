@@ -8,17 +8,19 @@ en `_handoff/HANDOFF.md`. Nada de estado importante queda solo-local.
 
 ## APERTURA (pegar como primer mandato de la sesión)
 
-> Lee HANDOFF-CODE.md (arquitectura), _handoff/HANDOFF.md (última sesión) y
-> herramientas/pendientes.md. Confirma con `git status` que estás en
-> v8-arquitectura con árbol limpio, haz `git pull`, y reporta: último commit,
-> qué quedó pendiente según el handoff, y espera mi primer mandato.
-> No toques nada todavía.
+> Lee EN ESTE ORDEN: (1) MAPA-PROYECTO.md — el proyecto entero; (2) la última
+> migración en _handoff/migraciones/ — qué pasó ayer; (3) _handoff/HANDOFF.md
+> y herramientas/pendientes.md — el detalle; (4) CLAUDE.md → Decisiones.
+> Confirma con `git status` que estás en v8-arquitectura con árbol limpio,
+> haz `git pull`, y reporta: último commit, qué quedó pendiente, y espera mi
+> primer mandato. No toques nada todavía.
 
 Checklist de apertura (lo hace Code):
-1. `git branch --show-current` → debe ser `v8-arquitectura`.
-2. `git status` limpio; si hay restos locales, PARAR y reportar antes de nada.
-3. `git pull` (ff-only). Si hay error de autenticación → parar y avisar.
-4. Leer `_handoff/HANDOFF.md` → «Qué sigue» y «Decisiones abiertas».
+1. **Leer `MAPA-PROYECTO.md`** (el todo) → luego la migración más reciente de
+   `_handoff/migraciones/` (el ayer) → luego `HANDOFF.md` (el detalle).
+2. `git branch --show-current` → debe ser `v8-arquitectura`.
+3. `git status` limpio; si hay restos locales, PARAR y reportar antes de nada.
+4. `git pull` (ff-only). Si hay error de autenticación → parar y avisar.
 5. Reportar estado y esperar mandato. **No montar nada sin mandato.**
 
 ## CIERRE (pegar como último mandato de la sesión)

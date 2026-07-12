@@ -24,7 +24,8 @@ Formato: fecha · hito · qué cambió. Se alimenta al cierre de cada sesión
 - Biblioteca maestra: `fuentes/` con dossier del proceso (transcripción fiel
   del folleto de 1908 + aparato crítico), papers archivados (pdf+txt),
   registro de prensa de época rastreable y **MATRIZ-CITAS** (mapa de solidez
-  documental). Sistema de trazabilidad: HANDOFF + PROTOCOLO + migraciones.
+  documental). Sistema de trazabilidad completo: **MAPA-PROYECTO.md** (el
+  plano permanente) + HANDOFF + PROTOCOLO + migraciones fechadas + changelog.
 
 ## 9-10 de julio de 2026 — Sonido completo + dossier del proceso
 

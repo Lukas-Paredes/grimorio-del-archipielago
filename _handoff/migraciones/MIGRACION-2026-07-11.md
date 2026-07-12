@@ -7,7 +7,8 @@
 trackear a propósito — los promovidos ya viven en `fuentes/_raw/lecturas/`).
 
 Este archivo existe para que una sesión NUEVA de Claude Code retome sin perder
-nada. Léelo completo antes de tocar cualquier cosa.
+nada. **El contexto permanente del proyecto entero está en `MAPA-PROYECTO.md`
+(raíz) — leelo ANTES que este archivo.** Este solo cubre el AYER.
 
 ---
 

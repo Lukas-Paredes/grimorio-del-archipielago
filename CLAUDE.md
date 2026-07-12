@@ -23,6 +23,10 @@ Diferencia siempre entre:
 
 ## Arquitectura técnica
 
+El mapa completo del proyecto (qué es, carpetas, motor, pipeline, estado y
+sistema de trazabilidad) vive en `MAPA-PROYECTO.md` (raíz) — leerlo primero
+en toda sesión nueva, según la apertura de `_handoff/PROTOCOLO.md`.
+
 La arquitectura vigente es HTML estático, CSS modular y JavaScript clásico, sin frameworks, sin npm, sin backend y sin cadena de compilación.
 
 En el repositorio conviven **dos sistemas** que comparten paleta y ADN visual:
