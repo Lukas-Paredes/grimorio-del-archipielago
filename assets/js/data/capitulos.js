@@ -245,7 +245,9 @@ window.Grimorio.portada = {
     },
     {
       id: "juicio-1880",            // EL EXPEDIENTE — clímax del bloque (página bespoke)
-      n: 11,                        // PROVISIONAL: cierra la Recta Provincia, antes del Camahueto
+      n: 12,                        // PROVISIONAL: CIERRE FINAL del descenso (mandato
+                                    // 2026-07-11: el Camahueto pasa ANTES; el juicio
+                                    // clausura el camino y baja al lecho)
       acto: "libro-8",
       nombre: "El juicio de Ancud de 1880",
       alias: "El Proceso de Ancud", // ALIAS:: del @ENTIDAD (verbatim)
@@ -265,7 +267,8 @@ window.Grimorio.portada = {
     },
     {
       id: "camahueto",
-      n: 12,                        // era 5→6; el bloque Recta Provincia (n:5-11) va antes (PROVISIONAL)
+      n: 11,                        // era 5→6→12; ahora ANTES del juicio (mandato 2026-07-11,
+                                    // PROVISIONAL: el Juicio de Ancud cierra el descenso)
       acto: "libro-5",
       nombre: "El Camahueto",
       // sin alias: el @ENTIDAD lo trae vacío (—)
