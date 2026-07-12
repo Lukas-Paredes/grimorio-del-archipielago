@@ -1,6 +1,21 @@
 # HANDOFF — cierre de sesión
 
-**Fecha:** 2026-07-11 · **Máquina:** casa · **Rama:** `v8-arquitectura` (limpia, sincronizada con origin)
+**Fecha:** 2026-07-11 (tarde, segunda tanda) · **Máquina:** casa · **Rama:** `v8-arquitectura` (limpia salvo `docs/propuestas/` —bandeja de Lucas, sin trackear a propósito—, sincronizada con origin)
+
+## SEGUNDA TANDA del 2026-07-11 (commits, en orden)
+
+- `133db07` — **reorden**: el Juicio de Ancud pasa a ser el CIERRE del descenso (XII); Camahueto antes (XI). Cadena: …X Voladora → XI Camahueto → XII Juicio → lecho.
+- `7313373` — **umbral de entrada**: campo opcional `umbral {img, bajada}` en el ACTO; camino.js antepone la boca de la cueva + «Libro Octavo · La Recta Provincia» + bajada verbatim del DEFINITIVO al CRUZAR hacia libro-8 (aparece en Trauco→Invunche y Camahueto→Juicio; nunca en tránsitos internos).
+- `5004c4c` — **prensa de época**: `fuentes/_raw/prensa/REGISTRO-PRENSA.md` (rastro en-repo vía Catepillan): el decreto del intendente 7-abr-1880 publicado en El Chilote 8-abr y El Liberal 9-abr; sentencia 1ª inst. en Gaceta 11-jun-1881; nada descargable en línea aún; «El Correo 7-ago-1880» NO verificó.
+- `1592ad8` — **MATRIZ-CITAS v1** (mapa de solidez documental).
+- `e4cae91` — **lote docs/propuestas/ integrado**: PROMOVIDOS Hernández 2013, Romo Sánchez (MC0033461), León 2016, Contreras (pdf+txt en `_raw/lecturas/`). Veredicto «el gobernador»: Cavada = ERROR (conflación con el canónigo autor); Martiniano Rodríguez ×3 fuentes. 💎 **Hernández p. 30 transcribe ÍNTEGRA la sentencia de 2ª instancia (Concepción, 24-may-1881; Gaceta nº 1964, p. 457; voto disidente de Escobar) → MONTADA VERBATIM en el Epílogo.** Prensa nueva: los AZOTES denunciados por El Liberal (número perdido; desmentido en El Chilote 21-may-1880, Hernández p. 20).
+- `de94911` — **MATRIZ v2**: absolución ⚠️→✅ · fila «el gobernador» ✅ resuelto · fila «los azotes» · Romo verifica las citas del corpus.
+
+**Decisiones de Lucas aplicadas:** discrepancias legítimas = material narrativo con fuente (nunca zanjar); «Cavada» corregible por ser error sin fuente; `docs/propuestas/` = candidatas promovibles bajo filtro (promovidas 4; referencia 8; para su decisión: los 3 PDFs sin capa de texto).
+
+---
+
+## (Cierre de la mañana — sesión anterior)
 
 Documento vivo de traspaso entre sesiones/máquinas. Se actualiza al CERRAR cada sesión
 (ver `_handoff/PROTOCOLO.md`). La guía completa de arquitectura para una conversación

@@ -133,6 +133,27 @@ Registro de decisiones editoriales/técnicas vigentes (fecha · decisión):
   Si el PDF es un número de revista completo y pesado (caso Ampuero/Mapocho,
   ~20 MB), se versiona solo el `.txt` del artículo con cabecera de
   procedencia; el PDF queda referenciado, no versionado.
+- **2026-07-11 · Discrepancias entre fuentes legítimas = material narrativo**:
+  cuando dos o más fuentes REALES divergen (cifras, luz del macuñ, challanco,
+  penas), se muestran todas con su fuente, en tono que invite a habitar la
+  incertidumbre — jamás se zanjan ni se esconden. Un dato sin fuente que
+  contradice a las fuentes es ERROR y se corrige (caso «Cavada» como autor de
+  la redada: conflación descartada; es Martiniano Rodríguez ×3 fuentes).
+- **2026-07-11 · `docs/propuestas/` = candidatas promovibles**: el lote manual
+  de Lucas no está congelado; se PROMUEVE a fuente citable lo
+  mitológico/histórico verificable que no choque con la academia; queda como
+  referencia interna lo que guía al proyecto o no se pueda verificar. Lucas
+  tiene la última palabra; ante duda, no promover y marcar «para decisión».
+- **2026-07-11 · Reorden del descenso**: el Juicio de Ancud (Expediente) es el
+  CIERRE del camino (XII, baja al lecho); el Camahueto va antes (XI).
+  `n` sigue PROVISIONAL hasta CAMINO-DEL-MITO.
+- **2026-07-11 · Umbral de entrada por acto**: campo opcional
+  `umbral { img, bajada }` en el acto (`capitulos.js`); `camino.js` lo
+  antepone en «El camino continúa» solo al CRUZAR hacia ese Libro. libro-8 lo
+  usa (boca de la cueva + bajada verbatim del DEFINITIVO).
+- **2026-07-11 · Prensa rastreable**: nada de prensa se cita sin respaldo en
+  el repo. `fuentes/_raw/prensa/REGISTRO-PRENSA.md` separa descargado /
+  localizable (cita completa + dónde) / discrepancias. No se piratea.
 
 ## Verificación antes de cerrar una intervención
 
