@@ -246,6 +246,39 @@
     sig.appendChild(el("p", "camino-siguiente__kicker", "El camino continúa"));
 
     var prox = publicados[actual.i + 1] || null;
+
+    /* UMBRAL DE ENTRADA de acto (mandato 2026-07-11, aditivo y reversible):
+       si el próximo capítulo pertenece a OTRO Libro y ese Libro declara
+       `umbral` en capitulos.js, se antepone su portada (imagen + numeral +
+       título + bajada VERBATIM) — la puerta grande por la que se entra al
+       Libro. Sin `umbral` en el acto, nada cambia. */
+    if (prox && actual.cap.acto !== prox.acto) {
+      var actoProx = null;
+      P.actos.forEach(function (a) { if (a.id === prox.acto) { actoProx = a; } });
+      if (actoProx && actoProx.umbral && actoProx.umbral.img) {
+        var um = el("div", "camino-umbral");
+        var pic = document.createElement("picture");
+        var srcW = document.createElement("source");
+        srcW.srcset = "assets/img/" + actoProx.umbral.img + ".webp";
+        srcW.type = "image/webp";
+        var img = document.createElement("img");
+        img.src = "assets/img/" + actoProx.umbral.img + ".png";
+        img.alt = "";
+        img.decoding = "async";
+        pic.appendChild(srcW); pic.appendChild(img);
+        um.appendChild(pic);
+        um.appendChild(el("span", "camino-umbral__velo"));
+        var umTxt = el("div", "camino-umbral__texto");
+        umTxt.appendChild(el("p", "camino-umbral__numeral", actoProx.numeral));
+        umTxt.appendChild(el("p", "camino-umbral__titulo", actoProx.titulo));
+        if (actoProx.umbral.bajada) {
+          umTxt.appendChild(el("p", "camino-umbral__bajada", actoProx.umbral.bajada));
+        }
+        um.appendChild(umTxt);
+        sig.appendChild(um);
+      }
+    }
+
     if (prox && prox.puente && prox.puente.texto) {
       var bq = el("blockquote", "camino-siguiente__puente", prox.puente.texto);
       if (prox.puente.fuente) { bq.appendChild(el("footer", "camino-cita", prox.puente.fuente)); }

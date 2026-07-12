@@ -33,7 +33,15 @@ window.Grimorio.portada = {
     { id: "libro-3", numeral: "Libro Tercero", titulo: "Los barcos y el paso de las almas", zona: "mar" },
     { id: "libro-2", numeral: "Libro Segundo", titulo: "Los señores del mar",               zona: "mar" },
     { id: "libro-4", numeral: "Libro Cuarto",  titulo: "Los señores del bosque",            zona: "bosque" },
-    { id: "libro-8", numeral: "Libro Octavo",  titulo: "La Recta Provincia",                zona: "cueva" },
+    { id: "libro-8", numeral: "Libro Octavo",  titulo: "La Recta Provincia",                zona: "cueva",
+      /* UMBRAL DE ENTRADA del acto (mandato 2026-07-11, opcional y reversible):
+         al CRUZAR hacia este Libro, «El camino continúa» antepone la portada
+         (la boca de la cueva) con numeral, título y bajada. La bajada es
+         VERBATIM de la introducción del Libro Octavo del DEFINITIVO. */
+      umbral: {
+        img: "recta-provincia-hero",
+        bajada: "Hasta aquí, las criaturas. Ahora, los hombres —los que pactaron con la sombra."
+      } },
     { id: "libro-5", numeral: "Libro Quinto",  titulo: "Las bestias del agua y la tierra",  zona: "cerro-rio" }
   ],
   capitulos: [

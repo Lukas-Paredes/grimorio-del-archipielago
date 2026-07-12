@@ -240,3 +240,42 @@ html.bruma-in::after {
   }
   .camino-sonido.abierto .camino-vol { width: 5.5rem; opacity: 1; pointer-events: auto; }
 }
+
+/* ── Umbral de entrada de acto (mandato 2026-07-11): la puerta grande del
+   Libro en «El camino continúa». Portada con velo abisal, numeral en pixel,
+   título en display y bajada verbatim. Solo aparece al cruzar de Libro y si
+   el acto declara `umbral` en capitulos.js (hoy: Libro Octavo). ── */
+.camino-umbral {
+  position: relative; margin: 0 auto 2rem;
+  max-width: 40rem; overflow: hidden;
+  border: 1px solid rgba(150, 120, 70, 0.35);
+  box-shadow: 0 18px 44px rgba(0, 0, 0, 0.55), 0 0 40px rgba(242, 182, 90, 0.07);
+}
+.camino-umbral picture, .camino-umbral img { display: block; width: 100%; height: auto; }
+.camino-umbral__velo {
+  position: absolute; inset: 0; pointer-events: none;
+  background:
+    linear-gradient(180deg, rgba(2, 6, 12, 0.35) 0%, rgba(2, 6, 12, 0) 30%, rgba(2, 6, 12, 0.82) 88%),
+    radial-gradient(90% 60% at 50% 100%, rgba(2, 6, 12, 0.55), transparent 70%);
+}
+.camino-umbral__texto {
+  position: absolute; left: 0; right: 0; bottom: 0;
+  padding: 0 1.2rem 1.1rem; text-align: center;
+}
+.camino-umbral__numeral {
+  margin: 0 0 0.25rem;
+  font-family: var(--font-pixel); font-size: 0.7rem; font-weight: 600;
+  letter-spacing: 0.3em; text-transform: uppercase; text-indent: 0.3em;
+  color: var(--amber-deep);
+}
+.camino-umbral__titulo {
+  margin: 0;
+  font-family: var(--font-display); font-weight: 400;
+  font-size: clamp(1.5rem, 3.6vw, 2.1rem);
+  color: #f6ecd6; text-shadow: 0 0 20px var(--amber-glow);
+}
+.camino-umbral__bajada {
+  margin: 0.4rem auto 0; max-width: 32rem;
+  font-style: italic; font-size: 0.95rem; line-height: 1.6;
+  color: var(--bone);
+}
