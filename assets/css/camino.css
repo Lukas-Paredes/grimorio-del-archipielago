@@ -168,6 +168,14 @@
   border-top: 1px solid var(--amber-line);
 }
 
+/* ── Mapa del archipiélago (panel placeholder; hereda la placa .carta) ───── */
+.carta--mapa { width: min(100% - 2rem, 34rem); text-align: center; }
+.carta--mapa .carta__cerrar { float: right; }
+.carta--mapa__texto {
+  margin: 0.4rem auto 1.4rem; max-width: 26rem;
+  font-size: 1.05rem; line-height: 1.7; color: var(--foam);
+}
+
 /* ── Posición del capítulo en el hero ────────────────────────────────────── */
 .camino-cap {
   margin: 0 0 0.7rem;

@@ -61,6 +61,13 @@
   bCarta.innerHTML = '<span aria-hidden="true">☰</span> Capítulos';
   bCarta.setAttribute("aria-haspopup", "dialog");
 
+  // Mapa (mandato 2026-07-13): el acceso queda listo y visible; la capa
+  // geográfica real se monta cuando la investigación esté verificada.
+  var bMapa = el("button", "camino-btn camino-btn--mapa");
+  bMapa.type = "button";
+  bMapa.innerHTML = '<span aria-hidden="true">🧭</span> Mapa';
+  bMapa.setAttribute("aria-haspopup", "dialog");
+
   var bMarea = el("button", "camino-btn camino-btn--marea");
   bMarea.type = "button";
   function reflectMarea() {
@@ -117,6 +124,7 @@
 
   reflectMarea(); reflectSon();
   botonera.appendChild(bCarta);
+  botonera.appendChild(bMapa);
   botonera.appendChild(bMarea);
   botonera.appendChild(grupoSon);
   // Al INICIO del body: primera parada del tabulador (accesibilidad teclado).
@@ -250,6 +258,35 @@
     b.addEventListener("click", abrirCarta);
   });
   if (location.hash === "#capitulos") { abrirCarta(); }
+
+  /* ── 2b · Mapa del archipiélago (placeholder; capa geográfica después) ──── */
+  var mapa = document.createElement("dialog");
+  mapa.className = "carta carta--mapa";
+  mapa.setAttribute("aria-label", "Mapa del archipiélago");
+  var mapaCerrar = el("button", "camino-btn carta__cerrar");
+  mapaCerrar.type = "button";
+  mapaCerrar.innerHTML = '<span aria-hidden="true">✕</span> Cerrar';
+  mapaCerrar.addEventListener("click", function () { mapa.close(); });
+  mapa.appendChild(mapaCerrar);
+  mapa.appendChild(el("h2", "carta__titulo", "Mapa del archipiélago"));
+  mapa.appendChild(el("p", "carta--mapa__texto",
+    "La capa geográfica del Grimorio: los lugares reales del archipiélago " +
+    "que nombran estos relatos. Cada punto se está verificando contra las " +
+    "fuentes del archivo antes de montarse."));
+  mapa.appendChild(el("p", "camino-modo-sellado", "Próximamente."));
+  document.body.appendChild(mapa);
+  var invocadorMapa = null;
+  bMapa.addEventListener("click", function () {
+    invocadorMapa = document.activeElement;
+    mapa.showModal();
+    mapaCerrar.focus();
+  });
+  mapa.addEventListener("close", function () {
+    if (invocadorMapa && invocadorMapa.focus) { invocadorMapa.focus(); }
+  });
+  mapa.addEventListener("click", function (e) {   // click en el backdrop = cerrar
+    if (e.target === mapa) { mapa.close(); }
+  });
 
   /* ── 3 · Página de capítulo: posición + «El camino continúa» ───────────── */
   var entidad = document.body.getAttribute("data-entity");
