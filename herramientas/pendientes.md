@@ -100,6 +100,12 @@ Slots de imagen: `hero` (16:9) · `lamina` (2:3, retrato) · `descenso` (9:16) �
 - **Deploy a GitHub Pages**: parqueado — requiere hacer el repo PÚBLICO (decisión
   de Lucas; el plan gratuito no sirve Pages en repos privados). URL prevista:
   `lukas-paredes.github.io/grimorio-del-archipielago` (ya cableada en canonical/og/sitemap).
+- **Mapa del archipiélago (mandato 2026-07-13)**: el acceso ya está en la
+  botonera (panel placeholder). ANTES de montar la capa geográfica real,
+  **verificar los puntos ⚠️** de `fuentes/investigacion/geografia-cosmologia.md`
+  (cascadas Tocoihue y Nalhuitad, cueva de Colo, playa de Quicaví/brujo
+  Zapata — candidatos: Quintana 1972 / Cavada 1914). Los 8 puntos ✅ ya son
+  mapeables con fuente en repo.
 
 ## Recta Provincia — dossier del proceso de Ancud (1880)
 - **Fuente primaria domesticada: LISTA.** `fuentes/proceso-ancud-1880.md`
