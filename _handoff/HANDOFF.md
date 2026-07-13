@@ -27,9 +27,9 @@ nueva es `HANDOFF-CODE.md` (raíz del repo).
 
 **Bloque 1 — Montaje completo del capítulo Recta Provincia** (piloto cueva-quicavi aprobado la sesión anterior):
 
-- `13f02f1` — **fase A**: 5 fichas plenas (Cap. VI-X): recta-provincia (hero = ex portada-recta-provincia, renombrada), brujo-chilote, macun, challanco, voladora (láminas 2:3). Prosa verbatim del Libro Octavo. @TESTIMONIO en macun (piel/candil, B+C) y recta-provincia (jerarquía, sentencia D). Camahueto corre a n:12.
+- `13f02f1` — **fase A**: 5 fichas plenas (Cap. VI-X): recta-provincia (hero = ex portada-recta-provincia, renombrada), brujo-chilote, macun, challanco, voladora (láminas 2:3). Prosa verbatim del Libro Octavo. @TESTIMONIO en macun (piel/candil, B+C) y recta-provincia (jerarquía, sentencia D). Camahueto corre a n:12 (en la tarde el reorden `133db07` lo devuelve a XI).
 - `8e48f3e` — **fase B**: vitrina del capítulo en el hub recta-provincia: 7 piezas verbatim (la-mayoria, siete-republicas, iniciacion —con su @TESTIMONIO del juramento y ADVERTENCIA—, poderes-del-brujo, machi, calcu, libro-de-moraleda). Mecánica: dict GALERIAS en el generador.
-- `1f8fc2b` — **fase C**: **El Expediente** — `juicio-1880.html` bespoke (Cap. XI, clímax): placas de bronce A-D del dossier con lacre SVG a mano, NOTA curatorial, escenas cueva-vacia y archivo-ardiendo, FUENTE:: por bloque. `recogida.png` fuera. Set BESPOKE en el generador (nunca la regenera).
+- `1f8fc2b` — **fase C**: **El Expediente** — `juicio-1880.html` bespoke (clímax; era Cap. XI al momento de ese commit, hoy XII tras el reorden de la tarde): placas de bronce A-D del dossier con lacre SVG a mano, NOTA curatorial, escenas cueva-vacia y archivo-ardiendo, FUENTE:: por bloque. `recogida.png` fuera. Set BESPOKE en el generador (nunca la regenera).
 
 **Bloque 2 — Capa académica (Lecturas) + Epílogo:**
 
@@ -42,7 +42,7 @@ nueva es `HANDOFF-CODE.md` (raíz del repo).
 
 ## Estado exacto del capítulo Recta Provincia
 
-- **Cadena del descenso:** I Caleuche → II Pincoya → III Trauco → **IV Invunche → V Cueva de Quicaví → VI Recta Provincia (hub + vitrina) → VII Brujo chilote → VIII Macuñ → IX Challanco → X Voladora → XI El juicio de 1880 (Expediente + Epílogo + Lecturas)** → XII Camahueto → lecho. Todo publicado y verificado.
+- **Cadena del descenso (orden VIGENTE tras el reorden `133db07` de la tarde):** I Caleuche → II Pincoya → III Trauco → **IV Invunche → V Cueva de Quicaví → VI Recta Provincia (hub + vitrina) → VII Brujo chilote → VIII Macuñ → IX Challanco → X Voladora** → XI Camahueto → **XII El juicio de Ancud de 1880 (Expediente + Epílogo + Lecturas)** → lecho. Todo publicado y verificado.
 - **Doble columna mito‖testimonio:** cueva-quicavi, macun, recta-provincia (+ iniciacion en vitrina). Etiqueta obligatoria en todas.
 - **Lecturas montadas:** macun, recta-provincia, challanco, voladora, juicio-1880, iniciacion (vitrina).
 - **Fuentes verificadas en repo:** folleto 1908 (MC0033459) + Ampuero txt + Catepillan/Valenzuela/Núñez pdf+txt.
