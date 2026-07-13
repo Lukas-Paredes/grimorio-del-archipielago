@@ -130,6 +130,9 @@
   var carta = document.createElement("dialog");
   carta.className = "carta";
   carta.setAttribute("aria-label", "Capítulos del camino y archivo del Grimorio");
+  // La entidad de la página actual (si es un capítulo): su placa se marca
+  // «estás aquí» — el lector siempre sabe en qué parada del descenso está.
+  var entidadCarta = document.body.getAttribute("data-entity");
 
   var cerrar = el("button", "camino-btn carta__cerrar");
   cerrar.type = "button";
@@ -140,19 +143,41 @@
   carta.appendChild(el("h2", "carta__titulo", "El camino del mito"));
 
   P.actos.forEach(function (acto) {
-    var caps = P.capitulos.filter(function (c) { return c.acto === acto.id; });
+    var caps = P.capitulos.filter(function (c) { return c.acto === acto.id; })
+                          .sort(function (a, b) { return (a.n || 0) - (b.n || 0); });
     if (!caps.length) { return; }
     var g = el("section", "carta__grupo");
     g.appendChild(el("h3", "carta__acto", acto.numeral + " · " + acto.titulo));
     var grid = el("div", "carta__grid");
     caps.forEach(function (cap) {
       if (cap.estado === "publicado") {
-        var a = el("a", "carta__placa");
+        /* Placa VISUAL (mandato 2026-07-13): la imagen del capítulo bajo velo
+           abisal — el índice se recorre a golpe de vista y se salta directo
+           a cualquier parada. El descenso lineal no se toca. */
+        var esActual = cap.id === entidadCarta;
+        var a = el("a", "carta__placa carta__placa--visual" + (esActual ? " carta__placa--actual" : ""));
         a.href = cap.href;
         a.setAttribute("data-transicion", "");
-        a.appendChild(el("span", "carta__num", "Capítulo " + (ROMAN[cap.n - 1] || cap.n)));
-        a.appendChild(el("strong", "carta__nombre", cap.nombre));
-        a.appendChild(el("span", "carta__estado", "leer capítulo"));
+        if (esActual) { a.setAttribute("aria-current", "page"); }
+        if (cap.img) {
+          var fondo = el("span", "carta__fondo");
+          var fpic = document.createElement("picture");
+          var fsrc = document.createElement("source");
+          fsrc.srcset = "assets/img/" + cap.img + ".webp";
+          fsrc.type = "image/webp";
+          var fimg = document.createElement("img");
+          fimg.src = "assets/img/" + cap.img + ".png";
+          fimg.alt = ""; fimg.loading = "lazy"; fimg.decoding = "async";
+          fpic.appendChild(fsrc); fpic.appendChild(fimg);
+          fondo.appendChild(fpic);
+          a.appendChild(fondo);
+          a.appendChild(el("span", "carta__velo"));
+        }
+        var ftxt = el("span", "carta__texto");
+        ftxt.appendChild(el("span", "carta__num", "Capítulo " + (ROMAN[cap.n - 1] || cap.n)));
+        ftxt.appendChild(el("strong", "carta__nombre", cap.nombre));
+        ftxt.appendChild(el("span", "carta__estado", esActual ? "estás aquí" : "leer capítulo"));
+        a.appendChild(ftxt);
         grid.appendChild(a);
       } else {
         var d = el("div", "carta__placa carta__placa--sellada");

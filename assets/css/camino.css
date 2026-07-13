@@ -130,6 +130,29 @@
 .carta__placa:hover { border-color: var(--amber); transform: translateY(-2px); }
 .carta__placa:focus-visible { outline: 2px solid var(--amber); outline-offset: 3px; }
 .carta__placa--sellada { opacity: 0.62; border-style: dashed; }
+/* Placas VISUALES (mandato 2026-07-13): la imagen del capítulo como fondo
+   bajo velo abisal — índice navegable a golpe de vista. Solo capítulos
+   publicados; las selladas siguen siendo placas secas. */
+.carta__placa--visual {
+  position: relative; overflow: hidden; isolation: isolate;
+  min-height: 9.5rem; padding: 0;
+  display: flex; flex-direction: column; justify-content: flex-end;
+}
+.carta__fondo { position: absolute; inset: 0; z-index: -2; }
+.carta__fondo picture, .carta__fondo img {
+  display: block; width: 100%; height: 100%; object-fit: cover;
+  transition: transform 0.45s var(--ease);
+}
+.carta__velo {
+  position: absolute; inset: 0; z-index: -1; pointer-events: none;
+  background: linear-gradient(180deg,
+    rgba(2, 6, 12, 0.2) 0%, rgba(2, 6, 12, 0.45) 55%, rgba(2, 6, 12, 0.92) 100%);
+}
+.carta__placa--visual .carta__texto { display: grid; gap: 0.25rem; padding: 0.85rem 1rem; }
+.carta__placa--visual .carta__nombre { text-shadow: 0 1px 6px rgba(2, 6, 12, 0.9); }
+.carta__placa--visual:hover .carta__fondo img { transform: scale(1.05); }
+.carta__placa--actual { border-color: var(--amber); box-shadow: 0 0 16px var(--amber-glow); }
+.carta__placa--actual .carta__estado { color: var(--amber); }
 .carta__num {
   font-family: var(--font-pixel); font-size: 0.7rem; font-weight: 600;
   letter-spacing: 0.14em; text-transform: uppercase; color: var(--amber-soft);
@@ -222,9 +245,11 @@ html.bruma-in::after {
 
 /* ── Pausa manual y movimiento reducido ──────────────────────────────────── */
 .motion-off .bruma, .motion-off.bruma-in::after { transition: none; animation: none; opacity: 0; }
+.motion-off .carta__fondo img { transition: none; transform: none; }
 @media (prefers-reduced-motion: reduce) {
   .bruma, html.bruma-in::after { transition: none; animation: none; opacity: 0; }
   .camino-btn, .carta__placa { transition: none; }
+  .carta__fondo img { transition: none; transform: none !important; }
 }
 
 /* ── 390 px ──────────────────────────────────────────────────────────────── */
@@ -233,6 +258,7 @@ html.bruma-in::after {
   .camino-btn { font-size: 0.78rem; padding: 0.5rem 0.8rem; }
   .carta { width: calc(100% - 1.2rem); padding: 1rem; }
   .carta__grid, .carta__grid--selladas { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .carta__placa--visual { min-height: 8rem; }
   /* El slider se despliega al encender el sonido (ahorra espacio en la barra). */
   .camino-vol {
     width: 0; opacity: 0; pointer-events: none;
