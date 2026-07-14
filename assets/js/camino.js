@@ -293,16 +293,43 @@
     for (var k in attrs) { n.setAttribute(k, attrs[k]); }
     return n;
   }
+  var MAPA_INTRO = "Siete distritos en clave, la capital de la Recta Provincia y la sede del juicio de 1880.";
+  function infoIntro() {
+    mapaInfo.textContent = "";
+    mapaInfo.appendChild(el("p", "mapa-info__rol", MAPA_INTRO));
+  }
+  function limpiarSeleccion() {
+    var sel = mapa.querySelector(".mapa-punto--activo");
+    if (sel) { sel.classList.remove("mapa-punto--activo"); }
+    infoIntro();
+  }
   function infoPunto(p) {
     mapaInfo.textContent = "";
     mapaInfo.appendChild(el("p", "mapa-info__nombre", p.nombre + " — " + p.clave));
     mapaInfo.appendChild(el("p", "mapa-info__rol", p.rol));
+    /* Micro-relato VERBATIM del corpus (verificado por generar_mapa.py). */
+    if (p.relato) {
+      var bq = el("blockquote", "mapa-info__relato", p.relato);
+      if (p.relatoFuente) { bq.appendChild(el("footer", "camino-cita", p.relatoFuente)); }
+      mapaInfo.appendChild(bq);
+    }
     mapaInfo.appendChild(el("p", "mapa-info__fuente", "Fuente: " + p.fuente));
+    var acciones = el("div", "mapa-info__acciones");
     if (p.href) {
-      var ir = el("a", "camino-btn", "Abrir el capítulo");
+      var ir = el("a", "camino-btn camino-btn--primario", "Ir a la ficha completa ");
       ir.href = p.href;
       ir.setAttribute("data-transicion", "");
-      mapaInfo.appendChild(ir);
+      ir.appendChild(plomada());
+      acciones.appendChild(ir);
+    }
+    var volver = el("button", "camino-btn", "Volver al mapa");
+    volver.type = "button";
+    volver.addEventListener("click", limpiarSeleccion);
+    acciones.appendChild(volver);
+    mapaInfo.appendChild(acciones);
+    // En móvil el panel queda bajo el lienzo: acercarlo sin sacudir la vista.
+    if (!reduce && !paused() && mapaInfo.scrollIntoView) {
+      mapaInfo.scrollIntoView({ block: "nearest", behavior: "smooth" });
     }
   }
   function pintarMapa() {
@@ -346,8 +373,7 @@
     svg.appendChild(capa);
     mapaLienzo.removeChild(mapaEspera);
     mapaLienzo.appendChild(svg);
-    mapaInfo.appendChild(el("p", "mapa-info__rol",
-      "Siete distritos en clave, la capital de la Recta Provincia y la sede del juicio de 1880."));
+    infoIntro();
     mapaPie.textContent = M.procedencia +
       " El mapa en clave varió entre las declaraciones de 1880 (Hernández 2013): " +
       "aquí se muestra la versión del corpus; las variantes viven en las fichas. " +

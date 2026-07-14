@@ -33,40 +33,72 @@ MIN_AREA = 6.0         # px² proyectados: bajo esto es una mota, no una isla
 # Puntos VERIFICADOS (fuentes/investigacion/geografia-cosmologia.md).
 # lat/lon: OpenStreetMap/Nominatim (2026-07-13). clave/rol: corpus del
 # Grimorio (@SIETE-REPUBLICAS l.1296, @CUEVA-QUICAVI, @TENAUN, dossier 1880).
+# `relato`: micro-relato VERBATIM del corpus (los GANCHO:: de cada @ENTIDAD);
+# main() lo verifica como substring EXACTO del corpus y aborta si no lo es.
+GANCHO_7REP = ("Para operar en secreto, dividieron el archipiélago en siete "
+               "distritos con nombres en clave de ciudades lejanas: Lima, "
+               "España, Salamanca...")
+FUENTE_7REP = "Corpus del Grimorio — @SIETE-REPUBLICAS (gancho, verbatim)"
 PUNTOS = [
     {"id": "quicavi", "nombre": "Quicaví", "clave": "«Lima»",
      "rol": "Capital de la Recta Provincia, sede del Rey. En su costa, la Cueva de los Brujos — la Casa Grande, guardada por el Invunche.",
+     "relato": "La capital de la Recta Provincia. Una cueva oculta en la costa de Quemchi, con letras grabadas que nadie ha podido leer, y el Invunche en la boca.",
+     "relatoFuente": "Corpus del Grimorio — @CUEVA-QUICAVI (gancho, verbatim)",
      "fuente": "Corpus del Grimorio (siete repúblicas · cueva) · Ampuero 2016",
      "href": "cueva-quicavi.html", "lat": -42.2721, "lon": -73.3519},
     {"id": "tenaun", "nombre": "Tenaún", "clave": "«Santiago»",
      "rol": "Origen legendario de la Recta Provincia: aquí, hacia 1786, la Chilpilla dejó en seco el barco de Moraleda y recibió el Libro de Arte.",
+     "relato": "El pueblo de la iglesia de estrellas azules, donde la bruja Chilpilla dejó en seco el barco del explorador Moraleda.",
+     "relatoFuente": "Corpus del Grimorio — @TENAUN (gancho, verbatim)",
      "fuente": "Corpus del Grimorio (siete repúblicas · Tenaún)",
      "href": "recta-provincia.html", "lat": -42.3044, "lon": -73.3875},
     {"id": "achao", "nombre": "Achao", "clave": "«Buenos Aires»",
      "rol": "Distrito de la Recta Provincia en la isla Quinchao. Cuna de Bernardo Quintana, recopilador de estas leyendas.",
+     "relato": "La villa de la iglesia más antigua de Chiloé, y la tierra natal del doctor Quintana, que rescató estas leyendas.",
+     "relatoFuente": "Corpus del Grimorio — @ACHAO (gancho, verbatim)",
      "fuente": "Corpus del Grimorio (siete repúblicas · Achao)",
      "href": None, "lat": -42.4710, "lon": -73.4881},
     {"id": "queilen", "nombre": "Queilén", "clave": "«España»",
      "rol": "Distrito de la Recta Provincia. En las declaraciones de 1880 el nombre «España» aparece ligado a Payos — el mapa en clave varió entre voces.",
+     "relato": GANCHO_7REP, "relatoFuente": FUENTE_7REP,
      "fuente": "Corpus del Grimorio (siete repúblicas) · variante: Hernández 2013",
      "href": None, "lat": -42.8899, "lon": -73.4721},
     {"id": "caucahue", "nombre": "Isla Caucahué", "clave": "«Perú»",
      "rol": "Distrito insular de la Recta Provincia, frente a Quemchi.",
+     "relato": GANCHO_7REP, "relatoFuente": FUENTE_7REP,
      "fuente": "Corpus del Grimorio (siete repúblicas · Caucahué)",
      "href": None, "lat": -42.1442, "lon": -73.4135},
     {"id": "rauco", "nombre": "Rauco", "clave": "«Salamanca»",
      "rol": "Distrito de la Recta Provincia, al sur de Castro. En las declaraciones de 1880, «Salamanca» aparece ligado a Tenaún — otra voz del mapa en clave.",
+     "relato": GANCHO_7REP, "relatoFuente": FUENTE_7REP,
      "fuente": "Corpus del Grimorio (siete repúblicas) · variante: Hernández 2013",
      "href": None, "lat": -42.5453, "lon": -73.7974},
     {"id": "dalcahue", "nombre": "Dalcahue", "clave": "«Villarrica»",
      "rol": "Distrito de la Recta Provincia, puerta de las islas del mar interior.",
+     "relato": GANCHO_7REP, "relatoFuente": FUENTE_7REP,
      "fuente": "Corpus del Grimorio (siete repúblicas · Dalcahue)",
      "href": None, "lat": -42.3796, "lon": -73.6473},
     {"id": "ancud", "nombre": "Ancud", "clave": "El juicio de 1880",
      "rol": "Sede del proceso a los brujos de Chiloé (Juzgado de Letras, 1880-1881). Su Museo Regional guarda las figuras míticas en fibra, madera y cancagua.",
+     "relato": "El día que el Estado de Chile entró a la cueva: llevó a los brujos a juicio, y lo que era rumor se volvió expediente.",
+     "relatoFuente": "Corpus del Grimorio — juicio-1880 (gancho, verbatim)",
      "fuente": "Dossier del proceso (folleto 1908, MC0033459) · Núñez 2022",
      "href": "juicio-1880.html", "lat": -41.8682, "lon": -73.8287},
 ]
+
+CORPUS = os.path.join(ROOT, "contenido", "El_Grimorio_Datos_Estructurados.txt")
+
+
+def verificar_relatos():
+    """REGLA SAGRADA: cada relato debe ser substring EXACTO del corpus."""
+    with open(CORPUS, encoding="utf-8") as f:
+        corpus = f.read()
+    malos = [p["id"] for p in PUNTOS if p["relato"] not in corpus]
+    if malos:
+        raise SystemExit("REGLA SAGRADA VIOLADA - relato NO verbatim del corpus: %s"
+                         % ", ".join(malos))
+    print("Relatos verificados VERBATIM contra el corpus: %d/%d"
+          % (len(PUNTOS), len(PUNTOS)))
 
 
 def anillos(geom):
@@ -118,6 +150,7 @@ def area(puntos):
 
 
 def main():
+    verificar_relatos()
     with open(GEO, encoding="utf-8") as f:
         geo = json.load(f)
 
@@ -180,8 +213,9 @@ def main():
     ]
     for q in puntos_js:
         js.append("    " + json.dumps(
-            {kk: q[kk] for kk in ("id", "nombre", "clave", "rol", "fuente",
-                                  "href", "x", "y", "lat", "lon")},
+            {kk: q[kk] for kk in ("id", "nombre", "clave", "rol", "relato",
+                                  "relatoFuente", "fuente", "href",
+                                  "x", "y", "lat", "lon")},
             ensure_ascii=False) + ",")
     js += ["  ]", "};", ""]
 

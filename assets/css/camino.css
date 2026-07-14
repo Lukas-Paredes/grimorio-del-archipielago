@@ -221,11 +221,20 @@
   color: #f6ecd6; text-shadow: 0 0 16px var(--amber-glow);
 }
 .mapa-info__rol { margin: 0 0 0.5rem; font-size: 1rem; line-height: 1.6; color: var(--bone); }
+.mapa-info__relato {
+  margin: 0.2rem auto 0.7rem; max-width: 28rem;
+  font-style: italic; font-size: 1.02rem; line-height: 1.65; color: var(--bone);
+}
 .mapa-info__fuente {
   margin: 0 0 0.7rem;
   font-family: var(--font-pixel); font-size: 0.68rem;
   letter-spacing: 0.08em; text-transform: uppercase; color: var(--bone-soft);
 }
+.mapa-info__acciones {
+  display: flex; flex-wrap: wrap; justify-content: center; gap: 0.6rem;
+  margin-top: 0.6rem;
+}
+.mapa-info__acciones .camino-btn--primario { min-height: 44px; padding: 0.5rem 1.1rem; font-size: 0.82rem; }
 .mapa-pie {
   margin: 1.1rem auto 0; max-width: 34rem;
   font-family: var(--font-pixel); font-size: 0.66rem; line-height: 1.7;
