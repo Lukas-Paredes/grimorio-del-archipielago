@@ -207,18 +207,25 @@
   filter: drop-shadow(0 0 4px rgba(242, 182, 90, 0.65));
 }
 .mapa-punto--mayor .mapa-punto__halo { fill: rgba(242, 182, 90, 0.34); }
-.mapa-punto--mayor .mapa-etiqueta { fill: var(--amber-soft); }
 @keyframes mapa-latido {
   0%, 100% { opacity: 0.35; }
   50% { opacity: 0.85; }
 }
+/* Nombres SOLO al explorar (mandato 2026-07-13, fase 3): el mapa descansa
+   limpio y el nombre surge al pasar el mouse, enfocar con teclado o tocar
+   el punto (móvil: el tap selecciona → --activo lo muestra). */
 .mapa-etiqueta {
-  fill: var(--bone-soft);
-  font-family: var(--font-pixel); font-size: 13px; letter-spacing: 0.04em;
-  paint-order: stroke; stroke: rgba(2, 6, 12, 0.85); stroke-width: 3px;
+  fill: var(--amber);
+  font-family: var(--font-pixel); font-size: 15px; letter-spacing: 0.04em;
+  paint-order: stroke; stroke: rgba(2, 6, 12, 0.9); stroke-width: 3px;
   pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s var(--ease);
 }
-.mapa-punto--activo .mapa-etiqueta, .mapa-punto:hover .mapa-etiqueta { fill: var(--amber); }
+.mapa-punto:hover .mapa-etiqueta,
+.mapa-punto:focus-visible .mapa-etiqueta,
+.mapa-punto--activo .mapa-etiqueta { opacity: 1; }
+.motion-off .mapa-etiqueta { transition: none; }
 .mapa-info {
   min-height: 5.5rem; margin: 1rem auto 0; max-width: 32rem;
   padding: 0.85rem 1rem;
@@ -344,9 +351,9 @@ html.bruma-in::after {
   .carta { width: calc(100% - 1.2rem); padding: 1rem; }
   .carta__grid, .carta__grid--selladas { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .carta__placa--visual { min-height: 8rem; }
-  /* Móvil: el mapa se lee por puntos + tarjeta; las etiquetas quedarían
-     ilegibles al escalar y ensucian — la tarjeta ya nombra el lugar. */
-  .mapa-etiqueta { display: none; }
+  /* Móvil: el nombre surge al tocar el punto (--activo); tamaño mayor para
+     que sobreviva al escalado del viewBox. La tarjeta repite el nombre. */
+  .mapa-etiqueta { font-size: 24px; }
   .mapa-lienzo svg { max-height: 52vh; }
   /* El slider se despliega al encender el sonido (ahorra espacio en la barra). */
   .camino-vol {
