@@ -259,7 +259,11 @@
   });
   if (location.hash === "#capitulos") { abrirCarta(); }
 
-  /* ── 2b · Mapa del archipiélago (placeholder; capa geográfica después) ──── */
+  /* ── 2b · Mapa del archipiélago (mandato 2026-07-13) ─────────────────────
+     La silueta es geometría REAL (DPA/SUBDERE → mapa-datos.js, generado por
+     herramientas/generar_mapa.py); el estilo es del Grimorio. El dato se
+     carga PEREZOSO al abrir el panel por primera vez (script clásico
+     inyectado, sin fetch); si falla, queda el texto de espera. */
   var mapa = document.createElement("dialog");
   mapa.className = "carta carta--mapa";
   mapa.setAttribute("aria-label", "Mapa del archipiélago");
@@ -270,14 +274,103 @@
   mapa.appendChild(mapaCerrar);
   mapa.appendChild(el("h2", "carta__titulo", "Mapa del archipiélago"));
   mapa.appendChild(el("p", "carta--mapa__texto",
-    "La capa geográfica del Grimorio: los lugares reales del archipiélago " +
-    "que nombran estos relatos. Cada punto se está verificando contra las " +
-    "fuentes del archivo antes de montarse."));
-  mapa.appendChild(el("p", "camino-modo-sellado", "Próximamente."));
+    "Los lugares reales que nombran los relatos. La forma del archipiélago " +
+    "proviene de datos geográficos oficiales; toca un punto para leer su papel en el mito."));
+  var mapaLienzo = el("div", "mapa-lienzo");
+  var mapaEspera = el("p", "camino-modo-sellado", "Cargando la carta del archipiélago…");
+  mapaLienzo.appendChild(mapaEspera);
+  mapa.appendChild(mapaLienzo);
+  var mapaInfo = el("div", "mapa-info");
+  mapaInfo.setAttribute("aria-live", "polite");
+  mapa.appendChild(mapaInfo);
+  var mapaPie = el("p", "mapa-pie");
+  mapa.appendChild(mapaPie);
   document.body.appendChild(mapa);
+
+  var SVGNS = "http://www.w3.org/2000/svg";
+  function svgEl(tag, attrs) {
+    var n = document.createElementNS(SVGNS, tag);
+    for (var k in attrs) { n.setAttribute(k, attrs[k]); }
+    return n;
+  }
+  function infoPunto(p) {
+    mapaInfo.textContent = "";
+    mapaInfo.appendChild(el("p", "mapa-info__nombre", p.nombre + " — " + p.clave));
+    mapaInfo.appendChild(el("p", "mapa-info__rol", p.rol));
+    mapaInfo.appendChild(el("p", "mapa-info__fuente", "Fuente: " + p.fuente));
+    if (p.href) {
+      var ir = el("a", "camino-btn", "Abrir el capítulo");
+      ir.href = p.href;
+      ir.setAttribute("data-transicion", "");
+      mapaInfo.appendChild(ir);
+    }
+  }
+  function pintarMapa() {
+    var M = G.mapaChiloe || (window.Grimorio && window.Grimorio.mapaChiloe);
+    if (!M || mapa.querySelector("svg")) { return; }
+    var svg = svgEl("svg", { viewBox: M.viewBox, role: "img" });
+    svg.setAttribute("aria-label",
+      "Silueta del archipiélago de Chiloé con los lugares del relato marcados");
+    // Tierra: los anillos reales, fill+stroke del mismo tono (sella los bordes
+    // comunales internos); el resplandor del contorno lo da el filtro del grupo.
+    var defs = svgEl("defs", {});
+    var filtro = svgEl("filter", { id: "mapa-brillo", x: "-8%", y: "-8%", width: "116%", height: "116%" });
+    var sombra = svgEl("feDropShadow", { dx: "0", dy: "0", stdDeviation: "4", "flood-color": "#f2b65a", "flood-opacity": "0.22" });
+    filtro.appendChild(sombra);
+    defs.appendChild(filtro);
+    svg.appendChild(defs);
+    var tierra = svgEl("g", { "class": "mapa-tierra", filter: "url(#mapa-brillo)" });
+    M.islas.forEach(function (d) { tierra.appendChild(svgEl("path", { d: d })); });
+    svg.appendChild(tierra);
+    var capa = svgEl("g", { "class": "mapa-puntos" });
+    M.puntos.forEach(function (p) {
+      var g = svgEl("g", { "class": "mapa-punto", tabindex: "0", role: "button" });
+      g.setAttribute("aria-label", p.nombre + " — " + p.clave);
+      g.appendChild(svgEl("circle", { "class": "mapa-punto__halo", cx: p.x, cy: p.y, r: "10" }));
+      g.appendChild(svgEl("circle", { "class": "mapa-punto__nucleo", cx: p.x, cy: p.y, r: "4" }));
+      var et = svgEl("text", { "class": "mapa-etiqueta", x: p.x + 12, y: p.y + 4 });
+      et.textContent = p.nombre;
+      g.appendChild(et);
+      function elegir() {
+        var sel = capa.querySelector(".mapa-punto--activo");
+        if (sel) { sel.classList.remove("mapa-punto--activo"); }
+        g.classList.add("mapa-punto--activo");
+        infoPunto(p);
+      }
+      g.addEventListener("click", elegir);
+      g.addEventListener("keydown", function (e) {
+        if (e.key === "Enter" || e.key === " ") { e.preventDefault(); elegir(); }
+      });
+      capa.appendChild(g);
+    });
+    svg.appendChild(capa);
+    mapaLienzo.removeChild(mapaEspera);
+    mapaLienzo.appendChild(svg);
+    mapaInfo.appendChild(el("p", "mapa-info__rol",
+      "Siete distritos en clave, la capital de la Recta Provincia y la sede del juicio de 1880."));
+    mapaPie.textContent = M.procedencia +
+      " El mapa en clave varió entre las declaraciones de 1880 (Hernández 2013): " +
+      "aquí se muestra la versión del corpus; las variantes viven en las fichas. " +
+      "Otros lugares del relato (las cascadas de la iniciación, la cueva de Colo) " +
+      "esperan verificación de fuentes.";
+  }
+  var mapaCargando = false;
+  function cargarMapa() {
+    if (G.mapaChiloe || (window.Grimorio && window.Grimorio.mapaChiloe)) { pintarMapa(); return; }
+    if (mapaCargando) { return; }
+    mapaCargando = true;
+    var s = document.createElement("script");
+    s.src = "assets/js/data/mapa-datos.js";
+    s.onload = pintarMapa;
+    s.onerror = function () {
+      mapaEspera.textContent = "La carta del archipiélago no pudo cargarse.";
+    };
+    document.head.appendChild(s);
+  }
   var invocadorMapa = null;
   bMapa.addEventListener("click", function () {
     invocadorMapa = document.activeElement;
+    cargarMapa();
     mapa.showModal();
     mapaCerrar.focus();
   });

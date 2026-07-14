@@ -168,12 +168,68 @@
   border-top: 1px solid var(--amber-line);
 }
 
-/* ── Mapa del archipiélago (panel placeholder; hereda la placa .carta) ───── */
-.carta--mapa { width: min(100% - 2rem, 34rem); text-align: center; }
+/* ── Mapa del archipiélago (mandato 2026-07-13; hereda la placa .carta) ────
+   La silueta es geometría REAL (mapa-datos.js); aquí solo vive el ESTILO:
+   tierra en tonos abismo, costa insinuada por resplandor, puntos ámbar. ── */
+.carta--mapa { width: min(100% - 2rem, 42rem); text-align: center; }
 .carta--mapa .carta__cerrar { float: right; }
 .carta--mapa__texto {
-  margin: 0.4rem auto 1.4rem; max-width: 26rem;
-  font-size: 1.05rem; line-height: 1.7; color: var(--foam);
+  margin: 0.4rem auto 1rem; max-width: 30rem;
+  font-size: 1.02rem; line-height: 1.65; color: var(--foam);
+}
+.mapa-lienzo svg {
+  display: block; margin: 0 auto;
+  width: auto; max-width: 100%; height: auto; max-height: 58vh;
+}
+.mapa-tierra path {
+  fill: #0e2433;
+  stroke: #0e2433; stroke-width: 0.8;   /* sella los bordes comunales internos */
+}
+.mapa-punto { cursor: pointer; }
+.mapa-punto:focus { outline: none; }
+.mapa-punto:focus-visible .mapa-punto__halo { stroke: var(--amber); stroke-width: 1.5; }
+.mapa-punto__nucleo {
+  fill: var(--amber);
+  stroke: #7a4f1f; stroke-width: 0.8;
+}
+.mapa-punto__halo {
+  fill: var(--amber-glow);
+  animation: mapa-latido 3.2s ease-in-out infinite;
+}
+.mapa-punto--activo .mapa-punto__nucleo { fill: #ffd470; }
+.mapa-punto--activo .mapa-punto__halo { fill: rgba(242, 182, 90, 0.4); }
+@keyframes mapa-latido {
+  0%, 100% { opacity: 0.35; }
+  50% { opacity: 0.85; }
+}
+.mapa-etiqueta {
+  fill: var(--bone-soft);
+  font-family: var(--font-pixel); font-size: 13px; letter-spacing: 0.04em;
+  paint-order: stroke; stroke: rgba(2, 6, 12, 0.85); stroke-width: 3px;
+  pointer-events: none;
+}
+.mapa-punto--activo .mapa-etiqueta, .mapa-punto:hover .mapa-etiqueta { fill: var(--amber); }
+.mapa-info {
+  min-height: 5.5rem; margin: 1rem auto 0; max-width: 32rem;
+  padding: 0.85rem 1rem;
+  background: linear-gradient(158deg, rgba(22, 52, 70, 0.45), rgba(4, 13, 24, 0.6));
+  border: 1px solid var(--amber-line); border-radius: 6px;
+}
+.mapa-info__nombre {
+  margin: 0 0 0.3rem;
+  font-family: var(--font-display); font-weight: 400; font-size: 1.45rem;
+  color: #f6ecd6; text-shadow: 0 0 16px var(--amber-glow);
+}
+.mapa-info__rol { margin: 0 0 0.5rem; font-size: 1rem; line-height: 1.6; color: var(--bone); }
+.mapa-info__fuente {
+  margin: 0 0 0.7rem;
+  font-family: var(--font-pixel); font-size: 0.68rem;
+  letter-spacing: 0.08em; text-transform: uppercase; color: var(--bone-soft);
+}
+.mapa-pie {
+  margin: 1.1rem auto 0; max-width: 34rem;
+  font-family: var(--font-pixel); font-size: 0.66rem; line-height: 1.7;
+  letter-spacing: 0.05em; color: var(--bone-soft); opacity: 0.8;
 }
 
 /* ── Posición del capítulo en el hero ────────────────────────────────────── */
@@ -254,10 +310,12 @@ html.bruma-in::after {
 /* ── Pausa manual y movimiento reducido ──────────────────────────────────── */
 .motion-off .bruma, .motion-off.bruma-in::after { transition: none; animation: none; opacity: 0; }
 .motion-off .carta__fondo img { transition: none; transform: none; }
+.motion-off .mapa-punto__halo { animation: none; opacity: 0.55; }
 @media (prefers-reduced-motion: reduce) {
   .bruma, html.bruma-in::after { transition: none; animation: none; opacity: 0; }
   .camino-btn, .carta__placa { transition: none; }
   .carta__fondo img { transition: none; transform: none !important; }
+  .mapa-punto__halo { animation: none; opacity: 0.55; }
 }
 
 /* ── 390 px ──────────────────────────────────────────────────────────────── */
@@ -267,6 +325,10 @@ html.bruma-in::after {
   .carta { width: calc(100% - 1.2rem); padding: 1rem; }
   .carta__grid, .carta__grid--selladas { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .carta__placa--visual { min-height: 8rem; }
+  /* Móvil: el mapa se lee por puntos + tarjeta; las etiquetas quedarían
+     ilegibles al escalar y ensucian — la tarjeta ya nombra el lugar. */
+  .mapa-etiqueta { display: none; }
+  .mapa-lienzo svg { max-height: 52vh; }
   /* El slider se despliega al encender el sonido (ahorra espacio en la barra). */
   .camino-vol {
     width: 0; opacity: 0; pointer-events: none;
