@@ -206,7 +206,24 @@
   fill: #ffd470;
   filter: drop-shadow(0 0 4px rgba(242, 182, 90, 0.65));
 }
-.mapa-punto--mayor .mapa-punto__halo { fill: rgba(242, 182, 90, 0.34); }
+.mapa-punto--mayor .mapa-punto__halo {
+  fill: rgba(242, 182, 90, 0.34);
+  /* Respiración (fase 4): el glow late suave, como la luz del macuñ. */
+  transform-box: fill-box; transform-origin: center;
+  animation: mapa-latido 3.2s ease-in-out infinite, mapa-respira 3.2s ease-in-out infinite;
+}
+@keyframes mapa-respira {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.16); }
+}
+/* Bruma sobre el mar (fase 4): deriva lenta, alternante. */
+.mapa-bruma { pointer-events: none; }
+.mapa-bruma__velo { animation: mapa-bruma-deriva 26s ease-in-out infinite alternate; }
+.mapa-bruma__velo--b { animation-duration: 34s; animation-delay: -12s; }
+@keyframes mapa-bruma-deriva {
+  from { transform: translateX(-26px); }
+  to { transform: translateX(26px); }
+}
 @keyframes mapa-latido {
   0%, 100% { opacity: 0.35; }
   50% { opacity: 0.85; }
@@ -337,11 +354,13 @@ html.bruma-in::after {
 .motion-off .bruma, .motion-off.bruma-in::after { transition: none; animation: none; opacity: 0; }
 .motion-off .carta__fondo img { transition: none; transform: none; }
 .motion-off .mapa-punto__halo { animation: none; opacity: 0.55; }
+.motion-off .mapa-bruma__velo { animation: none; }
 @media (prefers-reduced-motion: reduce) {
   .bruma, html.bruma-in::after { transition: none; animation: none; opacity: 0; }
   .camino-btn, .carta__placa { transition: none; }
   .carta__fondo img { transition: none; transform: none !important; }
   .mapa-punto__halo { animation: none; opacity: 0.55; }
+  .mapa-bruma__velo { animation: none; }
 }
 
 /* ── 390 px ──────────────────────────────────────────────────────────────── */

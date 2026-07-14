@@ -349,6 +349,16 @@
     var tierra = svgEl("g", { "class": "mapa-tierra", filter: "url(#mapa-brillo)" });
     M.islas.forEach(function (d) { tierra.appendChild(svgEl("path", { d: d })); });
     svg.appendChild(tierra);
+    /* Atmósfera (fase 4): bancos de bruma que derivan sobre el mar interior —
+       el mismo aliento del descenso. Pausables (motion-off / reduced-motion). */
+    var gradBruma = svgEl("radialGradient", { id: "mapa-bruma-grad" });
+    gradBruma.appendChild(svgEl("stop", { offset: "0%", "stop-color": "#9fb6bd", "stop-opacity": "0.09" }));
+    gradBruma.appendChild(svgEl("stop", { offset: "100%", "stop-color": "#9fb6bd", "stop-opacity": "0" }));
+    defs.appendChild(gradBruma);
+    var brumaMar = svgEl("g", { "class": "mapa-bruma" });
+    brumaMar.appendChild(svgEl("ellipse", { "class": "mapa-bruma__velo", cx: "170", cy: "250", rx: "260", ry: "140", fill: "url(#mapa-bruma-grad)" }));
+    brumaMar.appendChild(svgEl("ellipse", { "class": "mapa-bruma__velo mapa-bruma__velo--b", cx: "470", cy: "620", rx: "300", ry: "170", fill: "url(#mapa-bruma-grad)" }));
+    svg.appendChild(brumaMar);
     var capa = svgEl("g", { "class": "mapa-puntos" });
     M.puntos.forEach(function (p) {
       /* Jerarquía (mandato 2026-07-13): los dos puntos clave —Quicaví (la
