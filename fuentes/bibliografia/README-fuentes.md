@@ -63,9 +63,19 @@ contra el archivo correspondiente.
 3. **Si el corpus la cita**: añadir la cadena exacta de su línea `FUENTE::`
    a `alias_corpus` (la validación avisa si una cita del corpus no tiene
    entrada aquí).
-4. **Regenerar salidas**: `python herramientas/generar_matriz.py`
-   *(disponible desde la Fase 2 del mandato; regenera la matriz, la
-   bibliografía y el reporte de huecos desde este índice)*.
+4. **Regenerar salidas**: `python herramientas/generar_matriz.py` → emite
+   `MATRIZ-CITAS-generada.md` + `BIBLIOGRAFIA.md` + `REPORTE-FUENTES.md`
+   en esta carpeta. GENERADOS: no se editan a mano.
+5. **Validar**: `python herramientas/validar_fuentes.py` → chequea que los
+   `archivo_local` existan, que cada `respalda` tenga página, la cobertura
+   alias↔corpus en ambos sentidos y los vocabularios. Solo avisa; no arregla.
+
+## El criterio del semáforo (calculado, no escrito)
+
+✅ = 2+ fuentes `archivada` respaldan el tema · ⚠️ = 1 · ❌ = 0. Las
+pendientes (`localizable`/`por-conseguir`) se listan aparte y, si al
+conseguirse subirían el nivel, el símbolo lleva asterisco (⚠️*).
+`perdida`/`no-verificada` jamás suman.
 
 ## Qué NO va aquí
 
