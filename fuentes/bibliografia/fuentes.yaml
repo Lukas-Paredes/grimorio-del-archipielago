@@ -78,7 +78,7 @@ fuentes:
     titulo: "La República de la Raza. Política indígena y brujería en el Chile del siglo XIX"
     publicacion: "Trashumante. Revista Americana de Historia Social, (13), 84-107"
     acceso: abierta
-    url: "https://doi.org/10.17533/udea.trahs.n13a05"
+    url: "https://doi.org/10.17533/udea.trahs.n13a04"
     archivo_local:
       - fuentes/_raw/lecturas/catepillan-2019-republica-de-la-raza.pdf
       - fuentes/_raw/lecturas/catepillan-2019-republica-de-la-raza.txt
@@ -118,6 +118,7 @@ fuentes:
       - { tema: gobernador, pagina: "p. 66 (Martiniano Rodríguez)" }
       - { tema: cifras-del-proceso, pagina: "p. 66 (~80 procesados)" }
       - { tema: cueva-quicavi, pagina: "n. 7 (vía R. Cárdenas: «presumiblemente en Quicaví»)" }
+      - { tema: invunche, pagina: "1 mención (matriz 2026-07-11)" }
 
   - id: val-2014
     tipo: academica
@@ -137,6 +138,7 @@ fuentes:
       - { tema: machi-calcu, pagina: "pp. 38-39" }
       - { tema: brujo-chilote, pagina: "pp. 38-39" }
       - { tema: origen-moraleda, pagina: "cita de Espech 1960: 127 (la Chillpila lleva el libro a Quicaví — variante)" }
+      - { tema: cueva-quicavi, pagina: "2 menciones (matriz 2026-07-11)" }
 
   - id: nun-2022
     tipo: academica
@@ -157,7 +159,9 @@ fuentes:
       - "Núñez (2022), testimonio de Chaitén"
     respalda:
       - { tema: recta-provincia, pagina: "p. 24" }
+      - { tema: brujo-chilote, pagina: "p. 24 (matriz 2026-07-11)" }
       - { tema: invunche, pagina: "6 menciones" }
+      - { tema: voladora, pagina: "2 menciones (matriz 2026-07-11)" }
       - { tema: cueva-quicavi, pagina: "renü / portales" }
       - { tema: museo-ancud, pagina: "figuras con nº de inventario" }
       - { tema: machi-calcu, pagina: "pp. 4, 24" }
@@ -186,6 +190,7 @@ fuentes:
       - { tema: siete-republicas, pagina: "notas 185-186 (mapa en clave de 1880, VARIANTE del corpus)" }
       - { tema: decreto-intendente, pagina: "n. 99, p. 50 (2ª corroboración)" }
       - { tema: macun, pagina: "el aura del cuerpo" }
+      - { tema: la-mayoria, pagina: "tesis (matriz 2026-07-11)" }
 
   - id: rom-sf
     tipo: academica
@@ -355,7 +360,8 @@ fuentes:
     alias_corpus:
       - "Esploraciones jeográficas de José de Moraleda (Anuario Hidrográfico, 1887)"
       - "Esploraciones jeográficas de José de Moraleda (1887)"
-    respalda: []
+    respalda:
+      - { tema: origen-moraleda, pagina: "antecedente histórico del episodio (texto por conseguir)" }
 
   - id: galleguillos-2018
     tipo: academica
@@ -370,7 +376,8 @@ fuentes:
     notas: "Transcripción moderna comercial del manuscrito Espech. NO acceso abierto — no se piratea; compra pendiente de Lucas."
     alias_corpus:
       - "Los brujos de Chiloé: documentos de un proceso judicial (2018)"
-    respalda: []
+    respalda:
+      - { tema: cifras-del-proceso, pagina: "los 12 imputados del corpus (vía su transcripción)" }
 
   - id: montecino-2015
     tipo: academica
