@@ -45,6 +45,7 @@ PUNTOS = [
      "relato": "La capital de la Recta Provincia. Una cueva oculta en la costa de Quemchi, con letras grabadas que nadie ha podido leer, y el Invunche en la boca.",
      "relatoFuente": "Corpus del Grimorio — @CUEVA-QUICAVI (gancho, verbatim)",
      "fuente": "Corpus del Grimorio (siete repúblicas · cueva) · Ampuero 2016",
+     "peso": "mayor",   # el corazón: la capital y la cueva
      "href": "cueva-quicavi.html", "lat": -42.2721, "lon": -73.3519},
     {"id": "tenaun", "nombre": "Tenaún", "clave": "«Santiago»",
      "rol": "Origen legendario de la Recta Provincia: aquí, hacia 1786, la Chilpilla dejó en seco el barco de Moraleda y recibió el Libro de Arte.",
@@ -83,6 +84,7 @@ PUNTOS = [
      "relato": "El día que el Estado de Chile entró a la cueva: llevó a los brujos a juicio, y lo que era rumor se volvió expediente.",
      "relatoFuente": "Corpus del Grimorio — juicio-1880 (gancho, verbatim)",
      "fuente": "Dossier del proceso (folleto 1908, MC0033459) · Núñez 2022",
+     "peso": "mayor",   # el clímax: el expediente
      "href": "juicio-1880.html", "lat": -41.8682, "lon": -73.8287},
 ]
 
@@ -213,9 +215,9 @@ def main():
     ]
     for q in puntos_js:
         js.append("    " + json.dumps(
-            {kk: q[kk] for kk in ("id", "nombre", "clave", "rol", "relato",
-                                  "relatoFuente", "fuente", "href",
-                                  "x", "y", "lat", "lon")},
+            {kk: q.get(kk) for kk in ("id", "nombre", "clave", "rol", "relato",
+                                      "relatoFuente", "fuente", "peso", "href",
+                                      "x", "y", "lat", "lon")},
             ensure_ascii=False) + ",")
     js += ["  ]", "};", ""]
 

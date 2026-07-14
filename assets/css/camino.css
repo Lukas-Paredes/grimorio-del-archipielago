@@ -198,6 +198,16 @@
 }
 .mapa-punto--activo .mapa-punto__nucleo { fill: #ffd470; }
 .mapa-punto--activo .mapa-punto__halo { fill: rgba(242, 182, 90, 0.4); }
+/* Jerarquía: los puntos menores respiran tenue; los mayores (Quicaví, Ancud)
+   arden — núcleo más claro y halo más denso. El ojo va primero a ellos. */
+.mapa-punto:not(.mapa-punto--mayor) .mapa-punto__nucleo { fill: var(--amber-soft); }
+.mapa-punto:not(.mapa-punto--mayor) .mapa-punto__halo { animation-duration: 4.2s; }
+.mapa-punto--mayor .mapa-punto__nucleo {
+  fill: #ffd470;
+  filter: drop-shadow(0 0 4px rgba(242, 182, 90, 0.65));
+}
+.mapa-punto--mayor .mapa-punto__halo { fill: rgba(242, 182, 90, 0.34); }
+.mapa-punto--mayor .mapa-etiqueta { fill: var(--amber-soft); }
 @keyframes mapa-latido {
   0%, 100% { opacity: 0.35; }
   50% { opacity: 0.85; }

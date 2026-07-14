@@ -351,10 +351,14 @@
     svg.appendChild(tierra);
     var capa = svgEl("g", { "class": "mapa-puntos" });
     M.puntos.forEach(function (p) {
-      var g = svgEl("g", { "class": "mapa-punto", tabindex: "0", role: "button" });
+      /* Jerarquía (mandato 2026-07-13): los dos puntos clave —Quicaví (la
+         capital/cueva) y Ancud (el juicio)— van `peso: "mayor"` en los datos:
+         más grandes y con más brillo; el resto, discretos. */
+      var mayor = p.peso === "mayor";
+      var g = svgEl("g", { "class": "mapa-punto" + (mayor ? " mapa-punto--mayor" : ""), tabindex: "0", role: "button" });
       g.setAttribute("aria-label", p.nombre + " — " + p.clave);
-      g.appendChild(svgEl("circle", { "class": "mapa-punto__halo", cx: p.x, cy: p.y, r: "10" }));
-      g.appendChild(svgEl("circle", { "class": "mapa-punto__nucleo", cx: p.x, cy: p.y, r: "4" }));
+      g.appendChild(svgEl("circle", { "class": "mapa-punto__halo", cx: p.x, cy: p.y, r: mayor ? "16" : "8" }));
+      g.appendChild(svgEl("circle", { "class": "mapa-punto__nucleo", cx: p.x, cy: p.y, r: mayor ? "6" : "3.2" }));
       var et = svgEl("text", { "class": "mapa-etiqueta", x: p.x + 12, y: p.y + 4 });
       et.textContent = p.nombre;
       g.appendChild(et);
