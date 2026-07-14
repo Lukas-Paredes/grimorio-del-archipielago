@@ -22,14 +22,14 @@ _Formato APA aproximado; la etiqueta final indica su estado en el archivo._
 
 ## Literatura académica
 
-- Ampuero Díaz, Evelyn Lorena (2016). *El imaginario de los brujos y la memoria colectiva de los chilotes en el poemario Cauquil de Sergio Mansilla*. Mapocho. Revista de Humanidades, (80), 61-91. <https://www.bibliotecanacionaldigital.gob.cl/bnd/628/w3-article-80317.html> **[EN REPO]**
+- Ampuero Díaz, Evelyn Lorena (2016). *El imaginario de los brujos y la memoria colectiva de los chilotes en el poemario Cauquil de Sergio Mansilla*. Mapocho. Revista de Humanidades, (80), 61-91. **[EN REPO]**
 - Catepillan Tessi, Tomás (2019). *La República de la Raza. Política indígena y brujería en el Chile del siglo XIX*. Trashumante. Revista Americana de Historia Social, (13), 84-107. <https://doi.org/10.17533/udea.trahs.n13a04> **[EN REPO]**
 - Cavada, Francisco J. (1914). *Chiloé y los chilotes*. Imprenta Universitaria, Santiago. <https://www.memoriachilena.gob.cl> [por conseguir]
 - Contreras, Constantino (s. f.). *Estudio lingüístico-folklórico de Chiloé: mitos y actividades laborales rudimentarias*. [revista por precisar; autoría verificada en el interior del PDF]. **[EN REPO]**
 - Cárdenas, Renato (1985). *Chiloé: manual del pensamiento mágico y la creencia popular*. [por conseguir]
 - Galleguillos Muñoz, M. (2018). *Los brujos de Chiloé: documentos de un proceso judicial*. Ediciones Tácitas (reed.; cf. Marino & Osorio 2014, misma casa). [por conseguir]
 - García Barría, Narciso (s. f.). *Tesoro Mitológico del archipiélago de Chiloé [título por confirmar]*. [por conseguir]
-- Hernández, Joaquín (2013). *Enfrentando saberes: los brujos de Chiloé y el discurso ilustrado (1849-1900) [título por confirmar: portada sin capa de texto]*. Tesis, Universidad de Chile (repositorio 2250/114292, probable). <https://repositorio.uchile.cl/handle/2250/114292> **[EN REPO]**
+- Hernández, Joaquín (2013). *Enfrentando saberes: los brujos de Chiloé y el discurso ilustrado (1849-1900) [título por confirmar: portada sin capa de texto]*. Tesis, Universidad de Chile (repositorio 2250/114292, probable). **[EN REPO]**
 - León, Marco Antonio (2016). *Medicina y resistencias culturales en la provincia de Chiloé, 1826-1930*. Magallania, 44(1), 41-55. <https://doi.org/10.4067/S0718-22442016000100003> **[EN REPO]**
 - Marino, M., & Osorio, C. (2014). *Juicio a los brujos de Chiloé*. Ediciones Tácitas, Santiago. [por conseguir]
 - Molina [por identificar] (1950). *[por identificar — el corpus lo cita junto a Cárdenas 1998]*. [por conseguir]

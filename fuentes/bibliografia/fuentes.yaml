@@ -101,7 +101,7 @@ fuentes:
     titulo: "El imaginario de los brujos y la memoria colectiva de los chilotes en el poemario Cauquil de Sergio Mansilla"
     publicacion: "Mapocho. Revista de Humanidades, (80), 61-91"
     acceso: abierta
-    url: "https://www.bibliotecanacionaldigital.gob.cl/bnd/628/w3-article-80317.html"
+    url: null   # sin URL oficial verificada (el nº de artículo BND probado dio 404 — no se publica enlace sin verificar)
     archivo_local:
       - fuentes/_raw/lecturas/ampuero-2016-cauquil-brujos.txt
     estado: archivada
@@ -173,7 +173,7 @@ fuentes:
     titulo: "Enfrentando saberes: los brujos de Chiloé y el discurso ilustrado (1849-1900) [título por confirmar: portada sin capa de texto]"
     publicacion: "Tesis, Universidad de Chile (repositorio 2250/114292, probable)"
     acceso: abierta
-    url: "https://repositorio.uchile.cl/handle/2250/114292"
+    url: null   # handle 2250/114292 NO verificado contra el repositorio (SPA sin API accesible) — no se publica enlace sin verificar
     archivo_local:
       - fuentes/_raw/lecturas/hernandez-2013-juicio-brujos-modernidad.pdf
       - fuentes/_raw/lecturas/hernandez-2013-juicio-brujos-modernidad.txt
