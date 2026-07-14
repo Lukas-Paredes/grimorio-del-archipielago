@@ -275,6 +275,35 @@
   letter-spacing: 0.05em; color: var(--bone-soft); opacity: 0.8;
 }
 
+/* ── Fuentes del Grimorio (panel público del sistema bibliográfico) ──────── */
+.carta--fuentes { width: min(100% - 2rem, 46rem); }
+.carta--fuentes__intro {
+  margin: 0.4rem 0 1rem; max-width: 36rem;
+  font-size: 1.02rem; line-height: 1.65; color: var(--foam);
+}
+.fuentes-lista { display: grid; gap: 0.6rem; }
+.fuente {
+  display: grid; gap: 0.3rem;
+  padding: 0.8rem 1rem;
+  background: linear-gradient(158deg, rgba(22, 52, 70, 0.32), rgba(4, 13, 24, 0.55));
+  border: 1px solid rgba(242, 182, 90, 0.22); border-radius: 6px;
+}
+.fuente__cita { margin: 0; font-size: 1.02rem; line-height: 1.55; color: var(--bone); }
+.fuente__pub {
+  margin: 0;
+  font-family: var(--font-pixel); font-size: 0.68rem;
+  letter-spacing: 0.06em; color: var(--bone-soft);
+}
+.fuente__estado {
+  margin: 0;
+  font-family: var(--font-pixel); font-size: 0.68rem;
+  letter-spacing: 0.06em; text-transform: uppercase; color: var(--amber-soft);
+}
+.fuente__leer {
+  justify-self: start;
+  min-height: 36px; padding: 0.3rem 0.8rem; font-size: 0.74rem;
+}
+
 /* ── Posición del capítulo en el hero ────────────────────────────────────── */
 .camino-cap {
   margin: 0 0 0.7rem;

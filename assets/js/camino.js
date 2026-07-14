@@ -68,6 +68,12 @@
   bMapa.innerHTML = '<span aria-hidden="true">🧭</span> Mapa';
   bMapa.setAttribute("aria-haspopup", "dialog");
 
+  // Fuentes (mandato 2026-07-13): la cara pública del sistema bibliográfico.
+  var bFuentes = el("button", "camino-btn camino-btn--fuentes");
+  bFuentes.type = "button";
+  bFuentes.innerHTML = '<span aria-hidden="true">✒</span> Fuentes';
+  bFuentes.setAttribute("aria-haspopup", "dialog");
+
   var bMarea = el("button", "camino-btn camino-btn--marea");
   bMarea.type = "button";
   function reflectMarea() {
@@ -125,6 +131,7 @@
   reflectMarea(); reflectSon();
   botonera.appendChild(bCarta);
   botonera.appendChild(bMapa);
+  botonera.appendChild(bFuentes);
   botonera.appendChild(bMarea);
   botonera.appendChild(grupoSon);
   // Al INICIO del body: primera parada del tabulador (accesibilidad teclado).
@@ -419,6 +426,101 @@
   });
   mapa.addEventListener("click", function (e) {   // click en el backdrop = cerrar
     if (e.target === mapa) { mapa.close(); }
+  });
+
+  /* ── 2c · Fuentes del Grimorio (mandato 2026-07-13) ──────────────────────
+     La cara pública del sistema bibliográfico. Los datos vienen GENERADOS
+     desde fuentes/bibliografia/fuentes.yaml (fuentes-datos.js, carga perezosa
+     al abrir). Enlace al original SOLO para fuentes de acceso abierto —
+     nada se aloja aquí para descarga. */
+  var fuentesDlg = document.createElement("dialog");
+  fuentesDlg.className = "carta carta--fuentes";
+  fuentesDlg.setAttribute("aria-label", "Fuentes del Grimorio");
+  var fuentesCerrar = el("button", "camino-btn carta__cerrar");
+  fuentesCerrar.type = "button";
+  fuentesCerrar.innerHTML = '<span aria-hidden="true">✕</span> Cerrar';
+  fuentesCerrar.addEventListener("click", function () { fuentesDlg.close(); });
+  fuentesDlg.appendChild(fuentesCerrar);
+  fuentesDlg.appendChild(el("h2", "carta__titulo", "Fuentes del Grimorio"));
+  fuentesDlg.appendChild(el("p", "carta--fuentes__intro",
+    "Todo lo que este archivo afirma remonta a una fuente. Las de acceso " +
+    "abierto enlazan a su original oficial; las demás se citan con dónde " +
+    "consultarlas — aquí no se aloja ningún documento para descarga."));
+  var fuentesCuerpo = el("div", "carta--fuentes__cuerpo");
+  var fuentesEspera = el("p", "camino-modo-sellado", "Cargando la biblioteca…");
+  fuentesCuerpo.appendChild(fuentesEspera);
+  fuentesDlg.appendChild(fuentesCuerpo);
+  var fuentesPie = el("footer", "carta__pie");
+  var irMetodo = el("a", "camino-btn", "Fuentes y método");
+  irMetodo.href = "pages/metodologia.html";
+  fuentesPie.appendChild(irMetodo);
+  fuentesDlg.appendChild(fuentesPie);
+  document.body.appendChild(fuentesDlg);
+
+  var ESTADO_FUENTE = {
+    repo: "📥 en el archivo del proyecto",
+    online: "🔗 disponible en línea",
+    conseguir: "📄 por conseguir — consulta en biblioteca",
+    perdida: "∅ número perdido"
+  };
+  function pintarFuentes() {
+    var D = G.fuentesPublicas || (window.Grimorio && window.Grimorio.fuentesPublicas);
+    if (!D || fuentesCuerpo.querySelector(".fuente")) { return; }
+    fuentesCuerpo.removeChild(fuentesEspera);
+    D.grupos.forEach(function (gr) {
+      var lista = D.fuentes.filter(function (f) { return f.grupo === gr.id; });
+      if (!lista.length) { return; }
+      var sec = el("section", "carta__grupo");
+      sec.appendChild(el("h3", "carta__acto", gr.titulo));
+      var cont = el("div", "fuentes-lista");
+      lista.forEach(function (f) {
+        var it = el("article", "fuente");
+        var cita = el("p", "fuente__cita");
+        var quien = (f.autor ? f.autor : "") + (f.anio ? " (" + f.anio + ")" : "");
+        if (quien) { cita.appendChild(el("strong", null, quien + " — ")); }
+        cita.appendChild(document.createTextNode(f.titulo || ""));
+        it.appendChild(cita);
+        if (f.publicacion) { it.appendChild(el("p", "fuente__pub", f.publicacion)); }
+        var pieF = el("p", "fuente__estado", ESTADO_FUENTE[f.estado] || f.estado);
+        it.appendChild(pieF);
+        if (f.url) {
+          var leer = el("a", "camino-btn fuente__leer", "Leer en el original →");
+          leer.href = f.url;
+          leer.target = "_blank";
+          leer.rel = "noopener";
+          it.appendChild(leer);
+        }
+        cont.appendChild(it);
+      });
+      sec.appendChild(cont);
+      fuentesCuerpo.appendChild(sec);
+    });
+  }
+  var fuentesCargando = false;
+  function cargarFuentes() {
+    if (G.fuentesPublicas || (window.Grimorio && window.Grimorio.fuentesPublicas)) { pintarFuentes(); return; }
+    if (fuentesCargando) { return; }
+    fuentesCargando = true;
+    var s = document.createElement("script");
+    s.src = "assets/js/data/fuentes-datos.js";
+    s.onload = pintarFuentes;
+    s.onerror = function () {
+      fuentesEspera.textContent = "La biblioteca no pudo cargarse.";
+    };
+    document.head.appendChild(s);
+  }
+  var invocadorFuentes = null;
+  bFuentes.addEventListener("click", function () {
+    invocadorFuentes = document.activeElement;
+    cargarFuentes();
+    fuentesDlg.showModal();
+    fuentesCerrar.focus();
+  });
+  fuentesDlg.addEventListener("close", function () {
+    if (invocadorFuentes && invocadorFuentes.focus) { invocadorFuentes.focus(); }
+  });
+  fuentesDlg.addEventListener("click", function (e) {  // backdrop = cerrar
+    if (e.target === fuentesDlg) { fuentesDlg.close(); }
   });
 
   /* ── 3 · Página de capítulo: posición + «El camino continúa» ───────────── */

@@ -8,6 +8,13 @@ y EMITE — jamás modifica el índice ni el corpus:
   · fuentes/bibliografia/MATRIZ-CITAS.md            (cruce tema × fuente, CALCULADO)
   · fuentes/bibliografia/BIBLIOGRAFIA.md            (bibliografía formateada APA)
   · fuentes/bibliografia/REPORTE-FUENTES.md         (stats + huecos + prioridades)
+  · assets/js/data/fuentes-datos.js                 (menú público de Fuentes del sitio)
+
+EL MENÚ PÚBLICO (mandato 2026-07-13): expone las cuatro capas (primaria,
+académicas, prensa de época, tradición oral). Enlace al original SOLO si
+acceso == abierta (jamás se aloja un PDF para descarga). Quedan fuera del
+menú público: corpus-interno, geodatos, terciarias, institucionales,
+referencia-interna y las no-verificadas.
 
 CRITERIO DEL SEMÁFORO (documentado, decisión 2026-07-13):
   El semáforo BASE cuenta solo fuentes con estado `archivada` (verificables
@@ -36,6 +43,7 @@ DIR_OUT = os.path.join(ROOT, "fuentes", "bibliografia")
 OUT_MATRIZ = os.path.join(DIR_OUT, "MATRIZ-CITAS.md")
 OUT_BIBLIO = os.path.join(DIR_OUT, "BIBLIOGRAFIA.md")
 OUT_REPORTE = os.path.join(DIR_OUT, "REPORTE-FUENTES.md")
+OUT_PUBLICO = os.path.join(ROOT, "assets", "js", "data", "fuentes-datos.js")
 
 CUENTAN = {"archivada"}                       # verificables en repo
 PENDIENTES = {"localizable", "por-conseguir"}  # existen, faltan conseguir
@@ -211,6 +219,62 @@ def emitir_reporte(fuentes, temas, stats, menciones):
     wr(OUT_REPORTE, "\n".join(md))
 
 
+GRUPOS_PUBLICOS = [
+    ("primaria", "Fuente primaria — el expediente de 1880"),
+    ("academica", "Literatura académica"),
+    ("prensa", "Prensa de época"),
+    ("oral", "Tradición oral"),
+]
+
+
+def estado_publico(f):
+    if f["estado"] == "archivada":
+        return "repo"
+    if f["estado"] == "perdida" or f.get("acceso") == "perdida":
+        return "perdida"
+    if f.get("acceso") == "abierta" and f.get("url"):
+        return "online"
+    return "conseguir"
+
+
+def emitir_publico(fuentes):
+    import json
+    grupos_ids = [g for g, _ in GRUPOS_PUBLICOS]
+    pub = []
+    for f in fuentes:
+        if f["tipo"] not in grupos_ids or f["estado"] in ("no-verificada", "referencia"):
+            continue
+        e = {
+            "grupo": f["tipo"],
+            "autor": f.get("autor"),
+            "anio": f.get("anio"),
+            "titulo": f.get("titulo"),
+            "publicacion": f.get("publicacion"),
+            "estado": estado_publico(f),
+            # Enlace SOLO si es de acceso abierto (jamás se aloja descarga).
+            "url": f.get("url") if (f.get("acceso") == "abierta" and f.get("url")) else None,
+            "respalda": sorted(set(r["tema"] for r in (f.get("respalda") or []))),
+        }
+        pub.append(e)
+    js = [
+        "/* fuentes-datos.js — GENERADO por herramientas/generar_matriz.py",
+        "   desde fuentes/bibliografia/fuentes.yaml. NO editar a mano.",
+        "   Menú público de Fuentes: cuatro capas; enlace al original SOLO",
+        "   para fuentes de acceso abierto (nada se aloja para descarga). */",
+        "window.Grimorio = window.Grimorio || {};",
+        "window.Grimorio.fuentesPublicas = {",
+        "  grupos: " + json.dumps(
+            [{"id": g, "titulo": t} for g, t in GRUPOS_PUBLICOS],
+            ensure_ascii=False) + ",",
+        "  fuentes: [",
+    ]
+    js += ["    " + json.dumps(e, ensure_ascii=False) + "," for e in pub]
+    js += ["  ]", "};", ""]
+    with open(OUT_PUBLICO, "w", encoding="utf-8", newline="\n") as f:
+        f.write("\n".join(js))
+    print("Escrito: %s (%d fuentes públicas)" % (os.path.relpath(OUT_PUBLICO, ROOT), len(pub)))
+
+
 def main():
     fuentes = cargar()
     ids = [f["id"] for f in fuentes]
@@ -221,6 +285,7 @@ def main():
     temas, stats = emitir_matriz(fuentes)
     emitir_biblio(fuentes)
     emitir_reporte(fuentes, temas, stats, menciones)
+    emitir_publico(fuentes)
     print("Fuentes: %d | Temas: %d | ✅ %d · ⚠️ %d · ❌ %d"
           % (len(fuentes), len(temas), stats["✅"], stats["⚠️"], stats["❌"]))
 
