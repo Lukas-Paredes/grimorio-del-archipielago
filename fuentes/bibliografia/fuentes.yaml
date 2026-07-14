@@ -1,0 +1,724 @@
+# ═══════════════════════════════════════════════════════════════════════════
+# fuentes.yaml — ÍNDICE ESTRUCTURADO de fuentes de El Grimorio del Archipiélago
+#
+# La única base de datos de fuentes del proyecto (mandato 2026-07-13).
+# Consolida: MATRIZ-CITAS.md · lecturas-recta-provincia.md · REGISTRO-PRENSA.md
+# · geografia-cosmologia.md · las 108 líneas FUENTE:: del corpus (32 únicas).
+#
+# CÓMO LEER / AGREGAR: ver README-fuentes.md en esta carpeta.
+# El campo `respalda` es JUICIO CURATORIAL (consolidado de lo ya escrito y
+# verificado en sesiones anteriores — ningún script lo adivina).
+# `alias_corpus` = cadenas EXACTAS con que el corpus cita esta fuente en sus
+# líneas FUENTE:: (permite validar mecánicamente que toda cita del corpus
+# tenga entrada aquí).
+#
+# Editado A MANO. Los generadores (generar_matriz.py) SOLO LEEN este archivo.
+# ═══════════════════════════════════════════════════════════════════════════
+
+fuentes:
+
+  # ── PRIMARIAS ─────────────────────────────────────────────────────────────
+
+  - id: f-1908
+    tipo: primaria
+    autor: "Ponce Hermanos (eds.)"
+    anio: 1908
+    titulo: "Los brujos de Chiloé. Célebre proceso seguido ante el Juzgado de Ancud"
+    publicacion: "Imprenta Ponce Hermanos, Santiago"
+    acceso: abierta
+    url: "https://www.memoriachilena.gob.cl/602/w3-article-95073.html"
+    archivo_local:
+      - fuentes/_raw/MC0033459.pdf
+      - fuentes/_raw/proceso-ancud-1880_OCR-crudo.txt
+      - fuentes/proceso-ancud-1880.md
+    estado: archivada
+    notas: >-
+      Memoria Chilena MC0033459. Recreación editorial de 1908 del proceso de
+      1880 (los originales judiciales se dan por perdidos) — estatus curatorial
+      obligatorio: antecedente histórico, jamás «tradición documentada».
+      El dossier maestro del repo transcribe verbatim con aparato crítico.
+    alias_corpus:
+      - "crónicas del Proceso de Ancud"
+      - "Documentos del Proceso de Ancud (1880)"
+      - "Mateo Coñuecar (declaración, Proceso de Ancud 1880)"
+    respalda:
+      - { tema: brujo-chilote, pagina: "bloques B/C del dossier" }
+      - { tema: macun, pagina: "B (piel) · C (candil)" }
+      - { tema: challanco, pagina: "B/C («chayanco»)" }
+      - { tema: invunche, pagina: "B («Ibunche/Chibato»)" }
+      - { tema: cueva-quicavi, pagina: "B" }
+      - { tema: iniciacion, pagina: "B (el juramento)" }
+      - { tema: la-mayoria, pagina: "D (jerarquía Rei/Mayoría)" }
+      - { tema: juicio-1880, pagina: "todo el folleto" }
+      - { tema: origen-moraleda, pagina: "B (la declaración ES la fuente)" }
+
+  - id: manuscrito-espech-1882
+    tipo: primaria
+    autor: "Ramón Espech (copista) → Benjamín Vicuña Mackenna"
+    anio: 1882
+    titulo: "Copia de algunas piezas del proceso de los brujos de Chiloé"
+    publicacion: "Archivo Benjamín Vicuña Mackenna, Biblioteca Nacional de Chile"
+    acceso: localizable
+    url: "https://www.memoriachilena.gob.cl/wiki/portadaui_juicioalosbrujosdechiloe.php"
+    archivo_local: []
+    estado: localizable
+    notas: >-
+      El manuscrito madre que todo cita. Rastro en repo: Catepillan notas 25-26
+      (ff. 166r-166v) y n. 55 (f. 192v); Romo Sánchez. Sin digitalización
+      directa hallada; consulta en sala. Transcripción comercial: Galleguillos 2018.
+    respalda:
+      - { tema: juicio-1880, pagina: "ff. 166r-166v · 192v (vía CAT)" }
+
+  # ── ACADÉMICAS ARCHIVADAS (pdf/txt verificables en el repo) ───────────────
+
+  - id: cat-2019
+    tipo: academica
+    autor: "Catepillan Tessi, Tomás"
+    anio: 2019
+    titulo: "La República de la Raza. Política indígena y brujería en el Chile del siglo XIX"
+    publicacion: "Trashumante. Revista Americana de Historia Social, (13), 84-107"
+    acceso: abierta
+    url: "https://doi.org/10.17533/udea.trahs.n13a05"
+    archivo_local:
+      - fuentes/_raw/lecturas/catepillan-2019-republica-de-la-raza.pdf
+      - fuentes/_raw/lecturas/catepillan-2019-republica-de-la-raza.txt
+    estado: archivada
+    notas: "Columna vertebral del capítulo del juicio; toda la prensa de época del REGISTRO se rastrea por sus notas."
+    respalda:
+      - { tema: brujo-chilote, pagina: "pp. 84-103" }
+      - { tema: challanco, pagina: "p. 99 n. 55 (vaso con agua y piedras)" }
+      - { tema: la-mayoria, pagina: "p. 97 ss." }
+      - { tema: juicio-1880, pagina: "pp. 84, 92-99 (lectura política, castellano, azmapu)" }
+      - { tema: absolucion, pagina: "p. 93 (+ n. 29: los 9 condenados)" }
+      - { tema: gobernador, pagina: "p. 92 (intendente Martiniano Rodríguez)" }
+      - { tema: cifras-del-proceso, pagina: "p. 92 (≥54) · p. 93 n. 29 (9 condenados)" }
+      - { tema: decreto-intendente, pagina: "notas 27-28 (publicación corroborada)" }
+
+  - id: amp-2016
+    tipo: academica
+    autor: "Ampuero Díaz, Evelyn Lorena"
+    anio: 2016
+    titulo: "El imaginario de los brujos y la memoria colectiva de los chilotes en el poemario Cauquil de Sergio Mansilla"
+    publicacion: "Mapocho. Revista de Humanidades, (80), 61-91"
+    acceso: abierta
+    url: "https://www.bibliotecanacionaldigital.gob.cl/bnd/628/w3-article-80317.html"
+    archivo_local:
+      - fuentes/_raw/lecturas/ampuero-2016-cauquil-brujos.txt
+    estado: archivada
+    notas: >-
+      Solo txt versionado (política 2026-07-11: el PDF es el número completo de
+      Mapocho Nº 80, ~20 MB — referenciado, no versionado). Verificada por
+      primera página.
+    respalda:
+      - { tema: brujo-chilote, pagina: "pp. 61-91" }
+      - { tema: macun, pagina: "p. 70 (luz «blanquecina», citando a Quintana)" }
+      - { tema: iniciacion, pagina: "p. 76 (3 pruebas vs 4 del corpus = variante)" }
+      - { tema: voladora, pagina: "p. 79" }
+      - { tema: recta-provincia, pagina: "p. 65" }
+      - { tema: gobernador, pagina: "p. 66 (Martiniano Rodríguez)" }
+      - { tema: cifras-del-proceso, pagina: "p. 66 (~80 procesados)" }
+      - { tema: cueva-quicavi, pagina: "n. 7 (vía R. Cárdenas: «presumiblemente en Quicaví»)" }
+
+  - id: val-2014
+    tipo: academica
+    autor: "Valenzuela, Felipe A."
+    anio: 2014
+    titulo: "La enfermedad de todos en el cuerpo propio: Brujería y performatividad del Tribunal de la Raza Indígena en Chiloé"
+    publicacion: "Universum, 29(1), 35-55"
+    acceso: abierta
+    url: "http://www.redalyc.org/articulo.oa?id=65031069003"
+    archivo_local:
+      - fuentes/_raw/lecturas/valenzuela-2014-enfermedad-de-todos.pdf
+      - fuentes/_raw/lecturas/valenzuela-2014-enfermedad-de-todos.txt
+    estado: archivada
+    respalda:
+      - { tema: recta-provincia, pagina: "p. 35" }
+      - { tema: la-mayoria, pagina: "p. 35" }
+      - { tema: machi-calcu, pagina: "pp. 38-39" }
+      - { tema: brujo-chilote, pagina: "pp. 38-39" }
+      - { tema: origen-moraleda, pagina: "cita de Espech 1960: 127 (la Chillpila lleva el libro a Quicaví — variante)" }
+
+  - id: nun-2022
+    tipo: academica
+    autor: "Núñez, Daniela"
+    anio: 2022
+    titulo: "El sustrato indígena de los seres mitológicos de Chiloé"
+    publicacion: "Proyecto Bajo la Lupa, Subdirección de Investigación, Servicio Nacional del Patrimonio Cultural"
+    acceso: abierta
+    url: "https://www.investigacion.patrimoniocultural.gob.cl/publicaciones/el-sustrato-indigena-de-los-seres-mitologicos-de-chiloe"
+    archivo_local:
+      - fuentes/_raw/lecturas/nunez-2022-sustrato-indigena.pdf
+      - fuentes/_raw/lecturas/nunez-2022-sustrato-indigena.txt
+    estado: archivada
+    notas: "Documenta la colección del Museo Regional de Ancud CON números de inventario (Basilisco T79, Condená 1093, Brujo T84, Trauco 1474, Sirena 1092, Caballo marino 1094…)."
+    alias_corpus:
+      - "Núñez (2022), Servicio Nacional del Patrimonio Cultural"
+      - "Núñez (2022), testimonios de Chana y Chaitén"
+      - "Núñez (2022), testimonio de Chaitén"
+    respalda:
+      - { tema: recta-provincia, pagina: "p. 24" }
+      - { tema: invunche, pagina: "6 menciones" }
+      - { tema: cueva-quicavi, pagina: "renü / portales" }
+      - { tema: museo-ancud, pagina: "figuras con nº de inventario" }
+      - { tema: machi-calcu, pagina: "pp. 4, 24" }
+
+  - id: her-2013
+    tipo: academica
+    autor: "Hernández, Joaquín"
+    anio: 2013
+    titulo: "Enfrentando saberes: los brujos de Chiloé y el discurso ilustrado (1849-1900) [título por confirmar: portada sin capa de texto]"
+    publicacion: "Tesis, Universidad de Chile (repositorio 2250/114292, probable)"
+    acceso: abierta
+    url: "https://repositorio.uchile.cl/handle/2250/114292"
+    archivo_local:
+      - fuentes/_raw/lecturas/hernandez-2013-juicio-brujos-modernidad.pdf
+      - fuentes/_raw/lecturas/hernandez-2013-juicio-brujos-modernidad.txt
+    estado: archivada
+    notas: >-
+      La joya: p. 30 (n. 50) transcribe ÍNTEGRA la sentencia de 2ª instancia
+      (Concepción, 24-may-1881; voto disidente de Escobar) — montada verbatim
+      en el Epílogo. Aporta además la prensa nueva del REGISTRO (B-bis).
+    respalda:
+      - { tema: juicio-1880, pagina: "tesis dedicada (Código Penal 1874, modernidad)" }
+      - { tema: absolucion, pagina: "p. 30 n. 50 (texto íntegro de la sentencia)" }
+      - { tema: gobernador, pagina: "pp. 1, 8, 12, 15 (+ segundo período, 1895)" }
+      - { tema: los-azotes, pagina: "p. 20 n. 33 (denuncia de El Liberal, número perdido; desmentido transcrito)" }
+      - { tema: siete-republicas, pagina: "notas 185-186 (mapa en clave de 1880, VARIANTE del corpus)" }
+      - { tema: decreto-intendente, pagina: "n. 99, p. 50 (2ª corroboración)" }
+      - { tema: macun, pagina: "el aura del cuerpo" }
+
+  - id: rom-sf
+    tipo: academica
+    autor: "Romo Sánchez, Manuel"
+    anio: null
+    titulo: "Diccionario de la Brujería en Chiloé"
+    publicacion: "Memoria Chilena MC0033461 (dominio público)"
+    acceso: abierta
+    url: "https://www.memoriachilena.gob.cl/archivos2/pdfs/MC0033461.pdf"
+    archivo_local:
+      - fuentes/_raw/lecturas/romo-sanchez-diccionario-brujeria.pdf
+      - fuentes/_raw/lecturas/romo-sanchez-diccionario-brujeria.txt
+    estado: archivada
+    notas: "La fuente que el corpus ya citaba en macuñ/challanco/la-mayoría — desde 2026-07-11 verificable en repo (promovida del lote de Lucas)."
+    alias_corpus:
+      - "Romo Sánchez, Diccionario de la Brujería"
+    respalda:
+      - { tema: macun, pagina: "voz macuñ («se enrolla como erizo… ‘thac’», «Sin él el brujo no sería nada»)" }
+      - { tema: challanco, pagina: "voz (mapa/revisorio, luz de aceite)" }
+      - { tema: la-mayoria, pagina: "voz «Mayoría»" }
+      - { tema: invunche, pagina: "voz (el Machucho)" }
+      - { tema: machi-calcu, pagina: "voces" }
+
+  - id: leo-2016
+    tipo: academica
+    autor: "León, Marco Antonio"
+    anio: 2016
+    titulo: "Medicina y resistencias culturales en la provincia de Chiloé, 1826-1930"
+    publicacion: "Magallania, 44(1), 41-55"
+    acceso: abierta
+    url: "https://doi.org/10.4067/S0718-22442016000100003"
+    archivo_local:
+      - fuentes/_raw/lecturas/leon-2016-medicina-resistencias.pdf
+      - fuentes/_raw/lecturas/leon-2016-medicina-resistencias.txt
+    estado: archivada
+    notas: "Promovida del lote de Lucas (2026-07-11)."
+    respalda:
+      - { tema: machi-calcu, pagina: "machi ×18 · curanderos ×22" }
+      - { tema: brujo-chilote, pagina: "33 menciones" }
+      - { tema: juicio-1880, pagina: "contexto médico-cultural" }
+
+  - id: con-sf
+    tipo: academica
+    autor: "Contreras, Constantino"
+    anio: null
+    titulo: "Estudio lingüístico-folklórico de Chiloé: mitos y actividades laborales rudimentarias"
+    publicacion: "[revista por precisar; autoría verificada en el interior del PDF]"
+    acceso: abierta
+    url: null
+    archivo_local:
+      - fuentes/_raw/lecturas/estudio-linguistico-folklorico-chiloe.pdf
+      - fuentes/_raw/lecturas/estudio-linguistico-folklorico-chiloe.txt
+    estado: archivada
+    notas: >-
+      Promovida del lote de Lucas (2026-07-11). Rica en léxico (traiguén,
+      trai-trai) y en variantes locales (voladora vista de día en Rauco;
+      iniciación de 33 noches vs 40 días = discrepancia legítima).
+      Cosecha futura: caleuche/camahueto/pincoya/trauco (ver MATRIZ).
+    respalda:
+      - { tema: brujo-chilote, pagina: "112 menciones" }
+      - { tema: cueva-quicavi, pagina: "17 menciones" }
+      - { tema: voladora, pagina: "20 menciones (+ Rauco: vista de día)" }
+      - { tema: macun, pagina: "6 menciones" }
+      - { tema: challanco, pagina: "4 menciones" }
+      - { tema: iniciacion, pagina: "ll. 919-955 del txt (baño ritual, 33 noches = variante)" }
+
+  # ── CORPUS INTERNO (curaduría del proyecto) ───────────────────────────────
+
+  - id: corpus
+    tipo: corpus-interno
+    autor: "El Grimorio del Archipiélago (curaduría)"
+    anio: 2026
+    titulo: "Corpus de datos estructurados + Grimorio literario DEFINITIVO"
+    publicacion: "Archivo interno del proyecto"
+    acceso: abierta
+    url: null
+    archivo_local:
+      - contenido/El_Grimorio_Datos_Estructurados.txt
+      - contenido/El_Grimorio_del_Archipielago_DEFINITIVO.txt
+    estado: archivada
+    notas: >-
+      Fuente INTERNA: 68 bloques @ENTIDAD + los Libros del descenso. No es
+      fuente externa: sus afirmaciones remontan a las fuentes que cada bloque
+      cita en sus líneas FUENTE:: (108 líneas → este índice). Los guardarraíles
+      verbatim (verificar_prosa.py, generar_mapa.py) verifican contra él.
+    respalda: []
+
+  # ── CITADAS POR EL CORPUS, AÚN SIN ARCHIVO EN REPO ────────────────────────
+
+  - id: quintana-1972
+    tipo: academica
+    autor: "Quintana Mansilla, Bernardo"
+    anio: 1972
+    titulo: "Chiloé Mitológico"
+    publicacion: "Edición del autor"
+    acceso: localizable
+    url: "http://chiloemitologico.cl"
+    archivo_local: []
+    estado: por-conseguir
+    notas: "LA fuente más citada del corpus (33 líneas FUENTE::). Candidata natural para verificar Tocoihue/Nalhuitad/Colo (mapa ⚠️). Prioridad de adquisición."
+    alias_corpus:
+      - "Quintana (1972), Chiloé Mitológico"
+    respalda: []
+
+  - id: cavada-1914
+    tipo: academica
+    autor: "Cavada, Francisco J."
+    anio: 1914
+    titulo: "Chiloé y los chilotes"
+    publicacion: "Imprenta Universitaria, Santiago"
+    acceso: localizable
+    url: "https://www.memoriachilena.gob.cl"
+    archivo_local: []
+    estado: por-conseguir
+    notas: >-
+      12 líneas FUENTE:: del corpus. Probable en Memoria Chilena. OJO
+      (decisión 2026-07-11): Cavada es el canónigo AUTOR; «Cavada» como quien
+      ordenó la redada de 1880 fue ERROR documentado (era Martiniano Rodríguez).
+    alias_corpus:
+      - "Cavada (1914)"
+    respalda: []
+
+  - id: garcia-barria-sf
+    tipo: academica
+    autor: "García Barría, Narciso"
+    anio: null
+    titulo: "Tesoro Mitológico del archipiélago de Chiloé [título por confirmar]"
+    publicacion: null
+    acceso: localizable
+    url: null
+    archivo_local: []
+    estado: por-conseguir
+    notas: "12 líneas FUENTE:: del corpus."
+    alias_corpus:
+      - "García Barría, Tesoro Mitológico"
+    respalda: []
+
+  - id: fritz-roa-sf
+    tipo: terciaria
+    autor: "Fritz Roa, Sergio"
+    anio: null
+    titulo: "La Recta Provincia · La iniciación y los poderes del brujo chilote"
+    publicacion: "Publicaciones en línea (blog)"
+    acceso: localizable
+    url: null
+    archivo_local: []
+    estado: por-conseguir
+    notas: "Citado 7 veces por el corpus (dos textos). Ubicar URL estable y archivar."
+    alias_corpus:
+      - "Fritz Roa, La Recta Provincia"
+      - "Sergio Fritz Roa, La Recta Provincia"
+      - "Fritz Roa, La iniciación y los poderes del brujo chilote"
+      - "Fritz Roa"
+    respalda: []
+
+  - id: anuario-1887
+    tipo: primaria
+    autor: "Moraleda, José de (exploraciones); Anuario Hidrográfico de la Marina de Chile"
+    anio: 1887
+    titulo: "Esploraciones jeográficas de José de Moraleda"
+    publicacion: "Anuario Hidrográfico de la Marina de Chile"
+    acceso: localizable
+    url: null
+    archivo_local: []
+    estado: por-conseguir
+    notas: "Respaldo histórico del antecedente Moraleda (origen de la Recta Provincia). Probable en BND. Prioridad 2 de la MATRIZ."
+    alias_corpus:
+      - "Esploraciones jeográficas de José de Moraleda (Anuario Hidrográfico, 1887)"
+      - "Esploraciones jeográficas de José de Moraleda (1887)"
+    respalda: []
+
+  - id: galleguillos-2018
+    tipo: academica
+    autor: "Galleguillos Muñoz, M."
+    anio: 2018
+    titulo: "Los brujos de Chiloé: documentos de un proceso judicial"
+    publicacion: "Ediciones Tácitas (reed.; cf. Marino & Osorio 2014, misma casa)"
+    acceso: de-pago
+    url: null
+    archivo_local: []
+    estado: por-conseguir
+    notas: "Transcripción moderna comercial del manuscrito Espech. NO acceso abierto — no se piratea; compra pendiente de Lucas."
+    alias_corpus:
+      - "Los brujos de Chiloé: documentos de un proceso judicial (2018)"
+    respalda: []
+
+  - id: montecino-2015
+    tipo: academica
+    autor: "Montecino, Sonia"
+    anio: 2015
+    titulo: "Mitos de Chile: enciclopedia de seres, apariciones y encantos"
+    publicacion: "Catalonia"
+    acceso: de-pago
+    url: null
+    archivo_local: []
+    estado: por-conseguir
+    alias_corpus:
+      - "Sonia Montecino, Mitos de Chile (2015)"
+    respalda: []
+
+  - id: cardenas-1985
+    tipo: academica
+    autor: "Cárdenas, Renato"
+    anio: 1985
+    titulo: "Chiloé: manual del pensamiento mágico y la creencia popular"
+    publicacion: null
+    acceso: localizable
+    url: null
+    archivo_local: []
+    estado: por-conseguir
+    notas: "Ampuero (n. 7, en repo) lo cita para la Casa Grande «presumiblemente en Quicaví»."
+    alias_corpus:
+      - "Cárdenas, Chiloé: manual del pensamiento mágico (1985)"
+    respalda: []
+
+  - id: molina-1950
+    tipo: academica
+    autor: "Molina [por identificar]"
+    anio: 1950
+    titulo: "[por identificar — el corpus lo cita junto a Cárdenas 1998]"
+    publicacion: null
+    acceso: localizable
+    url: null
+    archivo_local: []
+    estado: por-conseguir
+    notas: "La línea del corpus «Molina (1950); Cárdenas (1998)» cita DOS obras; ninguna identificada aún. No confundir con el abate Molina (s. XVIII)."
+    alias_corpus:
+      - "Molina (1950); Cárdenas (1998)"
+    respalda: []
+
+  - id: abate-molina-sxviii
+    tipo: primaria
+    autor: "Molina, Juan Ignacio (abate)"
+    anio: null
+    titulo: "[obra por precisar — Saggio sulla storia naturale/civile del Chili, probable]"
+    publicacion: "s. XVIII"
+    acceso: localizable
+    url: null
+    archivo_local: []
+    estado: por-conseguir
+    alias_corpus:
+      - "abate Molina (s.XVIII)"
+    respalda: []
+
+  - id: rojas-flores-sf
+    tipo: academica
+    autor: "Rojas Flores, Gonzalo"
+    anio: null
+    titulo: "Reyes sobre la tierra"
+    publicacion: null
+    acceso: localizable
+    url: null
+    archivo_local: []
+    estado: por-conseguir
+    alias_corpus:
+      - "Gonzalo Rojas Flores, Reyes sobre la tierra"
+    respalda: []
+
+  - id: negron-vera-sf
+    tipo: academica
+    autor: "Negrón Vera"
+    anio: null
+    titulo: "Mitos de Chanquín y Cucao"
+    publicacion: null
+    acceso: localizable
+    url: null
+    archivo_local: []
+    estado: por-conseguir
+    alias_corpus:
+      - "Negrón Vera, Mitos de Chanquín y Cucao"
+    respalda: []
+
+  - id: geomitologia-uchile
+    tipo: academica
+    autor: "Universidad de Chile (estudios de geomitología)"
+    anio: 2020
+    titulo: "[estudios de geomitología 2019-2020, por identificar]"
+    publicacion: null
+    acceso: localizable
+    url: null
+    archivo_local: []
+    estado: por-conseguir
+    alias_corpus:
+      - "Estudios de geomitología, U. de Chile (2019-2020)"
+    respalda: []
+
+  - id: memoria-chilena
+    tipo: institucional
+    autor: "Memoria Chilena, Biblioteca Nacional de Chile"
+    anio: null
+    titulo: "Minisitio «Juicio a los brujos de Chiloé» y fichas asociadas"
+    publicacion: "memoriachilena.gob.cl"
+    acceso: abierta
+    url: "https://www.memoriachilena.gob.cl/wiki/w3-article-95073.html"
+    archivo_local: []
+    estado: localizable
+    notas: "Cifras del minisitio («más de cien»/70) siguen [por verificar] — fuera del repo."
+    alias_corpus:
+      - "Memoria Chilena"
+    respalda: []
+
+  - id: wikipedia-recta-provincia
+    tipo: terciaria
+    autor: "Wikipedia"
+    anio: null
+    titulo: "Recta Provincia"
+    publicacion: "es.wikipedia.org"
+    acceso: abierta
+    url: "https://es.wikipedia.org/wiki/Recta_Provincia"
+    archivo_local: []
+    estado: localizable
+    notas: "Terciaria: útil como puntero, no como respaldo pleno de la matriz."
+    alias_corpus:
+      - "Wikipedia (Recta Provincia)"
+    respalda: []
+
+  - id: wikipedia-brujos
+    tipo: terciaria
+    autor: "Wikipedia"
+    anio: null
+    titulo: "Brujos de Chiloé"
+    publicacion: "es.wikipedia.org"
+    acceso: abierta
+    url: "https://es.wikipedia.org/wiki/Brujos_de_Chilo%C3%A9"
+    archivo_local: []
+    estado: localizable
+    notas: "Terciaria: útil como puntero, no como respaldo pleno de la matriz."
+    alias_corpus:
+      - "Wikipedia (Brujos de Chiloé)"
+    respalda: []
+
+  # ── ATRIBUCIONES ORALES DEL CORPUS (no son documentos) ────────────────────
+
+  - id: tradicion-chilota
+    tipo: oral
+    autor: null
+    anio: null
+    titulo: "Atribuciones a tradición oral en el corpus"
+    publicacion: null
+    acceso: no-aplica
+    url: null
+    archivo_local: []
+    estado: atribucion-oral
+    notas: >-
+      El corpus atribuye ciertos rasgos a la tradición oral con 5 fórmulas.
+      No son documentos: son declaraciones de procedencia. Se registran para
+      que ninguna línea FUENTE:: quede fuera del índice.
+    alias_corpus:
+      - "tradición chilota"
+      - "tradición huilliche-chilota"
+      - "tradición mapuche-chilota"
+      - "tradición mapuche-huilliche"
+      - "tradición popular chilena"
+    respalda: []
+
+  # ── PRENSA DE ÉPOCA (piezas; detalle completo en REGISTRO-PRENSA.md) ─────
+
+  - id: decreto-intendente-1880
+    tipo: prensa
+    autor: "Intendencia de Chiloé (decretos 7-abr y 10-may-1880)"
+    anio: 1880
+    titulo: "Decretos del intendente sobre la persecución de brujos"
+    publicacion: "El Chilote (8-abr y 13-may-1880) · El Liberal (9-abr y 11-may-1880), Ancud"
+    acceso: localizable
+    url: null
+    archivo_local: []
+    estado: localizable
+    notas: "Publicación corroborada ×2 (CAT nn. 27-28 · HER n. 99 p. 50); el TEXTO no está en repo. BN física/microfilm. PRIORIDAD 1 de la MATRIZ (completaría el Bloque A del Expediente)."
+    respalda:
+      - { tema: decreto-intendente, pagina: "existencia corroborada; texto pendiente" }
+
+  - id: gaceta-1881-primera
+    tipo: prensa
+    autor: "Gaceta de los Tribunales (Santiago)"
+    anio: 1881
+    titulo: "Sentencia de primera instancia contra Mateo Coñuecar y otros por asociación ilícita"
+    publicacion: "Gaceta de los Tribunales, 11 de junio de 1881"
+    acceso: localizable
+    url: "https://www.bibliotecanacionaldigital.gob.cl/bnd/630/w3-article-620043.html"
+    archivo_local: []
+    estado: localizable
+    notas: "Serie digitalizada en visor BND:620043; el número exacto requiere descarga manual. Rastro: CAT nn. 24, 29."
+    respalda:
+      - { tema: juicio-1880, pagina: "sentencia 1ª instancia (vía CAT)" }
+
+  - id: gaceta-1882-absolucion
+    tipo: prensa
+    autor: "Gaceta de los Tribunales (Santiago)"
+    anio: 1882
+    titulo: "Sentencia de segunda instancia — la absolución (Concepción, 24-may-1881)"
+    publicacion: "Gaceta de los Tribunales, año XL, nº 1964, p. 457 (Imprenta de la República, 1882)"
+    acceso: localizable
+    url: "https://www.bibliotecanacionaldigital.gob.cl/bnd/630/w3-article-620043.html"
+    archivo_local: []
+    estado: localizable
+    notas: >-
+      TEXTO ÍNTEGRO en repo vía HER p. 30 n. 50 (firmas Riso, Astorga, Soto;
+      voto disidente de Escobar) — montado verbatim en el Epílogo. La página
+      física de la Gaceta en el visor BND cerraría el círculo primario
+      (Prioridad 3 de la MATRIZ).
+    respalda:
+      - { tema: absolucion, pagina: "nº 1964, p. 457 (texto vía HER p. 30)" }
+
+  - id: el-liberal-azotes-1880
+    tipo: prensa
+    autor: "El Liberal (Ancud), remitido sin firma"
+    anio: 1880
+    titulo: "Denuncia de tormentos (azotes) a los aprehendidos"
+    publicacion: "El Liberal, Ancud, mayo de 1880 — NÚMERO PERDIDO"
+    acceso: perdida
+    url: null
+    archivo_local: []
+    estado: perdida
+    notas: "«No se conocen ejemplares» (HER n. 33). Se conoce por el desmentido de El Chilote (21-may-1880), transcrito en la tesis."
+    respalda:
+      - { tema: los-azotes, pagina: "vía HER p. 20 n. 33" }
+
+  - id: el-chilote-desmentido-1880
+    tipo: prensa
+    autor: "El Chilote (Ancud)"
+    anio: 1880
+    titulo: "Desmentido oficial de los azotes"
+    publicacion: "El Chilote, Ancud, 21 de mayo de 1880"
+    acceso: localizable
+    url: null
+    archivo_local: []
+    estado: localizable
+    notas: "Transcrito en HER (n. 33) — rastreable en repo."
+    respalda:
+      - { tema: los-azotes, pagina: "transcrito en HER n. 33" }
+
+  - id: prensa-contexto-cat
+    tipo: prensa
+    autor: "Varios (El Chilote · El Mercurio de Valparaíso · Gaceta de los Tribunales)"
+    anio: 1851
+    titulo: "Piezas de contexto rastreadas por las notas de Catepillan y Hernández"
+    publicacion: "Detalle pieza a pieza en fuentes/_raw/prensa/REGISTRO-PRENSA.md (ítems 4-6, 8, 10)"
+    acceso: localizable
+    url: null
+    archivo_local: []
+    estado: localizable
+    notas: "Barrientos 17-jun-1880 y 29-jul-1880 · Gaceta 10-sep-1851 (caso Paillacar) · El Mercurio 1864 (caso Antil) · El Chilote 1871/1878 (contexto judicial)."
+    respalda: []
+
+  - id: el-correo-1880
+    tipo: prensa
+    autor: "«El Correo» (Ancud)"
+    anio: 1880
+    titulo: "[pista: nota del 7-ago-1880]"
+    publicacion: null
+    acceso: perdida
+    url: null
+    archivo_local: []
+    estado: no-verificada
+    notas: "NO aparece en ninguna fuente del repo ni en la web (MATRIZ: ❌). Pista de Lucas por confirmar con su origen; no se cita en el sitio."
+    respalda: []
+
+  # ── GEODATOS (la forma del mapa) ──────────────────────────────────────────
+
+  - id: geo-dpa-chiloe
+    tipo: geodatos
+    autor: "DPA/SUBDERE vía caracena/chile-geojson"
+    anio: 2026
+    titulo: "Geometría de las 10 comunas de la provincia de Chiloé"
+    publicacion: "github.com/caracena/chile-geojson (10.geojson, Región de Los Lagos)"
+    acceso: abierta
+    url: "https://github.com/caracena/chile-geojson"
+    archivo_local:
+      - assets/data/chiloe-geo.json
+      - fuentes/_raw/geo/los-lagos-10-caracena.geojson
+    estado: archivada
+    notas: "La fuente de verdad de la FORMA del mapa (regla sagrada geográfica). Verificada: los 8 puntos caen en su comuna correcta."
+    respalda:
+      - { tema: mapa-archipielago, pagina: "silueta completa" }
+
+  - id: geo-osm
+    tipo: geodatos
+    autor: "OpenStreetMap / Nominatim"
+    anio: 2026
+    titulo: "Coordenadas de los 8 lugares verificados del mapa"
+    publicacion: "nominatim.openstreetmap.org (consultado 2026-07-13)"
+    acceso: abierta
+    url: "https://www.openstreetmap.org"
+    archivo_local:
+      - herramientas/generar_mapa.py
+    estado: archivada
+    notas: "Las lat/lon viven en PUNTOS de generar_mapa.py con su procedencia."
+    respalda:
+      - { tema: mapa-archipielago, pagina: "8 puntos (Quicaví, Tenaún, Achao, Queilén, Caucahué, Rauco, Dalcahue, Ancud)" }
+
+  # ── REFERENCIA INTERNA (bibliografía del lote; guían, no respaldan mito) ──
+
+  - id: vicuna-cifuentes-1915
+    tipo: academica
+    autor: "Vicuña Cifuentes, Julio"
+    anio: 1915
+    titulo: "Mitos y supersticiones recogidos de la tradición oral chilena (fascículo I: El Caleuche)"
+    publicacion: "Imprenta Universitaria, Santiago"
+    acceso: localizable
+    url: null
+    archivo_local: []
+    estado: por-conseguir
+    notas: "De la bibliografía NotebookLM. Fuente clásica REAL de mitología — candidata a promoverse si se archiva (Caleuche)."
+    respalda: []
+
+  - id: marino-osorio-2014
+    tipo: academica
+    autor: "Marino, M., & Osorio, C."
+    anio: 2014
+    titulo: "Juicio a los brujos de Chiloé"
+    publicacion: "Ediciones Tácitas, Santiago"
+    acceso: de-pago
+    url: null
+    archivo_local: []
+    estado: por-conseguir
+    notas: "Misma casa editorial que Galleguillos 2018; aclarar relación entre ambas ediciones al comprar."
+    respalda: []
+
+  - id: referencias-lote-2026
+    tipo: referencia-interna
+    autor: "Varios (lote docs/propuestas/, evaluación 2026-07-11)"
+    anio: 2026
+    titulo: "Referencias NO promovidas a fuente citable"
+    publicacion: "Detalle en fuentes/lecturas/lecturas-recta-provincia.md"
+    acceso: no-aplica
+    url: null
+    archivo_local: []
+    estado: referencia
+    notas: >-
+      Guían al proyecto, no respaldan mito: Vanore 2025 (Zibaldone) · Mohr
+      (Chiloteando) · Suárez/Rodríguez 2013 (Canarias-Chiloé) · Ulloa/del Valle
+      · Ulloa/Azócar/Mayorga 2013 · Díaz & Pavez 2025 (cine) · Coloquio
+      Sirenas UBA 2024 · Mansilla 2009 (Convergencia) · Mathews 2015 ·
+      MinCulturas 2019 (iglesias). Los 3 PDFs sin capa de texto del lote:
+      PARA DECISIÓN DE LUCAS.
+    respalda: []
