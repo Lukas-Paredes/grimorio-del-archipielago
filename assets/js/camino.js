@@ -463,35 +463,88 @@
     conseguir: "📄 por conseguir — consulta en biblioteca",
     perdida: "∅ número perdido"
   };
+  /* Conexión fuente↔entidad (fase 2 del mandato): los temas de `respalda`
+     se pintan como enlaces a la ficha si la entidad está publicada; si está
+     sellada, su nombre verbatim del índice; los temas transversales llevan
+     etiqueta curatorial de interfaz (no es contenido cultural). */
+  var TEMAS_UI = {
+    "absolucion": "La absolución (1881)",
+    "gobernador": "El intendente y la redada",
+    "decreto-intendente": "El decreto del intendente",
+    "cifras-del-proceso": "Las cifras del proceso",
+    "machi-calcu": "Machi y calcu",
+    "los-azotes": "Los azotes (prensa de 1880)",
+    "origen-moraleda": "El origen: Moraleda y la Chilpilla",
+    "museo-ancud": "Museo Regional de Ancud",
+    "mapa-archipielago": "El mapa del archipiélago"
+  };
+  var nombrePorId = {}, hrefPorId = {};
+  INDICE.forEach(function (e) { nombrePorId[e.id] = e.nombre; });
+  publicados.forEach(function (c) { nombrePorId[c.id] = c.nombre; hrefPorId[c.id] = c.href; });
+  function chipTema(t) {
+    var nombre = nombrePorId[t] || TEMAS_UI[t] || t;
+    if (hrefPorId[t]) {
+      var a = el("a", "fuente__tema", nombre);
+      a.href = hrefPorId[t];
+      a.setAttribute("data-transicion", "");
+      return a;
+    }
+    return el("span", "fuente__tema fuente__tema--sellado", nombre);
+  }
+  function pintarItemFuente(f) {
+    var it = el("article", "fuente");
+    var cita = el("p", "fuente__cita");
+    var quien = (f.autor ? f.autor : "") + (f.anio ? " (" + f.anio + ")" : "");
+    if (quien) { cita.appendChild(el("strong", null, quien + " — ")); }
+    cita.appendChild(document.createTextNode(f.titulo || ""));
+    it.appendChild(cita);
+    if (f.publicacion) { it.appendChild(el("p", "fuente__pub", f.publicacion)); }
+    it.appendChild(el("p", "fuente__estado", ESTADO_FUENTE[f.estado] || f.estado));
+    if (f.respalda && f.respalda.length) {
+      var resp = el("p", "fuente__respalda");
+      resp.appendChild(el("span", "fuente__respalda-k", "Respalda: "));
+      f.respalda.forEach(function (t, i) {
+        if (i) { resp.appendChild(document.createTextNode(" · ")); }
+        resp.appendChild(chipTema(t));
+      });
+      it.appendChild(resp);
+    }
+    if (f.url) {
+      var leer = el("a", "camino-btn fuente__leer", "Leer en el original →");
+      leer.href = f.url;
+      leer.target = "_blank";
+      leer.rel = "noopener";
+      it.appendChild(leer);
+    }
+    return it;
+  }
   function pintarFuentes() {
     var D = G.fuentesPublicas || (window.Grimorio && window.Grimorio.fuentesPublicas);
     if (!D || fuentesCuerpo.querySelector(".fuente")) { return; }
     fuentesCuerpo.removeChild(fuentesEspera);
+    // Ficha → fuentes: en páginas de capítulo, primero lo que respalda ESTA entidad.
+    var entAqui = document.body.getAttribute("data-entity");
+    if (entAqui) {
+      var deAqui = D.fuentes.filter(function (f) {
+        return (f.respalda || []).indexOf(entAqui) !== -1;
+      });
+      if (deAqui.length) {
+        var sec0 = el("section", "carta__grupo carta__grupo--capitulo");
+        sec0.appendChild(el("h3", "carta__acto",
+          "Fuentes de este capítulo — " + (nombrePorId[entAqui] || entAqui)));
+        var cont0 = el("div", "fuentes-lista");
+        deAqui.forEach(function (f) { cont0.appendChild(pintarItemFuente(f)); });
+        sec0.appendChild(cont0);
+        fuentesCuerpo.appendChild(sec0);
+      }
+    }
     D.grupos.forEach(function (gr) {
       var lista = D.fuentes.filter(function (f) { return f.grupo === gr.id; });
       if (!lista.length) { return; }
       var sec = el("section", "carta__grupo");
       sec.appendChild(el("h3", "carta__acto", gr.titulo));
       var cont = el("div", "fuentes-lista");
-      lista.forEach(function (f) {
-        var it = el("article", "fuente");
-        var cita = el("p", "fuente__cita");
-        var quien = (f.autor ? f.autor : "") + (f.anio ? " (" + f.anio + ")" : "");
-        if (quien) { cita.appendChild(el("strong", null, quien + " — ")); }
-        cita.appendChild(document.createTextNode(f.titulo || ""));
-        it.appendChild(cita);
-        if (f.publicacion) { it.appendChild(el("p", "fuente__pub", f.publicacion)); }
-        var pieF = el("p", "fuente__estado", ESTADO_FUENTE[f.estado] || f.estado);
-        it.appendChild(pieF);
-        if (f.url) {
-          var leer = el("a", "camino-btn fuente__leer", "Leer en el original →");
-          leer.href = f.url;
-          leer.target = "_blank";
-          leer.rel = "noopener";
-          it.appendChild(leer);
-        }
-        cont.appendChild(it);
-      });
+      lista.forEach(function (f) { cont.appendChild(pintarItemFuente(f)); });
       sec.appendChild(cont);
       fuentesCuerpo.appendChild(sec);
     });
@@ -639,6 +692,8 @@
     if (!href || href.charAt(0) === "#") { return; }
     e.preventDefault();
     if (carta.open) { carta.close(); }
+    if (mapa.open) { mapa.close(); }
+    if (fuentesDlg.open) { fuentesDlg.close(); }
     try { sessionStorage.setItem("grimorio:bruma", "1"); } catch (er) {}
     if (reduce || paused()) { location.href = href; return; }
     bruma.classList.add("is-activa");

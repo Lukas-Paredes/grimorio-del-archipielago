@@ -303,6 +303,17 @@
   justify-self: start;
   min-height: 36px; padding: 0.3rem 0.8rem; font-size: 0.74rem;
 }
+.fuente__respalda {
+  margin: 0;
+  font-family: var(--font-pixel); font-size: 0.7rem;
+  letter-spacing: 0.05em; line-height: 1.9; color: var(--bone-soft);
+}
+.fuente__respalda-k { text-transform: uppercase; color: var(--amber-deep); }
+a.fuente__tema { color: var(--amber-soft); text-decoration: none; border-bottom: 1px solid var(--amber-line); }
+a.fuente__tema:hover { color: var(--amber); border-color: var(--amber); }
+a.fuente__tema:focus-visible { outline: 2px solid var(--amber); outline-offset: 2px; }
+.fuente__tema--sellado { opacity: 0.75; }
+.carta__grupo--capitulo .carta__acto { color: #ffd470; text-shadow: 0 0 14px var(--amber-glow); }
 
 /* ── Posición del capítulo en el hero ────────────────────────────────────── */
 .camino-cap {
