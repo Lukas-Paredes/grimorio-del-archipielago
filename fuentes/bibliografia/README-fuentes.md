@@ -64,8 +64,9 @@ contra el archivo correspondiente.
    a `alias_corpus` (la validación avisa si una cita del corpus no tiene
    entrada aquí).
 4. **Regenerar salidas**: `python herramientas/generar_matriz.py` → emite
-   `MATRIZ-CITAS-generada.md` + `BIBLIOGRAFIA.md` + `REPORTE-FUENTES.md`
-   en esta carpeta. GENERADOS: no se editan a mano.
+   `MATRIZ-CITAS.md` (la oficial) + `BIBLIOGRAFIA.md` + `REPORTE-FUENTES.md`
+   en esta carpeta. GENERADOS: no se editan a mano. (La matriz manual
+   histórica quedó como `MATRIZ-CITAS-manual-respaldo.md`.)
 5. **Validar**: `python herramientas/validar_fuentes.py` → chequea que los
    `archivo_local` existan, que cada `respalda` tenga página, la cobertura
    alias↔corpus en ambos sentidos y los vocabularios. Solo avisa; no arregla.

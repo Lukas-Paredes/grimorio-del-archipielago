@@ -5,7 +5,7 @@ generar_matriz.py — Salidas automáticas del sistema de fuentes (mandato 2026-
 Lee fuentes/bibliografia/fuentes.yaml (el índice estructurado, editado A MANO)
 y EMITE — jamás modifica el índice ni el corpus:
 
-  · fuentes/bibliografia/MATRIZ-CITAS-generada.md   (cruce tema × fuente, CALCULADO)
+  · fuentes/bibliografia/MATRIZ-CITAS.md            (cruce tema × fuente, CALCULADO)
   · fuentes/bibliografia/BIBLIOGRAFIA.md            (bibliografía formateada APA)
   · fuentes/bibliografia/REPORTE-FUENTES.md         (stats + huecos + prioridades)
 
@@ -18,8 +18,8 @@ CRITERIO DEL SEMÁFORO (documentado, decisión 2026-07-13):
   lleva asterisco (⚠️* / ❌*): «respaldo que existe pero aún no tengo».
   `perdida`/`no-verificada` se listan pero nunca suman.
 
-Se emite MATRIZ-CITAS-generada.md (no se pisa MATRIZ-CITAS.md, guardarraíl
-del mandato) hasta que Lucas confirme el reemplazo.
+Desde 2026-07-13 la matriz GENERADA es la oficial (MATRIZ-CITAS.md); la
+manual histórica quedó archivada como MATRIZ-CITAS-manual-respaldo.md.
 
 Uso:  python herramientas/generar_matriz.py
 """
@@ -33,7 +33,7 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 YAML_PATH = os.path.join(ROOT, "fuentes", "bibliografia", "fuentes.yaml")
 CORPUS = os.path.join(ROOT, "contenido", "El_Grimorio_Datos_Estructurados.txt")
 DIR_OUT = os.path.join(ROOT, "fuentes", "bibliografia")
-OUT_MATRIZ = os.path.join(DIR_OUT, "MATRIZ-CITAS-generada.md")
+OUT_MATRIZ = os.path.join(DIR_OUT, "MATRIZ-CITAS.md")
 OUT_BIBLIO = os.path.join(DIR_OUT, "BIBLIOGRAFIA.md")
 OUT_REPORTE = os.path.join(DIR_OUT, "REPORTE-FUENTES.md")
 
