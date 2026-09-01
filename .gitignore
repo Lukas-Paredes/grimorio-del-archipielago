@@ -26,3 +26,16 @@ deploy-netlify/
 # Bandeja de PDFs de Lucas (66 MB). Lo que se PROMUEVE a fuente citable se
 # archiva con nombre canonico en fuentes/_raw/lecturas/. La bandeja no entra.
 docs/propuestas/
+
+# Material de trabajo interno: nunca entra al repositorio publicado.
+*INTERNO*
+*interno*.md
+
+# Artefactos de editor y de sistema (prevencion; hoy el arbol esta limpio)
+desktop.ini
+*.swp
+*.swo
+*~
+*.orig
+*.rej
+.idea/

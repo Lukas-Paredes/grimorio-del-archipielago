@@ -76,6 +76,36 @@ http://localhost:8000/
 
 Las herramientas offline de `herramientas/` (scripts Python de contenido e imágenes) están permitidas; el sitio publicado no depende de ellas y sigue abriendo con `python -m http.server 8000`. No constituyen una cadena de compilación.
 
+## Cómo se trabaja
+
+**Por checkpoints.** No se pasa de una fase a la siguiente sin aprobación
+explícita de Lucas. Su señal es «dale», normalmente junto con el mensaje de
+commit.
+
+- **Antes de cada fase:** decir qué se va a hacer, qué archivos toca y cómo se
+  va a verificar que el sitio sigue funcionando.
+- **Después de cada fase:** decir qué se hizo, qué se encontró distinto de lo
+  esperado y el resultado de la verificación.
+- **Ante la duda, se pregunta.** No se elige por Lucas.
+- **Si el repositorio contradice al documento que se está siguiendo, manda el
+  repositorio** — y se avisa antes de actuar, no después.
+
+**Lo que nunca se decide en solitario:**
+
+- Hacer `push`, o fusionar hacia `main`.
+- Mover, renombrar o borrar cualquier archivo antes del envío de la postulación.
+- Borrar cualquier rama, etiqueta o archivo sin que Lucas lo apruebe **por nombre**.
+- Tocar contenido del corpus, aunque parezca un error tipográfico.
+- Cambiar nombres de slots, medidas o la convención de archivos de arte.
+- Introducir cualquier dependencia externa.
+
+Si algo de esto parece necesario, se plantea con el porqué y se espera.
+
+**La obra está siendo evaluada.** El sitio publicado es lo que revisa la comisión
+de Fondart Regional 2027 durante los 50 días hábiles posteriores al envío. Un
+sitio caído en ese período es la peor falla posible del proyecto: ante cualquier
+disyuntiva, gana la opción que no arriesga la publicación.
+
 ## Flujo Git
 
 - **La rama de trabajo es `main`** (decisión de Lucas, 2026-09-01): todo lo que
@@ -86,6 +116,9 @@ Las herramientas offline de `herramientas/` (scripts Python de contenido e imág
 - Revisa `git diff` y `git diff --stat` al terminar.
 - No hagas commit ni push salvo instrucción expresa del usuario.
 - No fusiones ramas viejas hacia `main` sin mandato expreso.
+- El modelo de ramas, etiquetas y limpieza está en `docs/ARQUITECTURA.md`:
+  `main` es lo publicado y se congela el día del envío; `desarrollo` es la
+  rama de trabajo a partir de entonces.
 - No modifiques el remoto.
 - No crees copias con sufijos como `final`, `nuevo`, `v9` o `backup`.
 - Modifica los archivos estables existentes.
@@ -101,7 +134,11 @@ Evita tarjetas repetidas, exceso de bordes redondeados, exceso de sombras, esté
 
 ## Lenguaje
 
-La capa interactiva se denomina «relato interactivo» o «recorrido narrativo». Nunca «juego», «RPG», «niveles» ni «quests» en interfaz, textos ni documentación.
+La capa interactiva se denomina «relato interactivo», «recorrido narrativo» o
+«travesía». Nunca «juego», «RPG», «niveles», «quests» ni «jugador».
+
+La prohibición alcanza **nombres de archivos, carpetas, funciones, variables,
+comentarios y mensajes de commit**, no solo la interfaz y los textos públicos.
 
 ## Conceptos principales
 
