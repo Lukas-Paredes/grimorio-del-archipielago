@@ -1,7 +1,9 @@
 # ESTADO DEL PROYECTO — El Grimorio del Archipiélago
 
 > Foto del proyecto para retomar desde cualquier PC. Rama de trabajo:
-> **`v8-arquitectura`** (nunca `main`). Última actualización: 2026-07-10.
+> **`main`** (decisión de Lucas, 2026-09-01: todo el trabajo se consolida en
+> `main`; `v8-arquitectura` queda como rama histórica, sin borrar).
+> Última actualización: 2026-09-01.
 > Para arrancar local: `python -m http.server 8000` desde la raíz → http://localhost:8000/
 
 ---

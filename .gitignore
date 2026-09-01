@@ -14,3 +14,15 @@ entrada/
 
 # Bandeja local de audio crudo (los finales normalizados van a assets/audio/)
 _entrada-audio/
+
+# Carpeta de trabajo local: insumos para el Project de Claude Chat.
+# Son COPIAS de documentos que ya viven versionados en el repo. No entra a git.
+_para-project/
+
+# Carpeta de publicacion: copia regenerable del sitio para arrastrar a Netlify.
+# Se regenera con el comando de DEPLOY.md. No entra a git (58 MB).
+deploy-netlify/
+
+# Bandeja de PDFs de Lucas (66 MB). Lo que se PROMUEVE a fuente citable se
+# archiva con nombre canonico en fuentes/_raw/lecturas/. La bandeja no entra.
+docs/propuestas/

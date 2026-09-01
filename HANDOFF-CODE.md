@@ -47,8 +47,9 @@ Pixel art con grid visible; marcos dorados con remaches; cajas = **placa de bron
   entero, en automático, hasta un **reporte final**. No pidas OK entre pasos salvo
   que algo sea ambiguo Y riesgoso.
 - **Guardarraíles innegociables:**
-  1. Solo la rama **`v8-arquitectura`**. **JAMÁS `main`**, jamás merge a main.
-  2. **Commit + push por fase** a `origin/v8-arquitectura` (respaldo; trabaja en 2 PCs).
+  1. Solo la rama **`main`** (decisión de Lucas, 2026-09-01). `v8-arquitectura`
+     queda como rama histórica: no se borra, no se trabaja en ella.
+  2. **Commit + push por fase** a `origin/main` (respaldo; trabaja en 2 PCs).
   3. **Nada se borra.** Crudos SIEMPRE a `assets/img/_raw/`. El sitio viejo
      (`index-legacy.html` + `pages/`) NO se toca.
   4. **Verbatim con diff**: donde toques cerca de texto cultural, verificá que el
@@ -228,7 +229,8 @@ título/autor de cada pista (los MP3 no traían metadatos; no se inventan).
 
 ## 6 · Estado git (verificado)
 
-- **Rama:** `v8-arquitectura`. Árbol **limpio**. **Sincronizado con origin (0/0).**
+- **Rama:** `v8-arquitectura` *(snapshot de julio de 2026; desde el 2026-09-01 la
+  rama de trabajo es `main`)*. Árbol **limpio**. **Sincronizado con origin (0/0).**
 - **Último commit:** `4462107` — «Documento de continuidad: ESTADO-DEL-PROYECTO.md».
 - **Últimos 10 commits:**
   1. `4462107` — ESTADO-DEL-PROYECTO.md (foto para retomar desde cualquier PC).

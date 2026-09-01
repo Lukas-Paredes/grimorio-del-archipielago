@@ -78,11 +78,14 @@ Las herramientas offline de `herramientas/` (scripts Python de contenido e imág
 
 ## Flujo Git
 
+- **La rama de trabajo es `main`** (decisión de Lucas, 2026-09-01): todo lo que
+  sirve se consolida ahí. `v8-arquitectura` queda como rama histórica: no se
+  borra y no se trabaja en ella.
 - Trabaja solamente en la rama actual.
 - Ejecuta `git status` antes de modificar.
 - Revisa `git diff` y `git diff --stat` al terminar.
 - No hagas commit ni push salvo instrucción expresa del usuario.
-- No hagas merge hacia `main`.
+- No fusiones ramas viejas hacia `main` sin mandato expreso.
 - No modifiques el remoto.
 - No crees copias con sufijos como `final`, `nuevo`, `v9` o `backup`.
 - Modifica los archivos estables existentes.
@@ -158,6 +161,20 @@ Registro de decisiones editoriales/técnicas vigentes (fecha · decisión):
 - **2026-07-11 · Prensa rastreable**: nada de prensa se cita sin respaldo en
   el repo. `fuentes/_raw/prensa/REGISTRO-PRENSA.md` separa descargado /
   localizable (cita completa + dónde) / discrepancias. No se piratea.
+
+- **2026-09-01 · `main` es la rama de trabajo**: todo lo que sirve se
+  consolida en `main` (que además es la rama desplegada). `v8-arquitectura`
+  queda como rama histórica — no se borra, no se trabaja en ella. Cuando se
+  tomó la decisión ambas apuntaban al mismo commit (`dd27bc7`): no hubo merge.
+- **2026-09-01 · Carpetas regenerables fuera de git**: `deploy-netlify/`
+  (copia del sitio para arrastrar a Netlify, 58 MB) y `docs/propuestas/`
+  (bandeja de PDFs, 66 MB) van a `.gitignore`. Lo que se PROMUEVE de la
+  bandeja se archiva con nombre canónico en `fuentes/_raw/lecturas/`.
+- **2026-09-01 · Documentos de estado verificado en `docs/`**: las cifras de
+  la obra se cuentan contra el repo, nunca se copian de documentación previa
+  (el anexo de Chacao declaraba 5 capítulos cuando ya había 12). El documento
+  vigente es `docs/ESTADO-VERIFICADO-2026-08.md` y prevalece sobre cualquier
+  cifra anterior.
 
 ## Verificación antes de cerrar una intervención
 

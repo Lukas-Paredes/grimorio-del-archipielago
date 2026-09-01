@@ -204,5 +204,5 @@ Usar la orden de APERTURA de `_handoff/PROTOCOLO.md`. En corto:
 **1)** leer este MAPA (el todo) → **2)** la última migración en
 `_handoff/migraciones/` (el ayer) → **3)** `_handoff/HANDOFF.md` +
 `herramientas/pendientes.md` (el detalle) → **4)** `git status` + `git pull`
-en `v8-arquitectura` → **5)** reportar y ESPERAR el mandato de Lucas.
+en `main` → **5)** reportar y ESPERAR el mandato de Lucas.
 Trabajo solo en la rama actual; commit/push solo con mandato; nada se borra.
