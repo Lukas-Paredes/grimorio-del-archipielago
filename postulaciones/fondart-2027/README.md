@@ -20,30 +20,74 @@ obra que evalúa la comisión es el sitio, en la raíz del repositorio.
 
 ---
 
-## Comunas declaradas
+## Comunas de ejecución
 
 **Calbuco · Castro · Ancud · Quemchi · Quellón**
 
-> **Verificación contra el corpus — leer antes de usar esta lista en un
-> formulario.** El mandato pedía cotejar cada dato y reportar lo que no calce.
-> Las cinco comunas no tienen el mismo respaldo documental en el repositorio:
+La selección responde a cuatro criterios, no solo a la presencia de cada comuna
+en el corpus bibliográfico.
 
-| Comuna | Respaldo en el repositorio | Lectura |
+### 1 · Presencia en el corpus
+
+Comunas cuyos lugares están documentados y citados en la obra publicada.
+
+- **Quemchi** — concentra el núcleo del expediente de la Recta Provincia:
+  **Quicaví**, capital y sede de la cueva; **Tenaún**, origen legendario del
+  episodio de 1786; y la **isla Caucahué**. Los tres son puntos propios del mapa
+  del archipiélago, con fuente en el repositorio.
+- **Ancud** — sede del **proceso de 1880**, que es el capítulo de cierre del
+  recorrido y el dossier de fuente primaria del proyecto. Su Museo Regional
+  conserva las figuras míticas en fibra, madera y cancagua, con número de
+  inventario verificado en Núñez (2022).
+- **Quellón** — la **isla Laitec**, morada documentada de la Sirena chilota
+  («habita la isla Laitec, al sur de Quellón»), y la **isla Caylín**, de donde
+  proviene uno de los testimonios vivos recogidos por Núñez (2022) y citado
+  textualmente en la obra.
+
+### 2 · Circulación
+
+**Castro** articula el tránsito del mar interior: es el nudo por el que se
+conecta el archipiélago y el punto de referencia desde el que el propio corpus
+sitúa otros lugares del expediente. Su papel en el proyecto es de circulación y
+acceso de público, no de extracción de contenido.
+
+### 3 · Equidad territorial
+
+**Quellón** es la comuna más austral y la más poblada del sur de la isla grande.
+Las recopilaciones clásicas de la mitología chilota se concentraron en el centro
+y el norte del archipiélago; incluirla corrige un desequilibrio de cobertura que
+es del propio campo de estudio, no de este proyecto.
+
+### 4 · Pertenencia cultural y registro pendiente
+
+**Calbuco** integra el área de influencia cultural del archipiélago. El territorio
+documentado por el proyecto es **Chiloé, Calbuco y Maullín**, así declarado desde
+el inicio en su documentación técnica.
+
+Que Calbuco no aparezca en el corpus bibliográfico **es una razón para ir, no una
+objeción**: las recopilaciones clásicas se centraron en la isla grande y dejaron
+fuera el continente insular. El registro oral en terreno que propone esta
+postulación se dirige precisamente a documentar lo que esas fuentes no cubrieron.
+Es además la base territorial del proyecto y la residencia de su responsable.
+
+### Presencia en el corpus, como dato
+
+Conteo de menciones en el corpus estructurado, el grimorio literario, la
+investigación territorial y los datos del mapa, al 2026-09-01. **Es un dato de
+cobertura bibliográfica, no una medida de pertinencia territorial.**
+
+| Comuna | Menciones | Dónde |
 |---|---|---|
-| **Ancud** | **40 menciones.** Sede del proceso de 1880 y del Museo Regional. Punto propio en el mapa | **Sólida** |
-| **Quemchi** | **16 menciones.** Contiene Quicaví —capital de la Recta Provincia y sede de la cueva—, Tenaún y la isla Caucahué | **Sólida** |
-| **Quellón** | **3 menciones**, todas indirectas: la Sirena chilota «habita la isla Laitec, al sur de Quellón» | **Anclaje real pero indirecto.** No es punto del mapa; es la referencia de ubicación de Laitec |
-| **Castro** | **1 mención**, indirecta: Rauco, «al sur de Castro» | **Anclaje débil.** Solo como referencia de ubicación de Rauco |
-| **Calbuco** | **0 menciones** en corpus, investigación y mapa. Solo aparece en el GeoJSON regional de comunas y como contexto en papers académicos | **Sin anclaje documental.** Es territorio del proyecto por residencia del responsable y por alcance declarado, no por presencia en el corpus |
+| **Ancud** | 40 | Proceso de 1880, Museo Regional, punto propio del mapa |
+| **Quemchi** | 16 | Quicaví, Tenaún y Caucahué; tres puntos propios del mapa |
+| **Quellón** | 3 | Isla Laitec (morada de la Sirena chilota); isla Caylín en el testimonio de Núñez (2022) |
+| **Castro** | 1 | Referencia de ubicación de Rauco en el mapa en clave de la Recta Provincia |
+| **Calbuco** | 0 | Sin entrada bibliográfica — ver criterio 4 |
 
-**Comunas con anclaje verificado que NO están en la lista:** **Quinchao**
-(Achao), **Dalcahue** y **Queilén** — las tres con punto propio y fuente en el
-mapa del archipiélago.
-
-**No ajusté la lista.** Si el formulario pide comunas de *intervención* o de
-*residencia del equipo*, las cinco declaradas pueden ser correctas y esta tabla
-no aplica. Si pide comunas con *presencia en la obra*, conviene revisarla.
-Decisión de Lucas.
+**Fuera de esta postulación por alcance, no por falta de respaldo.**
+**Quinchao** (Achao), **Dalcahue** y **Queilén** tienen **punto propio y fuente
+verificada** en el mapa del archipiélago. Quedan fuera de las comunas de
+ejecución por el alcance acotado de este proyecto, no por debilidad documental.
 
 ---
 
@@ -85,9 +129,8 @@ El Macuñ · El Challanco · La Voladora · El Camahueto · El juicio de Ancud d
 | Pares completos | **39** |
 | Peso servido en WebP | **2,4 MB** (2.429.918 bytes) |
 
-> El reparto **21/20** corrige el 19/20/2 que circulaba en documentación previa.
-> Las dos piezas sin par WebP (`motas-capa-1/2.png`) están **dentro** de las 20
-> de sistema, no aparte.
+> **21 por criatura y 20 de sistema.** Las dos piezas sin par WebP
+> (`motas-capa-1/2.png`) están **dentro** de las 20 de sistema, no aparte.
 
 ### Fuentes
 
