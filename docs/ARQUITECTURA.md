@@ -265,6 +265,7 @@ pistas de sonido · el sistema legado.
 | `demo/` | **Mover a `legacy/demo/`** con un README que explique qué era y por qué está superado |
 | `assets/img/_raw/` | **No tocar.** Borrarlo del árbol no libera peso —queda en el historial— y no se reescribe historia mientras el repositorio está siendo evaluado. Se revisa después de los resultados |
 | `iniciacion-lamina.webp/.png` | **Conservar.** Sin referencia por diseño: es arte en reserva, no huérfano |
+| `postulacion/POSTULACION-MOCKUP.html` | **Se conserva, sin datos de contacto.** El expediente de Chacao 2026 —declarado **inadmisible** por falta de un documento, no por el proyecto— queda como historia. El 2026-09-01 se retiró de él el bloque de contacto (nombre completo, correo y teléfono): la página **es alcanzable e indexable** en Pages, `postulacion/` no empieza con guion bajo y la postulación en curso dirige tráfico al dominio. El dato **permanece en el historial de git** y no se reescribe mientras el repositorio esté bajo evaluación; el objetivo fue que dejara de servirse |
 | `.nojekyll` | **Aplazado.** Sin Jekyll, Pages serviría todo lo que hoy ignora por empezar con `_`, incluidos `assets/img/_raw/` (205 MB) y `_handoff/`. Se agrega después de resolver esos dos |
 
 ---

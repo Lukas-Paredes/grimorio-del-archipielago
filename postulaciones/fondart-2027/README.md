@@ -161,11 +161,10 @@ por defecto. 3 familias tipográficas autoalojadas en 8 archivos `.woff2`.
 
 ## Antecedente
 
-Hubo una postulación anterior al **Fondo Cultura Puente Chacao 2026**, declarada
-**inadmisible**. Su expediente se conserva en `postulacion/` como historia del
-proyecto.
+El proyecto presentó antes un expediente al **Fondo Cultura Puente Chacao 2026**.
+Ese material se conserva en `postulacion/` como historia del proyecto.
 
-**Dos advertencias sobre ese material:**
+**Dos advertencias antes de reutilizar nada de ahí:**
 
 1. **El equipo de esa postulación no aplica.** La composición cambió. No
    reutilizar nombres, roles, distribución de honorarios ni cartas de compromiso.
@@ -173,9 +172,8 @@ proyecto.
    hoy son 12. Para toda cifra manda este documento o
    `docs/ESTADO-VERIFICADO-2026-08.md`, nunca el anexo de Chacao.
 
-Ese anexo contiene datos personales del responsable —nombre completo, correo y
-teléfono— y el repositorio es público por decisión del 2026-09-01. No
-redistribuirlo a servicios de terceros.
+El historial completo de ese expediente y las decisiones de manejo del
+repositorio están en `docs/ARQUITECTURA.md` y `docs/INVENTARIO-2026-08.md`.
 
 ---
 
