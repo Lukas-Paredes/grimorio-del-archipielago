@@ -114,9 +114,14 @@ grimorio-del-archipielago/
 │   ├── js/                    motor, datos y renderizadores
 │   ├── img/                   arte publicado (+ _raw/, crudos)
 │   │   ├── referencia/        conjunto: las 41 piezas actuales (§5)
-│   │   └── comisionado/       conjunto: obra contratada (§5)
+│   │   ├── comisionado/       conjunto: obra contratada (§5)
+│   │   ├── beta/              conjunto: experimentos (§5)
+│   │   └── creditos.yaml      manifiesto de autoría, una entrada por pieza (§5)
 │   ├── audio/ fonts/ icons/ data/
 ├── contenido/                 EL CORPUS (+ prosa/)
+├── datos/                     versiones.yaml — las dos salidas (§5)
+├── dist/                      PRODUCTO, no fuente. Solo dist/grimorio/;
+│                              Fondart se genera a la raíz. En .gitignore (§5)
 ├── fuentes/                   la biblioteca y la trazabilidad
 ├── herramientas/              scripts Python offline
 ├── pages/                     legado — se queda, ver §7
@@ -131,84 +136,217 @@ grimorio-del-archipielago/
 
 ---
 
-## 5 · CONJUNTOS DE ARTE
+## 5 · FASE 4 · DOS VERSIONES DE LA OBRA DESDE UN SOLO ORIGEN
 
-### El problema
+### Qué se quiere
 
-La postulación compromete **30 ilustraciones nuevas de autoría humana
-contratada**: portales (`hero`, `lamina`) en ilustración pintada, entorno
-(`descenso`, `cierre`) en pixel art. Las 41 piezas actuales son **referencia del
-encargo** y no se descartan. Ambas deben convivir sin duplicar archivos, y debe
-poder probarse un conjunto experimental y sacarlo sin rastro.
+Existen **dos proyectos que comparten origen**:
 
-### La convención
+- **El Grimorio del Archipiélago** — el proyecto personal, en pixel art, tal como
+  está hoy.
+- **El Grimorio del Archipiélago · Fondart** — la versión que se transforma con
+  las ilustraciones comisionadas y con lo que definan la dirección de arte y el
+  frente territorial.
+
+El segundo **empieza siendo idéntico al primero** y se va diferenciando pieza por
+pieza a medida que llega el trabajo del equipo. **No hay un momento en que esté
+incompleto.**
+
+**Ninguna de las dos es una rama.** Son dos salidas del mismo generador, desde el
+mismo corpus, con el mismo motor y las mismas herramientas.
+
+### La regla que gobierna esta fase
+
+> **Nada de lo que ya existe se pierde, se rehace ni se duplica.**
+
+El corpus se escribe una vez. El motor es uno. **Las 41 piezas actuales se
+conservan íntegras y siguen siendo las que dan forma a la obra**: no son un
+borrador que se reemplaza, son el estándar sobre el que se construye. Cada pieza
+comisionada que llegue **se suma**; ninguna borra a la anterior.
+
+Si una tarea de esta fase implica copiar el corpus, bifurcar el motor o eliminar
+arte existente, **está mal planteada**. Detenerse y preguntar.
+
+### Por qué no son ramas
+
+Con dos ramas, Pages publica solo una, y cada arreglo del motor habría que
+llevarlo a mano de una a otra, con conflictos, porque el contenido diverge: con el
+tiempo una queda atrás.
+
+Con dos salidas del mismo repositorio, **una mejora del motor beneficia a ambas
+sin copiar nada**, y las dos se pueden abrir a la vez y comparar lado a lado —
+que es lo que hace falta para decidir si una pieza nueva funciona.
+
+### Los conjuntos
+
+Se trabaja **dentro de `assets/img/`**, sin renombrar carpetas ni mover rutas del
+sitio (§4).
 
 ```
-assets/img/<conjunto>/<entidad>-<slot>.webp
-assets/img/<conjunto>/<entidad>-<slot>.png     respaldo, no se publica
+assets/img/referencia/    las 41 piezas actuales
+assets/img/comisionado/   obra contratada
+assets/img/beta/          experimentos
+assets/img/_raw/          crudos — fuera de los conjuntos, nunca se publican
 ```
 
-Los crudos siguen fuera de los conjuntos, en `assets/img/_raw/`, y nunca se
-publican.
+Convención, la misma que ya rige: `<entidad>-<slot>.webp`, con respaldo `.png`
+que no se publica.
 
-### Resolución por orden
+### Los slots y sus variantes
 
-`datos/arte.yaml` — o la ruta que se fije al implementarlo:
+| Slot | Variante | Medida | Uso |
+|---|---|---|---|
+| **`hero`** | enmarcado | **917 × 512** | Pieza enmarcada en el portal del capítulo |
+| **`hero`** | **a sangre completa** | **1800 × 1005** | Fondo a pantalla completa. Lo usan `juicio-1880` y `recta-provincia` |
+| `lamina` | — | 565 × 842 | Retrato 2:3 colgado sobre el fondo abisal |
+| `descenso` | — | 1005 × 1800 | Fondo del cuerpo; **es lo que se ve en teléfono** |
+| `cierre` | — | 1800 × 1005 | Pantalla final del capítulo |
+| `card` | — | 1:1 | Miniatura. Sin producir |
 
-```yaml
-conjuntos: [comisionado, referencia]
-por_slot:
-  descenso: [referencia]
-  cierre:   [referencia]
-```
+**El slot `hero` tiene dos variantes legítimas, no una medida con excepciones.**
+El validador comprueba que cada pieza calce con **alguna variante declarada de su
+slot**, no con una sola medida.
 
-**La resolución ocurre en tiempo de generación**, en el generador Python, nunca
-en JavaScript en el navegador. El sitio queda con rutas resueltas: cero costo en
-ejecución, coherente con que todo es estático.
+### Orden de resolución por versión
 
-Efecto: llega `assets/img/comisionado/caleuche-hero.webp`, se regenera, aparece.
-Nada se edita, nada se borra. Para un experimento, `beta/` primero en el orden;
-para deshacerlo, se saca del orden.
+`datos/versiones.yaml` declara las dos versiones y, para cada una, el orden de
+conjuntos en que se busca cada imagen. Se usa **el primero que la tenga**.
 
-**El generador ya está preparado.** El diagnóstico encontró que la resolución está
-centralizada en un `has()` de una línea en `generar_fichas.py`. Convertirla en
-búsqueda por orden es un cambio localizado, no una reescritura.
+- **`grimorio`** mira solo `referencia`: queda exactamente como está hoy y **no
+  cambia nunca** por lo que ocurra en `comisionado`.
+- **`fondart`** mira primero `comisionado` y cae en `referencia` cuando la pieza
+  aún no existe: **empieza idéntica y se transforma sola**.
 
-### El renderizado pixelado
+Cuando llegue el hero pintado del Caleuche, se deja caer en `comisionado/`, se
+regenera, y aparece en Fondart. La versión personal no se entera. No se edita
+configuración, no se toca código, no se borra nada.
 
-El diagnóstico corrigió una suposición: `image-rendering: pixelated` **no es una
-regla global**, son **doce**.
+Para probar algo: `beta` primero en el orden de una versión. Para deshacerlo: se
+saca del orden.
 
-- **2 son globales** sobre `img` (`ficha.css:58`, `portada.css:57`). Estas migran
-  a `img[data-arte="referencia"]`, con el generador escribiendo `data-arte` en
-  cada `<img>`.
-- **4 son de interfaz** (`.pixel`, `.rule::before/after`, `.rivet`,
-  `.pieza__sigil`). **Se quedan tal cual**: son pixel art por diseño.
-- **6 pintan arte por clase** (`.descenso-bg`, `.cierre__bg`, `.capa__bg`,
-  `.capa__img`, `.abyss__sea`, `.mist`). **`data-arte` no las alcanza.** Correcto
-  mientras `descenso` y `cierre` sigan en pixel art por `por_slot`; **hay que
-  resolverlo antes de comisionar un fondo pintado.**
+**La resolución ocurre al generar**, en el generador Python, nunca en JavaScript
+en el navegador. Cada salida queda con rutas ya resueltas: cero costo en ejecución
+y coherente con que todo el sitio es estático.
 
-### Créditos y validación
+### Publicación
 
-`assets/img/creditos.yaml`, una entrada por pieza publicada, con `entidad`,
-`slot`, `autoria`, `tecnica`, `conjunto`, `rotulo` y —para las de referencia—
-`origen`. La postulación compromete acreditar nominalmente a cada ilustrador y
-distinguir pieza de referencia de obra contratada: como dato estructurado, eso se
-cumple solo y es auditable.
+| Salida | Dónde | Quién la publica |
+|---|---|---|
+| **Fondart** | **la raíz del repositorio, como hoy** | GitHub Pages, sin configurar nada |
+| **Grimorio** | `dist/grimorio/` | Nadie. HTML estático autocontenido: se arrastra a Netlify o se abre en local |
 
-`validar_arte.py`, en el espíritu de `validar_fuentes.py`: toda imagen
-referenciada existe en algún conjunto del orden; todo archivo tiene entrada en
-créditos y viceversa; toda pieza mide lo que su slot exige; ninguna pieza
-comisionada declara origen de IA. Sale con código distinto de cero si algo falla.
+**No hay `dist/fondart/`.** Pages, en deploy por rama, sirve **solo desde la raíz
+o desde `/docs`**, y `/docs` está ocupada por la documentación (§8). La raíz ya es
+la versión Fondart de facto, así que se genera ahí y Pages sigue funcionando sin
+mecanismos nuevos.
 
-### Deuda anotada
+`dist/` es **producto, no fuente**: se regenera con un comando y va a `.gitignore`.
 
-`lamina` está en el generador (`generar_fichas.py:37`) y en el CSS
-(`ficha.css:802`), pero **no** en el diccionario `SLOTS` de `normalizar_img.py`:
-`--slot lamina` sería rechazado. Las 7 láminas existentes son consistentes a
-565×842 pero se produjeron por otra vía. **Pendiente de resolver al implementar
-los conjuntos.**
+### El renderizado pixelado, por versión
+
+`image-rendering: pixelated` está hoy en **12 reglas**: 2 globales sobre `img` y
+10 sobre clases, de las cuales **6 pintan arte y no interfaz** — `.descenso-bg`,
+`.cierre__bg`, `.capa__bg`, `.capa__img`, `.abyss__sea`, `.mist`.
+
+Sobre una ilustración pintada, esa regla **la destroza**. Y un atributo en el
+`img` no alcanza a las seis que pintan fondo por CSS.
+
+El generador escribe `data-arte="<conjunto>"` en cada `img` y marca el `<html>` de
+cada página con la versión y el conjunto que resolvió cada fondo. Las reglas pasan
+de globales a condicionadas por esa marca. Mientras `descenso` y `cierre` sigan en
+`referencia`, **el comportamiento es idéntico al actual**; el mecanismo existe
+para el día en que se comisione un fondo pintado.
+
+### Créditos como dato
+
+`assets/img/creditos.yaml`, **una entrada por pieza — 41, no 80**. El manifiesto
+declara **autoría**, y la autoría es de la pieza, no del formato: los respaldos
+PNG son detalle técnico.
+
+Cada entrada: archivo, entidad, slot, autoría, técnica, conjunto, fecha, si fue
+contratada, y el rótulo de recreación artística. Las piezas de `referencia` llevan
+además `origen`, que declara que fueron producidas con apoyo de herramientas de IA
+bajo dirección de arte humana.
+
+La postulación compromete acreditar nominalmente a cada ilustrador y distinguir
+pieza de referencia de obra contratada: **como dato, eso se cumple solo y es
+auditable**. `generar_creditos.py` produce la página de créditos de cada versión
+desde aquí.
+
+**Las excepciones se declaran en el manifiesto, no se parchean en el validador.**
+Un campo lo dice y el validador lo respeta:
+
+| Pieza | Excepción |
+|---|---|
+| `motas-capa-1`, `motas-capa-2` | Piezas de sistema **sin par WebP**. Se sirven como PNG |
+| `iniciacion-lamina` | **Arte en reserva**: ninguna ficha la referencia porque `iniciacion` vive en la vitrina de la Recta Provincia, no como ficha propia. No es huérfana |
+
+### El validador
+
+`herramientas/validar_arte.py`, en el espíritu de `validar_fuentes.py`. Sale con
+código distinto de cero si algo falla, y se corre antes de cada generación.
+
+- Toda imagen que una ficha necesita **se resuelve en alguna versión declarada**.
+- Toda pieza tiene entrada en `creditos.yaml`, y viceversa — **por pieza, no por
+  archivo**.
+- Toda pieza calce con **alguna variante declarada de su slot**.
+- Ninguna pieza de `comisionado` declara `origen` de IA.
+- Las excepciones declaradas en el manifiesto **se respetan**, no se reportan.
+
+### Los pasos
+
+En `desarrollo`. Cada paso termina con **ambas versiones generadas y
+verificadas**. Si un paso rompe algo, se revierte antes de seguir. **Un commit por
+paso**: la granularidad es lo que permite elegir después qué conservar.
+
+| # | Paso |
+|---|---|
+| **1** | Crear los tres conjuntos y mover las 41 piezas a `referencia/`. **Commit propio y verificación de paridad antes de seguir** — ver el aviso abajo |
+| 2 | `datos/versiones.yaml` con las dos versiones |
+| 3 | Generador: recorrer versiones, resolver por orden, una salida por versión |
+| 4 | `data-arte` en cada `img` y la marca de versión en el `<html>` |
+| 5 | Migrar las 12 reglas de `image-rendering`; verificar que la interfaz no perdió la suya |
+| 6 | `creditos.yaml` con las 41 piezas y sus excepciones declaradas |
+| 7 | `validar_arte.py` y `generar_creditos.py`. El validador pasa limpio |
+| 8 | Prueba del mecanismo: pieza a `comisionado/` con otro nombre de entidad, generar, confirmar que aparece en Fondart y no en Grimorio; quitarla, generar, confirmar que ambas vuelven |
+| 9 | **Paridad:** la salida `grimorio` idéntica al sitio de `main` congelada. Cualquier diferencia es un error, no una mejora |
+| 10 | **Accesibilidad en ambas salidas** (§1 regla 4 y la lista de verificación del proyecto) |
+| 11 | Documentar aquí cómo se agrega una versión nueva y cómo se publica cada salida |
+
+> **Aviso sobre el paso 1.** Mover las 41 piezas **no es un cambio menor**. Toca
+> **14 archivos HTML, 3 hojas CSS con 16 referencias**, `camino.js`, `ficha.js`,
+> `generar_fichas.py` y `normalizar_img.py`, más la **edición a mano de
+> `juicio-1880.html`**, que es bespoke y no se regenera. Es la parte más delicada
+> de la fase.
+
+### Deudas de esta fase
+
+| Deuda | Consecuencia |
+|---|---|
+| **`juicio-1880.html` no participa del mecanismo** | Es `BESPOKE`: el generador nunca la regenera, así que sus 7 rutas de imagen quedan fijas. **Mientras siga así, su hero no se puede comisionar.** Y «El Expediente» del proceso de Ancud de 1880 es **contenido central de la postulación**: la pieza histórica más fuerte del proyecto quedaría fuera del encargo de arte. **No es una nota técnica: es una limitación de alcance.** Se resuelve en la fase 4 o después, pero se resuelve |
+| `camahueto-cierre` a 1376 × 768 | Defecto real: la mitad de la resolución de sus pares. **A la lista de corrección**, sin arreglarlo ahora |
+| `lamina` fuera de `normalizar_img.py` | El generador y el CSS la conocen; el diccionario `SLOTS` del normalizador no. `--slot lamina` sería rechazado. Agregar `"lamina": (2,3)` antes de encargar más piezas de ese tipo |
+| `datos/` no existe | Se crea en el paso 2 |
+
+### Decisiones fechadas
+
+- **2026-09-01 · Dos versiones, no dos ramas.** Dos salidas del mismo generador
+  desde el mismo corpus y el mismo motor. Una mejora del motor beneficia a ambas
+  sin copiar nada.
+- **2026-09-01 · Fondart se genera a la raíz; no hay `dist/fondart/`.** Pages sirve
+  solo desde la raíz o `/docs`, y `/docs` está ocupada. `dist/grimorio/` es la
+  única salida nueva y no la publica Pages. *(Corrige el anexo original, que pedía
+  `dist/fondart/` sin verificar cómo publica Pages.)*
+- **2026-09-01 · El slot `hero` tiene dos variantes legítimas**, enmarcado
+  917 × 512 y a sangre completa 1800 × 1005. Se declaran como variantes, **no como
+  excepción**: el validador comprueba contra alguna variante del slot, no contra
+  una medida única.
+- **2026-09-01 · `creditos.yaml` lleva una entrada por pieza, 41.** El manifiesto
+  declara autoría, y la autoría es de la pieza, no del formato.
+- **2026-09-01 · Los casos borde se declaran en el manifiesto**, no se parchean en
+  el validador. Un campo lo dice y el validador lo respeta.
+- **2026-09-01 · El paso 1 lleva commit propio** y verificación de paridad antes
+  de seguir.
 
 ---
 
@@ -247,7 +385,7 @@ De la suma de estos aportes sale el Grimorio Fondart.
 
 | Frente | Qué define | Estado del punto de entrada |
 |---|---|---|
-| **Dirección de arte** | Línea editorial y técnica por slot; criterios de la convocatoria | **Parcialmente resuelto.** `arte.yaml` y `creditos.yaml` (§5) son el punto de entrada **de lectura**. **Falta el documento donde la dirección de arte decide**, no solo donde se registra lo decidido |
+| **Dirección de arte** | Línea editorial y técnica por slot; criterios de la convocatoria | **Parcialmente resuelto.** `versiones.yaml` y `creditos.yaml` (§5) son el punto de entrada **de lectura**. **Falta el documento donde la dirección de arte decide**, no solo donde se registra lo decidido |
 | **Frente territorial** | Propuesta cartográfica, metodología, formatos y software que la respalda | **No existe.** Hueco identificado: el plan actual no dice dónde entra la cartografía ni en qué formato |
 | **Registro oral** | Testimonios con cesión firmada y atribución nominal | **No existe.** Necesita la misma trazabilidad que hoy tienen las fuentes bibliográficas: cesión de derechos, atribución nominal e ingreso al corpus **como fuente primaria** |
 
