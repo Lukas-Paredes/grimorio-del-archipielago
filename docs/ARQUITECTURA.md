@@ -106,7 +106,7 @@ sin tocar ninguna otra ruta.
 grimorio-del-archipielago/
 ├── CLAUDE.md                  reglas del proyecto; toda sesión lo lee
 ├── index.html                 portada-descenso (sistema vigente)
-├── index-legacy.html          legado — se queda, ver §6
+├── index-legacy.html          legado — se queda, ver §7
 ├── <id>.html × 12             fichas: 11 generadas + juicio-1880 bespoke
 ├── lecho.html · 404.html · robots.txt · sitemap.xml
 ├── assets/
@@ -119,7 +119,7 @@ grimorio-del-archipielago/
 ├── contenido/                 EL CORPUS (+ prosa/)
 ├── fuentes/                   la biblioteca y la trazabilidad
 ├── herramientas/              scripts Python offline
-├── pages/                     legado — se queda, ver §6
+├── pages/                     legado — se queda, ver §7
 ├── legacy/                    material archivado (v7/, demo/)
 ├── docs/                      documentación de trabajo
 └── postulaciones/
@@ -212,7 +212,62 @@ los conjuntos.**
 
 ---
 
-## 6 · EL SISTEMA LEGADO SE QUEDA
+## 6 · PUNTOS DE ENTRADA DEL EQUIPO
+
+### La decisión
+
+> **2026-09-01 · Todo aporte de un profesional del equipo entra al proyecto como
+> dato declarado en un archivo propio, nunca editando el motor ni el sitio a
+> mano.**
+
+Es la misma regla que ya rige la publicación de capítulos, extendida a las
+personas: **el costo de incorporar el trabajo de alguien es curaduría, no
+desarrollo.**
+
+**De dónde sale.** El proyecto ya demostró que agregar una entidad no exige tocar
+`ficha.js`, `ficha.css`, `camino.js` ni `portada.js`: se agrega un objeto a los
+datos y el sistema se acomoda. Ese mismo principio, aplicado al equipo, tiene tres
+consecuencias prácticas:
+
+- **El profesional no depende del desarrollo para trabajar.** Entrega su archivo;
+  no espera a que alguien programe.
+- **Su aporte es auditable y reversible.** Un dato declarado se lee, se versiona y
+  se saca del orden sin tocar código.
+- **La autoría queda registrada como dato**, no enterrada en un commit. La
+  postulación compromete acreditar nominalmente: como estructura, eso se cumple
+  solo.
+
+**Por qué la separación de ramas sirve a esto.** `desarrollo` no es una rama de
+archivo: es dónde se pavimenta la llegada del equipo mientras `main` queda
+congelada y visible para la comisión.
+
+### Los tres frentes
+
+De la suma de estos aportes sale el Grimorio Fondart.
+
+| Frente | Qué define | Estado del punto de entrada |
+|---|---|---|
+| **Dirección de arte** | Línea editorial y técnica por slot; criterios de la convocatoria | **Parcialmente resuelto.** `arte.yaml` y `creditos.yaml` (§5) son el punto de entrada **de lectura**. **Falta el documento donde la dirección de arte decide**, no solo donde se registra lo decidido |
+| **Frente territorial** | Propuesta cartográfica, metodología, formatos y software que la respalda | **No existe.** Hueco identificado: el plan actual no dice dónde entra la cartografía ni en qué formato |
+| **Registro oral** | Testimonios con cesión firmada y atribución nominal | **No existe.** Necesita la misma trazabilidad que hoy tienen las fuentes bibliográficas: cesión de derechos, atribución nominal e ingreso al corpus **como fuente primaria** |
+
+### Fase 4b — entre los conjuntos de arte y la extracción del motor
+
+**No se diseñan todavía.** Diseñar un punto de entrada sin saber qué va a entrar
+es adivinar, y adivinar produce formatos que después hay que rehacer.
+
+**Se diseñan cuando cada profesional diga qué necesita.** Uno por frente, en el
+orden en que se incorpore la persona. Cada uno hereda lo que ya existe: archivo
+declarado, validador que lo comprueba, generador que lo lee, y nada escrito a mano
+en el motor.
+
+El registro oral, además, entra bajo la regla sagrada del contenido: un testimonio
+es fuente primaria y se cita con su atribución, igual que el proceso de Ancud de
+1880.
+
+---
+
+## 7 · EL SISTEMA LEGADO SE QUEDA
 
 Conviven dos sistemas: el **legado** (`index-legacy.html` + `pages/`) y el
 **vigente** (`index.html` + fichas generadas por el motor).
@@ -233,7 +288,7 @@ el legado rompería el cierre de la obra. No se modifica.
 
 ---
 
-## 7 · CRITERIOS DE LIMPIEZA
+## 8 · CRITERIOS DE LIMPIEZA
 
 ### Ramas
 
@@ -266,11 +321,12 @@ pistas de sonido · el sistema legado.
 | `assets/img/_raw/` | **No tocar.** Borrarlo del árbol no libera peso —queda en el historial— y no se reescribe historia mientras el repositorio está siendo evaluado. Se revisa después de los resultados |
 | `iniciacion-lamina.webp/.png` | **Conservar.** Sin referencia por diseño: es arte en reserva, no huérfano |
 | `postulacion/POSTULACION-MOCKUP.html` | **Se conserva, sin datos de contacto.** El expediente de Chacao 2026 —declarado **inadmisible** por falta de un documento, no por el proyecto— queda como historia. El 2026-09-01 se retiró de él el bloque de contacto (nombre completo, correo y teléfono): la página **es alcanzable e indexable** en Pages, `postulacion/` no empieza con guion bajo y la postulación en curso dirige tráfico al dominio. El dato **permanece en el historial de git** y no se reescribe mientras el repositorio esté bajo evaluación; el objetivo fue que dejara de servirse |
+| `docs/` en el sitio publicado | **Se queda visible.** No se esconde bajo un nombre con guion bajo. Esa solución solo funciona porque hoy no existe `.nojekyll`, así que dejaría el contenido dependiendo de una decisión futura que puede revertirlo de golpe. Además la postulación compromete publicar el método y la documentación bajo licencia abierta: un repositorio donde el método está a la vista es coherente con lo declarado. La deuda técnica anotada y las copias divergentes detectadas no debilitan el proyecto — muestran uno que se audita a sí mismo, que es el mismo argumento del verificador de prosa |
 | `.nojekyll` | **Aplazado.** Sin Jekyll, Pages serviría todo lo que hoy ignora por empezar con `_`, incluidos `assets/img/_raw/` (205 MB) y `_handoff/`. Se agrega después de resolver esos dos |
 
 ---
 
-## 8 · LO QUE NO SE DECIDE EN SOLITARIO
+## 9 · LO QUE NO SE DECIDE EN SOLITARIO
 
 - Mover, renombrar o borrar cualquier archivo antes del envío.
 - Borrar cualquier rama, etiqueta o archivo sin aprobación por nombre.
@@ -283,7 +339,7 @@ pistas de sonido · el sistema legado.
 
 ---
 
-## 9 · DÓNDE ESTÁ CADA COSA
+## 10 · DÓNDE ESTÁ CADA COSA
 
 Este documento no repite lo que ya está escrito en otra parte.
 
