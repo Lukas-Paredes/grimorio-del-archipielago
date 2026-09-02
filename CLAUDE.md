@@ -106,6 +106,25 @@ de Fondart Regional 2027 durante los 50 días hábiles posteriores al envío. Un
 sitio caído en ese período es la peor falla posible del proyecto: ante cualquier
 disyuntiva, gana la opción que no arriesga la publicación.
 
+## Memoria del proyecto
+
+El conocimiento no vive en la conversación. Cuatro archivos lo sostienen, y **cada
+uno tiene su propio ritmo de actualización**:
+
+| Archivo | Qué guarda | Cuándo se actualiza |
+|---|---|---|
+| **`git`** | El historial exacto: cada commit con fecha, autor y diff | Solo. No se duplica a mano en ninguna parte |
+| **`docs/HISTORIAL.md`** | El recorrido por **hitos**, con la decisión que motivó cada uno | **Solo en hitos mayores.** Un capítulo nuevo no es un hito; un sistema nuevo sí |
+| **`docs/APORTES.md`** | Qué entregó cada profesional, cuándo, y en qué archivo entró | **Cada vez que entra trabajo de un profesional.** Es el único que crece de forma continua |
+| **`docs/ARQUITECTURA.md`** | Las decisiones estructurales vigentes | **Cada vez que se toma una decisión estructural**, con su fecha |
+
+**Sin duplicar contenido entre ellos.** Si algo ya está en `ARQUITECTURA.md`, los
+demás lo **referencian**, no lo copian. Un dato en dos lugares se desincroniza.
+
+Este archivo, `CLAUDE.md`, es **el índice, no el contenido**: es lo único que toda
+sesión carga sola, así que aquí van punteros de una línea y el detalle vive en
+`docs/`.
+
 ## Flujo Git
 
 - **La rama de trabajo es `main`** (decisión de Lucas, 2026-09-01): todo lo que
@@ -212,6 +231,16 @@ Registro de decisiones editoriales/técnicas vigentes (fecha · decisión):
   (el anexo de Chacao declaraba 5 capítulos cuando ya había 12). El documento
   vigente es `docs/ESTADO-VERIFICADO-2026-08.md` y prevalece sobre cualquier
   cifra anterior.
+
+- **2026-09-01 · Puntos de entrada del equipo**: todo aporte de un profesional
+  entra como dato declarado en un archivo propio, nunca editando el motor ni el
+  sitio a mano. → `docs/ARQUITECTURA.md` §6.
+- **2026-09-01 · Separación de ramas**: `main` es lo publicado y se congela el día
+  del envío; `desarrollo` se crea nueva desde `main` y es donde se trabaja
+  durante la ventana de evaluación. → `docs/ARQUITECTURA.md` §3.
+- **2026-09-01 · Corrección urgente sobre `main` congelada**: se hace en
+  `hotfix/<qué>` y se fusiona con `--no-ff` a `main` y luego a `desarrollo`.
+  → `docs/ARQUITECTURA.md` §3.
 
 ## Verificación antes de cerrar una intervención
 
