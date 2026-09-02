@@ -488,6 +488,7 @@ Este documento no repite lo que ya está escrito en otra parte.
 | **Paleta, tipografías, slots con medidas y las 41 piezas** | [`SISTEMA-VISUAL-Y-ARTE.md`](SISTEMA-VISUAL-Y-ARTE.md) |
 | **Estado del repositorio y problemas abiertos** | [`INVENTARIO-2026-08.md`](INVENTARIO-2026-08.md) |
 | **Diagnóstico de fase 0**: git, estructura, motor, plan de limpieza | [`DIAGNOSTICO-2026-09.md`](DIAGNOSTICO-2026-09.md) |
+| **Qué dice el corpus sobre el territorio**: lugares, entidades, puntos y vacíos — insumo cartográfico | [`TERRITORIO-CORPUS.md`](TERRITORIO-CORPUS.md) |
 | **El recorrido del proyecto** por hitos, con la decisión que motivó cada uno | [`HISTORIAL.md`](HISTORIAL.md) |
 | **Qué entregó cada profesional** del equipo, y dónde entró | [`APORTES.md`](APORTES.md) |
 | **Contexto completo** para alguien que llega de cero | [`GUIA-DE-CONTEXTO.md`](GUIA-DE-CONTEXTO.md) |
