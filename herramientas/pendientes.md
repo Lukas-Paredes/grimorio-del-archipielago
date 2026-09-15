@@ -173,3 +173,21 @@ Slots de imagen: `hero` (16:9) · `lamina` (2:3, retrato) · `descenso` (9:16) �
 - **Regla del sello en la esquina inferior derecha.** Solo existe porque el normalizador tapa el
   sello de la herramienta que generó las piezas del prototipo; no aplica a piezas encargadas.
 
+## Documentos de arranque — limpieza pendiente (anotada 2026-09-15, a mano)
+> Nota manual: `generar_fichas.py` reescribe este archivo; trasladarla antes de regenerar.
+> Mandato de Lucas (2026-09-15): se anota, no se ejecuta todavía.
+
+- **Archivar `_handoff/`.** Contiene una copia vieja de `CLAUDE.md` (último cambio 2026-07-01) con
+  reglas contrarias a las vigentes del `CLAUDE.md` de la raíz: presenta `index.html` como cáscara que
+  renderiza `home.js` y pide «papel, tinta» en el diseño. Sus copias del corpus son idénticas a
+  `contenido/`; las del motor son de julio (`ficha.js` ya difiere del vigente).
+  Antes de mover: ocho archivos remiten a `_handoff/`, entre ellos `CLAUDE.md`, `MAPA-PROYECTO.md`
+  (apertura vía `_handoff/PROTOCOLO.md`) y `robots.txt`. Destino y momento los decide Lucas: mover
+  archivos antes del envío requiere su aprobación.
+- **Actualizar `ESTADO-DEL-PROYECTO.md`** (última actualización 2026-09-01). Dice 5 capítulos (hoy
+  son 12), da el deploy por «parqueado» por repo privado (hoy el sitio está en GitHub Pages) y no
+  menciona Fondart 2027.
+- **Actualizar `HANDOFF-CODE.md`** (snapshot 2026-07-09). Pide «commit + push por fase» y «mandatos
+  autónomos», contrarios al trabajo por checkpoints de `CLAUDE.md`; su estado git (rama
+  `v8-arquitectura`) y el orden de cinco capítulos son de julio.
+

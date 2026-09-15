@@ -13,7 +13,7 @@ obra que evalúa la comisión es el sitio, en la raíz del repositorio.
 | **Línea** | **Creación Artística** |
 | **Folio** | **878718** |
 | **Región** | Los Lagos |
-| **Cierre de la convocatoria** | 9 de septiembre de 2026, 15:00 |
+| **Cierre de la convocatoria** | 16 de septiembre de 2026, 15:00 |
 | **Fecha de envío** | *(por registrar — se completa al recibir el certificado de recepción)* |
 | **Responsable** | Lucas Paredes Vásquez |
 | **Obra evaluada** | https://lukas-paredes.github.io/grimorio-del-archipielago/ |
