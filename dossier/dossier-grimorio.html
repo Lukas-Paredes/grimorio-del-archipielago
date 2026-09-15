@@ -1,0 +1,467 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>El Grimorio del Archipiélago — Dossier de obra</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Dossier visual de El Grimorio del Archipiélago: archivo digital y recorrido narrativo por el imaginario de Chiloé.">
+<meta name="robots" content="noindex">
+<style>
+  /* ══ Dossier de obra — maqueta A4; adaptable a pantalla ══ */
+  :root {
+    --abismo: #02060c; --mar: #15384a; --ambar: #b9772b; --ambar-claro: #f2b65a;
+    --tinta: #1a1f24; --gris: #5a646d; --linea: #c9c2b4; --hueso: #ece4d2;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    font-family: Georgia, "Times New Roman", serif;
+    color: var(--tinta); background: #e8e6e1;
+    font-size: 11pt; line-height: 1.5;
+    -webkit-print-color-adjust: exact; print-color-adjust: exact;
+  }
+  .hoja { max-width: 210mm; margin: 16px auto; background: #fff; box-shadow: 0 2px 24px rgba(0,0,0,0.18); }
+  .pagina { padding: 17mm 18mm 18mm; }
+  .pagina + .pagina { border-top: 1px dashed #d8d2c4; }
+  a { color: var(--mar); }
+  p { margin: 0 0 3mm; }
+  h2 {
+    font-size: 17pt; font-weight: normal; color: var(--abismo);
+    border-bottom: 1.5pt solid var(--ambar); padding-bottom: 2mm; margin: 0 0 5mm;
+  }
+  h2 .n { color: var(--ambar); margin-right: 3mm; }
+  h3 {
+    font-family: "Segoe UI", Arial, sans-serif; font-size: 9.5pt; font-weight: 600;
+    letter-spacing: 0.14em; text-transform: uppercase; color: var(--mar); margin: 0 0 1.5mm;
+  }
+  h3 .num { color: var(--ambar); margin-right: 1.5mm; }
+  .lead { font-size: 12.5pt; line-height: 1.5; }
+  .mono { font-family: Consolas, "Courier New", monospace; font-size: 9pt; }
+
+  /* ── Portada ── */
+  .portada {
+    position: relative; min-height: 297mm; color: var(--hueso);
+    display: flex; flex-direction: column; justify-content: space-between;
+    padding: 24mm 20mm 22mm;
+    background:
+      linear-gradient(180deg, rgba(2,6,12,0.92) 0%, rgba(2,6,12,0.55) 30%, rgba(2,6,12,0.18) 55%, rgba(2,6,12,0.80) 82%, rgba(2,6,12,0.96) 100%),
+      #02060c url("../assets/img/portada-superficie.webp") 68% center / cover no-repeat;
+  }
+  .portada .kicker { font-family: "Segoe UI", Arial, sans-serif; font-size: 9pt; letter-spacing: 0.3em; text-transform: uppercase; color: var(--ambar-claro); margin: 0 0 5mm; }
+  .portada h1 { font-size: 36pt; font-weight: normal; line-height: 1.08; margin: 0 0 6mm; color: #fbf6ea; }
+  .portada .linea { font-size: 15pt; font-style: italic; color: #dfe6e7; max-width: 150mm; margin: 0; line-height: 1.4; }
+  .portada .enlaces-grandes a { color: var(--ambar-claro); }
+  .portada .autoria { font-family: "Segoe UI", Arial, sans-serif; font-size: 10pt; color: #cfd8da; margin: 5mm 0 0; }
+  .portada .autoria a { color: #cfd8da; }
+  .enlaces-grandes { font-family: "Segoe UI", Arial, sans-serif; display: grid; gap: 2.5mm; }
+  .enlaces-grandes a { font-size: 14pt; font-weight: 600; text-decoration: none; border-bottom: 1px solid currentColor; justify-self: start; overflow-wrap: anywhere; }
+  .enlaces-grandes .rotulo { display: block; font-size: 8pt; font-weight: 400; letter-spacing: 0.2em; text-transform: uppercase; opacity: 0.75; }
+
+  /* ── Índice ── */
+  .indice { list-style: none; padding: 0; margin: 0; font-size: 13pt; }
+  .indice li { border-bottom: 0.5pt dotted var(--linea); }
+  .indice a { display: flex; gap: 4mm; padding: 3mm 0; text-decoration: none; color: var(--tinta); }
+  .indice .num { font-family: "Segoe UI", Arial, sans-serif; font-size: 10pt; color: var(--ambar); min-width: 8mm; padding-top: 1mm; }
+  .indice small { display: block; font-family: "Segoe UI", Arial, sans-serif; font-size: 8.5pt; color: var(--gris); }
+
+  /* ── Figuras ── */
+  figure { margin: 0 0 4mm; }
+  figure img { width: 100%; display: block; border: 1pt solid #2a3640; border-radius: 1mm; }
+  figcaption { font-family: "Segoe UI", Arial, sans-serif; font-size: 8pt; color: var(--gris); margin-top: 1.4mm; line-height: 1.4; }
+  figcaption strong { color: var(--tinta); }
+  .media { width: 82%; margin-left: auto; margin-right: auto; }
+  .media--chica { width: 64%; }
+  .media--portal { width: 86%; }
+  .enlace {
+    font-family: "Segoe UI", Arial, sans-serif; font-size: 8.5pt; margin: 0 0 2.5mm;
+    border-left: 3pt solid var(--ambar); background: #f7f5f0; padding: 1.4mm 3mm;
+  }
+  .enlace a { font-family: Consolas, "Courier New", monospace; overflow-wrap: anywhere; }
+  .enlace .como { color: var(--gris); }
+  .estacion { margin: 0 0 6mm; break-inside: avoid; page-break-inside: avoid; }
+  .estacion p { margin: 0 0 1.6mm; }
+  .grilla-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 4mm; align-items: start; }
+  .grilla-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 3mm; align-items: start; }
+  .lado { display: grid; grid-template-columns: 1fr 62mm; gap: 7mm; align-items: start; }
+  .lado--movil { grid-template-columns: 1fr 50mm; }
+
+  /* ── Paleta ── */
+  .paleta { display: grid; grid-template-columns: repeat(7, 1fr); gap: 2.5mm; margin: 0 0 5mm; }
+  .chip { font-family: "Segoe UI", Arial, sans-serif; font-size: 7pt; color: var(--gris); line-height: 1.3; }
+  .chip i { display: block; height: 13mm; border-radius: 1mm; border: 0.5pt solid rgba(0,0,0,0.25); margin-bottom: 1mm; }
+  .chip b { display: block; font-family: Consolas, "Courier New", monospace; font-size: 7.5pt; font-weight: 400; color: var(--tinta); }
+  .paleta--compacta .chip i { height: 8mm; }
+  .pie { font-family: "Segoe UI", Arial, sans-serif; font-size: 8pt; color: var(--gris); margin: 0 0 3mm; line-height: 1.4; }
+  .alta { width: 94mm; margin-left: auto; margin-right: auto; }
+  .alta--movil { width: 82mm; }
+  .datos-linea { display: grid; grid-template-columns: 24mm 1fr; gap: 1.5mm 4mm; margin: 4mm 0 0; font-size: 10.5pt; }
+  .datos-linea dt { font-family: "Segoe UI", Arial, sans-serif; font-size: 8pt; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ambar); padding-top: 1mm; }
+  .datos-linea dd { margin: 0; }
+
+  /* ── Tablas, viñetas, cifras ── */
+  .tabla { overflow-x: auto; }
+  table { width: 100%; border-collapse: collapse; font-size: 9pt; margin: 0 0 4mm; }
+  th { font-family: "Segoe UI", Arial, sans-serif; font-size: 7.5pt; letter-spacing: 0.08em; text-transform: uppercase; text-align: left; color: #fff; background: var(--mar); padding: 1.8mm 2.4mm; }
+  td { padding: 1.8mm 2.4mm; border: 0.5pt solid var(--linea); vertical-align: top; }
+  tr:nth-child(even) td { background: #f7f5f0; }
+  .vinetas { margin: 0 0 3mm; padding-left: 5mm; }
+  .vinetas li { margin-bottom: 1.8mm; }
+  .cifras { display: grid; grid-template-columns: repeat(4, 1fr); gap: 3mm; margin: 0; }
+  .cifra { border-top: 1.5pt solid var(--ambar); padding-top: 1.5mm; }
+  .cifra b { display: block; font-size: 22pt; font-weight: normal; color: var(--abismo); line-height: 1.1; }
+  .cifra span { font-family: "Segoe UI", Arial, sans-serif; font-size: 8pt; color: var(--gris); line-height: 1.3; display: block; }
+
+  /* ── Cierre ── */
+  .cierre-pag { background: linear-gradient(170deg, #02060c 0%, #081726 60%, #15384a 100%); color: var(--hueso); min-height: 297mm; display: flex; flex-direction: column; justify-content: center; padding: 24mm 20mm; }
+  .cierre-pag h2 { color: #fbf6ea; border-color: var(--ambar-claro); }
+  .cierre-pag .enlaces-grandes a { color: var(--ambar-claro); font-size: 16pt; }
+  .cierre-pag .lead { color: #dfe6e7; margin: 10mm 0 8mm; max-width: 150mm; }
+  .cierre-pag .autoria { font-family: "Segoe UI", Arial, sans-serif; font-size: 11pt; }
+  .cierre-pag .autoria a { color: var(--hueso); }
+
+  /* ── Pantalla angosta (versión navegable) ── */
+  @media screen and (max-width: 760px) {
+    .hoja { margin: 0; box-shadow: none; }
+    .pagina { padding: 28px 16px; }
+    .portada, .cierre-pag { min-height: 100svh; padding: 36px 16px; }
+    .portada h1 { font-size: 30px; }
+    .portada .linea { font-size: 18px; }
+    .enlaces-grandes a { font-size: 16px; }
+    .grilla-2, .lado, .lado--movil { grid-template-columns: 1fr; }
+    .grilla-3 { gap: 6px; }
+    .grilla-3 figcaption { font-size: 11px; }
+    .lado--movil figure { max-width: 240px; }
+    .media { width: 100%; }
+    .paleta { grid-template-columns: repeat(4, 1fr); }
+    .cifras { grid-template-columns: repeat(2, 1fr); }
+    .datos-linea { grid-template-columns: 1fr; }
+    body { font-size: 16px; }
+  }
+
+  /* ══ Impresión — al final para que ninguna regla base la pise ══ */
+  @page { size: A4; margin: 0; }
+  @media print {
+    body { background: #fff; }
+    .hoja { max-width: none; margin: 0; box-shadow: none; }
+    .pagina { break-before: page; page-break-before: always; min-height: 0; border-top: 0 !important; -webkit-box-decoration-break: clone; box-decoration-break: clone; }
+    .pagina:first-child { break-before: auto; page-break-before: auto; }
+    .portada, .cierre-pag { height: 297mm; min-height: 0; }
+    figure { break-inside: avoid; page-break-inside: avoid; }
+  }
+</style>
+</head>
+<body>
+<main class="hoja">
+
+<!-- ════════ 1 · PORTADA ════════ -->
+<header class="pagina portada" id="portada">
+  <div>
+    <p class="kicker">Dossier de obra</p>
+    <h1>El Grimorio del Archipiélago</h1>
+    <p class="linea">Bestiario ilustrado y cartografía mitológica de Chiloé y Calbuco: una obra que no se lee de corrido, se desciende.</p>
+  </div>
+  <div>
+    <div class="enlaces-grandes">
+      <a href="https://lukas-paredes.github.io/grimorio-del-archipielago/"><span class="rotulo">La obra</span>lukas-paredes.github.io/grimorio-del-archipielago</a>
+      <a href="https://github.com/Lukas-Paredes/grimorio-del-archipielago"><span class="rotulo">El código y el corpus</span>github.com/Lukas-Paredes/grimorio-del-archipielago</a>
+    </div>
+    <div class="autoria">Lucas Paredes Vásquez · <a href="mailto:lucasparedes.soc@gmail.com">lucasparedes.soc@gmail.com</a></div>
+  </div>
+</header>
+
+<!-- ════════ 2 · ÍNDICE ════════ -->
+<nav class="pagina" id="indice" aria-label="Índice">
+  <h2>Índice</h2>
+  <ol class="indice">
+    <li><a href="#que-es"><span class="num">1</span><span>Qué es<small>La obra y qué significa descender</small></span></a></li>
+    <li><a href="#recorrido"><span class="num">2</span><span>El recorrido<small>Diez estaciones del sitio, cada una con su dirección</small></span></a></li>
+    <li><a href="#direccion-de-arte"><span class="num">3</span><span>Dirección de arte<small>Paleta, una sola luz, tipografía y superficies</small></span></a></li>
+    <li><a href="#como-esta-hecho"><span class="num">4</span><span>Cómo está hecho<small>Fidelidad en el relato, libertad declarada en la forma</small></span></a></li>
+    <li><a href="#especificacion"><span class="num">5</span><span>Especificación de ilustración<small>Los cinco slots, la zona segura y la paleta</small></span></a></li>
+    <li><a href="#ficha-tecnica"><span class="num">6</span><span>Ficha técnica<small>Cómo funciona el sitio</small></span></a></li>
+    <li><a href="#estado"><span class="num">7</span><span>Estado<small>Lo que existe hoy, en cifras</small></span></a></li>
+    <li><a href="#cierre"><span class="num">8</span><span>Contacto<small>Los enlaces y en qué está el trabajo</small></span></a></li>
+  </ol>
+</nav>
+
+<!-- ════════ 3 · QUÉ ES ════════ -->
+<section class="pagina" id="que-es">
+  <h2><span class="n">1</span>Qué es</h2>
+  <p class="lead">El Grimorio del Archipiélago es un archivo digital y un recorrido narrativo por el
+  imaginario de Chiloé. Se entra por la superficie de las islas y se baja, capítulo a capítulo, hasta
+  el lecho del mar: cada criatura, lugar o episodio es una parada del descenso, con su relato fiel al
+  corpus documental, sus variantes y su ilustración. Al fondo esperan el archivo de consulta, el mapa y
+  las fuentes.</p>
+  <figure>
+    <img src="img/pincoya-portal.jpg" alt="Portal del capítulo La Pincoya: la Pincoya danza en una playa nocturna con el cabello encendido.">
+    <figcaption><strong>Capítulo II · La Pincoya.</strong> Ilustración: pieza de prototipo. Marco,
+    nombre, alias y botonera: sistema real.</figcaption>
+  </figure>
+  <div class="enlace"><a href="https://lukas-paredes.github.io/grimorio-del-archipielago/pincoya.html">lukas-paredes.github.io/grimorio-del-archipielago/pincoya.html</a></div>
+</section>
+
+<!-- ════════ 4 · EL RECORRIDO ════════ -->
+<section class="pagina" id="recorrido">
+  <h2><span class="n">2</span>El recorrido</h2>
+  <p>Diez estaciones del sitio publicado, cada una con su dirección: el dossier está hecho para salirse
+  de él y entrar a la obra.</p>
+
+  <div class="estacion">
+    <h3><span class="num">1</span>La superficie</h3>
+    <p>La portada del descenso: el título, una bajada y la plomada de sonda que invita a bajar.</p>
+    <div class="enlace"><a href="https://lukas-paredes.github.io/grimorio-del-archipielago/">lukas-paredes.github.io/grimorio-del-archipielago/</a></div>
+    <figure class="media media--chica">
+      <img src="img/01-superficie.jpg" alt="Portada del sitio: título sobre palafitos nocturnos con un farol encendido.">
+      <figcaption>Ilustración de los palafitos: pieza de prototipo. Título, plomada y botonera: sistema real.</figcaption>
+    </figure>
+  </div>
+
+  <div class="estacion">
+    <h3><span class="num">2</span>El umbral de capítulo</h3>
+    <p>El capítulo se anuncia con su Libro, su cita de anzuelo y un verbo propio: «Abordar».</p>
+    <div class="enlace"><a href="https://lukas-paredes.github.io/grimorio-del-archipielago/index.html#umbral-capitulo">lukas-paredes.github.io/grimorio-del-archipielago/index.html#umbral-capitulo</a></div>
+    <figure class="media media--chica">
+      <img src="img/02-umbral.jpg" alt="Placa de bronce del capítulo I, El Caleuche, junto a un barco entre la niebla.">
+      <figcaption>Barco entre la niebla: pieza de prototipo. Placa, cita y botón: sistema real.</figcaption>
+    </figure>
+  </div>
+</section>
+
+<section class="pagina">
+  <div class="estacion">
+    <h3><span class="num">3</span>Una ficha completa, de arriba a abajo</h3>
+    <p>La unidad que se repite: portal, datos de bestiario, relato fiel al corpus, variantes, nota del archivero y cierre.</p>
+    <div class="enlace"><a href="https://lukas-paredes.github.io/grimorio-del-archipielago/caleuche.html">lukas-paredes.github.io/grimorio-del-archipielago/caleuche.html</a></div>
+    <figure class="media media--portal">
+      <img src="img/03a-caleuche-portal.jpg" alt="Portal del capítulo El Caleuche: galeón iluminado y nombre en letra gótica.">
+    </figure>
+    <div class="grilla-2">
+      <figure><img src="img/03b-caleuche-datos.jpg" alt="Placa de datos de bestiario de El Caleuche."><figcaption>Datos de bestiario</figcaption></figure>
+      <figure><img src="img/03c-caleuche-relato.jpg" alt="El relato con capitular ámbar."><figcaption>El relato, verbatim</figcaption></figure>
+      <figure><img src="img/03d-caleuche-variantes-nota.jpg" alt="Cajones de variantes y nota del archivero."><figcaption>Variantes y nota del archivero</figcaption></figure>
+      <figure><img src="img/03e-caleuche-cierre.jpg" alt="Pantalla de cierre con la frase final sobre el fondo marino."><figcaption>Cierre</figcaption></figure>
+    </div>
+    <div class="pie">Ilustraciones y fondos: piezas de prototipo. Placas, cajones, tipografía y composición: sistema real.</div>
+  </div>
+</section>
+
+<section class="pagina">
+  <div class="estacion">
+    <h3><span class="num">4</span>El mapa del archipiélago</h3>
+    <p>Ocho lugares reales de los relatos, con fuente verificada, sobre geometría oficial. Botón «Mapa».</p>
+    <div class="enlace"><a href="https://lukas-paredes.github.io/grimorio-del-archipielago/">lukas-paredes.github.io/grimorio-del-archipielago/</a></div>
+    <figure class="alta">
+      <img src="img/04-mapa.jpg" alt="Mapa del archipiélago con ocho puntos y Quicaví seleccionado.">
+      <figcaption>Silueta, puntos y textos: sistema real.</figcaption>
+    </figure>
+  </div>
+</section>
+
+<section class="pagina">
+  <div class="estacion">
+    <h3><span class="num">5</span>La carta de capítulos</h3>
+    <p>Los doce capítulos publicados, por Libro, y las entidades aún selladas, sin un solo enlace muerto.</p>
+    <div class="enlace"><a href="https://lukas-paredes.github.io/grimorio-del-archipielago/index.html#capitulos">lukas-paredes.github.io/grimorio-del-archipielago/index.html#capitulos</a></div>
+    <figure class="media">
+      <img src="img/05-carta.jpg" alt="Carta de capítulos con el Libro Octavo y las placas selladas.">
+      <figcaption>Miniaturas: piezas de prototipo. La carta: sistema real.</figcaption>
+    </figure>
+  </div>
+  <div class="estacion">
+    <h3><span class="num">6</span>El lecho y las puertas del archivo</h3>
+    <p>El fin del descenso y la entrada a la consulta: Bestiario, Mundos, Recta Provincia y Cosmología.</p>
+    <div class="enlace"><a href="https://lukas-paredes.github.io/grimorio-del-archipielago/lecho.html">lukas-paredes.github.io/grimorio-del-archipielago/lecho.html</a></div>
+    <figure class="media">
+      <img src="img/06-lecho.jpg" alt="El lecho: título y botones de acceso al archivo.">
+      <figcaption>Fondo marino: pieza de prototipo. Puertas y composición: sistema real.</figcaption>
+    </figure>
+  </div>
+</section>
+
+<section class="pagina">
+  <div class="estacion">
+    <h3><span class="num">7</span>El expediente de la Recta Provincia</h3>
+    <p>El juicio de Ancud de 1880 desde su fuente primaria: declaraciones y sentencia con su ortografía de época, y el epílogo de la absolución.</p>
+    <div class="enlace"><a href="https://lukas-paredes.github.io/grimorio-del-archipielago/juicio-1880.html">lukas-paredes.github.io/grimorio-del-archipielago/juicio-1880.html</a></div>
+    <figure>
+      <img src="img/07a-expediente-portal.jpg" alt="Portal del Expediente: casa de madera con una ventana iluminada bajo la lluvia.">
+      <figcaption>Casa bajo la lluvia: pieza de prototipo. Título y marco: sistema real.</figcaption>
+    </figure>
+    <figure>
+      <img src="img/07b-expediente-declaracion.jpg" alt="Declaración de Mateo Coñuecar transcrita con ortografía de época.">
+      <figcaption>Una declaración del proceso, transcrita tal cual: sistema real.</figcaption>
+    </figure>
+  </div>
+</section>
+
+<section class="pagina">
+  <div class="estacion">
+    <h3><span class="num">8</span>Fuentes y método</h3>
+    <p>Cada obra citada con su estado y las fichas que respalda. Se abre con el botón «Fuentes».</p>
+    <div class="enlace"><a href="https://lukas-paredes.github.io/grimorio-del-archipielago/">lukas-paredes.github.io/grimorio-del-archipielago/</a></div>
+    <figure class="media">
+      <img src="img/08-fuentes.jpg" alt="Panel Fuentes del Grimorio con la fuente primaria de 1880.">
+      <figcaption>El panel de fuentes: sistema real. Fondo tras el panel: pieza de prototipo.</figcaption>
+    </figure>
+  </div>
+  <div class="estacion">
+    <h3><span class="num">9</span>El verificador de fidelidad</h3>
+    <p>Cada ficha lleva embebido, idéntico al corpus, el bloque de origen de su entidad: se coteja con «ver código fuente».</p>
+    <div class="enlace"><a href="https://lukas-paredes.github.io/grimorio-del-archipielago/caleuche.html">lukas-paredes.github.io/grimorio-del-archipielago/caleuche.html</a> <span class="como">· Ctrl+U</span></div>
+    <figure class="media">
+      <img src="img/09-codigo-fuente.jpg" alt="Código fuente de la ficha del Caleuche con el bloque de origen.">
+      <figcaption>Código fuente de la ficha publicada: sistema real.</figcaption>
+    </figure>
+  </div>
+</section>
+
+<section class="pagina">
+  <div class="estacion">
+    <h3><span class="num">10</span>La misma ficha en teléfono</h3>
+    <p>La ficha de El Caleuche a 390 píxeles: una columna, sin desplazamiento horizontal.</p>
+    <div class="enlace"><a href="https://lukas-paredes.github.io/grimorio-del-archipielago/caleuche.html">lukas-paredes.github.io/grimorio-del-archipielago/caleuche.html</a></div>
+    <figure class="alta alta--movil">
+      <img src="img/10-movil-caleuche.jpg" alt="Portal de El Caleuche en teléfono.">
+      <figcaption>Ilustración: pieza de prototipo. Composición y controles: sistema real.</figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- ════════ 5 · DIRECCIÓN DE ARTE ════════ -->
+<section class="pagina" id="direccion-de-arte">
+  <h2><span class="n">3</span>Dirección de arte</h2>
+  <div class="paleta" role="list" aria-label="Paleta del sistema">
+    <div class="chip" role="listitem"><i style="background:#02060c"></i><b>#02060c</b>abismo</div>
+    <div class="chip" role="listitem"><i style="background:#050d18"></i><b>#050d18</b>abismo 2</div>
+    <div class="chip" role="listitem"><i style="background:#081726"></i><b>#081726</b>profundo</div>
+    <div class="chip" role="listitem"><i style="background:#0e2433"></i><b>#0e2433</b>mar medio</div>
+    <div class="chip" role="listitem"><i style="background:#15384a"></i><b>#15384a</b>mar</div>
+    <div class="chip" role="listitem"><i style="background:#9fb6bd"></i><b>#9fb6bd</b>espuma</div>
+    <div class="chip" role="listitem"><i style="background:#ece4d2"></i><b>#ece4d2</b>hueso</div>
+    <div class="chip" role="listitem"><i style="background:#f2b65a"></i><b>#f2b65a</b>la luz</div>
+    <div class="chip" role="listitem"><i style="background:#e0a24a"></i><b>#e0a24a</b>ámbar suave</div>
+    <div class="chip" role="listitem"><i style="background:#b9772b"></i><b>#b9772b</b>bronce</div>
+    <div class="chip" role="listitem"><i style="background:#a04a30"></i><b>#a04a30</b>óxido</div>
+    <div class="chip" role="listitem"><i style="background:#6e3120"></i><b>#6e3120</b>óxido profundo</div>
+    <div class="chip" role="listitem"><i style="background:#aab0ad"></i><b>#aab0ad</b>tinta 2</div>
+  </div>
+  <p class="lead"><strong>Una sola luz cálida por escena.</strong> Todo lo demás es mar, niebla y
+  bronce: la luz lleva la mirada al corazón del relato.</p>
+  <div class="grilla-3">
+    <figure><img src="img/luz-farol.jpg" alt="Detalle: el farol encendido del palafito."><figcaption><strong>El farol del palafito</strong><br><a href="https://lukas-paredes.github.io/grimorio-del-archipielago/">…github.io/grimorio-del-archipielago/</a></figcaption></figure>
+    <figure><img src="img/luz-buque.jpg" alt="Detalle: las luces del buque fantasma."><figcaption><strong>Las luces del buque</strong><br><a href="https://lukas-paredes.github.io/grimorio-del-archipielago/caleuche.html">…/caleuche.html</a></figcaption></figure>
+    <figure><img src="img/luz-pincoya.jpg" alt="Detalle: el cabello encendido de la Pincoya."><figcaption><strong>El cabello de la Pincoya</strong><br><a href="https://lukas-paredes.github.io/grimorio-del-archipielago/pincoya.html">…/pincoya.html</a></figcaption></figure>
+  </div>
+  <div class="pie">Detalles de piezas de prototipo, tomados del sitio publicado.</div>
+  <dl class="datos-linea">
+    <dt>Tipografía</dt><dd>Jacquard 24 · nombres; EB Garamond · relato; Pixelify Sans · interfaz.</dd>
+    <dt>Superficies</dt><dd>Placas de bronce y agua abisal, esquina cortada; nunca papel.</dd>
+  </dl>
+  <div class="enlace">Sistema visual completo: <a href="https://github.com/Lukas-Paredes/grimorio-del-archipielago/blob/main/docs/SISTEMA-VISUAL-Y-ARTE.md">github.com/Lukas-Paredes/grimorio-del-archipielago/blob/main/docs/SISTEMA-VISUAL-Y-ARTE.md</a></div>
+</section>
+
+<!-- ════════ 6 · CÓMO ESTÁ HECHO ════════ -->
+<section class="pagina" id="como-esta-hecho">
+  <h2><span class="n">4</span>Cómo está hecho</h2>
+  <p class="lead">Dos planos. En el relato, fidelidad absoluta: lo que se lee está palabra por palabra en
+  el corpus del proyecto, que cita sus fuentes. En la forma, libertad declarada: la ilustración es
+  recreación artística contemporánea, nunca iconografía documentada.</p>
+  <div class="grilla-2">
+    <figure>
+      <img src="img/prueba-verificador.jpg" alt="Bloque de origen embebido en el código de la ficha del Caleuche.">
+      <figcaption><strong>Verificador de fidelidad.</strong> El bloque de origen va embebido en cada ficha, idéntico al corpus.<br>
+      <a href="https://lukas-paredes.github.io/grimorio-del-archipielago/caleuche.html">lukas-paredes.github.io/grimorio-del-archipielago/caleuche.html</a></figcaption>
+    </figure>
+    <figure>
+      <img src="img/prueba-variantes.jpg" alt="Variante del Invunche: el origen del niño, con la frase No hay acuerdo.">
+      <figcaption><strong>Variantes mostradas, no zanjadas.</strong> Si las fuentes discrepan, se muestran todas: «No hay acuerdo».<br>
+      <a href="https://lukas-paredes.github.io/grimorio-del-archipielago/invunche.html">lukas-paredes.github.io/grimorio-del-archipielago/invunche.html</a></figcaption>
+    </figure>
+    <figure>
+      <img src="img/prueba-fuentes.jpg" alt="Panel de fuentes con los estados en el archivo del proyecto y por conseguir.">
+      <figcaption><strong>Fuentes con estado declarado.</strong> En el archivo del proyecto, por conseguir, consulta en biblioteca.<br>
+      <a href="https://lukas-paredes.github.io/grimorio-del-archipielago/">lukas-paredes.github.io/grimorio-del-archipielago/</a> · botón «Fuentes». Fondo tras el panel: pieza de prototipo.</figcaption>
+    </figure>
+    <figure>
+      <img src="img/escena-recreacion.jpg" alt="Escena de la cueva vacía con el rótulo Recreación artística." style="max-height:72mm; width:auto; margin:0 auto;">
+      <figcaption><strong>Libertad declarada en la forma.</strong> Ilustración: pieza de prototipo; su rótulo de recreación artística: sistema real.<br>
+      <a href="https://lukas-paredes.github.io/grimorio-del-archipielago/juicio-1880.html">lukas-paredes.github.io/grimorio-del-archipielago/juicio-1880.html</a></figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- ════════ 7 · ESPECIFICACIÓN DE ILUSTRACIÓN ════════ -->
+<section class="pagina" id="especificacion">
+  <h2><span class="n">5</span>Especificación de ilustración</h2>
+  <div class="tabla">
+  <table>
+    <tr><th>Slot</th><th>Proporción</th><th>Medida</th><th>Rol</th><th>Tratamiento</th><th>Peso servido</th></tr>
+    <tr><td><span class="mono">hero</span> enmarcado</td><td>16:9</td><td>917 × 512</td><td>Portal a pantalla completa, bajo el marco de bronce</td><td>grilla reducida, color pleno</td><td>50 – 77 KB (objetivo ≤ 60)</td></tr>
+    <tr><td><span class="mono">hero</span> a sangre</td><td>16:9</td><td>1800 × 1005</td><td>Portal a pantalla completa, en resolución de fondo</td><td>color pleno</td><td>70 – 155 KB</td></tr>
+    <tr><td><span class="mono">lamina</span></td><td>2:3 retrato</td><td>565 × 842</td><td>Alternativa al portal, enmarcada sobre el fondo</td><td>grilla y paleta reducida</td><td>16 – 55 KB</td></tr>
+    <tr><td><span class="mono">descenso</span></td><td>9:16 vertical</td><td>1005 × 1800</td><td>Fondo del cuerpo; el descenso en teléfono</td><td>color pleno</td><td>96 – 162 KB</td></tr>
+    <tr><td><span class="mono">cierre</span></td><td>16:9</td><td>1800 × 1005</td><td>Pantalla final, con su frase propia</td><td>color pleno</td><td>85 – 150 KB</td></tr>
+    <tr><td><span class="mono">card</span></td><td>1:1</td><td>—</td><td>Definido, sin producir</td><td>—</td><td>—</td></tr>
+  </table>
+  </div>
+  <p><strong>Zona segura del portal.</strong> En teléfono queda a la vista la franja central de la pieza de
+  917 × 512: unos 270 píxeles en proporción 9:16, unos 220 en una pantalla de 390 × 844.</p>
+  <h3>Paleta obligatoria</h3>
+  <div class="paleta paleta--compacta" role="list" aria-label="Paleta obligatoria">
+    <div class="chip" role="listitem"><i style="background:#02060c"></i><b>#02060c</b></div>
+    <div class="chip" role="listitem"><i style="background:#050d18"></i><b>#050d18</b></div>
+    <div class="chip" role="listitem"><i style="background:#081726"></i><b>#081726</b></div>
+    <div class="chip" role="listitem"><i style="background:#0e2433"></i><b>#0e2433</b></div>
+    <div class="chip" role="listitem"><i style="background:#15384a"></i><b>#15384a</b></div>
+    <div class="chip" role="listitem"><i style="background:#9fb6bd"></i><b>#9fb6bd</b></div>
+    <div class="chip" role="listitem"><i style="background:#ece4d2"></i><b>#ece4d2</b></div>
+    <div class="chip" role="listitem"><i style="background:#f2b65a"></i><b>#f2b65a</b></div>
+    <div class="chip" role="listitem"><i style="background:#e0a24a"></i><b>#e0a24a</b></div>
+    <div class="chip" role="listitem"><i style="background:#b9772b"></i><b>#b9772b</b></div>
+    <div class="chip" role="listitem"><i style="background:#a04a30"></i><b>#a04a30</b></div>
+    <div class="chip" role="listitem"><i style="background:#6e3120"></i><b>#6e3120</b></div>
+    <div class="chip" role="listitem"><i style="background:#aab0ad"></i><b>#aab0ad</b></div>
+  </div>
+  <div class="enlace">Medidas y piezas, en detalle: <a href="https://github.com/Lukas-Paredes/grimorio-del-archipielago/blob/main/docs/SISTEMA-VISUAL-Y-ARTE.md">github.com/Lukas-Paredes/grimorio-del-archipielago/blob/main/docs/SISTEMA-VISUAL-Y-ARTE.md</a></div>
+</section>
+
+<!-- ════════ 8 · FICHA TÉCNICA  ·  9 · ESTADO ════════ -->
+<section class="pagina" id="ficha-tecnica">
+  <h2><span class="n">6</span>Ficha técnica</h2>
+  <ul class="vinetas">
+    <li><strong>Sitio estático:</strong> HTML, CSS y JavaScript clásico; sin frameworks, sin compilación, sin base de datos y sin dependencias de pago.</li>
+    <li><strong>Gobernado por datos:</strong> las fichas se generan desde el corpus; publicar una entidad no toca el motor.</li>
+    <li><strong>Liviano:</strong> un capítulo completo se transfiere en 226 a 690 KB, ilustraciones incluidas.</li>
+    <li><strong>Accesibilidad verificada:</strong> contraste AA, lectura de 17 px o más en teléfono, controles de 44 px, teclado y Escape, movimiento pausable y sonido apagado por defecto.</li>
+    <li><strong>Abierto:</strong> alojado en GitHub Pages; código, corpus y fuentes en un repositorio público.</li>
+  </ul>
+  <div class="enlace"><a href="https://github.com/Lukas-Paredes/grimorio-del-archipielago">github.com/Lukas-Paredes/grimorio-del-archipielago</a></div>
+
+  <h2 id="estado" style="margin-top:9mm"><span class="n">7</span>Estado</h2>
+  <div class="cifras">
+    <div class="cifra"><b>12</b><span>capítulos publicados y navegables</span></div>
+    <div class="cifra"><b>68</b><span>entidades registradas en el corpus</span></div>
+    <div class="cifra"><b>108</b><span>citas de fuente</span></div>
+    <div class="cifra"><b>70</b><span>enlaces</span></div>
+    <div class="cifra"><b>40</b><span>fuentes indexadas</span></div>
+    <div class="cifra"><b>12</b><span>fuentes archivadas en el repositorio</span></div>
+    <div class="cifra"><b>47</b><span>variantes documentadas</span></div>
+    <div class="cifra"><b>41</b><span>piezas visuales</span></div>
+  </div>
+  <div class="enlace" style="margin-top:4mm">Cifras contadas sobre el repositorio: <a href="https://github.com/Lukas-Paredes/grimorio-del-archipielago/blob/main/docs/ESTADO-VERIFICADO-2026-08.md">github.com/Lukas-Paredes/grimorio-del-archipielago/blob/main/docs/ESTADO-VERIFICADO-2026-08.md</a></div>
+</section>
+
+<!-- ════════ 10 · CIERRE ════════ -->
+<footer class="pagina cierre-pag" id="cierre">
+  <h2>El Grimorio del Archipiélago</h2>
+  <div class="enlaces-grandes">
+    <a href="https://lukas-paredes.github.io/grimorio-del-archipielago/"><span class="rotulo">Entrar a la obra</span>lukas-paredes.github.io/grimorio-del-archipielago</a>
+    <a href="https://github.com/Lukas-Paredes/grimorio-del-archipielago"><span class="rotulo">Código, corpus y fuentes</span>github.com/Lukas-Paredes/grimorio-del-archipielago</a>
+  </div>
+  <p class="lead">Hoy el trabajo está en la cartografía del corpus y en la ilustración que falta al bloque de la Recta Provincia.</p>
+  <div class="autoria">Lucas Paredes Vásquez · <a href="mailto:lucasparedes.soc@gmail.com">lucasparedes.soc@gmail.com</a></div>
+</footer>
+
+</main>
+</body>
+</html>
