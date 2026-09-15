@@ -91,6 +91,11 @@
   td.fuerte { background: #fbf4e4 !important; }
   table.compacta { font-size: 9pt; }
   table.compacta td, table.compacta th { padding: 1.6mm 2.4mm; }
+  .paleta-bloque { break-inside: avoid; page-break-inside: avoid; }
+  .paleta-lista { list-style: none; padding: 0; }
+  .paleta-lista li { margin-bottom: 1.8mm; text-align: left; }
+  .paleta-lista .par { white-space: nowrap; }
+  .paleta-lista .swatch { width: 5mm; height: 3.6mm; margin: 0 1.2mm 0 1.6mm; }
   .swatch { display: inline-block; width: 9mm; height: 5mm; border-radius: 1mm; border: 0.5pt solid rgba(0,0,0,0.25); vertical-align: middle; margin-right: 2.5mm; }
   code, .mono { font-family: Consolas, "Courier New", monospace; font-size: 9pt; color: var(--mar); }
 
@@ -284,9 +289,11 @@ se publica. Esta nota no se imprime.</p>
   <h2><span class="n">2</span>Dirección de arte</h2>
   <p>La identidad visual del proyecto está definida y aplicada en todo el prototipo. Su dirección se
   resume en cuatro términos: <strong>editorial marítima, gótico insular, archivo cultural y museo
-  nocturno</strong>. Sus materias son el mar, la niebla, el bosque, el bronce y el óxido; su lenguaje
-  de imagen, el píxel art de alta densidad y atmósfera oscura. Este sistema es el marco obligatorio de
-  la ilustración definitiva que se encarga (sección 3): las piezas cambian, el sistema no.</p>
+  nocturno</strong>. Sus materias son el mar, la niebla, el bosque, el bronce y el óxido. La paleta,
+  la regla de una sola luz cálida, la geometría y el peso de cada pieza, y el rótulo de recreación
+  artística son el marco obligatorio de la ilustración definitiva que se encarga (sección 3). La
+  técnica no es única: se asigna por función de la pieza y la ajusta la dirección de arte
+  (sección 2.5). Las piezas cambian; ese marco, no.</p>
 
   <h3>2.1 · Paleta cromática</h3>
   <p>La paleta reproduce la experiencia lumínica del archipiélago nocturno: una gradación abisal de
@@ -336,77 +343,97 @@ se publica. Esta nota no se imprime.</p>
   para las variantes y el acento de óxido, con su pin, para la nota del archivero, que así queda
   visualmente separada del relato.</p>
 
-  <h3>2.5 · El píxel art como decisión</h3>
-  <p>La imagen se trata con <strong>píxel visible y sin suavizado</strong>: el sitio declara el
-  escalado por vecino más cercano en sus imágenes, y las ilustraciones de pantalla completa se
-  aceptan o rechazan mirándolas a pantalla completa, no por su peso. La elección responde a tres
-  razones. Primera, <strong>coherencia a escala</strong>: un píxel art de paleta controlada permite
-  que muchas manos produzcan un mismo mundo. Segunda, <strong>alcance</strong>: es un lenguaje de
-  plena vigencia entre el público joven y a la vez legible para el público mayor, porque sus
-  composiciones son figurativas y de una sola escena. Tercera, <strong>honestidad
-  patrimonial</strong>: el estilo declara abiertamente su condición de recreación artística
-  contemporánea y nadie lo confundirá con iconografía tradicional documentada.</p>
+  <h3>2.5 · El registro visual del prototipo</h3>
+  <p>El prototipo se construyó en píxel art de paleta controlada, y fue la decisión de producción
+  correcta para lo que había que probar: permitió levantar un mundo entero con recursos acotados,
+  verificar que doce capítulos se sostienen con la misma gramática visual, y medir peso y
+  rendimiento sobre el sitio publicado.</p>
+  <p>El proyecto no compromete una técnica única. Fijarla estrecharía sin necesidad la convocatoria a
+  ilustradoras e ilustradores del archipiélago, cuyos oficios son diversos. La orientación vigente
+  asigna la técnica por función de la pieza —ilustración pintada de autoría humana en los portales de
+  capítulo, píxel art de alta densidad en el entorno del descenso— y esa orientación la ajusta la
+  dirección de arte con el material que efectivamente se levante.</p>
+  <p>Lo que se mantiene sin excepción, cualquiera sea la técnica: la paleta abisal, una sola luz
+  cálida por escena, la geometría y el peso de cada pieza, y el rótulo de recreación artística. Sobre
+  eso no hay negociación.</p>
 </section>
 
 <!-- ════════ 3 · ESPECIFICACIÓN DE ILUSTRACIÓN ════════ -->
 <section class="seccion bloque">
   <h2><span class="n">3</span>Especificación de ilustración</h2>
-  <p>Cada entidad del bestiario se ilustra con tres piezas, una por momento del descenso. No son tres
-  versiones de lo mismo: son tres funciones distintas.</p>
+  <p>La plataforma no encarga «una ilustración por criatura»: encarga piezas con una función y una
+  medida definidas. El pipeline del proyecto tiene cinco slots, y cada uno se produce y se sirve de
+  manera distinta.</p>
   <table class="compacta">
-    <tr><th style="width:18%">Pieza</th><th style="width:30%">Momento</th><th>Función</th></tr>
-    <tr><td><strong>Portal (hero)</strong></td><td>Entrada de la ficha, a pantalla completa</td><td>Presenta a la entidad y fija su identidad visual. Lleva la única luz cálida de la escena.</td></tr>
-    <tr><td><strong>Descenso</strong></td><td>Fondo del cuerpo de la ficha</td><td>Acompaña la lectura sin competir con el texto: atmósfera, profundidad y territorio.</td></tr>
-    <tr><td><strong>Cierre</strong></td><td>Pantalla final, a pantalla completa</td><td>El fondo del lecho. Recibe la frase de cierre propia de cada entidad.</td></tr>
+    <tr><th style="width:15%">Slot</th><th>Proporción</th><th>Medida</th><th style="width:30%">Rol en la ficha</th><th>Tratamiento</th><th>Peso servido</th></tr>
+    <tr><td><span class="mono">hero</span> enmarcado</td><td>16:9</td><td>917 × 512</td><td>Portal del capítulo a pantalla completa, bajo el marco de bronce; pieza de menor resolución</td><td>grilla reducida, color pleno</td><td>objetivo ≤ 60 KB (hoy 50 – 77 KB)</td></tr>
+    <tr><td><span class="mono">hero</span> a sangre</td><td>16:9</td><td>1800 × 1005</td><td>Portal a pantalla completa, bajo el marco de bronce, en resolución de fondo</td><td>color pleno</td><td>70 – 155 KB</td></tr>
+    <tr><td><span class="mono">lamina</span></td><td>2:3 retrato</td><td>565 × 842</td><td>Alternativa al portal: se cuelga enmarcada sobre el fondo</td><td>enmarcada, grilla y paleta reducida</td><td>16 – 55 KB</td></tr>
+    <tr><td><span class="mono">descenso</span></td><td>9:16 vertical</td><td>1005 × 1800</td><td>Fondo del cuerpo del capítulo. <strong>Es el slot que sirve el descenso en teléfono</strong></td><td>color pleno</td><td>96 – 162 KB</td></tr>
+    <tr><td><span class="mono">cierre</span></td><td>16:9</td><td>1800 × 1005</td><td>Pantalla final del capítulo, con su frase propia</td><td>color pleno</td><td>85 – 150 KB</td></tr>
   </table>
+  <p>Existe además un slot <span class="mono">card</span> de proporción 1:1, definido en el pipeline y
+  hoy sin producir. No se encarga todavía.</p>
 
-  <p><strong>Medidas.</strong> La pieza se dibuja en su rejilla nativa y se publica escalada por un
-  factor entero con vecino más cercano. Nunca interpolación suave.</p>
-  <table class="compacta">
-    <tr><th>Pieza</th><th>Rejilla nativa</th><th>Proporción</th><th>Escalado</th><th>Publicación</th><th>Peso objetivo</th></tr>
-    <tr><td><strong>Portal (hero)</strong></td><td>480 × 270 px</td><td>16:9</td><td>×4 · vecino más cercano</td><td>1920 × 1080 · WebP</td><td>≤ 180 KB</td></tr>
-    <tr><td><strong>Descenso</strong></td><td>270 × 480 px</td><td>9:16</td><td>×4 · vecino más cercano</td><td>1080 × 1920 · WebP</td><td>≤ 165 KB</td></tr>
-    <tr><td><strong>Cierre</strong></td><td>480 × 270 px</td><td>16:9</td><td>×4 · vecino más cercano</td><td>1920 × 1080 · WebP</td><td>≤ 140 KB</td></tr>
-  </table>
-  <p>Con estos pesos, la ilustración completa de una entidad no supera los 485 KB. Como referencia
-  medida: las páginas del prototipo que ya llevan sus tres piezas se transfieren completas —con
-  tipografías, estilos y código— en 470 a 690 KB (septiembre de 2026). El techo por pieza mantiene a
-  la obra definitiva en ese orden de peso y sostiene la promesa de funcionar con conectividad
-  intermitente.</p>
+  <p><strong>La regla de tratamiento.</strong> Los fondos a pantalla completa
+  —<span class="mono">descenso</span>, <span class="mono">cierre</span>, <span class="mono">hero</span> a
+  sangre y los fondos de umbral— no pasan por reducción de grilla ni cuantización de paleta: se sirven
+  a 1800 píxeles por el lado mayor, a color pleno, con remuestreo de alta calidad. Solo el
+  <span class="mono">hero</span> de 917 × 512 y la <span class="mono">lamina</span> se reducen: el
+  hero pasa por reducción de grilla y conserva el color pleno; la lámina pasa por reducción de grilla
+  y además por paleta reducida. Son los tratamientos del pipeline con
+  que se probó el prototipo; la dirección de arte los ajusta a la técnica de cada pieza encargada, sin
+  tocar su geometría ni su peso. El criterio de aceptación de una pieza a pantalla completa es visual,
+  no su peso: si una optimización se nota a simple vista, se revierte y se restaura desde el archivo
+  crudo, que nunca se borra.</p>
 
-  <p><strong>Zona segura del portal.</strong> El portal se sirve a pantalla completa tanto en
-  escritorio panorámico como en teléfono vertical. En teléfono el recorte es severo: de los 480
-  píxeles de ancho de la rejilla sobreviven los 152 centrales, que es el recorte 9:16 de una imagen de
-  270 de alto. La entidad, su luz y todo elemento que la identifique van dentro de esa franja. Lo que
-  quede fuera es paisaje y tiene que poder perderse sin que la imagen deje de leerse. Los 20 píxeles
-  superiores e inferiores quedan libres de elementos críticos: ahí caen el nombre y la indicación de
-  descenso.</p>
-  <p class="aparte">Esta regla es una de las lecciones del prototipo: sin zona segura declarada, la
-  misma pieza que funciona en escritorio se vacía en teléfono.</p>
+  <p><strong>Zona segura del portal.</strong> El portal se sirve también en teléfono, recortado a su
+  franja central. Medido sobre el prototipo con una pieza de 917 × 512: un teléfono de proporción 9:16
+  deja a la vista unos <strong>270 píxeles centrales</strong>, y uno más alargado, de 390 × 844, unos
+  <strong>220</strong>. La entidad, su luz y todo lo que la identifique van dentro de esa franja; lo
+  que quede fuera es paisaje y tiene que poder perderse sin que la imagen deje de leerse. Es el caso
+  que muestra la última estación del recorrido.</p>
 
-  <p><strong>Zona de respiro del cierre.</strong> La pieza de cierre lleva encima la frase de cierre.
-  En una banda central de 480 × 90 px el contraste baja y no hay detalle fino, para que el texto se
-  lea sin halo ni caja.</p>
+  <p><strong>Zona de respiro del cierre.</strong> La pieza de cierre lleva encima la frase propia de la
+  entidad. En su banda central el contraste baja y no hay detalle fino, para que la frase, en tinta
+  clara, se lea sobre la pieza sin necesidad de caja.</p>
 
-  <p><strong>Paleta.</strong> Todas las piezas se construyen sobre los colores del sistema
-  (sección 2.1), que son obligatorios. Cada pieza puede derivar tonos intermedios a partir de ellos,
-  con un máximo de 32 colores por imagen. El dithering se permite como técnica de gradación, dentro
-  de la paleta de la pieza.</p>
+  <div class="paleta-bloque">
+  <p><strong>La paleta es cerrada y obligatoria.</strong> No se altera, no se amplía con colores
+  ajenos y no se sustituye:</p>
+  <ul class="paleta-lista">
+    <li><strong>Gradación abisal:</strong> <span class="par"><span class="swatch" style="background:#02060c"></span><span class="mono">#02060c</span> abismo</span> · <span class="par"><span class="swatch" style="background:#050d18"></span><span class="mono">#050d18</span></span> · <span class="par"><span class="swatch" style="background:#081726"></span><span class="mono">#081726</span> profundo</span> · <span class="par"><span class="swatch" style="background:#0e2433"></span><span class="mono">#0e2433</span></span> · <span class="par"><span class="swatch" style="background:#15384a"></span><span class="mono">#15384a</span> mar</span></li>
+    <li><strong>Espuma:</strong> <span class="par"><span class="swatch" style="background:#9fb6bd"></span><span class="mono">#9fb6bd</span></span></li>
+    <li><strong>Luz ámbar:</strong> <span class="par"><span class="swatch" style="background:#f2b65a"></span><span class="mono">#f2b65a</span> <strong>la luz</strong></span> · <span class="par"><span class="swatch" style="background:#e0a24a"></span><span class="mono">#e0a24a</span> suave</span> · <span class="par"><span class="swatch" style="background:#b9772b"></span><span class="mono">#b9772b</span> bronce</span></li>
+    <li><strong>Óxido:</strong> <span class="par"><span class="swatch" style="background:#a04a30"></span><span class="mono">#a04a30</span> <strong>único acento no ámbar</strong></span> · <span class="par"><span class="swatch" style="background:#6e3120"></span><span class="mono">#6e3120</span> profundo</span></li>
+    <li><strong>Tinta:</strong> <span class="par"><span class="swatch" style="background:#ece4d2"></span><span class="mono">#ece4d2</span> hueso</span> · <span class="par"><span class="swatch" style="background:#aab0ad"></span><span class="mono">#aab0ad</span> secundaria</span></li>
+  </ul>
+  </div>
 
-  <p><strong>Una sola luz cálida por escena, sin excepción.</strong> Es lo que hace que la pieza
-  número sesenta y ocho pertenezca al mismo mundo que la primera.</p>
+  <p><strong>Una sola luz cálida por escena, sin excepción.</strong> El farol del palafito, las luces
+  del buque, el cabello de la Pincoya, la vela en la boca de la cueva, el cuerno del Camahueto. Nada
+  más en ámbar. No es una preferencia: es lo que hace que la pieza número sesenta y ocho pertenezca al
+  mismo mundo que la primera. La disciplina llega al detalle —durante el desarrollo se descartaron
+  partículas ambientales ámbar precisamente porque habrían sembrado segundas luces en pantalla.</p>
 
-  <p><strong>Entrega.</strong> Maestro en rejilla nativa en PNG sin pérdida; versión escalada ×4 con
-  vecino más cercano; texto alternativo escrito por quien ilustra; y ficha de encargo firmada que
-  registra qué relato origina la pieza, qué fuente lo respalda y qué decisión interpretativa tomó la
-  dirección de arte. Sin texto incrustado en la imagen: nombres, citas y datos son HTML, y así se
-  mantienen legibles, seleccionables y accesibles al lector de pantalla.</p>
+  <p><strong>La técnica queda abierta.</strong> El encargo fija el mundo —paleta, luz, geometría, peso
+  y rótulo— y no la técnica con que se resuelve. Cada ilustradora o ilustrador entra con su propio
+  registro.</p>
+
+  <p><strong>Prohibido en toda pieza:</strong> pergamino o textura de papel; una segunda fuente de luz
+  cálida; texto incrustado en la imagen —los nombres, citas y datos son HTML, y así se mantienen
+  legibles, seleccionables, accesibles al lector de pantalla y traducibles.</p>
+
+  <p><strong>Entrega.</strong> Archivo maestro sin pérdida en la medida del slot o mayor; texto
+  alternativo escrito por quien ilustra; y ficha de encargo firmada que registra qué relato origina la
+  pieza, qué fuente lo respalda y qué decisión interpretativa tomó la dirección de arte. El par WebP +
+  PNG de publicación lo genera el proyecto a partir del maestro; no lo entrega el ilustrador.</p>
 
   <p><strong>Derechos.</strong> Cada pieza se contrata por escrito con acuerdo expreso sobre las
-  utilizaciones autorizadas, se acredita nominalmente a su autor y se rotula en la plataforma como
-  recreación artística, nunca como iconografía tradicional documentada.</p>
+  utilizaciones autorizadas, se acredita nominalmente a su autor en la ficha correspondiente y se
+  rotula en la plataforma como recreación artística contemporánea, nunca como iconografía tradicional
+  documentada.</p>
 </section>
-
 <!-- ════════ 4 · NAVEGACIÓN ════════ -->
 <section class="seccion bloque">
   <h2><span class="n">4</span>Estructura de navegación: el descenso</h2>

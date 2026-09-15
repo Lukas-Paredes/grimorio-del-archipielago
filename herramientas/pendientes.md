@@ -154,3 +154,22 @@ Slots de imagen: `hero` (16:9) · `lamina` (2:3, retrato) · `descenso` (9:16) �
   canonical/og/sitemap si el dominio difiere del placeholder.
 - **Scroll-snap**: probar en Android real; si marea, quitar la clase `snap-on` de <html>.
 
+## Técnica de ilustración — contradicción abierta (anotada 2026-09-15, a mano)
+> Nota manual: `generar_fichas.py` reescribe este archivo; trasladarla antes de regenerar.
+
+- **La contradicción.** El anexo visual de Fondart 2027 (`postulaciones/fondart-2027/anexo-visual.html`)
+  y la Propuesta Creativa dejan la técnica abierta y asignada por función de la pieza (ilustración
+  pintada en portales, píxel art en el entorno del descenso). La documentación del repo sigue
+  fijando el píxel art como restricción de encargo: `docs/SISTEMA-VISUAL-Y-ARTE.md` §1, §4 («De
+  píxel») y §8 («Restricciones que valen para toda pieza encargada»); `MAPA-PROYECTO.md` §1 y §5
+  («ADN visual»); `docs/ARQUITECTURA.md` §5. `CLAUDE.md` no lo menciona. Se resuelve después.
+- **Arrastra una decisión técnica.** `image-rendering: pixelated` es global sobre `img`
+  (`ficha.css`, `portada.css`): un portal pintado se vería pixelado al escalar. Ver
+  «El renderizado pixelado, por versión» en `docs/ARQUITECTURA.md` §5.
+- **Dato del doc que no calza con los archivos.** `docs/SISTEMA-VISUAL-Y-ARTE.md` §4 y §5 dicen que
+  los `hero` enmarcados pasan por «grilla 3 · 96 colores». Los PNG reales de los cinco hero de
+  917 × 512 son RGB con 23 000 – 32 000 colores (color pleno, `--colors 0`, como indica
+  `COMO-AGREGAR-CAPITULO.md`). Solo las `lamina` y escenas de 565 × 842 tienen 96 colores.
+- **Regla del sello en la esquina inferior derecha.** Solo existe porque el normalizador tapa el
+  sello de la herramienta que generó las piezas del prototipo; no aplica a piezas encargadas.
+
