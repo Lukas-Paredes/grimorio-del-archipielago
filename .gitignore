@@ -39,3 +39,8 @@ desktop.ini
 *.orig
 *.rej
 .idea/
+
+# Anexo visual Fondart 2027: el PDF lleva los datos de contacto del postulante,
+# que se leen de un archivo local. Ninguno de los dos entra al repositorio publico.
+postulaciones/fondart-2027/*.pdf
+postulaciones/fondart-2027/contacto-INTERNO.js

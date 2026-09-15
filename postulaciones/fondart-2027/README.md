@@ -154,6 +154,10 @@ por defecto. 3 familias tipográficas autoalojadas en 8 archivos `.woff2`.
 |---|---|
 | `index.html` | Índice visual del dossier. Sin dependencias externas; reutiliza las tipografías autoalojadas del sitio por ruta relativa |
 | `capturas/` | 13 capturas de la obra. **Copias** de `postulacion/capturas/`, que se conserva intacta |
+| `anexo-visual.html` | Anexo visual de la Propuesta Creativa (se fusiona con el Anexo Metodológico). Se imprime a PDF desde Chrome; la nota de pantalla del archivo trae los pasos |
+| `anexo-visual/` | 15 capturas del prototipo publicado, tomadas en septiembre de 2026 para el anexo visual |
+| `contacto-INTERNO.js` | **Local, fuera de git.** Datos del postulante que el anexo lee al imprimir. Sin este archivo la copia pública muestra el dato como retirado |
+| `anexo-visual.pdf` | **Local, fuera de git.** El PDF que se sube al formulario |
 | `documentos/` | **Vacía.** Los documentos se trabajan fuera del repositorio y se incorporan al cierre |
 | `README.md` | Este archivo |
 

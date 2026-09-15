@@ -1,0 +1,908 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>El Grimorio del Archipiélago — Anexo visual de la Propuesta Creativa · Fondart Regional 2027</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<style>
+  /* ══ Anexo visual de la Propuesta Creativa — impresión A4 ══
+     Maqueta heredada de postulacion/POSTULACION-MOCKUP.html (julio de 2026):
+     formato, tipografía, paleta del documento y estructura de figuras.
+     El texto se reescribió contra el estado del repositorio en septiembre de 2026. */
+  :root {
+    --abismo: #02060c; --mar: #15384a; --ambar: #b9772b; --ambar-claro: #f2b65a;
+    --tinta: #1a1f24; --gris: #5a646d; --linea: #c9c2b4; --hueso: #ece4d2;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    font-family: Georgia, "Times New Roman", serif;
+    color: var(--tinta); background: #e8e6e1;
+    font-size: 11pt; line-height: 1.55;
+    -webkit-print-color-adjust: exact; print-color-adjust: exact;
+  }
+  .hoja { max-width: 210mm; margin: 0 auto; background: #fff; padding: 20mm 18mm; }
+  @media screen { .hoja { box-shadow: 0 2px 24px rgba(0,0,0,0.18); margin: 16px auto; } }
+
+  /* ── Portada ── */
+  .portada {
+    page-break-after: always;
+    background: linear-gradient(170deg, #02060c 0%, #050d18 34%, #081726 62%, #0e2433 84%, #15384a 100%);
+    color: var(--hueso); min-height: 257mm;
+    display: flex; flex-direction: column; justify-content: space-between;
+    padding: 26mm 22mm; margin: -20mm -18mm 0;
+  }
+  .portada .kicker {
+    font-family: "Segoe UI", Arial, sans-serif; font-size: 9pt; letter-spacing: 0.26em;
+    text-transform: uppercase; color: var(--ambar-claro); margin: 0 0 6mm; line-height: 1.7;
+  }
+  .portada h1 { font-size: 30pt; font-weight: normal; margin: 0 0 6mm; line-height: 1.15; }
+  .portada .subtitulo { font-size: 14pt; font-style: italic; color: #cfd8da; margin: 0; max-width: 140mm; }
+  .portada .filo { width: 42mm; height: 1px; background: var(--ambar-claro); margin: 8mm 0; opacity: 0.8; }
+  .portada .meta { font-family: "Segoe UI", Arial, sans-serif; font-size: 9.5pt; color: #cfd8da; line-height: 2; }
+  .portada .meta strong { color: var(--hueso); font-weight: 600; }
+  .portada .meta a { color: var(--ambar-claro); }
+
+  /* ── Tipografía del cuerpo ── */
+  h2 {
+    font-size: 15pt; font-weight: normal; letter-spacing: 0.02em;
+    color: var(--abismo); border-bottom: 1.5pt solid var(--ambar);
+    padding-bottom: 2mm; margin: 0 0 5mm;
+  }
+  h2 .n { color: var(--ambar); margin-right: 3mm; }
+  h3 {
+    font-family: "Segoe UI", Arial, sans-serif; font-size: 10pt; font-weight: 600;
+    letter-spacing: 0.14em; text-transform: uppercase; color: var(--mar); margin: 7mm 0 2.5mm;
+    break-after: avoid; page-break-after: avoid;
+  }
+  p { margin: 0 0 3.2mm; text-align: justify; }
+  ul, ol { margin: 0 0 3.2mm; padding-left: 6mm; }
+  li { margin-bottom: 1.4mm; text-align: justify; }
+  strong { color: var(--abismo); }
+  a { color: var(--mar); }
+  .destacado {
+    border-left: 3pt solid var(--ambar); background: #f6f1e6;
+    padding: 3.5mm 5mm; margin: 4mm 0;
+  }
+  .destacado p { margin: 0 0 2mm; }
+  .destacado p:last-child { margin: 0; }
+  .lema { font-size: 12.5pt; line-height: 1.45; text-align: left; }
+  .aparte { font-style: italic; text-align: left; color: var(--mar); margin: 2mm 0 5mm; }
+
+  /* ── Índice ── */
+  .indice { list-style: none; padding: 0; }
+  .indice li {
+    display: flex; align-items: baseline; gap: 3mm;
+    border-bottom: 0.5pt dotted var(--linea); padding: 1.6mm 0; margin: 0;
+  }
+  .indice .num { font-family: "Segoe UI", Arial, sans-serif; font-size: 9pt; color: var(--ambar); min-width: 8mm; }
+
+  /* ── Tablas ── */
+  table { width: 100%; border-collapse: collapse; margin: 3mm 0 5mm; font-size: 9.5pt; }
+  th {
+    font-family: "Segoe UI", Arial, sans-serif; font-size: 8pt; letter-spacing: 0.1em;
+    text-transform: uppercase; text-align: left; color: #fff; background: var(--mar);
+    padding: 2mm 3mm; border: 0.5pt solid var(--mar);
+  }
+  td { padding: 2mm 3mm; border: 0.5pt solid var(--linea); vertical-align: top; }
+  tr { page-break-inside: avoid; }
+  tr:nth-child(even) td { background: #f7f5f0; }
+  td.fuerte { background: #fbf4e4 !important; }
+  table.compacta { font-size: 9pt; }
+  table.compacta td, table.compacta th { padding: 1.6mm 2.4mm; }
+  .swatch { display: inline-block; width: 9mm; height: 5mm; border-radius: 1mm; border: 0.5pt solid rgba(0,0,0,0.25); vertical-align: middle; margin-right: 2.5mm; }
+  code, .mono { font-family: Consolas, "Courier New", monospace; font-size: 9pt; color: var(--mar); }
+
+  /* ── Figuras / capturas ── */
+  figure { margin: 5mm 0; }
+  figure img { width: 100%; display: block; border: 1pt solid #2a3640; border-radius: 1mm; }
+  figcaption {
+    font-family: "Segoe UI", Arial, sans-serif; font-size: 8.5pt; color: var(--gris);
+    margin-top: 1.8mm; line-height: 1.45; text-align: left;
+  }
+  figcaption strong { color: var(--tinta); }
+
+  /* ── Estaciones del recorrido ── */
+  .estacion { margin: 0 0 7mm; }
+  .estacion-intro { break-inside: avoid; page-break-inside: avoid; break-after: avoid; page-break-after: avoid; }
+  .estacion h3 { margin-top: 6mm; }
+  .estacion h3 .num-est { color: var(--ambar); margin-right: 2mm; }
+  .enlace {
+    font-family: "Segoe UI", Arial, sans-serif; font-size: 8.5pt; text-align: left;
+    border: 0.75pt solid var(--linea); border-left: 3pt solid var(--ambar);
+    background: #f7f5f0; padding: 1.8mm 3mm; margin: 2mm 0 1mm;
+  }
+  .enlace a { font-family: Consolas, "Courier New", monospace; font-size: 8.5pt; color: var(--mar); overflow-wrap: anywhere; }
+  .enlace .como { display: block; color: var(--gris); margin-top: 0.6mm; }
+  .estacion--lado { display: grid; grid-template-columns: 1fr 68mm; gap: 7mm; align-items: start; }
+  .estacion--lado figure { margin-top: 2mm; }
+  .estacion--movil { grid-template-columns: 1fr 56mm; }
+
+  /* ── Diagrama de navegación (HTML/CSS imprimible) ── */
+  .diagrama { margin: 5mm 0; font-family: "Segoe UI", Arial, sans-serif; font-size: 9pt; break-inside: avoid; page-break-inside: avoid; }
+  .nodo {
+    border: 1pt solid var(--mar); border-radius: 1.5mm; background: #f2f6f8;
+    padding: 2.5mm 4mm; margin: 0 auto; max-width: 130mm; text-align: center;
+  }
+  .nodo strong { display: block; font-size: 10pt; color: var(--abismo); }
+  .nodo span { color: var(--gris); font-size: 8.5pt; }
+  .nodo--ambar { border-color: var(--ambar); background: #fbf4e4; }
+  .flecha { text-align: center; color: var(--ambar); font-size: 12pt; line-height: 1.5; margin: 0.6mm 0; }
+  .libro {
+    border: 0.75pt dashed var(--ambar); border-radius: 1.5mm; padding: 1.8mm 2mm 2.2mm;
+    margin: 0 auto; max-width: 150mm;
+  }
+  .libro + .libro { margin-top: 1.6mm; }
+  .libro__titulo { font-size: 7.5pt; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ambar); text-align: center; margin: 0 0 1.4mm; }
+  .fila-nodos { display: flex; flex-wrap: wrap; gap: 1.8mm; justify-content: center; margin: 0 auto; }
+  .fila-nodos .nodo { flex: 0 1 33mm; max-width: none; padding: 1.6mm 1.5mm; margin: 0; }
+  .fila-nodos .nodo strong { font-size: 9pt; }
+
+  /* ── Ficha de ejemplo ── */
+  .ficha-ejemplo {
+    border: 1.2pt solid var(--ambar); border-radius: 1.5mm;
+    background: linear-gradient(180deg, #0b1620, #081018);
+    color: var(--hueso); padding: 5mm 6mm; margin: 4mm 0 0;
+    break-inside: avoid; page-break-inside: avoid;
+  }
+  .ficha-ejemplo .fe-kicker {
+    font-family: "Segoe UI", Arial, sans-serif; font-size: 8pt; letter-spacing: 0.28em;
+    text-transform: uppercase; color: var(--ambar-claro); margin: 0 0 1.5mm;
+  }
+  .ficha-ejemplo h4 { font-size: 16pt; font-weight: normal; margin: 0 0 1mm; color: #fff; }
+  .ficha-ejemplo .fe-alias { font-size: 9pt; color: #9fb6bd; letter-spacing: 0.08em; text-transform: uppercase; margin: 0 0 4mm; }
+  .ficha-ejemplo .fe-gancho { font-style: italic; color: #f1e9d6; border-left: 2pt solid var(--ambar-claro); padding-left: 4mm; margin: 0 0 4mm; }
+  .fe-datos { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 2mm 5mm; margin: 0 0 4mm; }
+  .fe-datos div { border-top: 0.5pt solid rgba(242,182,90,0.35); padding-top: 1.4mm; }
+  .fe-datos div.ancho { grid-column: 1 / -1; }
+  .fe-datos dt { font-family: "Segoe UI", Arial, sans-serif; font-size: 7pt; letter-spacing: 0.18em; text-transform: uppercase; color: var(--ambar-claro); }
+  .fe-datos dd { margin: 0.6mm 0 0; font-size: 9.5pt; color: var(--hueso); }
+  .ficha-ejemplo .fe-rotulo {
+    font-family: "Segoe UI", Arial, sans-serif; font-size: 7.5pt; letter-spacing: 0.18em;
+    text-transform: uppercase; color: var(--ambar-claro); margin: 4mm 0 1.5mm;
+  }
+  .ficha-ejemplo .fe-prosa { color: var(--hueso); text-align: justify; }
+  .ficha-ejemplo .fe-variante {
+    border: 0.75pt solid rgba(242,182,90,0.5); border-radius: 1mm;
+    background: rgba(22,52,70,0.4); padding: 3mm 4mm; margin: 2mm 0 1mm;
+  }
+  .ficha-ejemplo .fe-variante h5 {
+    font-family: "Segoe UI", Arial, sans-serif; font-size: 8.5pt; letter-spacing: 0.1em;
+    text-transform: uppercase; color: var(--ambar-claro); margin: 0 0 1.5mm;
+  }
+  .ficha-ejemplo .fe-variante p { margin: 0; font-size: 9.5pt; }
+  .ficha-ejemplo .fe-nota {
+    border-left: 2pt solid #a04a30; background: rgba(160,74,48,0.14);
+    padding: 3mm 4mm; margin: 2mm 0 1mm; font-style: italic; color: #f1e9d6;
+  }
+  .ficha-ejemplo .fe-fuente { font-family: "Segoe UI", Arial, sans-serif; font-size: 8pt; color: #9fb6bd; margin-top: 3mm; }
+  .ficha-ejemplo .fe-cierre { font-style: italic; color: #cfd8da; text-align: center; margin: 4.5mm 0 0; }
+
+  .nota-pantalla {
+    font-family: "Segoe UI", Arial, sans-serif; font-size: 9pt; color: #7a4a12;
+    background: #fdf3dc; border: 1px solid #e3c98d; border-radius: 2mm;
+    padding: 3mm 5mm; margin: 0 0 24mm;   /* aire: la portada sube 20mm */
+    position: relative; z-index: 2;
+  }
+
+  /* ══ Impresión — AL FINAL de la hoja para que ninguna regla base la pise ══
+     Página sin márgenes (la portada va a sangre); cada fragmento de sección repite su relleno
+     en cada hoja gracias a box-decoration-break: clone, así ninguna hoja toca el borde. */
+  @page { size: A4; margin: 0; }
+  @media print {
+    body { background: #fff; }
+    .hoja { max-width: none; margin: 0; padding: 0; }
+    .portada { margin: 0; min-height: 0; height: 297mm; }
+    .bloque { padding: 17mm 18mm 20mm; -webkit-box-decoration-break: clone; box-decoration-break: clone; }
+    .seccion { page-break-before: always; }
+    figure { page-break-inside: avoid; }
+    .nota-pantalla { display: none; }
+  }
+</style>
+</head>
+<body>
+<div class="hoja">
+
+<p class="nota-pantalla">Para generar el PDF: abrir este archivo en Google Chrome → Imprimir → destino
+«Guardar como PDF» → papel A4 → márgenes «Predeterminados» → activar «Gráficos de fondo» y desactivar
+«Encabezados y pies de página». Los datos del postulante se completan desde un archivo local que no
+se publica. Esta nota no se imprime.</p>
+
+<!-- ════════ PORTADA ════════ -->
+<header class="portada">
+  <div>
+    <p class="kicker">Fondart Regional 2027 · Línea Creación Artística: Innovación y Nuevos Formatos Creativos</p>
+    <h1>El Grimorio del Archipiélago</h1>
+    <p class="subtitulo">Anexo visual de la Propuesta Creativa · El prototipo de la plataforma</p>
+    <div class="filo"></div>
+  </div>
+  <div class="meta">
+    <strong>Folio:</strong> N° 878718<br>
+    <strong>Postulante:</strong> <span data-contacto="postulante">dato retirado de la copia pública; figura en el PDF presentado</span><br>
+    <strong>Contacto:</strong> <span data-contacto="contacto">dato retirado de la copia pública; figura en el PDF presentado</span><br>
+    <strong>Prototipo navegable:</strong> <a href="https://lukas-paredes.github.io/grimorio-del-archipielago/">lukas-paredes.github.io/grimorio-del-archipielago</a><br>
+    <strong>Repositorio público:</strong> <a href="https://github.com/Lukas-Paredes/grimorio-del-archipielago">github.com/Lukas-Paredes/grimorio-del-archipielago</a><br>
+    <strong>Fecha:</strong> Septiembre de 2026
+  </div>
+</header>
+
+<!-- ════════ ÍNDICE ════════ -->
+<nav class="bloque">
+  <h2>Índice</h2>
+  <ol class="indice">
+    <li><span class="num">1</span> Qué está construido y qué produce el proyecto</li>
+    <li><span class="num">2</span> Dirección de arte</li>
+    <li><span class="num">3</span> Especificación de ilustración</li>
+    <li><span class="num">4</span> Estructura de navegación: el descenso</li>
+    <li><span class="num">5</span> El recorrido, estación por estación</li>
+    <li><span class="num">6</span> Ejemplo real de ficha: El Caleuche</li>
+    <li><span class="num">7</span> Compromiso documental</li>
+    <li><span class="num">8</span> Convocatorias abiertas y vitrina del territorio</li>
+    <li><span class="num">9</span> Accesibilidad</li>
+    <li><span class="num">10</span> Ficha técnica de la plataforma</li>
+    <li><span class="num">11</span> Estado actual del prototipo</li>
+  </ol>
+  <div class="destacado">
+    <p class="lema"><strong>La plataforma es el medio creativo, y ese medio ya está construido y
+    probado. Lo que este proyecto financia es la obra que va dentro.</strong></p>
+    <p><strong>Nota para la comisión evaluadora.</strong> Este anexo muestra el prototipo de la
+    plataforma en funcionamiento. Sus ilustraciones son <strong>piezas de prototipo</strong>: ocupan
+    el lugar de la ilustración definitiva, fijan la escala y demuestran que el contenedor funciona,
+    pero son provisionales y serán reemplazadas. Lo que sí es definitivo es la arquitectura que las
+    recibe. Cada pantalla de este documento puede verificarse en línea: el recorrido de la sección 5
+    enlaza a la dirección exacta de cada una.</p>
+  </div>
+</nav>
+
+<!-- ════════ 1 · QUÉ ESTÁ CONSTRUIDO ════════ -->
+<section class="seccion bloque">
+  <h2><span class="n">1</span>Qué está construido y qué produce el proyecto</h2>
+  <p>El prototipo resolvió la parte que no se ve: cómo se recorre un archivo cultural como un
+  descenso, cómo se publica una entidad sin tocar el motor y cómo se garantiza que lo publicado
+  corresponda a su fuente. Lo que falta es la obra: el testimonio del territorio, la ilustración
+  definitiva, la cartografía, el sonido y su encuentro con el público.</p>
+  <table class="compacta">
+    <tr><th style="width:21%">Componente</th><th style="width:37%">Estado hoy</th><th>Qué produce este proyecto</th></tr>
+    <tr><td><strong>Arquitectura del recorrido</strong></td><td>Construida, navegable y probada</td><td>Se extiende al material levantado en terreno</td></tr>
+    <tr><td><strong>Plantilla de ficha</strong></td><td>Genérica, gobernada por datos: publicar una entidad no exige tocar el motor</td><td>Costo marginal de desarrollo por entidad: cero</td></tr>
+    <tr><td><strong>Verificador de fidelidad a la fuente</strong></td><td>Funcionando: el bloque de origen de cada ficha va embebido byte a byte en la página, y una herramienta comprueba que la prosa del relato exista palabra por palabra en el texto de referencia</td><td>Se aplica al testimonio nuevo</td></tr>
+    <tr><td><strong>Corpus documental</strong></td><td>68 entidades registradas con vocabulario controlado, 108 citas y 70 enlaces; 40 fuentes indexadas y 12 archivadas</td><td>Se incorpora el testimonio levantado en cinco comunas, con consentimiento y atribución elegida</td></tr>
+    <tr><td class="fuerte"><strong>Ilustración</strong></td><td class="fuerte"><strong>Piezas de prototipo, provisionales</strong></td><td class="fuerte"><strong>Ilustración definitiva, de autoría humana contratada por convocatoria abierta a ilustradoras e ilustradores del archipiélago y la región</strong></td></tr>
+    <tr><td><strong>Cartografía</strong></td><td>Mapa del archipiélago construido y navegable: los lugares reales que nombran los relatos, sobre geometría oficial, con un punto por lugar y su papel en el mito</td><td>Cartografía mitológica en SIG libre: georreferenciación del corpus levantado en terreno, capa de variantes y distinción entre lugares con respaldo verificado y lugares que la tradición menciona sin localización precisa</td></tr>
+    <tr><td><strong>Capa sonora</strong></td><td>Ambiente generativo por síntesis en el navegador, más música de biblioteca con licencia libre en seis páginas</td><td>Paisaje sonoro grabado en terreno, más composición y montaje contratados por convocatoria abierta</td></tr>
+    <tr><td><strong>Accesibilidad</strong></td><td>Implementada y verificada</td><td>Se suma la lectura en voz de los textos</td></tr>
+    <tr><td><strong>Exhibición</strong></td><td>No existe</td><td>Cinco jornadas en cinco comunas, con 175 personas y cinco espacios comprometidos por carta</td></tr>
+  </table>
+  <p>El prototipo prueba que la arquitectura funciona y que el costo de cada entidad nueva es
+  editorial y artístico, nunca de desarrollo. Por eso el presupuesto no pide software: pide terreno,
+  ilustración, cartografía, sonido y exhibición.</p>
+</section>
+
+<!-- ════════ 2 · DIRECCIÓN DE ARTE ════════ -->
+<section class="seccion bloque">
+  <h2><span class="n">2</span>Dirección de arte</h2>
+  <p>La identidad visual del proyecto está definida y aplicada en todo el prototipo. Su dirección se
+  resume en cuatro términos: <strong>editorial marítima, gótico insular, archivo cultural y museo
+  nocturno</strong>. Sus materias son el mar, la niebla, el bosque, el bronce y el óxido; su lenguaje
+  de imagen, el píxel art de alta densidad y atmósfera oscura. Este sistema es el marco obligatorio de
+  la ilustración definitiva que se encarga (sección 3): las piezas cambian, el sistema no.</p>
+
+  <h3>2.1 · Paleta cromática</h3>
+  <p>La paleta reproduce la experiencia lumínica del archipiélago nocturno: una gradación abisal de
+  azules muy oscuros, sobre la cual existe <strong>una sola fuente de luz cálida</strong>. Son los
+  valores que usa hoy el sitio.</p>
+  <table class="compacta">
+    <tr><th>Muestra</th><th>Código</th><th>Nombre</th><th>Función</th></tr>
+    <tr><td><span class="swatch" style="background:#02060c"></span></td><td class="mono">#02060c</td><td>Abismo</td><td>Fondo base del sistema; el punto más profundo del descenso.</td></tr>
+    <tr><td><span class="swatch" style="background:#050d18"></span></td><td class="mono">#050d18</td><td>Abismo secundario</td><td>Transición entre el abismo y el mar abierto.</td></tr>
+    <tr><td><span class="swatch" style="background:#081726"></span></td><td class="mono">#081726</td><td>Profundo</td><td>Zona de mar abierto; fondos de capítulos marinos.</td></tr>
+    <tr><td><span class="swatch" style="background:#0e2433"></span></td><td class="mono">#0e2433</td><td>Mar intermedio</td><td>Paso de la gradación hacia la superficie.</td></tr>
+    <tr><td><span class="swatch" style="background:#15384a"></span></td><td class="mono">#15384a</td><td>Mar</td><td>Límite superior de la gradación; superficies iluminadas por la luna.</td></tr>
+    <tr><td><span class="swatch" style="background:#f2b65a"></span></td><td class="mono">#f2b65a</td><td>Ámbar</td><td>La única luz cálida: faroles, velas, oro; jerarquía y acción.</td></tr>
+    <tr><td><span class="swatch" style="background:#e0a24a"></span></td><td class="mono">#e0a24a</td><td>Ámbar suave</td><td>Estados secundarios de la luz cálida.</td></tr>
+    <tr><td><span class="swatch" style="background:#b9772b"></span></td><td class="mono">#b9772b</td><td>Bronce</td><td>Marcos, placas y botones.</td></tr>
+    <tr><td><span class="swatch" style="background:#a04a30"></span></td><td class="mono">#a04a30</td><td>Óxido</td><td>Notas del archivero y advertencias; el único acento no ámbar.</td></tr>
+    <tr><td><span class="swatch" style="background:#6e3120"></span></td><td class="mono">#6e3120</td><td>Óxido profundo</td><td>Sombra del óxido.</td></tr>
+    <tr><td><span class="swatch" style="background:#ece4d2"></span></td><td class="mono">#ece4d2</td><td>Hueso</td><td>Texto principal sobre fondo abisal (contraste AA verificado).</td></tr>
+    <tr><td><span class="swatch" style="background:#aab0ad"></span></td><td class="mono">#aab0ad</td><td>Tinta secundaria</td><td>Texto de apoyo.</td></tr>
+    <tr><td><span class="swatch" style="background:#9fb6bd"></span></td><td class="mono">#9fb6bd</td><td>Espuma</td><td>Texto secundario, atribuciones y metadatos.</td></tr>
+  </table>
+
+  <h3>2.2 · El principio rector: una sola luz cálida</h3>
+  <p>Cada escena tiene <strong>una única fuente de luz cálida</strong>: el farol del palafito en la
+  superficie, las luces del buque fantasma, el cabello de la Pincoya —que es la única luz de su
+  playa—, la vela en la boca de la cueva del Invunche, el cuerno dorado del Camahueto en plena
+  tormenta. La regla dirige la mirada hacia el corazón narrativo de cada imagen y hace gobernable la
+  coherencia de un bestiario extenso. Llega al detalle: durante el desarrollo se descartaron
+  partículas ambientales de color ámbar porque habrían sembrado varias luces cálidas en pantalla.</p>
+
+  <h3>2.3 · Tipografía y su función</h3>
+  <table class="compacta">
+    <tr><th>Familia</th><th>Rol</th><th>Uso</th></tr>
+    <tr><td><strong>Jacquard 24</strong></td><td>Display</td><td>Nombres de entidades y títulos mayores; evoca la letra gótica de los grimorios sin sacrificar legibilidad en pantalla.</td></tr>
+    <tr><td><strong>EB Garamond</strong></td><td>Cuerpo de lectura</td><td>Toda la prosa documental, con su itálica; serif clásica en cuerpo generoso: no baja de 17 píxeles efectivos en teléfono y ronda los 19 en escritorio.</td></tr>
+    <tr><td><strong>Pixelify Sans</strong></td><td>Interfaz</td><td>Botones, etiquetas, datos de bestiario y microtexto: el registro «píxel» de la capa interactiva.</td></tr>
+  </table>
+  <p>Las tres familias son de licencia libre y se sirven autoalojadas (ocho archivos), sin depender
+  de servicios externos.</p>
+
+  <h3>2.4 · Superficies y marcos</h3>
+  <p>Las superficies del sistema son <strong>placas de bronce y agua abisal</strong>; nunca
+  pergamino ni textura de papel. Los marcos no se redondean: llevan <strong>esquina cortada</strong>,
+  el gesto de una placa metálica y no el de una tarjeta. Se evitan deliberadamente las tarjetas
+  repetidas, el exceso de sombras y la apariencia de aplicación corporativa. Dentro de la ficha, cada
+  registro tiene su forma: la placa de bronce para los datos de bestiario, los cajones de archivo
+  para las variantes y el acento de óxido, con su pin, para la nota del archivero, que así queda
+  visualmente separada del relato.</p>
+
+  <h3>2.5 · El píxel art como decisión</h3>
+  <p>La imagen se trata con <strong>píxel visible y sin suavizado</strong>: el sitio declara el
+  escalado por vecino más cercano en sus imágenes, y las ilustraciones de pantalla completa se
+  aceptan o rechazan mirándolas a pantalla completa, no por su peso. La elección responde a tres
+  razones. Primera, <strong>coherencia a escala</strong>: un píxel art de paleta controlada permite
+  que muchas manos produzcan un mismo mundo. Segunda, <strong>alcance</strong>: es un lenguaje de
+  plena vigencia entre el público joven y a la vez legible para el público mayor, porque sus
+  composiciones son figurativas y de una sola escena. Tercera, <strong>honestidad
+  patrimonial</strong>: el estilo declara abiertamente su condición de recreación artística
+  contemporánea y nadie lo confundirá con iconografía tradicional documentada.</p>
+</section>
+
+<!-- ════════ 3 · ESPECIFICACIÓN DE ILUSTRACIÓN ════════ -->
+<section class="seccion bloque">
+  <h2><span class="n">3</span>Especificación de ilustración</h2>
+  <p>Cada entidad del bestiario se ilustra con tres piezas, una por momento del descenso. No son tres
+  versiones de lo mismo: son tres funciones distintas.</p>
+  <table class="compacta">
+    <tr><th style="width:18%">Pieza</th><th style="width:30%">Momento</th><th>Función</th></tr>
+    <tr><td><strong>Portal (hero)</strong></td><td>Entrada de la ficha, a pantalla completa</td><td>Presenta a la entidad y fija su identidad visual. Lleva la única luz cálida de la escena.</td></tr>
+    <tr><td><strong>Descenso</strong></td><td>Fondo del cuerpo de la ficha</td><td>Acompaña la lectura sin competir con el texto: atmósfera, profundidad y territorio.</td></tr>
+    <tr><td><strong>Cierre</strong></td><td>Pantalla final, a pantalla completa</td><td>El fondo del lecho. Recibe la frase de cierre propia de cada entidad.</td></tr>
+  </table>
+
+  <p><strong>Medidas.</strong> La pieza se dibuja en su rejilla nativa y se publica escalada por un
+  factor entero con vecino más cercano. Nunca interpolación suave.</p>
+  <table class="compacta">
+    <tr><th>Pieza</th><th>Rejilla nativa</th><th>Proporción</th><th>Escalado</th><th>Publicación</th><th>Peso objetivo</th></tr>
+    <tr><td><strong>Portal (hero)</strong></td><td>480 × 270 px</td><td>16:9</td><td>×4 · vecino más cercano</td><td>1920 × 1080 · WebP</td><td>≤ 180 KB</td></tr>
+    <tr><td><strong>Descenso</strong></td><td>270 × 480 px</td><td>9:16</td><td>×4 · vecino más cercano</td><td>1080 × 1920 · WebP</td><td>≤ 165 KB</td></tr>
+    <tr><td><strong>Cierre</strong></td><td>480 × 270 px</td><td>16:9</td><td>×4 · vecino más cercano</td><td>1920 × 1080 · WebP</td><td>≤ 140 KB</td></tr>
+  </table>
+  <p>Con estos pesos, la ilustración completa de una entidad no supera los 485 KB. Como referencia
+  medida: las páginas del prototipo que ya llevan sus tres piezas se transfieren completas —con
+  tipografías, estilos y código— en 470 a 690 KB (septiembre de 2026). El techo por pieza mantiene a
+  la obra definitiva en ese orden de peso y sostiene la promesa de funcionar con conectividad
+  intermitente.</p>
+
+  <p><strong>Zona segura del portal.</strong> El portal se sirve a pantalla completa tanto en
+  escritorio panorámico como en teléfono vertical. En teléfono el recorte es severo: de los 480
+  píxeles de ancho de la rejilla sobreviven los 152 centrales, que es el recorte 9:16 de una imagen de
+  270 de alto. La entidad, su luz y todo elemento que la identifique van dentro de esa franja. Lo que
+  quede fuera es paisaje y tiene que poder perderse sin que la imagen deje de leerse. Los 20 píxeles
+  superiores e inferiores quedan libres de elementos críticos: ahí caen el nombre y la indicación de
+  descenso.</p>
+  <p class="aparte">Esta regla es una de las lecciones del prototipo: sin zona segura declarada, la
+  misma pieza que funciona en escritorio se vacía en teléfono.</p>
+
+  <p><strong>Zona de respiro del cierre.</strong> La pieza de cierre lleva encima la frase de cierre.
+  En una banda central de 480 × 90 px el contraste baja y no hay detalle fino, para que el texto se
+  lea sin halo ni caja.</p>
+
+  <p><strong>Paleta.</strong> Todas las piezas se construyen sobre los colores del sistema
+  (sección 2.1), que son obligatorios. Cada pieza puede derivar tonos intermedios a partir de ellos,
+  con un máximo de 32 colores por imagen. El dithering se permite como técnica de gradación, dentro
+  de la paleta de la pieza.</p>
+
+  <p><strong>Una sola luz cálida por escena, sin excepción.</strong> Es lo que hace que la pieza
+  número sesenta y ocho pertenezca al mismo mundo que la primera.</p>
+
+  <p><strong>Entrega.</strong> Maestro en rejilla nativa en PNG sin pérdida; versión escalada ×4 con
+  vecino más cercano; texto alternativo escrito por quien ilustra; y ficha de encargo firmada que
+  registra qué relato origina la pieza, qué fuente lo respalda y qué decisión interpretativa tomó la
+  dirección de arte. Sin texto incrustado en la imagen: nombres, citas y datos son HTML, y así se
+  mantienen legibles, seleccionables y accesibles al lector de pantalla.</p>
+
+  <p><strong>Derechos.</strong> Cada pieza se contrata por escrito con acuerdo expreso sobre las
+  utilizaciones autorizadas, se acredita nominalmente a su autor y se rotula en la plataforma como
+  recreación artística, nunca como iconografía tradicional documentada.</p>
+</section>
+
+<!-- ════════ 4 · NAVEGACIÓN ════════ -->
+<section class="seccion bloque">
+  <h2><span class="n">4</span>Estructura de navegación: el descenso</h2>
+  <p>La plataforma se organiza como un <strong>descenso</strong>: se entra por la superficie del
+  archipiélago y se baja, capítulo a capítulo, hasta el lecho del mar, donde se abren las puertas del
+  archivo de consulta. Los capítulos se agrupan por los Libros del grimorio literario del proyecto, y
+  al cruzar de un Libro a otro el recorrido anuncia el umbral del nuevo Libro.</p>
+
+  <div class="diagrama">
+    <div class="nodo nodo--ambar"><strong>Inicio — La superficie</strong>
+      <span>portada-descenso: título, bajada e invitación a descender</span></div>
+    <div class="flecha">▼</div>
+    <div class="nodo"><strong>Umbral del capítulo I</strong>
+      <span>la placa de El Caleuche entre la niebla · verbo «Abordar»</span></div>
+    <div class="flecha">▼</div>
+    <div class="libro">
+      <p class="libro__titulo">Libro Tercero · Libro Segundo · Libro Cuarto</p>
+      <div class="fila-nodos">
+        <div class="nodo"><strong>I · El Caleuche</strong></div>
+        <div class="nodo"><strong>II · La Pincoya</strong></div>
+        <div class="nodo"><strong>III · El Trauco</strong></div>
+      </div>
+    </div>
+    <div class="libro">
+      <p class="libro__titulo">Libro Octavo · La Recta Provincia</p>
+      <div class="fila-nodos">
+        <div class="nodo"><strong>IV · El Invunche</strong></div>
+        <div class="nodo"><strong>V · La Cueva de Quicaví</strong></div>
+        <div class="nodo"><strong>VI · La Recta Provincia</strong></div>
+        <div class="nodo"><strong>VII · El Brujo chilote</strong></div>
+        <div class="nodo"><strong>VIII · El Macuñ</strong></div>
+        <div class="nodo"><strong>IX · El Challanco</strong></div>
+        <div class="nodo"><strong>X · La Voladora</strong></div>
+      </div>
+    </div>
+    <div class="libro">
+      <p class="libro__titulo">Libro Quinto · Las bestias del agua y la tierra — y el cierre del Libro Octavo</p>
+      <div class="fila-nodos">
+        <div class="nodo"><strong>XI · El Camahueto</strong></div>
+        <div class="nodo"><strong>XII · El juicio de Ancud de 1880</strong></div>
+      </div>
+    </div>
+    <p style="text-align:center; margin:1.6mm 0 0; font-size:8.5pt; color:var(--gris)">
+    cada capítulo termina en «El camino continúa», que presenta al siguiente con su cita de anzuelo</p>
+    <div class="flecha">▼</div>
+    <div class="nodo nodo--ambar"><strong>El lecho — puertas del archivo</strong>
+      <span>Entrar al archivo · Bestiario · Mundos · Recta Provincia · Cosmología</span></div>
+  </div>
+
+  <p>El orden de los capítulos es un dato del sistema, no está fijado en el código: la curaduría
+  puede reordenarlo sin costo técnico, y el orden actual es provisional. Cinco controles acompañan
+  todo el recorrido desde una botonera fija con etiquetas legibles: <strong>Capítulos</strong> (la
+  carta de capítulos, con los publicados y las entidades aún selladas, sin enlaces muertos),
+  <strong>Mapa</strong> (los lugares reales que nombran los relatos), <strong>Fuentes</strong> (la
+  cara pública del sistema bibliográfico), <strong>Movimiento</strong> (pausa toda animación) y
+  <strong>Sonido</strong> (apagado por defecto). Cada ficha es además una página independiente, con
+  dirección propia, citable y enlazable.</p>
+</section>
+
+<!-- ════════ 5 · EL RECORRIDO ════════ -->
+<section class="seccion bloque">
+  <h2><span class="n">5</span>El recorrido, estación por estación</h2>
+  <p class="aparte">Cada estación de este recorrido es un enlace. El documento se puede leer, pero
+  está hecho para recorrerse.</p>
+  <p>Las capturas se tomaron del prototipo publicado en septiembre de 2026. En todas ellas la
+  <strong>ilustración es pieza de prototipo</strong>, no la definitiva; el resto de la pantalla
+  —arquitectura, placas, cajones, marcos, tipografía, mapa y controles— es el sistema real.</p>
+
+  <!-- 1 -->
+  <div class="estacion">
+    <div class="estacion-intro">
+      <h3><span class="num-est">1</span>La superficie</h3>
+      <p>La portada del descenso: el título, una bajada breve y la indicación «desciende» con la
+      plomada de sonda, el instrumento náutico que guía todo el recorrido. Arriba, la botonera que
+      acompaña cada pantalla. Al bajar, la niebla deriva y la escena se hunde.</p>
+      <p class="enlace"><a href="https://lukas-paredes.github.io/grimorio-del-archipielago/">lukas-paredes.github.io/grimorio-del-archipielago/</a></p>
+    </div>
+    <figure>
+      <img src="anexo-visual/01-superficie.jpg" alt="Portada del prototipo: título sobre un caserío de palafitos nocturno con un farol encendido.">
+      <figcaption><strong>Figura 1.</strong> Inicio (escritorio, 1440 px). La ilustración de los
+      palafitos es pieza de prototipo; título, bajada, plomada y botonera son el sistema real.</figcaption>
+    </figure>
+  </div>
+
+  <!-- 2 -->
+  <div class="estacion">
+    <div class="estacion-intro">
+      <h3><span class="num-est">2</span>El umbral de capítulo</h3>
+      <p>El primer capítulo se anuncia con su Libro y una placa de bronce: el nombre de la entidad, su
+      cita de anzuelo verbatim, las etiquetas del vocabulario controlado y un botón con el verbo propio
+      del capítulo, «Abordar».</p>
+      <p class="enlace"><a href="https://lukas-paredes.github.io/grimorio-del-archipielago/index.html#umbral-capitulo">lukas-paredes.github.io/grimorio-del-archipielago/index.html#umbral-capitulo</a>
+      <span class="como">También se llega bajando una pantalla desde la portada.</span></p>
+    </div>
+    <figure>
+      <img src="anexo-visual/02-umbral.jpg" alt="Placa de bronce del capítulo I, El Caleuche, junto a un barco lejano entre la niebla.">
+      <figcaption><strong>Figura 2.</strong> Umbral del Capítulo I. El barco entre la niebla es pieza
+      de prototipo; la placa, su cita verbatim, las etiquetas y el botón son el sistema real.</figcaption>
+    </figure>
+  </div>
+
+  <!-- 3 -->
+  <div class="estacion">
+    <div class="estacion-intro">
+      <h3><span class="num-est">3</span>Una ficha completa, de arriba a abajo</h3>
+      <p>La unidad que se repite. Una misma plantilla, gobernada por datos, genera las fichas del
+      recorrido: portal a pantalla completa, cita de anzuelo, placa de datos de bestiario, relato
+      verbatim con capitular, variantes en cajones de archivo, nota del archivero, origen del mito,
+      piezas relacionadas, fuentes y pantalla de cierre, seguida de «El camino continúa». Con el
+      control de movimiento en pausa todo se muestra estático y completo.</p>
+      <p class="enlace"><a href="https://lukas-paredes.github.io/grimorio-del-archipielago/caleuche.html">lukas-paredes.github.io/grimorio-del-archipielago/caleuche.html</a></p>
+    </div>
+    <figure>
+      <img src="anexo-visual/03a-caleuche-portal.jpg" alt="Portal del capítulo El Caleuche: un galeón iluminado sobre el mar y el nombre en letra gótica.">
+      <figcaption><strong>Figura 3.</strong> Portal. El galeón es pieza de prototipo en el lugar del
+      portal definitivo; el marco de bronce, el nombre, los alias documentados y la indicación de
+      descenso son el sistema real.</figcaption>
+    </figure>
+    <figure>
+      <img src="anexo-visual/03b-caleuche-datos.jpg" alt="Placa de datos de bestiario: reino, categoría, condición, origen, alcance, jerarquía y etimología.">
+      <figcaption><strong>Figura 4.</strong> Placa de datos de bestiario: vocabulario controlado y
+      etimología, tal como constan en el registro de la entidad.</figcaption>
+    </figure>
+    <figure>
+      <img src="anexo-visual/03c-caleuche-relato.jpg" alt="El relato: resumen destacado y dos párrafos con capitular ámbar.">
+      <figcaption><strong>Figura 5.</strong> El relato verbatim, con su resumen y capitular ámbar. El
+      fondo es pieza de prototipo.</figcaption>
+    </figure>
+    <figure>
+      <img src="anexo-visual/03d-caleuche-variantes-nota.jpg" alt="Cuatro cajones de variantes, dos abiertos, y la nota del archivero.">
+      <figcaption><strong>Figura 6.</strong> Variantes del relato en cajones de archivo —cada versión
+      por separado, sin fundirlas en una sola— y la nota del archivero, que distingue la
+      interpretación del relato.</figcaption>
+    </figure>
+    <figure>
+      <img src="anexo-visual/03e-caleuche-cierre.jpg" alt="Pantalla de cierre: la frase final sobre un fondo marino con restos de naufragio.">
+      <figcaption><strong>Figura 7.</strong> Pantalla de cierre con la frase propia de la entidad. El
+      fondo marino es pieza de prototipo; la composición y la tipografía son el sistema real.</figcaption>
+    </figure>
+  </div>
+
+  <!-- 4 -->
+  <div class="estacion">
+    <h3><span class="num-est">4</span>El mapa del archipiélago</h3>
+    <div class="estacion--lado">
+      <div>
+        <p>Los lugares reales que nombran los relatos, sobre la silueta de las comunas de la
+        provincia de Chiloé trazada con geometría oficial y simplificada sin redibujar. Hoy sitúa
+        <strong>lo documentado</strong>: ocho lugares con fuente verificada, entre ellos Quicaví,
+        capital de la Recta Provincia, y Ancud, sede del juicio de 1880. Cada punto abre su papel en
+        el mito, un fragmento verbatim del corpus, su fuente y, cuando existe, el acceso a la ficha.</p>
+        <p>El mapa ya aplica el criterio del archivo: los lugares que circulan sin fuente citable no
+        se mapean, y cuando las declaraciones de 1880 discrepan sobre el mapa en clave, el mapa lo
+        advierte y remite a las variantes de cada ficha.</p>
+        <p><strong>En qué se convierte.</strong> El proyecto le suma la georreferenciación del corpus
+        levantado en terreno y la capa de variantes, distinguiendo los lugares con respaldo verificado
+        de los que la tradición menciona sin localización precisa.</p>
+        <p class="enlace"><a href="https://lukas-paredes.github.io/grimorio-del-archipielago/">lukas-paredes.github.io/grimorio-del-archipielago/</a>
+        <span class="como">Botón «Mapa» de la botonera, disponible en todas las páginas del recorrido.</span></p>
+      </div>
+      <figure>
+        <img src="anexo-visual/04-mapa.jpg" alt="Mapa del archipiélago con ocho puntos; seleccionado, Quicaví con su papel en el mito.">
+        <figcaption><strong>Figura 8.</strong> El mapa con Quicaví seleccionado. Silueta, puntos y
+        textos son el sistema real.</figcaption>
+      </figure>
+    </div>
+  </div>
+
+  <!-- 5 -->
+  <div class="estacion">
+    <div class="estacion-intro">
+      <h3><span class="num-est">5</span>La carta de capítulos</h3>
+      <p>El índice del recorrido, accesible desde cualquier pantalla. Muestra los capítulos
+      publicados agrupados por Libro y numerados en romanos y, a continuación, el resto del
+      archipiélago: las entidades aún no publicadas como placas selladas, sin un solo enlace muerto.
+      Se cierra con el botón, con la tecla Escape o pulsando fuera.</p>
+      <p class="enlace"><a href="https://lukas-paredes.github.io/grimorio-del-archipielago/index.html#capitulos">lukas-paredes.github.io/grimorio-del-archipielago/index.html#capitulos</a>
+      <span class="como">Esta dirección abre la carta directamente.</span></p>
+    </div>
+    <figure>
+      <img src="anexo-visual/05-carta.jpg" alt="Carta de capítulos: los capítulos del Libro Octavo y el comienzo de las placas selladas.">
+      <figcaption><strong>Figura 9.</strong> La carta en el Libro Octavo y el comienzo de «El resto del
+      archipiélago — capítulos por abrir». Las miniaturas son piezas de prototipo; la carta es el
+      sistema real.</figcaption>
+    </figure>
+  </div>
+
+  <!-- 6 -->
+  <div class="estacion">
+    <div class="estacion-intro">
+      <h3><span class="num-est">6</span>El lecho y las puertas del archivo</h3>
+      <p>El fin del recorrido narrativo y la bisagra con la consulta: tras la caída, sobre el fondo
+      del lecho marino, se abren las puertas «Entrar al archivo», Bestiario, Mundos, Recta Provincia y
+      Cosmología, además del regreso al inicio y el acceso a todos los capítulos.</p>
+      <p class="enlace"><a href="https://lukas-paredes.github.io/grimorio-del-archipielago/lecho.html">lukas-paredes.github.io/grimorio-del-archipielago/lecho.html</a>
+      <span class="como">Las puertas aparecen al bajar una pantalla.</span></p>
+    </div>
+    <figure>
+      <img src="anexo-visual/06-lecho.jpg" alt="El lecho: título y botones de acceso al archivo sobre un fondo marino oscuro.">
+      <figcaption><strong>Figura 10.</strong> El lecho. El fondo es pieza de prototipo; las puertas y
+      su disposición son el sistema real.</figcaption>
+    </figure>
+  </div>
+
+  <!-- 7 -->
+  <div class="estacion">
+    <div class="estacion-intro">
+      <h3><span class="num-est">7</span>El expediente de la Recta Provincia</h3>
+      <p>El capítulo XII y cierre del descenso: el juicio de Ancud de 1880, antecedente histórico
+      presentado desde su fuente primaria. Las piezas del proceso se transcriben verbatim del folleto
+      editado por Ponce Hermanos en 1908, con su ortografía de época y aparato crítico: marco del
+      proceso, declaraciones y sentencia, cada bloque con su fuente. Al final, el Epílogo con la
+      sentencia de segunda instancia y las lecturas académicas citadas con autor, año y página.</p>
+      <p class="enlace"><a href="https://lukas-paredes.github.io/grimorio-del-archipielago/juicio-1880.html">lukas-paredes.github.io/grimorio-del-archipielago/juicio-1880.html</a></p>
+    </div>
+    <figure>
+      <img src="anexo-visual/07a-expediente-portal.jpg" alt="Portal del capítulo El juicio de Ancud de 1880: una casa de madera con una ventana iluminada.">
+      <figcaption><strong>Figura 11.</strong> Portal del Expediente. La casa bajo la lluvia es pieza de
+      prototipo; título, marco y rótulos son el sistema real.</figcaption>
+    </figure>
+    <figure>
+      <img src="anexo-visual/07b-expediente-declaracion.jpg" alt="Placa con la declaración de Mateo Coñuecar transcrita con ortografía de época.">
+      <figcaption><strong>Figura 12.</strong> Una declaración del proceso, transcrita con su ortografía
+      de época y sus marcas de lectura dudosa tal cual.</figcaption>
+    </figure>
+  </div>
+
+  <!-- 8 -->
+  <div class="estacion">
+    <div class="estacion-intro">
+      <h3><span class="num-est">8</span>Fuentes y método</h3>
+      <p>La cara pública del sistema de fuentes. Cada obra aparece con su referencia completa, su
+      estado —en el archivo del proyecto, por conseguir, consulta en biblioteca— y las fichas que
+      respalda, enlazadas. Las de acceso abierto llevan a su original oficial; las demás se citan con
+      el lugar donde consultarlas. La plataforma no aloja documentos para descarga.</p>
+      <p class="enlace"><a href="https://lukas-paredes.github.io/grimorio-del-archipielago/">lukas-paredes.github.io/grimorio-del-archipielago/</a>
+      <span class="como">Botón «Fuentes» de la botonera, disponible en todas las páginas del recorrido.</span></p>
+    </div>
+    <figure>
+      <img src="anexo-visual/08-fuentes.jpg" alt="Panel Fuentes del Grimorio con la fuente primaria de 1880 y su estado.">
+      <figcaption><strong>Figura 13.</strong> El panel de fuentes, abierto en la fuente primaria del
+      expediente de 1880. Sistema real.</figcaption>
+    </figure>
+  </div>
+
+  <!-- 9 -->
+  <div class="estacion">
+    <div class="estacion-intro">
+      <h3><span class="num-est">9</span>El verificador de fidelidad</h3>
+      <p>Cada ficha lleva embebido, byte a byte, el bloque de origen de su entidad tal como consta en
+      el corpus documental, y la página se construye a partir de él. Cualquiera puede abrir el código
+      fuente y cotejar palabra por palabra lo que lee en pantalla con su registro de origen. En el
+      repositorio público, una herramienta comprueba además que la prosa del relato exista
+      literalmente en el texto de referencia del proyecto.</p>
+      <p class="enlace"><a href="https://lukas-paredes.github.io/grimorio-del-archipielago/caleuche.html">lukas-paredes.github.io/grimorio-del-archipielago/caleuche.html</a>
+      <span class="como">En el navegador de escritorio, «Ver código fuente de la página» (Ctrl+U) y buscar <span class="mono">window.FICHA</span>.</span></p>
+    </div>
+    <figure>
+      <img src="anexo-visual/09-codigo-fuente.jpg" alt="Código fuente de la ficha del Caleuche con el bloque de origen de la entidad.">
+      <figcaption><strong>Figura 14.</strong> Fragmento del código fuente de la ficha de El Caleuche:
+      el bloque de origen, con los mismos campos que la página muestra en las figuras 3 a 7.</figcaption>
+    </figure>
+  </div>
+
+  <!-- 10 -->
+  <div class="estacion">
+    <h3><span class="num-est">10</span>La misma ficha en teléfono</h3>
+    <div class="estacion--lado estacion--movil">
+      <div>
+        <p>La ficha de El Caleuche a 390 píxeles de ancho: una columna, sin desplazamiento horizontal,
+        botonera con etiquetas legibles y objetivos táctiles amplios. El nombre, los alias y la
+        indicación de descenso quedan en la parte baja de la pantalla, sobre la ilustración.</p>
+        <p>El portal de escritorio llega al teléfono recortado a su franja central. Es el caso que
+        motiva la <strong>zona segura</strong> de la especificación de ilustración (sección 3): la
+        pieza definitiva se compone para que ese recorte siga leyéndose.</p>
+        <p class="enlace"><a href="https://lukas-paredes.github.io/grimorio-del-archipielago/caleuche.html">lukas-paredes.github.io/grimorio-del-archipielago/<wbr>caleuche.html</a>
+        <span class="como">Abrir en un teléfono.</span></p>
+      </div>
+      <figure>
+        <img src="anexo-visual/10-movil-caleuche.jpg" alt="Portal de El Caleuche en teléfono, con la botonera arriba y el nombre abajo.">
+        <figcaption><strong>Figura 15.</strong> Portal en teléfono (390 px). La ilustración es pieza de
+        prototipo; composición y controles son el sistema real.</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- ════════ 6 · FICHA EJEMPLO ════════ -->
+<section class="seccion bloque">
+  <h2><span class="n">6</span>Ejemplo real de ficha: El Caleuche</h2>
+  <p>El núcleo de la ficha de El Caleuche, con su contenido real y del mismo registro estructurado que
+  la ficha publicada (estación 3): relato <strong>verbatim</strong>, variantes por separado e
+  interpretación aparte. La ficha publicada suma las variantes II a IV y «De dónde nació el mito».</p>
+
+  <div class="ficha-ejemplo">
+    <p class="fe-kicker">Camino del mito · Capítulo I — Bestiario · Barcos y almas</p>
+    <h4>El Caleuche</h4>
+    <p class="fe-alias">El Marino · Buque de Arte · Barco de los Brujos · Barcoiche</p>
+    <p class="fe-gancho">Hay noches en que la niebla se cierra sobre el canal y ves luces donde no
+    debería haberlas. Los que suben a su cubierta no vuelven a bajar.</p>
+    <dl class="fe-datos">
+      <div><dt>Reino</dt><dd>Mar</dd></div>
+      <div><dt>Categoría</dt><dd>Barco fantasma</dd></div>
+      <div><dt>Condición</dt><dd>Maléfico</dd></div>
+      <div><dt>Origen</dt><dd>Mestizo</dd></div>
+      <div><dt>Alcance</dt><dd>Chilota</dd></div>
+      <div><dt>Jerarquía</dt><dd>—</dd></div>
+      <div class="ancho"><dt>Etimología</dt><dd>mapudungun "kalewtun" (transformar) + "che" (gente) = "gente transformada"</dd></div>
+    </dl>
+    <p class="fe-rotulo">El relato</p>
+    <p class="fe-prosa">El Caleuche es un barco que navega los mares del sur envuelto en niebla,
+    apareciendo y desapareciendo sin dejar rastro. De noche se ilumina con luces intensas —algunos
+    dicen que con velas rojizas— y en su cubierta resuena música festiva y se celebran grandiosos
+    bailes. Lo tripulan brujos poderosos y las almas de los náufragos ahogados.</p>
+    <p class="fe-rotulo">Variantes del relato</p>
+    <div class="fe-variante">
+      <h5>I · De los ahogados</h5>
+      <p>Recoge a todos los que mueren en el agua, que le sirve de mansión eterna. La Pincoya, el
+      Pincoy y la Sirena llevan los cuerpos; al pisar la cubierta, los muertos reviven como
+      tripulantes.</p>
+    </div>
+    <p class="fe-rotulo">Nota del archivero</p>
+    <p class="fe-nota">Se le cuenta entre los «mitos de tránsito», junto al barquero Tempilcahue:
+    relatos que hablan del viaje de las almas y del destino de los muertos. El Caleuche es, en el
+    fondo, el rostro del mar mismo —fuente de vida y de muerte para un pueblo que de él depende para
+    vivir, y en él teme morir.</p>
+    <p class="fe-fuente">Fuentes de la ficha: Cavada (1914) · Memoria Chilena</p>
+    <p class="fe-cierre">Y al fondo del mar, descansa todo lo que el Caleuche se llevó.</p>
+  </div>
+</section>
+
+<!-- ════════ 7 · COMPROMISO DOCUMENTAL ════════ -->
+<section class="seccion bloque">
+  <h2><span class="n">7</span>Compromiso documental</h2>
+  <p>La regla constitutiva del proyecto es simple: <strong>nada inventado</strong>. En concreto:</p>
+  <ul>
+    <li><strong>Prosa verbatim.</strong> Los relatos de cada ficha se copian literalmente del corpus
+    documental del proyecto, construido sobre fuentes clásicas y contemporáneas de la mitología
+    chilota (Cavada, 1914; Quintana, 1972; García Barría; Núñez, 2022 —Servicio Nacional del
+    Patrimonio Cultural—, entre otras). El bloque de origen va embebido en cada página y una
+    herramienta comprueba que la prosa del relato exista palabra por palabra en el texto de
+    referencia.</li>
+    <li><strong>Variantes mostradas, no zanjadas.</strong> Cuando las fuentes discrepan —por ejemplo,
+    sobre el origen del niño del Invunche, o sobre las cifras del proceso de 1880—, la plataforma
+    expone las versiones por separado, cada una con su fuente, sin elegir entre ellas; en el caso del
+    Invunche lo dice expresamente: «No hay acuerdo». La discrepancia es parte del patrimonio.</li>
+    <li><strong>Distinción de registros.</strong> El sistema distingue siempre entre tradición
+    documentada, variante, interpretación curatorial, antecedente histórico, recreación artística y
+    contenido pendiente de verificación. Las interpretaciones se presentan como «Nota del archivero»,
+    visualmente separadas del relato.</li>
+    <li><strong>Encuadres éticos.</strong> Los relatos sensibles llevan advertencia explícita antes
+    del texto (caso Invunche: «Se conserva sin suavizar, como testimonio»).</li>
+    <li><strong>Lo no verificable no se publica.</strong> Las citas académicas se cotejan contra el
+    documento archivado y se publican con autor, año y página; lo que no puede verificarse queda
+    pendiente. Por la misma regla, los lugares que circulan sin fuente citable no entran al mapa.</li>
+    <li><strong>Fuentes públicas.</strong> Cada ficha lista sus fuentes, y el panel «Fuentes»
+    declara el estado de cada obra y las fichas que respalda.</li>
+  </ul>
+</section>
+
+<!-- ════════ 8 · CONVOCATORIAS Y VITRINA ════════ -->
+<section class="seccion bloque">
+  <h2><span class="n">8</span>Convocatorias abiertas y vitrina del territorio</h2>
+  <p>La dirección de arte —sistema visual, láminas patrón de referencia y control de coherencia pieza
+  por pieza— es parte del equipo ejecutor.</p>
+  <p>La ilustración definitiva se adjudica por <strong>convocatoria abierta remunerada</strong> a
+  ilustradoras e ilustradores del archipiélago y la región, con pago contra entrega de cada pieza
+  aprobada por la dirección de arte y <strong>acreditación nominal</strong> en la ficha
+  correspondiente.</p>
+  <p>La composición y el montaje de la capa sonora se contratan por una <strong>segunda convocatoria
+  abierta</strong> a músicos, sonidistas y colectivos del archipiélago y la región. Los paisajes
+  sonoros son grabaciones propias del territorio: el trabajo contratado los edita y compone sobre
+  ellos, sin reemplazarlos.</p>
+  <p>Quien conduce la dirección de arte no postula a la convocatoria que adjudica.</p>
+
+  <h3>Vitrina permanente del territorio</h3>
+  <p>El proyecto incorpora a la plataforma una vitrina permanente del territorio: una sección de
+  colaboradores donde ilustradores, artistas y cultores del archipiélago de Chiloé, Calbuco y Maullín
+  exponen su obra con crédito destacado, reseña biográfica y enlaces a sus propios espacios. El
+  compromiso editorial es de incorporación progresiva: las ilustraciones de autoría local reemplazan
+  a las piezas de prototipo y fijan el estándar visual del archivo, transformando la plataforma en un
+  escaparate activo para el talento del territorio y no en un repositorio cerrado. La vitrina
+  constituye, en sí misma, una acción de difusión y circulación para los propios creadores
+  locales.</p>
+
+  <p>El equipo ejecutor y sus roles se detallan en la Propuesta Creativa.</p>
+</section>
+
+<!-- ════════ 9 · ACCESIBILIDAD ════════ -->
+<section class="seccion bloque">
+  <h2><span class="n">9</span>Accesibilidad</h2>
+  <p>La plataforma está pensada con el mismo cuidado para el público joven y para el público de 40 a
+  70 años. Medidas implementadas y verificables en el prototipo:</p>
+  <ul>
+    <li><strong>Tipografía generosa:</strong> cuerpo de lectura fluido que no baja de 17 píxeles
+    efectivos en teléfono y ronda los 19 en escritorio; los controles llevan etiqueta legible, no solo
+    icono («Capítulos», «Mapa», «Fuentes», «Movimiento», «Sonido»).</li>
+    <li><strong>Contraste:</strong> paleta de texto verificada contra el estándar WCAG AA sobre los
+    fondos abisales.</li>
+    <li><strong>Navegación obvia:</strong> botonera fija con botones grandes; objetivos táctiles de 44
+    píxeles o más; la carta de capítulos siempre a un toque; sin gestos ocultos.</li>
+    <li><strong>Movimiento bajo control del visitante:</strong> el botón «Movimiento» pausa toda
+    animación —niebla, luces, sedimento, parallax y revelado progresivo— y se respeta la preferencia
+    de movimiento reducido del sistema operativo: con ella activa, todo se muestra estático y
+    completo, nunca oculto.</li>
+    <li><strong>Sonido opcional:</strong> apagado por defecto, sin reproducción automática; se
+    enciende únicamente con el botón «Sonido» y la preferencia se recuerda.</li>
+    <li><strong>Teclado y lector de pantalla:</strong> recorrido completo por teclado (la botonera es
+    la primera parada del tabulador), diálogos con semántica nativa y cierre con Escape, imágenes de
+    ambiente marcadas como decorativas y texto alternativo en los portales.</li>
+    <li><strong>Teléfono:</strong> verificado a 390 píxeles sin desplazamiento horizontal.</li>
+  </ul>
+</section>
+
+<!-- ════════ 10 · FICHA TÉCNICA ════════ -->
+<section class="seccion bloque">
+  <h2><span class="n">10</span>Ficha técnica de la plataforma</h2>
+  <table>
+    <tr><th style="width:24%">Aspecto</th><th>Detalle</th></tr>
+    <tr><td>Arquitectura</td><td>Sitio estático: HTML, CSS y JavaScript clásico. Sin frameworks, sin
+    gestores de paquetes, sin proceso de compilación, sin base de datos y sin dependencias de pago.</td></tr>
+    <tr><td>Contenido</td><td>Gobernado por datos: las entidades viven en registros estructurados con
+    sus fuentes, y los capítulos y su orden son datos, no código. Las fichas se generan desde el corpus;
+    el Expediente de 1880 es la única página compuesta a mano. Herramientas internas comprueban la
+    fidelidad verbatim de la prosa.</td></tr>
+    <tr><td>Rendimiento</td><td>Ilustraciones en WebP con respaldo PNG; los fondos de pantalla completa
+    del prototipo pesan entre 20 y 165 KB. Una página de capítulo se transfiere completa en 226 a 690 KB
+    según su ilustración (medición de septiembre de 2026). Precarga de la imagen de portada y de las
+    tipografías principales, y animaciones delegadas al compositor del navegador.</td></tr>
+    <tr><td>Sonido</td><td>Atmósfera generativa por síntesis en el navegador (Web Audio API), con
+    mezclas por zona —mar, bosque, cueva, tormenta— y un filtro de profundidad ligado al desplazamiento.
+    Seis pistas musicales de biblioteca con licencia libre, normalizadas y en bucle, que se descargan
+    solo cuando el visitante enciende el sonido.</td></tr>
+    <tr><td>Alojamiento</td><td>GitHub Pages, sin costo y con certificado HTTPS. La migración a
+    dominio propio <span class="mono">.cl</span> está documentada en el repositorio.</td></tr>
+    <tr><td>Mantención</td><td>Plataforma de baja mantención: publicar una entidad nueva no requiere
+    tocar el motor (procedimiento documentado paso a paso).</td></tr>
+    <tr><td>Costo operativo anual</td><td>Hoy, cero. Con dominio propio, solo su renovación (estimada
+    en unos $11.000 CLP al año). Sin licencias ni servicios de suscripción.</td></tr>
+    <tr><td>Código abierto</td><td>El repositorio es público: corpus, fuentes, herramientas y el
+    historial completo de cambios pueden revisarse.</td></tr>
+    <tr><td>Compatibilidad</td><td>Navegadores modernos de escritorio y móvil (Chrome, Edge, Firefox,
+    Safari). Las capas de atmósfera —transiciones, sonido, movimiento— son opcionales y degradan con
+    dignidad: la navegación se apoya en enlaces estándar y la transición de niebla está construida para
+    no bloquear jamás el acceso al contenido.</td></tr>
+  </table>
+</section>
+
+<!-- ════════ 11 · ESTADO ACTUAL ════════ -->
+<section class="seccion bloque">
+  <h2><span class="n">11</span>Estado actual del prototipo</h2>
+  <h3>11.1 · Lo que existe y puede visitarse hoy</h3>
+  <ul>
+    <li><strong>Doce capítulos publicados y navegables</strong>, de El Caleuche al juicio de Ancud de
+    1880, encadenados por «El camino continúa».</li>
+    <li><strong>El camino completo:</strong> portada-descenso, umbral de capítulo, umbral de Libro,
+    carta de capítulos con las entidades publicadas y selladas, el lecho con las puertas del archivo y
+    el archivo de consulta.</li>
+    <li><strong>Mapa del archipiélago</strong> con lugares de fuente verificada, y <strong>panel
+    público de fuentes</strong>.</li>
+    <li><strong>Sonido y atmósfera:</strong> ambiente generativo opcional por zona y profundidad;
+    niebla, parallax y revelado progresivo, todos pausables.</li>
+    <li><strong>Base documental:</strong> 68 entidades registradas con vocabulario controlado, 108
+    citas de fuente, 70 enlaces y 47 variantes documentadas; herramienta de verificación verbatim.</li>
+  </ul>
+
+  <h3>11.2 · Cómo se publica una entidad</h3>
+  <p>La incorporación de cada entidad sigue un procedimiento documentado en el repositorio:
+  ilustraciones normalizadas por tipo de pieza → prosa verbatim del corpus, validada por la
+  herramienta de verificación → publicación de la ficha → alta del capítulo en los datos del camino.
+  Ningún paso modifica el motor de la plataforma.</p>
+
+  <h3>11.3 · Un prototipo que se adapta</h3>
+  <p>El prototipo no se replica: se adapta. Partes de lo que muestra este anexo van a cambiar o
+  desaparecer. Las piezas de prototipo se reemplazan por ilustración definitiva; la música de
+  biblioteca da paso al paisaje sonoro grabado en terreno; el orden del descenso es provisional, y
+  cuántas fichas se publican lo define la curaduría con el material levantado en terreno. Su valor es
+  haber probado la arquitectura, no haber fijado el resultado.</p>
+  <p>El plan de trabajo del proyecto —de abril de 2027 a marzo de 2028, en tres etapas— se presenta
+  en la postulación; este anexo no lo repite.</p>
+</section>
+
+</div>
+
+<!-- Datos del postulante: se leen de contacto-INTERNO.js, archivo LOCAL que no entra al
+     repositorio (lo excluye .gitignore). En la copia publicada quedan los textos por defecto. -->
+<script src="contacto-INTERNO.js"></script>
+<script>
+  (function () {
+    var c = window.ANEXO_CONTACTO;
+    if (!c) { return; }
+    document.querySelectorAll("[data-contacto]").forEach(function (el) {
+      var v = c[el.getAttribute("data-contacto")];
+      if (v) { el.textContent = v; }
+    });
+  })();
+</script>
+</body>
+</html>
