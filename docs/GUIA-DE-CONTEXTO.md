@@ -51,7 +51,7 @@ de datos, residente en Calbuco. Trabaja el proyecto desde dos computadores.
 | | |
 |---|---|
 | **Fondo** | **Fondart Regional 2027** |
-| **Cierre** | **miércoles 9 de septiembre de 2026, 15:00** |
+| **Cierre** | **miércoles 16 de septiembre de 2026, 15:00** |
 | **Días restantes al generar esta carpeta** | **9** |
 | Bases, formularios, requisitos y presupuesto | **[PENDIENTE DE CONFIRMAR]** — no hay ningún documento de bases, FUP, formulario ni presupuesto en el repositorio |
 
